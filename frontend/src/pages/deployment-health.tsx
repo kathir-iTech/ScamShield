@@ -1,29 +1,16 @@
 import { useState, useEffect } from 'react';
-
-interface HealthStatus {
-  status: string;
-  version: string;
-  uptime_seconds: number;
-  ml_model_loaded: boolean;
-  ocr_available: boolean;
-  connectors: { name: string; status: string; latency_ms: number }[];
-  metrics: {
-    total_analyses: number;
-    avg_latency_ms: number;
-    p95_latency_ms: number;
-  };
-}
+import { health } from '@/services/scamshield';
+import type { HealthResponse } from '@/types';
 
 export function DeploymentHealth() {
-  const [health, setHealth] = useState<HealthStatus | null>(null);
+  const [data, setData] = useState<HealthResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchHealth = async () => {
       try {
-        const res = await fetch('/api/v1/health');
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        setHealth(await res.json());
+        const res = await health();
+        setData(res);
         setError(null);
       } catch (e) {
         setError(e instanceof Error ? e.message : 'Failed to fetch health');
@@ -57,7 +44,7 @@ export function DeploymentHealth() {
     );
   }
 
-  if (!health) {
+  if (!data) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent" />
@@ -69,78 +56,77 @@ export function DeploymentHealth() {
     <div className="min-h-screen bg-zinc-50 p-8 dark:bg-zinc-950">
       <div className="mx-auto max-w-4xl">
         <div className="mb-8 flex items-center gap-3">
-          <div className={`h-4 w-4 rounded-full ${health.status === 'healthy' ? 'bg-emerald-500' : 'bg-red-500'}`} />
+          <div className={`h-4 w-4 rounded-full ${data.status === 'pass' ? 'bg-emerald-500' : 'bg-red-500'}`} />
           <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Deployment Health</h1>
           <span className="ml-auto rounded-full bg-zinc-200 px-3 py-1 text-sm text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
-            v{health.version}
+            v{data.version}
           </span>
         </div>
 
         <div className="mb-6 grid gap-6 md:grid-cols-3">
           <div className="rounded-xl bg-white p-6 shadow-sm dark:bg-zinc-900">
             <p className="text-sm text-zinc-500 dark:text-zinc-400">Uptime</p>
-            <p className="mt-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">{formatUptime(health.uptime_seconds)}</p>
+            <p className="mt-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">{formatUptime(data.uptime_seconds)}</p>
           </div>
           <div className="rounded-xl bg-white p-6 shadow-sm dark:bg-zinc-900">
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">Total Analyses</p>
-            <p className="mt-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">{health.metrics.total_analyses.toLocaleString()}</p>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">Service</p>
+            <p className="mt-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">{data.service}</p>
           </div>
           <div className="rounded-xl bg-white p-6 shadow-sm dark:bg-zinc-900">
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">Avg Latency</p>
-            <p className="mt-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">{health.metrics.avg_latency_ms}ms</p>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">Availability</p>
+            <p className="mt-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">{data.service_availability}</p>
           </div>
         </div>
 
         <div className="mb-6 rounded-xl bg-white p-6 shadow-sm dark:bg-zinc-900">
-          <h2 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-100">System Components</h2>
+          <h2 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-100">System Checks</h2>
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-zinc-600 dark:text-zinc-400">ML Model</span>
-              <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${health.ml_model_loaded ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'}`}>
-                {health.ml_model_loaded ? 'Loaded' : 'Unavailable'}
+              <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${data.model_loaded ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'}`}>
+                {data.model_loaded ? 'Loaded' : 'Unavailable'}
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-zinc-600 dark:text-zinc-400">OCR Engine</span>
-              <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${health.ocr_available ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'}`}>
-                {health.ocr_available ? 'Available' : 'Unavailable'}
+              <span className="text-zinc-600 dark:text-zinc-400">Configuration</span>
+              <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${data.configuration_loaded ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'}`}>
+                {data.configuration_loaded ? 'Valid' : 'Invalid'}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-zinc-600 dark:text-zinc-400">Active Requests</span>
+              <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+                {data.active_requests}
               </span>
             </div>
           </div>
         </div>
 
         <div className="mb-6 rounded-xl bg-white p-6 shadow-sm dark:bg-zinc-900">
-          <h2 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-100">Connectors</h2>
-          {health.connectors.length === 0 ? (
-            <p className="text-sm text-zinc-400">No connectors configured</p>
-          ) : (
-            <div className="space-y-3">
-              {health.connectors.map((c) => (
-                <div key={c.name} className="flex items-center justify-between">
-                  <span className="text-zinc-600 dark:text-zinc-400">{c.name}</span>
-                  <div className="flex items-center gap-3">
-                    <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${c.status === 'healthy' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'}`}>
-                      {c.status}
-                    </span>
-                    <span className="text-xs text-zinc-400">{c.latency_ms}ms</span>
-                  </div>
+          <h2 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-100">Dependencies</h2>
+          <div className="space-y-3">
+            {data.dependency_status && (
+              <>
+                <div className="flex items-center justify-between">
+                  <span className="text-zinc-600 dark:text-zinc-400">Model</span>
+                  <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${data.dependency_status.model === 'loaded' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'}`}>
+                    {data.dependency_status.model}
+                  </span>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <div className="rounded-xl bg-white p-6 shadow-sm dark:bg-zinc-900">
-          <h2 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-100">Performance Metrics</h2>
-          <div className="grid gap-4 md:grid-cols-2">
-            <div>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">Average Latency</p>
-              <p className="mt-1 text-xl font-bold text-zinc-900 dark:text-zinc-100">{health.metrics.avg_latency_ms}ms</p>
-            </div>
-            <div>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">P95 Latency</p>
-              <p className="mt-1 text-xl font-bold text-zinc-900 dark:text-zinc-100">{health.metrics.p95_latency_ms}ms</p>
-            </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-zinc-600 dark:text-zinc-400">Vectorizer</span>
+                  <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${data.dependency_status.vectorizer === 'loaded' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'}`}>
+                    {data.dependency_status.vectorizer}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-zinc-600 dark:text-zinc-400">Config</span>
+                  <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${data.dependency_status.config === 'valid' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'}`}>
+                    {data.dependency_status.config}
+                  </span>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
