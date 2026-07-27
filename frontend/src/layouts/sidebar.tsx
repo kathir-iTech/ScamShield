@@ -12,11 +12,13 @@ const navItems = [
 
 export function Sidebar() {
   return (
-    <aside className="group/sidebar flex h-full w-16 flex-col items-center border-r border-zinc-100 bg-white py-4 transition-all duration-200 hover:w-44 dark:border-zinc-800 dark:bg-zinc-900">
+    <aside
+      className="group/sidebar fixed left-3 top-3 bottom-3 z-40 hidden w-[56px] flex-col items-center rounded-2xl border border-glass-border bg-glass backdrop-blur-2xl py-4 will-change-[width] transition-all duration-300 hover:w-44 md:flex"
+    >
       <div className="mb-6 flex items-center justify-center">
-        <Shield className="h-6 w-6 text-emerald-500 shrink-0" />
+        <Shield className="h-5 w-5 shrink-0 text-accent" />
       </div>
-      <nav className="flex w-full flex-1 flex-col items-center gap-2 px-3" aria-label="Main navigation">
+      <nav className="flex w-full flex-1 flex-col items-center gap-1.5 px-2.5" aria-label="Main navigation">
         {navItems.map((item) => (
           <NavLink
             key={item.to}
@@ -24,18 +26,25 @@ export function Sidebar() {
             end={item.to === '/'}
             className={({ isActive }) =>
               cn(
-                'flex w-full items-center gap-3 rounded-2xl px-3 py-2.5 transition-all duration-200',
+                'relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200',
                 isActive
-                  ? 'bg-emerald-500 text-white shadow-sm'
-                  : 'text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 dark:text-zinc-500 dark:hover:bg-zinc-800 dark:hover:text-zinc-300'
+                  ? 'text-accent'
+                  : 'text-text-tertiary hover:text-text-secondary hover:bg-glass-hover'
               )
             }
             aria-label={item.label}
           >
-            <item.icon className="h-5 w-5 shrink-0" />
-            <span className="invisible text-sm font-medium opacity-0 transition-all duration-200 group-hover/sidebar:visible group-hover/sidebar:opacity-100">
-              {item.label}
-            </span>
+            {({ isActive }) => (
+              <>
+                {isActive && (
+                  <span className="absolute inset-0 rounded-xl bg-accent/10 border border-accent/20 animate-scale-in" />
+                )}
+                <item.icon className="relative z-10 h-4.5 w-4.5 shrink-0" />
+                <span className="invisible relative z-10 text-sm font-medium opacity-0 transition-all duration-300 group-hover/sidebar:visible group-hover/sidebar:opacity-100">
+                  {item.label}
+                </span>
+              </>
+            )}
           </NavLink>
         ))}
       </nav>

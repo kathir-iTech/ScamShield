@@ -1,4 +1,9 @@
-import { Card, CardContent } from '@/components/ui/card';
+const riskStyles: Record<string, string> = {
+  HIGH: 'bg-danger/10 text-danger border border-danger/20',
+  MEDIUM: 'bg-warning/10 text-warning border border-warning/20',
+  LOW: 'bg-success/10 text-success border border-success/20',
+  SAFE: 'bg-success/10 text-success border border-success/20',
+};
 
 interface Props {
   ruleScore: number;
@@ -9,37 +14,28 @@ interface Props {
   scamCategory: string;
 }
 
-const riskColors: Record<string, string> = {
-  HIGH: 'text-red-600 bg-red-50 dark:bg-red-900/20 dark:text-red-400',
-  MEDIUM: 'text-amber-600 bg-amber-50 dark:bg-amber-900/20 dark:text-amber-400',
-  LOW: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 dark:text-emerald-400',
-  SAFE: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 dark:text-emerald-400',
-};
-
 export function RiskScoreCard({ ruleScore, ruleLabel, decisionScore, decisionLevel, riskLevel, scamCategory }: Props) {
-  const riskColor = riskColors[riskLevel] || riskColors.LOW;
+  const riskStyle = riskStyles[riskLevel] || riskStyles.LOW;
 
   return (
-    <Card>
-      <CardContent className="space-y-5 py-6">
-        <p className="text-xs text-zinc-400">Risk &amp; Scoring</p>
-        <div className="flex gap-4">
-          <span className={`rounded-full px-3 py-1 text-xs font-medium ${riskColor}`}>{riskLevel}</span>
-          <span className="text-sm text-zinc-600 dark:text-zinc-400">{scamCategory}</span>
+    <div className="space-y-5">
+      <p className="text-xs text-text-tertiary">Risk &amp; Scoring</p>
+      <div className="flex gap-3 items-center">
+        <span className={`rounded-full px-3 py-1 text-xs font-medium ${riskStyle}`}>{riskLevel}</span>
+        <span className="text-sm text-text-secondary">{scamCategory}</span>
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="rounded-xl bg-glass border border-glass-border p-4">
+          <p className="text-xs text-text-tertiary">Rule Score</p>
+          <p className="mt-1 text-xl font-bold text-text-primary">{ruleScore.toFixed(1)}</p>
+          <p className="text-xs text-text-tertiary">{ruleLabel}</p>
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="rounded-xl bg-zinc-50 p-4 dark:bg-zinc-800/50">
-            <p className="text-xs text-zinc-400">Rule Score</p>
-            <p className="mt-1 text-xl font-bold text-zinc-900 dark:text-zinc-50">{ruleScore.toFixed(1)}</p>
-            <p className="text-xs text-zinc-400">{ruleLabel}</p>
-          </div>
-          <div className="rounded-xl bg-zinc-50 p-4 dark:bg-zinc-800/50">
-            <p className="text-xs text-zinc-400">Decision</p>
-            <p className="mt-1 text-xl font-bold text-zinc-900 dark:text-zinc-50">{decisionScore}</p>
-            <p className="text-xs text-zinc-400">{decisionLevel}</p>
-          </div>
+        <div className="rounded-xl bg-glass border border-glass-border p-4">
+          <p className="text-xs text-text-tertiary">Decision</p>
+          <p className="mt-1 text-xl font-bold text-text-primary">{decisionScore}</p>
+          <p className="text-xs text-text-tertiary">{decisionLevel}</p>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

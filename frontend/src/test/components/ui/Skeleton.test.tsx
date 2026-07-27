@@ -5,7 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 describe('Skeleton', () => {
   it('renders with animate-pulse class', () => {
     const { container } = render(<Skeleton />);
-    expect(container.firstChild).toHaveClass('animate-pulse');
+    expect(container.firstChild).toHaveClass('animate-shimmer');
   });
 
   it('applies custom className', () => {

@@ -10,12 +10,10 @@ import { TimelineCard } from '@/features/analysis/components/timeline-card';
 import { TechnicalDetailsCard } from '@/features/analysis/components/technical-details-card';
 import { ReportSummaryCard } from '@/features/analysis/components/report-summary-card';
 import { EmptyAnalysisState } from '@/features/analysis/components/empty-analysis-state';
-import { VerdictBanner } from '@/components/ui/verdict-banner';
+import { VerdictHero } from '@/components/ui/verdict-hero';
 import { ExpandablePanel } from '@/components/ui/expandable-panel';
-import { Card, CardContent } from '@/components/ui/card';
 import { PageTransition } from '@/components/ui/page-transition';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, FileText, Image as ImageIcon, AlertTriangle, Info } from 'lucide-react';
+import { ArrowLeft, FileText, Image as ImageIcon, Shield } from 'lucide-react';
 
 export default function AnalysisResult() {
   const current = useCurrentAnalysis();
@@ -50,10 +48,10 @@ export default function AnalysisResult() {
     : 'safe' as const;
 
   const verdictTitle = verdict === 'scam'
-    ? 'We found signs of a scam'
+    ? 'Scam Detected'
     : verdict === 'suspicious'
-    ? 'This needs a closer look'
-    : 'This looks safe';
+    ? 'Needs Review'
+    : 'Looks Safe';
 
   const verdictDescription = verdict === 'scam'
     ? r.summary
@@ -63,82 +61,92 @@ export default function AnalysisResult() {
 
   return (
     <PageTransition>
-      <div className="space-y-8">
-        <div className="flex items-center justify-between">
+      <div className="mx-auto max-w-4xl px-6 py-10 sm:py-14">
+        <div className="mb-8 flex items-center justify-between animate-slide-up">
           <div className="flex items-center gap-3">
             <button
               onClick={() => navigate(-1)}
-              className="flex h-9 w-9 items-center justify-center rounded-xl text-zinc-400 transition-colors hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-800"
+              className="flex h-9 w-9 items-center justify-center rounded-xl glass text-text-tertiary hover:text-text-secondary transition-all duration-200 hover:bg-glass-hover"
               aria-label="Go back"
             >
               <ArrowLeft className="h-5 w-5" />
             </button>
             <div>
-              <h1 className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">Result</h1>
-              <p className="flex items-center gap-1.5 text-sm text-zinc-400">
+              <h1 className="text-lg font-bold tracking-tight text-text-primary">Result</h1>
+              <p className="flex items-center gap-1.5 text-sm text-text-tertiary">
                 {isImage ? <ImageIcon className="h-4 w-4" /> : <FileText className="h-4 w-4" />}
                 {isImage ? 'Image' : 'Text'} &middot; {new Date(current.timestamp).toLocaleTimeString()}
               </p>
             </div>
           </div>
-          <Button variant="secondary" onClick={handleNewAnalysis}>New analysis</Button>
+          <button
+            onClick={handleNewAnalysis}
+            className="glass relative inline-flex h-10 items-center gap-2 rounded-xl px-4 text-sm font-medium text-text-secondary hover:text-text-primary transition-all duration-200"
+          >
+            New analysis
+          </button>
         </div>
 
-        <VerdictBanner
-          verdict={verdict}
-          title={verdictTitle}
-          description={verdictDescription}
-          confidence={Math.round(r.confidence * 100)}
-          riskLevel={r.risk_level}
-          assessmentBand={r.assessment_band}
-          actions={
-            verdict !== 'safe' ? (
-              <Button variant="outline" onClick={handleDeepDive}>
-                <AlertTriangle className="h-4 w-4" />
+        <div className="glass rounded-3xl p-8 sm:p-12 mb-8 animate-glass-enter">
+          <VerdictHero
+            verdict={verdict}
+            title={verdictTitle}
+            confidence={Math.round(r.confidence * 100)}
+            description={verdictDescription}
+          />
+          {verdict !== 'safe' && (
+            <div className="mt-8 text-center animate-slide-up" style={{ animationDelay: '0.5s' }}>
+              <button
+                onClick={handleDeepDive}
+                className="glass relative inline-flex h-11 items-center gap-2 rounded-xl px-6 text-sm font-medium text-text-secondary hover:text-text-primary transition-all duration-200"
+              >
+                <Shield className="h-4 w-4" />
                 Deep dive investigation
-              </Button>
-            ) : undefined
-          }
-        />
+              </button>
+            </div>
+          )}
+        </div>
 
         {r.recommended_actions && r.recommended_actions.length > 0 && (
-          <Card className="animate-slide-up stagger-2">
-            <CardContent className="py-6">
-              <div className="flex items-start gap-3">
-                <Info className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" />
-                <div className="space-y-2">
-                  <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">What you can do</p>
-                  <ul className="space-y-1">
-                    {r.recommended_actions.slice(0, 3).map((action, i) => (
-                      <li key={i} className="text-sm text-zinc-600 dark:text-zinc-400">
-                        &bull; {action}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+          <div className="glass rounded-2xl p-6 mb-8 animate-slide-up stagger-2">
+            <div className="flex items-start gap-3">
+              <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent/10">
+                <Shield className="h-4 w-4 text-accent" />
               </div>
-            </CardContent>
-          </Card>
+              <div className="space-y-2">
+                <p className="text-sm font-semibold text-text-primary">What you can do</p>
+                <ul className="space-y-1.5">
+                  {r.recommended_actions.slice(0, 3).map((action, i) => (
+                    <li key={i} className="text-sm text-text-secondary/80">{action}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
         )}
 
-        <div className="grid gap-6 lg:grid-cols-2">
-          <CategoryCard
-            scamCategory={r.scam_category}
-            summary={r.summary}
-            reasons={r.reasons}
-            businessReason={r.business_reason}
-            technicalReason={r.technical_reason}
-          />
-          <ThreatCard
-            threats={r.threats}
-            detectedIndicators={r.detected_indicators}
-            decisionLevel={r.decision_level}
-            recommendedPriority={r.recommended_priority}
-            riskBreakdown={r.risk_breakdown as unknown as Record<string, number>}
-          />
+        <div className="grid gap-6 lg:grid-cols-2 mb-6">
+          <div className="glass rounded-2xl p-6 animate-slide-up stagger-3">
+            <CategoryCard
+              scamCategory={r.scam_category}
+              summary={r.summary}
+              reasons={r.reasons}
+              businessReason={r.business_reason}
+              technicalReason={r.technical_reason}
+            />
+          </div>
+          <div className="glass rounded-2xl p-6 animate-slide-up stagger-4">
+            <ThreatCard
+              threats={r.threats}
+              detectedIndicators={r.detected_indicators}
+              decisionLevel={r.decision_level}
+              recommendedPriority={r.recommended_priority}
+              riskBreakdown={r.risk_breakdown as unknown as Record<string, number>}
+            />
+          </div>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-3 animate-slide-up stagger-5">
           <ExpandablePanel title="Supporting evidence" count={r.supporting_evidence?.length} defaultOpen={verdict !== 'safe'}>
             <EvidenceCard supporting={r.supporting_evidence} conflicting={[]} />
           </ExpandablePanel>

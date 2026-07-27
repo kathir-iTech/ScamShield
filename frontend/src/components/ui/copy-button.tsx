@@ -17,7 +17,6 @@ export function CopyButton({ text, label, className }: CopyButtonProps) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
-      // Clipboard API not available
     }
   }, [text]);
 
@@ -28,8 +27,8 @@ export function CopyButton({ text, label, className }: CopyButtonProps) {
       className={cn(
         'inline-flex items-center gap-1 rounded text-xs font-medium transition-colors',
         copied
-          ? 'text-emerald-600 dark:text-emerald-400'
-          : 'text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300',
+          ? 'text-success'
+          : 'text-text-tertiary hover:text-text-secondary',
         className
       )}
       aria-label={label ?? 'Copy to clipboard'}

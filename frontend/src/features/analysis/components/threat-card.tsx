@@ -1,5 +1,3 @@
-import { Card, CardContent } from '@/components/ui/card';
-
 const riskLabels: Record<string, string> = {
   credential_theft: 'Credential Theft',
   financial_loss: 'Financial Loss',
@@ -21,40 +19,46 @@ export function ThreatCard({ threats, detectedIndicators, decisionLevel, recomme
   if (!hasAny) return null;
 
   return (
-    <Card>
-      <CardContent className="space-y-5 py-6">
-        <p className="text-xs text-zinc-400">Threat Analysis</p>
-        {threats.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {threats.map((t) => <span key={t} className="rounded-full bg-red-50 px-3 py-1 text-xs font-medium text-red-700 dark:bg-red-900/20 dark:text-red-400">{t}</span>)}
-          </div>
-        )}
-        {detectedIndicators.length > 0 && (
-          <div className="flex flex-wrap gap-1">
-            {detectedIndicators.map((ind) => <span key={ind} className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">{ind}</span>)}
-          </div>
-        )}
-        <div className="flex gap-6">
-          <div>
-            <p className="text-xs text-zinc-400">Decision</p>
-            <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{decisionLevel}</p>
-          </div>
-          <div>
-            <p className="text-xs text-zinc-400">Priority</p>
-            <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{recommendedPriority}</p>
-          </div>
+    <div className="space-y-4">
+      <p className="text-xs text-text-tertiary">Threat Analysis</p>
+      {threats.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {threats.map((t) => (
+            <span key={t} className="rounded-full bg-danger/10 border border-danger/20 px-3 py-1 text-xs font-medium text-danger">
+              {t}
+            </span>
+          ))}
         </div>
-        {Object.values(riskBreakdown).some((v) => v > 0) && (
-          <div className="grid grid-cols-5 gap-2">
-            {Object.entries(riskBreakdown).map(([key, value]) => (
-              <div key={key} className="rounded-xl bg-zinc-50 p-3 text-center dark:bg-zinc-800/50">
-                <p className="text-xs text-zinc-400">{riskLabels[key] || key}</p>
-                <p className="mt-1 text-base font-bold text-zinc-900 dark:text-zinc-50">{value}</p>
-              </div>
-            ))}
-          </div>
-        )}
-      </CardContent>
-    </Card>
+      )}
+      {detectedIndicators.length > 0 && (
+        <div className="flex flex-wrap gap-1.5">
+          {detectedIndicators.map((ind) => (
+            <span key={ind} className="rounded-full bg-glass border border-glass-border px-2.5 py-0.5 text-xs text-text-secondary">
+              {ind}
+            </span>
+          ))}
+        </div>
+      )}
+      <div className="flex gap-6">
+        <div>
+          <p className="text-xs text-text-tertiary">Decision</p>
+          <p className="text-sm font-medium text-text-primary">{decisionLevel}</p>
+        </div>
+        <div>
+          <p className="text-xs text-text-tertiary">Priority</p>
+          <p className="text-sm font-medium text-text-primary">{recommendedPriority}</p>
+        </div>
+      </div>
+      {Object.values(riskBreakdown).some((v) => v > 0) && (
+        <div className="grid grid-cols-5 gap-2">
+          {Object.entries(riskBreakdown).map(([key, value]) => (
+            <div key={key} className="rounded-xl bg-glass border border-glass-border p-3 text-center">
+              <p className="text-xs text-text-tertiary">{riskLabels[key] || key}</p>
+              <p className="mt-1 text-base font-bold text-text-primary">{value}</p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }

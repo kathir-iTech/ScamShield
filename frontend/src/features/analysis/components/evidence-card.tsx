@@ -1,5 +1,3 @@
-import { Card, CardContent } from '@/components/ui/card';
-
 interface EvidenceItem {
   id: string;
   type: string;
@@ -18,36 +16,34 @@ export function EvidenceCard({ supporting, conflicting }: Props) {
   if (supporting.length === 0 && conflicting.length === 0) return null;
 
   return (
-    <Card>
-      <CardContent className="space-y-6 py-6">
-        <p className="text-xs text-zinc-400">Evidence</p>
-        {supporting.length > 0 && (
-          <div className="space-y-3">
-            {supporting.map((e) => (
-              <div key={e.id} className="flex items-start gap-3 rounded-xl bg-emerald-50 p-4 dark:bg-emerald-900/10">
-                <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-emerald-500" />
-                <div>
-                  <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{e.type}</p>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400">{e.description}</p>
-                </div>
+    <div className="space-y-4">
+      <p className="text-xs text-text-tertiary">Evidence</p>
+      {supporting.length > 0 && (
+        <div className="space-y-2">
+          {supporting.map((e) => (
+            <div key={e.id} className="flex items-start gap-3 rounded-xl bg-success/5 border border-success/10 p-4">
+              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-success" />
+              <div>
+                <p className="text-sm font-medium text-text-primary">{e.type}</p>
+                <p className="text-sm text-text-secondary/80">{e.description}</p>
               </div>
-            ))}
-          </div>
-        )}
-        {conflicting.length > 0 && (
-          <div className="space-y-3">
-            {conflicting.map((e) => (
-              <div key={e.id} className="flex items-start gap-3 rounded-xl bg-zinc-50 p-4 dark:bg-zinc-800/50">
-                <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-zinc-300" />
-                <div>
-                  <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{e.type}</p>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400">{e.description}</p>
-                </div>
+            </div>
+          ))}
+        </div>
+      )}
+      {conflicting.length > 0 && (
+        <div className="space-y-2">
+          {conflicting.map((e) => (
+            <div key={e.id} className="flex items-start gap-3 rounded-xl bg-glass border border-glass-border p-4">
+              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-text-tertiary" />
+              <div>
+                <p className="text-sm font-medium text-text-primary">{e.type}</p>
+                <p className="text-sm text-text-secondary/80">{e.description}</p>
               </div>
-            ))}
-          </div>
-        )}
-      </CardContent>
-    </Card>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }

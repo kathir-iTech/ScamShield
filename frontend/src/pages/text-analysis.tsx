@@ -2,38 +2,24 @@ import { useState, useRef, useEffect } from 'react';
 import { useAnalyzeText } from '@/hooks/use-scamshield';
 import { useNetworkStatus } from '@/hooks/use-network-status';
 import { useAnalysisNavigation } from '@/features/analysis/hooks/use-analysis-navigation';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { ThinkingLoader } from '@/components/ui/thinking-loader';
+import { GlassInput } from '@/components/ui/glass-input';
+import { PipelineLoader } from '@/components/ui/pipeline-loader';
 import { PageTransition } from '@/components/ui/page-transition';
 import { textAnalysisSchema } from '@/utils/validation';
 import { z } from 'zod';
-import { WifiOff, Shield, Lock } from 'lucide-react';
-
-const THINKING_PHRASES = [
-  'Reading your message...',
-  'Extracting URLs, numbers, and patterns...',
-  'Checking known scam markers...',
-  'Looking for impersonation signs...',
-  'Preparing your result...',
-];
+import { WifiOff, Lock, Shield } from 'lucide-react';
 
 export default function TextAnalysis() {
   const [text, setText] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [detectedPaste, setDetectedPaste] = useState(false);
+  const [showPipeline, setShowPipeline] = useState(false);
   const mutation = useAnalyzeText();
   const { navigateToResult } = useAnalysisNavigation();
   const isOnline = useNetworkStatus();
   const abortRef = useRef<AbortController | null>(null);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     return () => abortRef.current?.abort();
-  }, []);
-
-  useEffect(() => {
-    inputRef.current?.focus();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -42,9 +28,12 @@ export default function TextAnalysis() {
     try {
       const data = textAnalysisSchema.parse({ text });
       abortRef.current = new AbortController();
+      setShowPipeline(true);
       const result = await mutation.mutateAsync({ text: data.text, signal: abortRef.current.signal });
+      setShowPipeline(false);
       navigateToResult(result, false, data.text);
     } catch (err) {
+      setShowPipeline(false);
       if (err instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};
         for (const issue of err.issues) {
@@ -55,94 +44,98 @@ export default function TextAnalysis() {
     }
   };
 
-  const handlePaste = () => {
-    setDetectedPaste(true);
-    setTimeout(() => setDetectedPaste(false), 2000);
-  };
-
   return (
     <PageTransition>
-      <div className="mx-auto max-w-xl space-y-6">
-        <div className="text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-900/20">
-            <Shield className="h-6 w-6 text-emerald-500" />
+      <div className="mx-auto max-w-2xl px-6 py-16 sm:py-20">
+        <div className="text-center mb-10">
+          <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl glass">
+            <Shield className="h-6 w-6 text-accent" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">Check a message</h1>
-          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+          <h1 className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
+            Check a message
+          </h1>
+          <p className="mt-2 text-text-secondary/70">
             Paste any suspicious SMS, email, or chat.
           </p>
         </div>
 
         {!isOnline && (
-          <Card>
-            <CardContent className="flex items-center gap-3 py-4">
-              <WifiOff className="h-5 w-5 text-amber-500 shrink-0" />
-              <p className="text-sm text-zinc-600 dark:text-zinc-400">You&apos;re offline. Connect to the internet to analyse.</p>
-            </CardContent>
-          </Card>
+          <div className="mb-6 glass rounded-2xl p-4 flex items-center gap-3 animate-slide-up">
+            <WifiOff className="h-5 w-5 shrink-0 text-warning" />
+            <p className="text-sm text-text-secondary">You're offline. Connect to the internet to analyse.</p>
+          </div>
         )}
 
-        <Card>
-          <CardContent className="space-y-4 pt-6">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="relative">
-                <textarea
-                  ref={inputRef}
+        {showPipeline ? (
+          <div className="glass rounded-2xl overflow-hidden animate-scale-in">
+            <div className="p-6">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10">
+                  <Shield className="h-4 w-4 text-accent" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-text-primary">Analysing message</p>
+                  <p className="text-xs text-text-tertiary">AI is reviewing the content</p>
+                </div>
+              </div>
+              <PipelineLoader />
+            </div>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <div className="glass rounded-2xl overflow-hidden">
+              <div className="p-5 sm:p-6">
+                <GlassInput
                   value={text}
-                  onChange={(e) => setText(e.target.value)}
-                  onPaste={handlePaste}
-                  placeholder="Paste the message here..."
-                  rows={6}
-                  aria-invalid={!!errors.text}
-                  aria-describedby={errors.text ? 'text-error' : undefined}
-                  className="w-full resize-none rounded-xl border-0 bg-zinc-50 p-4 text-sm text-zinc-900 placeholder-zinc-400 transition-all duration-150 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder-zinc-500 dark:focus:bg-zinc-800"
+                  onChange={setText}
+                  onSubmit={() => document.querySelector<HTMLButtonElement>('button[type=submit]')?.click()}
                 />
-                {detectedPaste && (
-                  <div className="absolute right-3 top-3 animate-slide-up">
-                    <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">
-                      Pasted
-                    </span>
-                  </div>
+                {errors.text && (
+                  <p className="mt-3 text-sm text-danger" role="alert">{errors.text}</p>
                 )}
               </div>
-              {errors.text && (
-                <p id="text-error" className="text-sm text-red-500" role="alert">{errors.text}</p>
-              )}
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between border-t border-glass-border px-5 py-4 sm:px-6">
                 <div className="flex items-center gap-2">
-                  <Lock className="h-3 w-3 text-zinc-300 dark:text-zinc-600" />
-                  <span className="text-xs text-zinc-400">Processed privately</span>
+                  <Lock className="h-3 w-3 text-text-tertiary" />
+                  <span className="text-xs text-text-tertiary">Processed privately</span>
                 </div>
-                <Button type="submit" disabled={mutation.isPending || !text.trim() || !isOnline}>
+                <button
+                  type="submit"
+                  disabled={mutation.isPending || !text.trim() || !isOnline}
+                  className="glass-button group relative inline-flex h-10 items-center gap-2 rounded-xl px-5 text-sm font-semibold text-white disabled:opacity-30 disabled:cursor-not-allowed"
+                >
                   {mutation.isPending ? (
-                    <ThinkingLoader phrases={THINKING_PHRASES} />
+                    <span className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-white/60 animate-pulse" />
+                      Analysing
+                    </span>
                   ) : (
                     'Analyse'
                   )}
-                </Button>
+                </button>
               </div>
-            </form>
-          </CardContent>
-        </Card>
+            </div>
+          </form>
+        )}
 
-        {mutation.isError && (
-          <Card>
-            <CardContent className="py-4">
-              <div className="flex items-center justify-between">
-                <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                  {mutation.error?.message || 'Analysis failed.'}
-                </p>
-                <Button variant="secondary" size="sm"
-                  onClick={() => {
-                    abortRef.current = new AbortController();
-                    mutation.mutate({ text, signal: abortRef.current.signal });
-                  }}
-                >
-                  Retry
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+        {mutation.isError && !showPipeline && (
+          <div className="mt-6 glass rounded-2xl p-5 animate-slide-up" role="alert">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-text-secondary">
+                {mutation.error?.message || 'Analysis failed.'}
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  abortRef.current = new AbortController();
+                  mutation.mutate({ text, signal: abortRef.current.signal });
+                }}
+                className="glass-button relative inline-flex h-9 items-center gap-1.5 rounded-xl px-4 text-xs font-semibold text-white"
+              >
+                Retry
+              </button>
+            </div>
+          </div>
         )}
       </div>
     </PageTransition>

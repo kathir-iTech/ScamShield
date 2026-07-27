@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
 import { Shield, ArrowRight } from 'lucide-react';
 
 export function EmptyAnalysisState() {
@@ -7,18 +6,24 @@ export function EmptyAnalysisState() {
 
   return (
     <div className="flex flex-col items-center justify-center py-16 text-center">
-      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-100 dark:bg-zinc-800">
-        <Shield className="h-6 w-6 text-zinc-400" />
+      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl glass">
+        <Shield className="h-6 w-6 text-text-tertiary" />
       </div>
-      <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-50">Nothing to review yet</h2>
-      <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Analyse a suspicious message or screenshot to see your result.</p>
+      <h2 className="text-lg font-semibold text-text-primary">Nothing to review yet</h2>
+      <p className="mt-1 text-sm text-text-secondary">Analyse a suspicious message or screenshot to see your result.</p>
       <div className="mt-6 flex gap-3">
-        <Button onClick={() => navigate('/analyze/text')}>
+        <button
+          onClick={() => navigate('/analyze/text')}
+          className="glass-button inline-flex h-11 items-center gap-2 rounded-xl px-5 text-sm font-semibold text-white"
+        >
           Analyse a message <ArrowRight className="h-4 w-4" />
-        </Button>
-        <Button variant="secondary" onClick={() => navigate('/analyze/image')}>
+        </button>
+        <button
+          onClick={() => navigate('/analyze/image')}
+          className="glass inline-flex h-11 items-center gap-2 rounded-xl px-5 text-sm font-medium text-text-secondary hover:text-text-primary transition-all duration-200"
+        >
           Upload a screenshot
-        </Button>
+        </button>
       </div>
     </div>
   );

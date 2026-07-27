@@ -10,8 +10,8 @@ interface InfoRowProps {
 export function InfoRow({ label, value, className }: InfoRowProps) {
   return (
     <div className={cn('flex items-center justify-between py-2.5 text-sm', className)}>
-      <span className="text-zinc-500 dark:text-zinc-400">{label}</span>
-      <span className="font-medium text-zinc-900 dark:text-zinc-50">{value}</span>
+      <span className="text-text-secondary">{label}</span>
+      <span className="font-medium text-text-primary">{value}</span>
     </div>
   );
 }

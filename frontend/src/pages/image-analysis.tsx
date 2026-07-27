@@ -2,27 +2,18 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { useAnalyzeImage } from '@/hooks/use-scamshield';
 import { useNetworkStatus } from '@/hooks/use-network-status';
 import { useAnalysisNavigation } from '@/features/analysis/hooks/use-analysis-navigation';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { ThinkingLoader } from '@/components/ui/thinking-loader';
+import { PipelineLoader } from '@/components/ui/pipeline-loader';
 import { PageTransition } from '@/components/ui/page-transition';
 import { imageAnalysisSchema } from '@/utils/validation';
 import { z } from 'zod';
 import { Upload, X, Shield, WifiOff, Lock } from 'lucide-react';
-
-const THINKING_PHRASES = [
-  'Reading your image...',
-  'Extracting text...',
-  'Analysing content...',
-  'Checking for scam patterns...',
-  'Preparing your result...',
-];
 
 export default function ImageAnalysis() {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showPipeline, setShowPipeline] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const abortRef = useRef<AbortController | null>(null);
   const mutation = useAnalyzeImage();
@@ -73,113 +64,142 @@ export default function ImageAnalysis() {
     setError(null);
     try {
       abortRef.current = new AbortController();
+      setShowPipeline(true);
       const result = await mutation.mutateAsync({ file, signal: abortRef.current.signal });
+      setShowPipeline(false);
       navigateToResult(result, true, undefined, file.name);
-    } catch {}
+    } catch {
+      setShowPipeline(false);
+    }
   };
 
   return (
     <PageTransition>
-      <div className="mx-auto max-w-xl space-y-6">
-        <div className="text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-900/20">
-            <Shield className="h-6 w-6 text-emerald-500" />
+      <div className="mx-auto max-w-2xl px-6 py-16 sm:py-20">
+        <div className="text-center mb-10">
+          <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl glass">
+            <Shield className="h-6 w-6 text-accent" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">Upload a screenshot</h1>
-          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+          <h1 className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
+            Upload a screenshot
+          </h1>
+          <p className="mt-2 text-text-secondary/70">
             Upload a screenshot of a suspicious message.
           </p>
         </div>
 
         {!isOnline && (
-          <Card>
-            <CardContent className="flex items-center gap-3 py-4">
-              <WifiOff className="h-5 w-5 shrink-0 text-amber-500" />
-              <p className="text-sm text-zinc-600 dark:text-zinc-400">You&apos;re offline. Connect to the internet to analyse.</p>
-            </CardContent>
-          </Card>
+          <div className="mb-6 glass rounded-2xl p-4 flex items-center gap-3 animate-slide-up">
+            <WifiOff className="h-5 w-5 shrink-0 text-warning" />
+            <p className="text-sm text-text-secondary">You're offline. Connect to the internet to analyse.</p>
+          </div>
         )}
 
-        <Card>
-          <CardContent className="space-y-4 pt-6">
-            <div
-              className={`relative flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed p-12 transition-all duration-150 ${
-                dragOver
-                  ? 'border-emerald-500 bg-emerald-50/50 dark:bg-emerald-900/10'
-                  : 'border-zinc-200 hover:border-zinc-300 dark:border-zinc-700 dark:hover:border-zinc-600'
-              }`}
-              onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
-              onDragLeave={() => setDragOver(false)}
-              onDrop={handleDrop}
-              onClick={() => inputRef.current?.click()}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') inputRef.current?.click(); }}
-              role="button"
-              tabIndex={0}
-              aria-label="Upload screenshot"
-            >
-              <input
-                ref={inputRef}
-                type="file"
-                accept="image/png,image/jpeg,image/webp"
-                className="hidden"
-                onChange={handleChange}
-                aria-hidden="true"
-              />
-              {preview ? (
-                <div className="relative animate-scale-in">
-                  <img src={preview} alt="Preview" className="max-h-48 rounded-xl object-contain" />
-                  <button type="button" onClick={(e) => { e.stopPropagation(); clearFile(); }}
-                    className="absolute -right-2 -top-2 flex h-7 w-7 items-center justify-center rounded-full bg-zinc-800 text-white transition-colors hover:bg-zinc-700"
-                    aria-label="Remove">
-                    <X className="h-4 w-4" />
-                  </button>
+        {showPipeline ? (
+          <div className="glass rounded-2xl overflow-hidden animate-scale-in">
+            <div className="p-6">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10">
+                  <Shield className="h-4 w-4 text-accent" />
                 </div>
-              ) : (
-                <>
-                  <Upload className="mb-3 h-8 w-8 text-zinc-400" />
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400">Click or drag to upload</p>
-                  <p className="mt-1 text-xs text-zinc-400">PNG, JPEG, WebP &mdash; up to 10 MB</p>
-                </>
-              )}
+                <div>
+                  <p className="text-sm font-semibold text-text-primary">Analysing screenshot</p>
+                  <p className="text-xs text-text-tertiary">AI is reviewing the image</p>
+                </div>
+              </div>
+              <PipelineLoader />
+            </div>
+          </div>
+        ) : (
+          <div className="glass rounded-2xl overflow-hidden">
+            <div className="p-5 sm:p-6">
+              <div
+                className={`relative flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-12 transition-all duration-200 ${
+                  dragOver
+                    ? 'border-accent/50 bg-accent/5'
+                    : 'border-glass-border hover:border-glass-border-hover'
+                }`}
+                onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+                onDragLeave={() => setDragOver(false)}
+                onDrop={handleDrop}
+                onClick={() => inputRef.current?.click()}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') inputRef.current?.click(); }}
+                role="button"
+                tabIndex={0}
+                aria-label="Upload screenshot"
+              >
+                <input
+                  ref={inputRef}
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  className="hidden"
+                  onChange={handleChange}
+                  aria-hidden="true"
+                />
+                {preview ? (
+                  <div className="relative animate-scale-in">
+                    <img src={preview} alt="Preview" className="max-h-48 rounded-xl object-contain" />
+                    <button type="button" onClick={(e) => { e.stopPropagation(); clearFile(); }}
+                      className="absolute -right-2 -top-2 flex h-7 w-7 items-center justify-center rounded-full bg-glass-strong text-text-secondary transition-colors hover:text-text-primary hover:bg-glass-hover"
+                      aria-label="Remove">
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <Upload className="mb-3 h-8 w-8 text-text-tertiary" />
+                    <p className="text-sm text-text-secondary">Click or drag to upload</p>
+                    <p className="mt-1 text-xs text-text-tertiary">PNG, JPEG, WebP &mdash; up to 10 MB</p>
+                  </>
+                )}
+              </div>
+
+              {error && <p className="mt-3 text-sm text-danger animate-slide-up" role="alert">{error}</p>}
             </div>
 
-            {error && <p className="text-sm text-red-500 animate-slide-up" role="alert">{error}</p>}
-
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between border-t border-glass-border px-5 py-4 sm:px-6">
               <div className="flex items-center gap-2">
-                <Lock className="h-3 w-3 text-zinc-300 dark:text-zinc-600" />
-                <span className="text-xs text-zinc-400">Processed privately</span>
+                <Lock className="h-3 w-3 text-text-tertiary" />
+                <span className="text-xs text-text-tertiary">Processed privately</span>
               </div>
-              <Button onClick={handleSubmit} disabled={!file || mutation.isPending || !isOnline}>
+              <button
+                type="button"
+                onClick={handleSubmit}
+                disabled={!file || mutation.isPending || !isOnline}
+                className="glass-button group relative inline-flex h-10 items-center gap-2 rounded-xl px-5 text-sm font-semibold text-white disabled:opacity-30 disabled:cursor-not-allowed"
+              >
                 {mutation.isPending ? (
-                  <ThinkingLoader phrases={THINKING_PHRASES} />
+                  <span className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-white/60 animate-pulse" />
+                    Analysing
+                  </span>
                 ) : (
                   'Analyse'
                 )}
-              </Button>
+              </button>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        )}
 
-        {mutation.isError && (
-          <Card>
-            <CardContent className="py-4">
-              <div className="flex items-center justify-between">
-                <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                  {mutation.error?.message || 'Analysis failed.'}
-                </p>
-                <Button variant="secondary" size="sm"
-                  onClick={() => {
-                    if (!file) return;
-                    abortRef.current = new AbortController();
-                    mutation.mutate({ file, signal: abortRef.current.signal });
-                  }}
-                >
-                  Retry
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+        {mutation.isError && !showPipeline && (
+          <div className="mt-6 glass rounded-2xl p-5 animate-slide-up" role="alert">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-text-secondary">
+                {mutation.error?.message || 'Analysis failed.'}
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  if (!file) return;
+                  abortRef.current = new AbortController();
+                  mutation.mutate({ file, signal: abortRef.current.signal });
+                }}
+                className="glass-button relative inline-flex h-9 items-center gap-1.5 rounded-xl px-4 text-xs font-semibold text-white"
+              >
+                Retry
+              </button>
+            </div>
+          </div>
         )}
       </div>
     </PageTransition>

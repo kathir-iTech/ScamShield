@@ -23,7 +23,7 @@ describe('Button', () => {
   it('applies variant classes', () => {
     const { container } = render(<Button variant="destructive">Delete</Button>);
     const button = container.querySelector('button');
-    expect(button).toHaveClass('bg-red-500');
+    expect(button).toHaveClass('bg-danger/20');
   });
 
   it('applies size classes', () => {

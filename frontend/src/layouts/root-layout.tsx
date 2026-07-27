@@ -1,50 +1,31 @@
-import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Sidebar } from '@/layouts/sidebar';
 import { Header } from '@/layouts/header';
 import { Footer } from '@/layouts/footer';
 import { ToastContainer } from '@/components/toast-container';
 import { ErrorBoundary } from '@/components/error-boundary';
+import { AnimatedBackground } from '@/components/ui/animated-background';
 import { useToast } from '@/hooks/use-toast';
 
 export function RootLayout() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const { toasts, removeToast } = useToast();
 
-  useEffect(() => {
-    const saved = localStorage.getItem('theme');
-    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      setTheme('dark');
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    setTheme((prev) => {
-      const next = prev === 'light' ? 'dark' : 'light';
-      localStorage.setItem('theme', next);
-      document.documentElement.classList.toggle('dark', next === 'dark');
-      return next;
-    });
-  };
-
   return (
-    <div className="flex h-screen overflow-hidden bg-zinc-50 dark:bg-zinc-950">
+    <div className="flex min-h-screen flex-col bg-[#08080c] text-text-primary selection:bg-accent/30">
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-[100] focus:rounded-xl focus:bg-white focus:px-4 focus:py-2 focus:text-emerald-600 focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:glass-strong focus:px-5 focus:py-3 focus:text-accent focus:outline-none focus:ring-2 focus:ring-accent"
       >
         Skip to main content
       </a>
+      <AnimatedBackground />
       <Sidebar />
-      <div className="flex flex-1 flex-col">
-        <Header theme={theme} onToggleTheme={toggleTheme} />
-        <main id="main-content" className="flex-1 overflow-y-auto">
-          <div className="mx-auto max-w-5xl px-8 py-12">
-            <ErrorBoundary>
-              <Outlet />
-            </ErrorBoundary>
-          </div>
+      <div className="flex flex-1 flex-col md:ml-[72px]">
+        <Header />
+        <main id="main-content" className="flex-1">
+          <ErrorBoundary>
+            <Outlet />
+          </ErrorBoundary>
         </main>
         <Footer />
       </div>

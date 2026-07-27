@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { health } from '@/services/scamshield';
 import type { HealthResponse } from '@/types';
+import { ShieldAlert } from 'lucide-react';
 
 export function DeploymentHealth() {
   const [data, setData] = useState<HealthResponse | null>(null);
@@ -30,15 +31,13 @@ export function DeploymentHealth() {
 
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950">
-        <div className="rounded-xl bg-white p-8 text-center shadow-lg dark:bg-zinc-900">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
-            <svg className="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+      <div className="flex min-h-screen items-center justify-center bg-[#08080c]">
+        <div className="glass rounded-2xl p-10 text-center max-w-md animate-scale-in">
+          <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-xl bg-danger/10 text-danger">
+            <ShieldAlert className="h-8 w-8" />
           </div>
-          <h2 className="mb-2 text-xl font-semibold text-zinc-900 dark:text-zinc-100">Service Unreachable</h2>
-          <p className="text-zinc-500 dark:text-zinc-400">{error}</p>
+          <h2 className="text-xl font-semibold text-text-primary mb-2">Service Unreachable</h2>
+          <p className="text-sm text-text-secondary">{error}</p>
         </div>
       </div>
     );
@@ -46,89 +45,81 @@ export function DeploymentHealth() {
 
   if (!data) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-[#08080c]">
+        <div className="flex gap-2">
+          <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
+          <span className="h-2 w-2 rounded-full bg-accent animate-pulse" style={{ animationDelay: '200ms' }} />
+          <span className="h-2 w-2 rounded-full bg-accent animate-pulse" style={{ animationDelay: '400ms' }} />
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 p-8 dark:bg-zinc-950">
+    <div className="min-h-screen bg-[#08080c] px-6 py-10">
       <div className="mx-auto max-w-4xl">
-        <div className="mb-8 flex items-center gap-3">
-          <div className={`h-4 w-4 rounded-full ${data.status === 'pass' ? 'bg-emerald-500' : 'bg-red-500'}`} />
-          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Deployment Health</h1>
-          <span className="ml-auto rounded-full bg-zinc-200 px-3 py-1 text-sm text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+        <div className="flex items-center gap-4 mb-10">
+          <div className={`h-3 w-3 rounded-full ${data.status === 'pass' ? 'bg-success' : 'bg-danger'} animate-pulse`} />
+          <h1 className="text-2xl font-bold text-text-primary">Deployment Health</h1>
+          <span className="ml-auto glass rounded-full px-3 py-1 text-xs text-text-secondary">
             v{data.version}
           </span>
         </div>
 
-        <div className="mb-6 grid gap-6 md:grid-cols-3">
-          <div className="rounded-xl bg-white p-6 shadow-sm dark:bg-zinc-900">
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">Uptime</p>
-            <p className="mt-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">{formatUptime(data.uptime_seconds)}</p>
-          </div>
-          <div className="rounded-xl bg-white p-6 shadow-sm dark:bg-zinc-900">
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">Service</p>
-            <p className="mt-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">{data.service}</p>
-          </div>
-          <div className="rounded-xl bg-white p-6 shadow-sm dark:bg-zinc-900">
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">Availability</p>
-            <p className="mt-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">{data.service_availability}</p>
+        <div className="grid gap-4 md:grid-cols-3 mb-6">
+          {[
+            { label: 'Uptime', value: formatUptime(data.uptime_seconds) },
+            { label: 'Service', value: data.service },
+            { label: 'Availability', value: data.service_availability },
+          ].map((item) => (
+            <div key={item.label} className="glass rounded-2xl p-6 animate-slide-up">
+              <p className="text-sm text-text-secondary">{item.label}</p>
+              <p className="mt-1 text-2xl font-bold text-text-primary">{item.value}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="glass rounded-2xl p-7 mb-6 animate-slide-up stagger-2">
+          <h2 className="text-sm font-semibold text-text-primary mb-5">System Checks</h2>
+          <div className="space-y-4">
+            {[
+              { label: 'ML Model', value: data.model_loaded ? 'Loaded' : 'Unavailable', status: data.model_loaded },
+              { label: 'Configuration', value: data.configuration_loaded ? 'Valid' : 'Invalid', status: data.configuration_loaded },
+              { label: 'Active Requests', value: String(data.active_requests), status: true },
+            ].map((item) => (
+              <div key={item.label} className="flex items-center justify-between">
+                <span className="text-sm text-text-secondary">{item.label}</span>
+                <span className={`rounded-full border px-2.5 py-0.5 text-xs font-medium ${
+                  item.status ? 'border-success/20 bg-success/10 text-success' : 'border-danger/20 bg-danger/10 text-danger'
+                }`}>
+                  {item.value}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="mb-6 rounded-xl bg-white p-6 shadow-sm dark:bg-zinc-900">
-          <h2 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-100">System Checks</h2>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-zinc-600 dark:text-zinc-400">ML Model</span>
-              <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${data.model_loaded ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'}`}>
-                {data.model_loaded ? 'Loaded' : 'Unavailable'}
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-zinc-600 dark:text-zinc-400">Configuration</span>
-              <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${data.configuration_loaded ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'}`}>
-                {data.configuration_loaded ? 'Valid' : 'Invalid'}
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-zinc-600 dark:text-zinc-400">Active Requests</span>
-              <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
-                {data.active_requests}
-              </span>
+        {data.dependency_status && (
+          <div className="glass rounded-2xl p-7 animate-slide-up stagger-3">
+            <h2 className="text-sm font-semibold text-text-primary mb-5">Dependencies</h2>
+            <div className="space-y-4">
+              {[
+                { label: 'Model', value: data.dependency_status.model, status: data.dependency_status.model === 'loaded' },
+                { label: 'Vectorizer', value: data.dependency_status.vectorizer, status: data.dependency_status.vectorizer === 'loaded' },
+                { label: 'Config', value: data.dependency_status.config, status: data.dependency_status.config === 'valid' },
+              ].map((item) => (
+                <div key={item.label} className="flex items-center justify-between">
+                  <span className="text-sm text-text-secondary">{item.label}</span>
+                  <span className={`rounded-full border px-2.5 py-0.5 text-xs font-medium ${
+                    item.status ? 'border-success/20 bg-success/10 text-success' : 'border-danger/20 bg-danger/10 text-danger'
+                  }`}>
+                    {item.value}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-
-        <div className="mb-6 rounded-xl bg-white p-6 shadow-sm dark:bg-zinc-900">
-          <h2 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-100">Dependencies</h2>
-          <div className="space-y-3">
-            {data.dependency_status && (
-              <>
-                <div className="flex items-center justify-between">
-                  <span className="text-zinc-600 dark:text-zinc-400">Model</span>
-                  <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${data.dependency_status.model === 'loaded' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'}`}>
-                    {data.dependency_status.model}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-zinc-600 dark:text-zinc-400">Vectorizer</span>
-                  <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${data.dependency_status.vectorizer === 'loaded' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'}`}>
-                    {data.dependency_status.vectorizer}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-zinc-600 dark:text-zinc-400">Config</span>
-                  <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${data.dependency_status.config === 'valid' ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'}`}>
-                    {data.dependency_status.config}
-                  </span>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

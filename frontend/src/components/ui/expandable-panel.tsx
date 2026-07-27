@@ -1,49 +1,51 @@
 import { useState, type ReactNode } from 'react';
-import { ChevronDown } from 'lucide-react';
 import { cn } from '@/utils/cn';
+import { ChevronDown } from 'lucide-react';
 
 interface ExpandablePanelProps {
   title: string;
   count?: number;
-  children: ReactNode;
   defaultOpen?: boolean;
+  children: ReactNode;
   className?: string;
 }
 
-export function ExpandablePanel({ title, count, children, defaultOpen = false, className }: ExpandablePanelProps) {
+export function ExpandablePanel({ title, count, defaultOpen = false, children, className }: ExpandablePanelProps) {
   const [open, setOpen] = useState(defaultOpen);
 
   return (
-    <div className={cn('rounded-xl border border-zinc-200 dark:border-zinc-700', className)}>
+    <div className={cn('glass rounded-2xl overflow-hidden transition-all duration-300', className)}>
       <button
         type="button"
-        onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center justify-between px-6 py-4 text-left transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-800/50"
+        onClick={() => setOpen(!open)}
+        className="flex w-full items-center justify-between px-6 py-4 text-left transition-colors duration-200 hover:bg-glass-hover"
         aria-expanded={open}
       >
-        <span className="flex items-center gap-2 text-sm font-medium text-zinc-900 dark:text-zinc-100">
-          {title}
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium text-text-primary">{title}</span>
           {count !== undefined && (
-            <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
+            <span className="rounded-full bg-glass-border px-2 py-0.5 text-xs text-text-tertiary tabular-nums">
               {count}
             </span>
           )}
-        </span>
+        </div>
         <ChevronDown
           className={cn(
-            'h-4 w-4 text-zinc-400 transition-transform duration-200',
+            'h-4 w-4 text-text-tertiary transition-transform duration-200',
             open && 'rotate-180'
           )}
         />
       </button>
       <div
         className={cn(
-          'overflow-hidden transition-all duration-300 ease-out',
-          open ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
+          'grid transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
+          open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
         )}
       >
-        <div className="px-6 pb-4 pt-2">
-          {children}
+        <div className="overflow-hidden">
+          <div className="px-6 pb-6">
+            {children}
+          </div>
         </div>
       </div>
     </div>

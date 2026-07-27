@@ -1,5 +1,3 @@
-import { Card, CardContent } from '@/components/ui/card';
-
 interface EntityItem {
   value: string;
   type: string;
@@ -17,20 +15,24 @@ export function EntityCard({ entities }: Props) {
   if (entities.length === 0) return null;
 
   return (
-    <Card>
-      <CardContent className="space-y-3 py-6">
-        <p className="text-xs text-zinc-400">Entities ({entities.length})</p>
+    <div>
+      <p className="text-xs text-text-tertiary mb-3">Entities ({entities.length})</p>
+      <div className="space-y-2">
         {entities.map((e, i) => (
-          <div key={i} className="flex items-start gap-3 rounded-xl bg-zinc-50 p-3 dark:bg-zinc-800/50">
-            <span className={`mt-1 h-2 w-2 shrink-0 rounded-full ${e.risk === 'HIGH' ? 'bg-red-500' : e.risk === 'MEDIUM' ? 'bg-amber-500' : 'bg-zinc-300'}`} />
+          <div key={i} className="flex items-start gap-3 rounded-xl bg-glass border border-glass-border p-3">
+            <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${
+              e.risk === 'HIGH' ? 'bg-danger' :
+              e.risk === 'MEDIUM' ? 'bg-warning' :
+              'bg-text-tertiary'
+            }`} />
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate">{e.value}</p>
-              <p className="text-xs text-zinc-500">{e.type} &middot; {e.source}</p>
+              <p className="text-sm font-medium text-text-primary truncate">{e.value}</p>
+              <p className="text-xs text-text-tertiary">{e.type} &middot; {e.source}</p>
             </div>
-            <span className="shrink-0 text-xs text-zinc-400">{(e.confidence * 100).toFixed(0)}%</span>
+            <span className="shrink-0 text-xs text-text-tertiary tabular-nums">{(e.confidence * 100).toFixed(0)}%</span>
           </div>
         ))}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

@@ -3,15 +3,15 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/cn';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 rounded-xl text-sm font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-40 active:scale-[0.97]',
+  'inline-flex items-center justify-center gap-2 rounded-xl text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-30 active:scale-[0.97]',
   {
     variants: {
       variant: {
-        primary: 'bg-emerald-500 text-white hover:bg-emerald-600 shadow-sm hover:shadow-md focus-visible:ring-emerald-500',
-        secondary: 'bg-zinc-100 text-zinc-900 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700',
-        outline: 'border border-zinc-200 bg-white hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-800',
-        destructive: 'bg-red-500 text-white hover:bg-red-600 focus-visible:ring-red-500',
-        ghost: 'text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800',
+        primary: 'glass-button text-white',
+        secondary: 'glass text-text-secondary hover:text-text-primary',
+        outline: 'border border-glass-border bg-transparent hover:bg-glass-hover text-text-secondary hover:text-text-primary',
+        destructive: 'bg-danger/20 text-danger border border-danger/20 hover:bg-danger/30',
+        ghost: 'text-text-tertiary hover:text-text-secondary hover:bg-glass-hover',
       },
       size: {
         sm: 'h-9 rounded-lg px-4 text-xs',

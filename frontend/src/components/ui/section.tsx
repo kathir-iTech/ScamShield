@@ -13,8 +13,8 @@ export function Section({ children, className, title, description, as = 'section
   return createElement(
     as,
     { className: cn(className) },
-    title && <h3 className="mb-3 text-sm font-medium text-zinc-900 dark:text-zinc-100">{title}</h3>,
-    description && <p className="mb-3 text-sm text-zinc-500 dark:text-zinc-400">{description}</p>,
+    title && <h3 className="mb-3 text-sm font-medium text-text-primary">{title}</h3>,
+    description && <p className="mb-3 text-sm text-text-secondary">{description}</p>,
     children
   );
 }

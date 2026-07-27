@@ -1,6 +1,4 @@
 import { AlertTriangle, WifiOff, Clock, Bug } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 
 interface ErrorPanelProps {
   title?: string;
@@ -23,26 +21,28 @@ export function ErrorPanel({ title, message, type = 'unexpected', onRetry, onNav
   const Icon = config.icon;
 
   return (
-    <Card>
-      <CardContent className="flex flex-col items-center gap-4 p-8 text-center">
-        <div className="rounded-full bg-red-100 p-3 dark:bg-red-900/30">
-          <Icon className="h-6 w-6 text-red-500" aria-hidden="true" />
-        </div>
-        <div className="space-y-1">
-          <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">
-            {title ?? config.label}
-          </h3>
-          <p className="max-w-md text-sm text-zinc-500 dark:text-zinc-400">{message}</p>
-        </div>
-        <div className="flex gap-3">
-          {onRetry && <Button onClick={onRetry}>Retry</Button>}
-          {onNavigate && (
-            <Button variant="outline" onClick={onNavigate.onClick}>
-              {onNavigate.label}
-            </Button>
-          )}
-        </div>
-      </CardContent>
-    </Card>
+    <div className="glass rounded-2xl p-8 text-center animate-scale-in" role="alert">
+      <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-danger/10 text-danger">
+        <Icon className="h-6 w-6" aria-hidden="true" />
+      </div>
+      <div className="space-y-1">
+        <h3 className="text-sm font-semibold text-text-primary">
+          {title ?? config.label}
+        </h3>
+        <p className="max-w-md mx-auto text-sm text-text-secondary">{message}</p>
+      </div>
+      <div className="mt-5 flex justify-center gap-3">
+        {onRetry && (
+          <button onClick={onRetry} className="glass-button inline-flex h-10 items-center gap-1.5 rounded-xl px-5 text-sm font-semibold text-white">
+            Retry
+          </button>
+        )}
+        {onNavigate && (
+          <button onClick={onNavigate.onClick} className="glass inline-flex h-10 items-center gap-1.5 rounded-xl px-5 text-sm font-medium text-text-secondary hover:text-text-primary transition-all duration-200">
+            {onNavigate.label}
+          </button>
+        )}
+      </div>
+    </div>
   );
 }

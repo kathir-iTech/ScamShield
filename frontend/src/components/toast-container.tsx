@@ -1,6 +1,5 @@
 import { X } from 'lucide-react';
 import type { Toast } from '@/hooks/use-toast';
-import { cn } from '@/utils/cn';
 
 interface ToastContainerProps {
   toasts: Toast[];
@@ -14,18 +13,21 @@ export function ToastContainer({ toasts, onRemove }: ToastContainerProps) {
       {toasts.map((toast) => (
         <div
           key={toast.id}
-          className={cn(
-            'flex items-center gap-3 rounded-lg px-4 py-3 text-sm shadow-lg',
-            toast.type === 'success' && 'bg-emerald-600 text-white',
-            toast.type === 'error' && 'bg-red-600 text-white',
-            toast.type === 'info' && 'bg-zinc-800 text-white dark:bg-zinc-700'
-          )}
+          className={`flex items-center gap-3 rounded-xl px-5 py-3.5 text-sm glass-strong backdrop-blur-2xl border ${
+            toast.type === 'success' ? 'border-success/20' :
+            toast.type === 'error' ? 'border-danger/20' :
+            'border-glass-border'
+          }`}
           role="alert"
         >
-          <span className="flex-1">{toast.message}</span>
+          <span className={`flex-1 ${
+            toast.type === 'error' ? 'text-danger' : 'text-text-primary'
+          }`}>
+            {toast.message}
+          </span>
           <button
             onClick={() => onRemove(toast.id)}
-            className="rounded p-0.5 hover:bg-white/20"
+            className="rounded p-0.5 hover:bg-glass-hover text-text-tertiary hover:text-text-primary transition-colors"
             aria-label="Dismiss"
           >
             <X className="h-4 w-4" />
