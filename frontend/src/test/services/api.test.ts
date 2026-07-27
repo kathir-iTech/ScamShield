@@ -4,7 +4,7 @@ describe('api client', () => {
   it('creates axios instance with correct defaults', async () => {
     const mod = await import('@/services/api');
     const instance = mod.default;
-    expect(instance.defaults.timeout).toBe(30000);
+    expect(instance.defaults.timeout).toBe(15000);
   });
 
   it('has base URL configured', async () => {

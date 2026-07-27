@@ -102,7 +102,7 @@ if _env:
     ENVIRONMENT = _env
     profile = get_profile(ENVIRONMENT)
     if not CORS_ORIGINS or CORS_ORIGINS == ["*"]:
-        CORS_ORIGINS = list(profile.cors_origins) if profile.cors_origins else ["*"]
+        CORS_ORIGINS = list(profile.cors_origins) if profile.cors_origins else []
     if RATE_LIMIT_MAX_REQUESTS == 100:
         RATE_LIMIT_MAX_REQUESTS = profile.rate_limit_max
     if RATE_LIMIT_WINDOW_SECONDS == 60:

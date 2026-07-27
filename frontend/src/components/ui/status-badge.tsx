@@ -1,36 +1,40 @@
-import { cn } from '@/utils/cn';
-import type { StatusConfig } from '@/design/status';
 import type { LucideIcon } from 'lucide-react';
-
-interface StatusBadgeProps {
-  status: StatusConfig;
-  icon?: LucideIcon;
-  size?: 'sm' | 'md';
-  showIcon?: boolean;
-  className?: string;
-}
+import { cn } from '@/utils/cn';
 
 const variantStyles: Record<string, string> = {
-  success: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300',
-  warning: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300',
-  danger: 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300',
-  info: 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300',
-  neutral: 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300',
+  success: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400',
+  warning: 'bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
+  danger: 'bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400',
+  info: 'bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
+  neutral: 'bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400',
 };
 
-export function StatusBadge({ status, icon: IconOverride, size = 'sm', showIcon = true, className }: StatusBadgeProps) {
-  const Icon = IconOverride ?? status.icon;
+interface StatusBadgeProps {
+  label?: string;
+  variant?: string;
+  size?: 'sm' | 'md';
+  className?: string;
+  icon?: LucideIcon;
+  status?: { variant: string; label: string; icon?: LucideIcon };
+  showIcon?: boolean;
+}
+
+export function StatusBadge({ label, variant = 'neutral', size = 'sm', status, icon: iconProp, showIcon = true, className }: StatusBadgeProps) {
+  const resolvedVariant = status?.variant || variant;
+  const resolvedLabel = status?.label || label || '';
+  const Icon = iconProp || status?.icon || null;
+
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1 rounded-full font-medium',
+        'inline-flex items-center gap-1.5 rounded-full font-medium',
         size === 'sm' ? 'px-2.5 py-0.5 text-xs' : 'px-3 py-1 text-sm',
-        variantStyles[status.variant],
+        variantStyles[resolvedVariant] || variantStyles.neutral,
         className
       )}
     >
-      {showIcon && <Icon className={size === 'sm' ? 'h-3 w-3' : 'h-3.5 w-3.5'} />}
-      {status.label}
+      {Icon && showIcon && <Icon className="h-3.5 w-3.5" aria-hidden="true" />}
+      {resolvedLabel}
     </span>
   );
 }

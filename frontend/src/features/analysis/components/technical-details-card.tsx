@@ -1,7 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { InfoRow } from '@/components/ui/info-row';
+import { Card, CardContent } from '@/components/ui/card';
 
-interface TechnicalDetailsCardProps {
+interface Props {
   mlConfidence: number;
   decisionScore: number;
   ruleScore: number;
@@ -10,27 +9,25 @@ interface TechnicalDetailsCardProps {
   entityCount: number;
 }
 
-export function TechnicalDetailsCard({
-  mlConfidence,
-  decisionScore,
-  ruleScore,
-  assessmentScore,
-  evidenceCount,
-  entityCount,
-}: TechnicalDetailsCardProps) {
+export function TechnicalDetailsCard({ mlConfidence, decisionScore, ruleScore, assessmentScore, evidenceCount, entityCount }: Props) {
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Technical Details</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="divide-y divide-zinc-100 dark:divide-zinc-800">
-          <InfoRow label="ML Confidence" value={`${(mlConfidence * 100).toFixed(0)}%`} />
-          <InfoRow label="Decision Score" value={String(decisionScore)} />
-          <InfoRow label="Rule Score" value={ruleScore.toFixed(1)} />
-          <InfoRow label="Assessment Score" value={`${assessmentScore}/100`} />
-          <InfoRow label="Evidence Items" value={String(evidenceCount)} />
-          <InfoRow label="Entities Found" value={String(entityCount)} />
+      <CardContent className="py-6">
+        <p className="text-xs text-zinc-400">Scores</p>
+        <div className="mt-4 grid grid-cols-2 gap-6">
+          {[
+            { label: 'ML Confidence', value: `${(mlConfidence * 100).toFixed(0)}%` },
+            { label: 'Decision Score', value: decisionScore.toFixed(2) },
+            { label: 'Rule Score', value: ruleScore.toFixed(2) },
+            { label: 'Assessment', value: `${assessmentScore}/100` },
+            { label: 'Evidence', value: String(evidenceCount) },
+            { label: 'Entities', value: String(entityCount) },
+          ].map((s) => (
+            <div key={s.label}>
+              <p className="text-xs text-zinc-400">{s.label}</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-900 dark:text-zinc-100">{s.value}</p>
+            </div>
+          ))}
         </div>
       </CardContent>
     </Card>

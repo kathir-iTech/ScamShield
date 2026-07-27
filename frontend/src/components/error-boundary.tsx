@@ -1,6 +1,7 @@
 import { Component, type ReactNode, type ErrorInfo } from 'react';
 import { Button } from '@/components/ui/button';
 import { diagnostics } from '@/utils/diagnostics';
+import { monitor } from '@/services/monitoring';
 
 interface Props {
   children: ReactNode;
@@ -20,8 +21,11 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
-    console.error('ErrorBoundary caught:', error, info);
     diagnostics.recordRenderError(error, info.componentStack || 'unknown');
+    monitor.error('Render error', {
+      message: error.message,
+      componentStack: info.componentStack,
+    });
   }
 
   render() {

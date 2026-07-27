@@ -11,7 +11,7 @@ interface EmptyPanelProps {
 
 export function EmptyPanel({ icon: Icon, title, description, action, className }: EmptyPanelProps) {
   return (
-    <div className={cn('flex flex-col items-center justify-center gap-3 py-12 text-center', className)}>
+    <div className={cn('flex flex-col items-center justify-center gap-3 py-16 text-center', className)}>
       {Icon && (
         <div className="rounded-full bg-zinc-100 p-3 dark:bg-zinc-800">
           <Icon className="h-6 w-6 text-zinc-400" />

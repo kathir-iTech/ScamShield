@@ -4,7 +4,7 @@ import * as scamshieldService from '@/services/scamshield';
 export function useHealth() {
   return useQuery({
     queryKey: ['health'],
-    queryFn: scamshieldService.health,
+    queryFn: ({ signal }) => scamshieldService.health(signal),
     refetchInterval: 30000,
   });
 }
@@ -12,7 +12,7 @@ export function useHealth() {
 export function useReady() {
   return useQuery({
     queryKey: ['ready'],
-    queryFn: scamshieldService.ready,
+    queryFn: ({ signal }) => scamshieldService.ready(signal),
     refetchInterval: 30000,
   });
 }
@@ -20,7 +20,7 @@ export function useReady() {
 export function useLive() {
   return useQuery({
     queryKey: ['live'],
-    queryFn: scamshieldService.live,
+    queryFn: ({ signal }) => scamshieldService.live(signal),
     refetchInterval: 15000,
   });
 }
@@ -28,19 +28,21 @@ export function useLive() {
 export function useMetrics() {
   return useQuery({
     queryKey: ['metrics'],
-    queryFn: scamshieldService.metrics,
+    queryFn: ({ signal }) => scamshieldService.metrics(signal),
     refetchInterval: 10000,
   });
 }
 
 export function useAnalyzeText() {
   return useMutation({
-    mutationFn: (text: string) => scamshieldService.analyzeText(text),
+    mutationFn: ({ text, signal }: { text: string; signal?: AbortSignal }) =>
+      scamshieldService.analyzeText(text, signal),
   });
 }
 
 export function useAnalyzeImage() {
   return useMutation({
-    mutationFn: (file: File) => scamshieldService.analyzeImage(file),
+    mutationFn: ({ file, signal }: { file: File; signal?: AbortSignal }) =>
+      scamshieldService.analyzeImage(file, signal),
   });
 }

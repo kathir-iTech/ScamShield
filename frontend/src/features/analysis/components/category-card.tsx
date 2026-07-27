@@ -1,10 +1,6 @@
-import { useMemo } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { StatusBadge } from '@/components/ui/status-badge';
-import { Info } from 'lucide-react';
-import type { StatusConfig } from '@/design/status';
+import { Card, CardContent } from '@/components/ui/card';
 
-interface CategoryCardProps {
+interface Props {
   scamCategory: string;
   summary: string;
   reasons: string[];
@@ -12,63 +8,29 @@ interface CategoryCardProps {
   technicalReason: string;
 }
 
-export function CategoryCard({
-  scamCategory,
-  summary,
-  reasons,
-  businessReason,
-  technicalReason,
-}: CategoryCardProps) {
-  const categoryBadge: StatusConfig = useMemo(
-    () => ({ variant: 'info', icon: Info, label: scamCategory }),
-    [scamCategory]
-  );
-
+export function CategoryCard({ scamCategory, summary, reasons, businessReason, technicalReason }: Props) {
   return (
     <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Info className="h-5 w-5" />
-          Scam Classification
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400">Category</p>
-          <div className="mt-1">
-            <StatusBadge status={categoryBadge} />
-          </div>
-        </div>
-        <div>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400">Summary</p>
-          <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-300">{summary}</p>
-        </div>
+      <CardContent className="space-y-4 py-6">
+        <p className="text-xs text-zinc-400">Category</p>
+        <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{scamCategory}</p>
+        <p className="text-sm text-zinc-600 dark:text-zinc-400">{summary}</p>
         {reasons.length > 0 && (
           <div>
-            <p className="mb-1 text-xs text-zinc-500 dark:text-zinc-400">Reasons</p>
-            <ul className="list-inside list-disc space-y-0.5 text-sm text-zinc-700 dark:text-zinc-300">
-              {reasons.map((r, i) => (
-                <li key={i}>{r}</li>
-              ))}
+            <p className="text-xs text-zinc-400">Why</p>
+            <ul className="mt-1 list-inside list-disc space-y-0.5 text-sm text-zinc-600 dark:text-zinc-400">
+              {reasons.map((r, i) => <li key={i}>{r}</li>)}
             </ul>
           </div>
         )}
         <div className="grid gap-4 md:grid-cols-2">
-          <div className="rounded-lg bg-zinc-50 p-3 dark:bg-zinc-800/50">
-            <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
-              Business Analysis
-            </p>
-            <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-300">
-              {businessReason}
-            </p>
+          <div className="rounded-xl bg-zinc-50 p-4 dark:bg-zinc-800/50">
+            <p className="text-xs text-zinc-400">Business</p>
+            <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-300">{businessReason}</p>
           </div>
-          <div className="rounded-lg bg-zinc-50 p-3 dark:bg-zinc-800/50">
-            <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
-              Technical Analysis
-            </p>
-            <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-300">
-              {technicalReason}
-            </p>
+          <div className="rounded-xl bg-zinc-50 p-4 dark:bg-zinc-800/50">
+            <p className="text-xs text-zinc-400">Technical</p>
+            <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-300">{technicalReason}</p>
           </div>
         </div>
       </CardContent>

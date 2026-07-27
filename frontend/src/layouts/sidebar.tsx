@@ -1,42 +1,22 @@
-import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { cn } from '@/utils/cn';
-import { getAppVersion } from '@/utils/version';
-import {
-  LayoutDashboard,
-  FileText,
-  Image as ImageIcon,
-  Activity,
-  Shield,
-  Search,
-  Home,
-} from 'lucide-react';
+import { FileText, Image, Activity, Shield, Search } from 'lucide-react';
 
 const navItems = [
-  { to: '/', icon: Home, label: 'Home' },
-  { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/analyze/text', icon: FileText, label: 'Text Analysis' },
-  { to: '/analyze/image', icon: ImageIcon, label: 'Image Analysis' },
-  { to: '/investigation', icon: Search, label: 'Investigation' },
-  { to: '/system', icon: Activity, label: 'System Status' },
+  { to: '/', icon: Shield, label: 'Home' },
+  { to: '/analyze/text', icon: FileText, label: 'Text' },
+  { to: '/analyze/image', icon: Image, label: 'Image' },
+  { to: '/investigation', icon: Search, label: 'Deep Dive' },
+  { to: '/system', icon: Activity, label: 'Status' },
 ];
 
 export function Sidebar() {
-  const [version, setVersion] = useState('...');
-
-  useEffect(() => {
-    getAppVersion().then(setVersion).catch(() => setVersion('unknown'));
-  }, []);
-
   return (
-    <aside className="flex h-full w-64 flex-col border-r border-zinc-200 bg-white dark:border-zinc-700 dark:bg-zinc-900">
-      <div className="flex items-center gap-2 border-b border-zinc-200 px-6 py-4 dark:border-zinc-700">
-        <Shield className="h-6 w-6 text-emerald-600" />
-        <span className="text-lg font-bold text-zinc-900 dark:text-zinc-50">
-          ScamShield
-        </span>
+    <aside className="group/sidebar flex h-full w-16 flex-col items-center border-r border-zinc-100 bg-white py-4 transition-all duration-200 hover:w-44 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="mb-6 flex items-center justify-center">
+        <Shield className="h-6 w-6 text-emerald-500 shrink-0" />
       </div>
-      <nav className="flex-1 space-y-1 p-4" aria-label="Main navigation">
+      <nav className="flex w-full flex-1 flex-col items-center gap-2 px-3" aria-label="Main navigation">
         {navItems.map((item) => (
           <NavLink
             key={item.to}
@@ -44,23 +24,21 @@ export function Sidebar() {
             end={item.to === '/'}
             className={({ isActive }) =>
               cn(
-                'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors border-l-2',
+                'flex w-full items-center gap-3 rounded-2xl px-3 py-2.5 transition-all duration-200',
                 isActive
-                  ? 'border-emerald-600 bg-emerald-50 text-emerald-700 dark:border-emerald-400 dark:bg-emerald-900/30 dark:text-emerald-400'
-                  : 'border-transparent text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800'
+                  ? 'bg-emerald-500 text-white shadow-sm'
+                  : 'text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 dark:text-zinc-500 dark:hover:bg-zinc-800 dark:hover:text-zinc-300'
               )
             }
+            aria-label={item.label}
           >
-            <item.icon className="h-5 w-5" />
-            {item.label}
+            <item.icon className="h-5 w-5 shrink-0" />
+            <span className="invisible text-sm font-medium opacity-0 transition-all duration-200 group-hover/sidebar:visible group-hover/sidebar:opacity-100">
+              {item.label}
+            </span>
           </NavLink>
         ))}
       </nav>
-      <div className="border-t border-zinc-200 p-4 dark:border-zinc-700">
-        <p className="text-xs text-zinc-400 dark:text-zinc-500">
-          ScamShield v{version}
-        </p>
-      </div>
     </aside>
   );
 }

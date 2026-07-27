@@ -1,12 +1,10 @@
-import { useEffect } from 'react';
-import { useHealth, useReady, useMetrics } from '@/hooks/use-scamshield';
+import { useHealth, useReady } from '@/hooks/use-scamshield';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { RetryButton } from '@/components/retry-button';
 import { PageTransition } from '@/components/ui/page-transition';
-import { getAppVersion } from '@/utils/version';
-import { Shield, CheckCircle, XCircle, Activity, Gauge, List } from 'lucide-react';
+import { Shield, CheckCircle, XCircle, Activity, List } from 'lucide-react';
 
 function StatCard({
   title,
@@ -50,11 +48,6 @@ function StatCard({
 export default function Dashboard() {
   const healthQuery = useHealth();
   const readyQuery = useReady();
-  const metricsQuery = useMetrics();
-
-  useEffect(() => {
-    getAppVersion().then(() => {});
-  }, []);
 
   const isLoading = healthQuery.isLoading || readyQuery.isLoading;
   const hasError = healthQuery.isError || readyQuery.isError;
@@ -67,13 +60,13 @@ export default function Dashboard() {
             Dashboard
           </h1>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            System overview and capabilities
+            Overview of scam categories and detection capabilities
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-3">
           <StatCard
-            title="System Health"
+            title="Service Status"
             value={healthQuery.data?.status === 'healthy' ? 'Healthy' : 'Degraded'}
             icon={healthQuery.data?.status === 'healthy' ? CheckCircle : XCircle}
             isLoading={isLoading}
@@ -81,7 +74,7 @@ export default function Dashboard() {
             onRetry={() => healthQuery.refetch()}
           />
           <StatCard
-            title="Backend Status"
+            title="Analysis Engine"
             value={readyQuery.data?.status || 'Unknown'}
             icon={Shield}
             isLoading={isLoading}
@@ -89,7 +82,7 @@ export default function Dashboard() {
             onRetry={() => readyQuery.refetch()}
           />
           <StatCard
-            title="Uptime"
+            title="Service Uptime"
             value={
               healthQuery.data
                 ? `${Math.floor(healthQuery.data.uptime_seconds / 60)}m`
@@ -99,18 +92,6 @@ export default function Dashboard() {
             isLoading={healthQuery.isLoading}
             error={healthQuery.isError}
             onRetry={() => healthQuery.refetch()}
-          />
-          <StatCard
-            title="Total Requests"
-            value={
-              metricsQuery.data
-                ? metricsQuery.data.total_requests.toLocaleString()
-                : '0'
-            }
-            icon={Gauge}
-            isLoading={metricsQuery.isLoading}
-            error={metricsQuery.isError}
-            onRetry={() => metricsQuery.refetch()}
           />
         </div>
 
@@ -203,19 +184,17 @@ export default function Dashboard() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Recent Capabilities</CardTitle>
+            <CardTitle>How It Works</CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="list-inside list-disc space-y-1 text-sm text-zinc-600 dark:text-zinc-400">
-              <li>ML-based scam classification with confidence scoring</li>
-              <li>Heuristic rule engine with 18 indicator patterns</li>
-              <li>Entity extraction for 20+ threat indicator types</li>
-              <li>Multi-factor risk assessment with evidence correlation</li>
-              <li>OCR-based text extraction from images</li>
-              <li>Input sanitisation and image validation</li>
-              <li>Graceful pipeline degradation on non-critical failures</li>
-              <li>Structured JSON logging with request correlation</li>
-              <li>Health diagnostics with disk and memory monitoring</li>
+              <li>AI analysis of messages for scam patterns</li>
+              <li>Rule-based detection of common fraud indicators</li>
+              <li>Identifies suspicious phone numbers, URLs, UPI IDs, and more</li>
+              <li>Comprehensive risk scoring with supporting evidence</li>
+              <li>Text extraction from uploaded screenshots</li>
+              <li>Secure processing of all submitted content</li>
+              <li>Reliable analysis even when some checks are unavailable</li>
             </ul>
           </CardContent>
         </Card>

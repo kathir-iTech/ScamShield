@@ -1,8 +1,10 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ShieldAlert } from 'lucide-react';
+import { ShieldAlert, ArrowLeft } from 'lucide-react';
 
 export default function NotFound() {
+  const navigate = useNavigate();
+
   return (
     <div className="flex h-full flex-col items-center justify-center gap-4 text-center">
       <ShieldAlert className="h-16 w-16 text-zinc-300 dark:text-zinc-600" />
@@ -10,11 +12,12 @@ export default function NotFound() {
         Page not found
       </h1>
       <p className="max-w-sm text-sm text-zinc-500 dark:text-zinc-400">
-        The page you are looking for does not exist or has been moved.
+        The page you&apos;re looking for doesn&apos;t exist.
       </p>
-      <Link to="/">
-        <Button>Back to Dashboard</Button>
-      </Link>
+      <Button onClick={() => navigate('/')}>
+        <ArrowLeft className="h-4 w-4" />
+        Go home
+      </Button>
     </div>
   );
 }

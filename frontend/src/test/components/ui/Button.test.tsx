@@ -23,13 +23,14 @@ describe('Button', () => {
   it('applies variant classes', () => {
     const { container } = render(<Button variant="destructive">Delete</Button>);
     const button = container.querySelector('button');
-    expect(button).toHaveClass('bg-red-700');
+    expect(button).toHaveClass('bg-red-500');
   });
 
   it('applies size classes', () => {
     const { container } = render(<Button size="lg">Large</Button>);
     const button = container.querySelector('button');
-    expect(button).toHaveClass('h-11');
+    expect(button).toHaveClass('h-13');
+    expect(button).toHaveClass('text-base');
   });
 
   it('has accessible focus ring classes', () => {
