@@ -22,16 +22,18 @@ export interface HealthResponse {
   service: string;
   version: string;
   build_version: string;
+  environment: string;
   startup_timestamp: number;
   uptime_seconds: number;
-  model_loaded: boolean;
-  configuration_loaded: boolean;
+  release_id: string;
+  checks: { name: string; status: string }[];
+  dependencies: {
+    model: string;
+    vectorizer: string;
+    config: string;
+  };
   config_summary: Record<string, unknown>;
   service_availability: string;
-  dependency_status: DependencyStatus;
-  disk_usage: DiskUsage | null;
-  memory_usage: MemoryUsage | null;
-  registered_routes: number;
   active_requests: number;
   test_mode: boolean;
 }

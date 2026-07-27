@@ -34,6 +34,7 @@ api.interceptors.response.use(
     const message =
       error.response?.data?.detail ||
       (status === 429 ? 'Too many requests. Please wait a moment and try again.' : undefined) ||
+      (status === 422 ? 'The submitted data is invalid. Please check your input and try again.' : undefined) ||
       (status === 0 ? 'Unable to reach the server. Please check your connection.' : undefined) ||
       (status >= 500 ? 'The server encountered an error. Please try again later.' : undefined) ||
       error.message ||
@@ -47,9 +48,5 @@ api.interceptors.response.use(
     return Promise.reject(new Error(message));
   }
 );
-
-export function createCancelToken() {
-  return axios.CancelToken.source();
-}
 
 export default api;

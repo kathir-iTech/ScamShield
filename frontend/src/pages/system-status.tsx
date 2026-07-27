@@ -32,16 +32,16 @@ export default function SystemStatus() {
             <div className="glass rounded-2xl p-7 animate-slide-up">
               <div className="flex items-center justify-center gap-4">
                 <div className={`flex h-14 w-14 items-center justify-center rounded-xl ${
-                  health.status === 'healthy' ? 'bg-success/10 text-success' : 'bg-danger/10 text-danger'
+                  health.status === 'pass' ? 'bg-success/10 text-success' : 'bg-danger/10 text-danger'
                 }`}>
-                  {health.status === 'healthy'
+                  {health.status === 'pass'
                     ? <ShieldCheck className="h-7 w-7" />
                     : <ShieldAlert className="h-7 w-7" />
                   }
                 </div>
                 <div>
                   <p className="text-lg font-semibold text-text-primary">
-                    {health.status === 'healthy' ? 'All systems normal' : 'Service degraded'}
+                    {health.status === 'pass' ? 'All systems normal' : 'Service degraded'}
                   </p>
                   <p className="text-sm text-text-secondary">{health.status}</p>
                 </div>
@@ -51,7 +51,7 @@ export default function SystemStatus() {
             <div className="glass rounded-2xl p-7 animate-slide-up stagger-2">
               <div className="space-y-5">
                 {[
-                  { label: 'Model', value: health.model_loaded ? 'Loaded' : 'Unavailable', status: health.model_loaded ? 'success' : 'danger' },
+                  { label: 'Model', value: health.dependencies?.model === 'loaded' ? 'Loaded' : 'Unavailable', status: health.dependencies?.model === 'loaded' ? 'success' : 'danger' },
                   { label: 'Uptime', value: `${Math.floor(health.uptime_seconds / 3600)}h ${Math.floor((health.uptime_seconds % 3600) / 60)}m`, status: 'neutral' },
                   { label: 'Version', value: health.version, status: 'neutral' },
                 ].map((item) => (

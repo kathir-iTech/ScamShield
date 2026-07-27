@@ -77,8 +77,8 @@ export default function Dashboard() {
         <div className="grid gap-4 md:grid-cols-3">
           <StatCard
             title="Service Status"
-            value={healthQuery.data?.status === 'healthy' ? 'Healthy' : 'Degraded'}
-            icon={healthQuery.data?.status === 'healthy' ? CheckCircle : XCircle}
+            value={healthQuery.data?.status === 'pass' ? 'Healthy' : 'Degraded'}
+            icon={healthQuery.data?.status === 'pass' ? CheckCircle : XCircle}
             isLoading={isLoading}
             error={hasError}
             onRetry={() => healthQuery.refetch()}

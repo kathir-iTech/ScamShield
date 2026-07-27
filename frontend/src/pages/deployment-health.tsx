@@ -83,8 +83,8 @@ export function DeploymentHealth() {
           <h2 className="text-sm font-semibold text-text-primary mb-5">System Checks</h2>
           <div className="space-y-4">
             {[
-              { label: 'ML Model', value: data.model_loaded ? 'Loaded' : 'Unavailable', status: data.model_loaded },
-              { label: 'Configuration', value: data.configuration_loaded ? 'Valid' : 'Invalid', status: data.configuration_loaded },
+              { label: 'ML Model', value: data.dependencies?.model === 'loaded' ? 'Loaded' : 'Unavailable', status: data.dependencies?.model === 'loaded' },
+              { label: 'Configuration', value: data.dependencies?.config === 'valid' ? 'Valid' : 'Invalid', status: data.dependencies?.config === 'valid' },
               { label: 'Active Requests', value: String(data.active_requests), status: true },
             ].map((item) => (
               <div key={item.label} className="flex items-center justify-between">
@@ -99,14 +99,14 @@ export function DeploymentHealth() {
           </div>
         </div>
 
-        {data.dependency_status && (
+        {data.dependencies && (
           <div className="glass rounded-2xl p-7 animate-slide-up stagger-3">
             <h2 className="text-sm font-semibold text-text-primary mb-5">Dependencies</h2>
             <div className="space-y-4">
               {[
-                { label: 'Model', value: data.dependency_status.model, status: data.dependency_status.model === 'loaded' },
-                { label: 'Vectorizer', value: data.dependency_status.vectorizer, status: data.dependency_status.vectorizer === 'loaded' },
-                { label: 'Config', value: data.dependency_status.config, status: data.dependency_status.config === 'valid' },
+                { label: 'Model', value: data.dependencies.model, status: data.dependencies.model === 'loaded' },
+                { label: 'Vectorizer', value: data.dependencies.vectorizer, status: data.dependencies.vectorizer === 'loaded' },
+                { label: 'Config', value: data.dependencies.config, status: data.dependencies.config === 'valid' },
               ].map((item) => (
                 <div key={item.label} className="flex items-center justify-between">
                   <span className="text-sm text-text-secondary">{item.label}</span>
