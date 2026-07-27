@@ -1,0 +1,54 @@
+[
+  {
+    "advisory_id": "CERT-IN-2024-001",
+    "title": "Lottery Scam Advisory",
+    "source": "cert-in",
+    "date": "2024-08-01",
+    "summary": "Fraudsters are sending fake lottery winning messages demanding processing fees. Victims are asked to pay registration fees to claim non-existent prizes.",
+    "recommendation": "Do not respond to unsolicited lottery messages. No legitimate lottery requires advance fees. Report to cybercrime.gov.in.",
+    "affected_indicators": ["lottery", "processing fee", "registration fee", "prize money"],
+    "indicator_types": ["keyword"],
+    "severity": "HIGH",
+    "url": "https://cert-in.org.in/lottery-scam",
+    "tags": ["lottery", "advance-fee", "consumer-fraud"]
+  },
+  {
+    "advisory_id": "CERT-IN-2025-001",
+    "title": "Fake Customer Support Scams",
+    "source": "cert-in",
+    "date": "2025-03-01",
+    "summary": "Fake customer support numbers circulating on social media and search results. Victims pay for services that are never delivered.",
+    "recommendation": "Always verify customer support numbers from official websites or documents. Do not call numbers found in unsolicited messages.",
+    "affected_indicators": ["customer support", "technical support", "helpdesk number"],
+    "indicator_types": ["keyword", "phone"],
+    "severity": "HIGH",
+    "url": "https://cert-in.org.in/fake-support",
+    "tags": ["support", "social-engineering", "phone"]
+  },
+  {
+    "advisory_id": "CERT-IN-2024-002",
+    "title": "Phishing via SMS (Smishing) Advisory",
+    "source": "cert-in",
+    "date": "2024-09-01",
+    "summary": "Increase in SMS-based phishing (smishing) targeting banking customers. Messages contain shortened URLs leading to fake banking portals.",
+    "recommendation": "Do not click on links in SMS messages. Always access bank portals directly through official apps or bookmarked URLs.",
+    "affected_indicators": ["click here", "verify now", "update account", "shortened url"],
+    "indicator_types": ["keyword", "url"],
+    "severity": "HIGH",
+    "url": "https://cert-in.org.in/phishing",
+    "tags": ["phishing", "smishing", "banking"]
+  },
+  {
+    "advisory_id": "CERT-IN-2025-002",
+    "title": "KYC Fraud Advisory",
+    "source": "cert-in",
+    "date": "2025-06-15",
+    "summary": "Fraudsters impersonating bank officials requesting KYC updates via SMS and WhatsApp. Victims directed to phishing websites that steal credentials.",
+    "recommendation": "Banks never ask for KYC updates via SMS links. Visit branch directly or use official banking apps for any updates.",
+    "affected_indicators": ["kyc update", "kyc complete", "kyc verification"],
+    "indicator_types": ["keyword"],
+    "severity": "CRITICAL",
+    "url": "https://cert-in.org.in/kyc-fraud",
+    "tags": ["kyc", "banking", "phishing"]
+  }
+]

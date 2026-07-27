@@ -1,0 +1,19 @@
+title = "ScamShield Gitleaks Config"
+
+[allowlist]
+description = "Known safe patterns for ScamShield"
+paths = [
+  # Test fixtures and mock data
+  "(?i)test.*fixture",
+  "(?i)test.*data",
+  "(?i)mocks?/",
+  # Dependency lockfiles
+  "package-lock\\.json",
+  # Built artifacts
+  "dist/",
+  # Sample/training data
+  "data/.*\\.(csv|json)",
+  # Documentation examples
+  "(?i)README\\.md",
+  "(?i).*_example\\.",
+]

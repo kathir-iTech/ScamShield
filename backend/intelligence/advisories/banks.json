@@ -1,0 +1,28 @@
+[
+  {
+    "advisory_id": "SBI-2025-001",
+    "title": "SBI KYC Fraud Alert",
+    "source": "bank",
+    "date": "2025-04-01",
+    "summary": "SBI warns customers about fake SMS claiming account will be deactivated unless KYC is updated via a link. SBI never sends such links.",
+    "recommendation": "SBI does not send KYC update links. Report such messages to report@sbi.co.in. Block and report the sender.",
+    "affected_indicators": ["sbi", "state bank", "kyc update", "account deactivated"],
+    "indicator_types": ["keyword"],
+    "severity": "HIGH",
+    "url": "https://sbi.co.in/security",
+    "tags": ["sbi", "kyc", "banking"]
+  },
+  {
+    "advisory_id": "HDFC-2025-001",
+    "title": "HDFC Bank Phishing Alert",
+    "source": "bank",
+    "date": "2025-05-15",
+    "summary": "Fraud SMS impersonating HDFC Bank asking customers to click links for reward points or cashback. Links lead to fake HDFC login pages.",
+    "recommendation": "HDFC never asks for login credentials via SMS. Access net banking only through hdfcbank.com. Report phishing to phishing@hdfcbank.com.",
+    "affected_indicators": ["hdfc", "reward points", "cashback", "net banking"],
+    "indicator_types": ["keyword", "url"],
+    "severity": "HIGH",
+    "url": "https://hdfcbank.com/security",
+    "tags": ["hdfc", "phishing", "banking"]
+  }
+]

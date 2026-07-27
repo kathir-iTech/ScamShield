@@ -1,0 +1,180 @@
+[
+  {
+    "id": "bank-kyc-001",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.9325332002320893,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "CRITICAL",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "CRITICAL",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "inference_ms": 10332.9,
+    "entities": [
+      {
+        "value": "http://bit.ly/kyc-update",
+        "type": "shortened_url",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Destination hidden behind URL shortener"
+      },
+      {
+        "value": "Sbi",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "bank-kyc-002",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8956266178790672,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "CRITICAL",
+    "risk_level": "HIGH",
+    "expected_decision_level": "CRITICAL",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "inference_ms": 20.7,
+    "entities": [
+      {
+        "value": "https://hdfc-verify.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Hdfc",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "bank-kyc-003",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8834425394194951,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "inference_ms": 8.2,
+    "entities": [
+      {
+        "value": "https://icici-update.xyz",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Icici",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      },
+      {
+        "value": "Aadhaar",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "bank-kyc-004",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.9670374043261828,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "CRITICAL",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "CRITICAL",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "inference_ms": 6.1,
+    "entities": [
+      {
+        "value": "http://sbi-kyc.ml",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Sbi",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "bank-kyc-005",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8807256863191049,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "inference_ms": 6.2,
+    "entities": [
+      {
+        "value": "https://axisverify.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Axis",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "advisory_id": "INT-2025-001",
+    "title": "Government Scheme Impersonation",
+    "source": "internal",
+    "date": "2025-07-01",
+    "summary": "Increase in messages impersonating PM Modi and central government schemes. Messages promise subsidies or pensions in exchange for registration fees.",
+    "recommendation": "Government schemes never charge processing fees. Verify schemes on official government portals. Report to cybercrime.gov.in.",
+    "affected_indicators": ["pm modi", "government scheme", "subsidy", "pension", "aadhaar"],
+    "indicator_types": ["keyword"],
+    "severity": "HIGH",
+    "url": "",
+    "tags": ["government", "scheme", "aadhaar"]
+  },
+  {
+    "advisory_id": "INT-2025-002",
+    "title": "Telegram Investment Group Scams",
+    "source": "internal",
+    "date": "2025-08-01",
+    "summary": "Fraudsters creating Telegram groups promising high-return stock tips and crypto investments. Victims are gradually defrauded through fake trading platforms.",
+    "recommendation": "Be cautious of unsolicited investment tips on messaging platforms. Verify SEBI registration of advisors. Do not invest based on Telegram group recommendations.",
+    "affected_indicators": ["guaranteed returns", "stock tips", "crypto investment", "trading group"],
+    "indicator_types": ["keyword"],
+    "severity": "MEDIUM",
+    "url": "",
+    "tags": ["investment", "telegram", "crypto"]
+  }
+]

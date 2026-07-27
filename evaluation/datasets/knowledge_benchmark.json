@@ -1,0 +1,122 @@
+[
+  {
+    "id": "know-url-001",
+    "query": "sbi-kyc-update.xyz",
+    "indicator_type": "domain",
+    "expected_indicator_id": "domain-wl-001",
+    "expected_match_type": "exact",
+    "expected_min_confidence": 0.85,
+    "expected_advisory": true,
+    "description": "Known SBI phishing domain should match exactly"
+  },
+  {
+    "id": "know-url-002",
+    "query": "www.secure-pay.top",
+    "indicator_type": "url",
+    "expected_indicator_id": "domain-wl-004",
+    "expected_match_type": "domain_match",
+    "expected_min_confidence": 0.75,
+    "expected_advisory": false,
+    "description": "Full URL with www should match domain"
+  },
+  {
+    "id": "know-phone-001",
+    "query": "9876543210",
+    "indicator_type": "phone",
+    "expected_indicator_id": "phone-wl-001",
+    "expected_match_type": "exact",
+    "expected_min_confidence": 0.85,
+    "expected_advisory": false,
+    "description": "Known scam phone number digits-only match"
+  },
+  {
+    "id": "know-phone-002",
+    "query": "+91-8765432109",
+    "indicator_type": "phone",
+    "expected_indicator_id": "phone-wl-002",
+    "expected_match_type": "exact",
+    "expected_min_confidence": 0.65,
+    "expected_advisory": false,
+    "description": "Known lottery scam phone with country code"
+  },
+  {
+    "id": "know-upi-001",
+    "query": "scamcollector@paytm",
+    "indicator_type": "upi",
+    "expected_indicator_id": "upi-wl-001",
+    "expected_match_type": "exact",
+    "expected_min_confidence": 0.80,
+    "expected_advisory": false,
+    "description": "Known scam UPI ID exact match"
+  },
+  {
+    "id": "know-email-001",
+    "query": "support@secure-bank-verify.com",
+    "indicator_type": "email",
+    "expected_indicator_id": "email-wl-001",
+    "expected_match_type": "exact",
+    "expected_min_confidence": 0.85,
+    "expected_advisory": false,
+    "description": "Known phishing email exact match"
+  },
+  {
+    "id": "know-keyword-001",
+    "query": "kyc update",
+    "indicator_type": "keyword",
+    "expected_indicator_id": "pat-bank-kyc-001",
+    "expected_match_type": "exact",
+    "expected_min_confidence": 0.80,
+    "expected_advisory": true,
+    "description": "Known KYC fraud keyword match"
+  },
+  {
+    "id": "know-keyword-002",
+    "query": "verify account now",
+    "indicator_type": "keyword",
+    "expected_indicator_id": "pat-phish-001",
+    "expected_match_type": "prefix",
+    "expected_min_confidence": 0.50,
+    "expected_advisory": true,
+    "description": "Phishing keyword matched via prefix"
+  },
+  {
+    "id": "know-keyword-003",
+    "query": "you won lottery 25 lakhs",
+    "indicator_type": "keyword",
+    "expected_indicator_id": "pat-lottery-001",
+    "expected_match_type": "prefix",
+    "expected_min_confidence": 0.70,
+    "expected_advisory": true,
+    "description": "Lottery keyword prefix match"
+  },
+  {
+    "id": "know-url-003",
+    "query": "hdfc-reward.club",
+    "indicator_type": "domain",
+    "expected_indicator_id": "domain-wl-002",
+    "expected_match_type": "exact",
+    "expected_min_confidence": 0.85,
+    "expected_advisory": false,
+    "description": "Known HDFC reward phishing domain exact match"
+  },
+  {
+    "id": "know-advisory-001",
+    "query": "share otp",
+    "indicator_type": "keyword",
+    "expected_indicator_id": "pat-otp-001",
+    "expected_match_type": "exact",
+    "expected_min_confidence": 0.85,
+    "expected_advisory": true,
+    "description": "OTP share advisory match"
+  },
+  {
+    "id": "know-nonmatch-001",
+    "query": "hello how are you",
+    "indicator_type": "keyword",
+    "expected_indicator_id": null,
+    "expected_match_type": "none",
+    "expected_min_confidence": 0.0,
+    "expected_advisory": false,
+    "description": "Benign text should not match any pattern"
+  }
+]

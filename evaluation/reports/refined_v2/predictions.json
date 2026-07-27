@@ -1,0 +1,5912 @@
+[
+  {
+    "id": "bank-kyc-001",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.9325332002320893,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "CRITICAL",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "CRITICAL",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Banking",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 12119.6,
+    "entities": [
+      {
+        "value": "http://bit.ly/kyc-update",
+        "type": "shortened_url",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Destination hidden behind URL shortener"
+      },
+      {
+        "value": "Sbi",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "bank-kyc-002",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8956266178790672,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "CRITICAL",
+    "risk_level": "HIGH",
+    "expected_decision_level": "CRITICAL",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Banking",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 80.0,
+    "entities": [
+      {
+        "value": "https://hdfc-verify.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Hdfc",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "bank-kyc-003",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8834425394194951,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Banking",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 193.7,
+    "entities": [
+      {
+        "value": "https://icici-update.xyz",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Icici",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      },
+      {
+        "value": "Aadhaar",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "bank-kyc-004",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.9670374043261828,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "CRITICAL",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "CRITICAL",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Banking",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 183.3,
+    "entities": [
+      {
+        "value": "http://sbi-kyc.ml",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Sbi",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "bank-kyc-005",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8807256863191049,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Banking",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 110.1,
+    "entities": [
+      {
+        "value": "https://axisverify.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Axis",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "bank-kyc-006",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.926671022378661,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "CRITICAL",
+    "risk_level": "HIGH",
+    "expected_decision_level": "CRITICAL",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Banking",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 204.0,
+    "entities": [
+      {
+        "value": "https://sbi-kyc.gq",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Sbi",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "bank-kyc-007",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8945068571084691,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Banking",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 107.5,
+    "entities": [
+      {
+        "value": "http://tiny.cc/kyc-kotak",
+        "type": "shortened_url",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Destination hidden behind URL shortener"
+      },
+      {
+        "value": "Kotak Mahindra",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "bank-kyc-008",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7918198989911082,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Banking",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 130.9,
+    "entities": [
+      {
+        "value": "http://pnb-update.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Pnb",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "bank-kyc-009",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.894723993946811,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Banking",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 93.2,
+    "entities": [
+      {
+        "value": "https://canara-kyc.ga",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Canara Bank",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      },
+      {
+        "value": "Aadhaar",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "bank-kyc-010",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.6149324536718281,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Banking",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 53.9,
+    "entities": [
+      {
+        "value": "http://bob-verify.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Bob",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "bank-kyc-011",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.9234991978267336,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Banking",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 95.0,
+    "entities": [
+      {
+        "value": "https://indusind-alert.top",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Indusind",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "bank-kyc-012",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8535101156606585,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Banking",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 108.6,
+    "entities": [
+      {
+        "value": "http://secure-sbi.xyz",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Sbi",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "bank-kyc-013",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7974106200080378,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "CRITICAL",
+    "risk_level": "HIGH",
+    "expected_decision_level": "CRITICAL",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Banking",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 98.0,
+    "entities": [
+      {
+        "value": "http://rbi-kyc.ml",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rbi",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "bank-kyc-014",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.9362708201106152,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Banking",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 110.3,
+    "entities": [
+      {
+        "value": "https://sbi-update.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Sbi",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "bank-kyc-015",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.9722744784605922,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Banking",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 134.0,
+    "entities": [
+      {
+        "value": "http://tinyurl.com/hdfc-update",
+        "type": "shortened_url",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Destination hidden behind URL shortener"
+      },
+      {
+        "value": "Hdfc",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "upi-001",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8739979013444382,
+    "expected_category": "UPI Scam",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 217.2,
+    "entities": [
+      {
+        "value": "http://gpay-cashback.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 4500",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "upi-002",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.83414014492402,
+    "expected_category": "UPI Scam",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 144.9,
+    "entities": [
+      {
+        "value": "https://phonepe-winner.top",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 10000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "upi-003",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8194120330226682,
+    "expected_category": "UPI Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 117.4,
+    "entities": [
+      {
+        "value": "https://paytm-verify.xyz",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "upi-004",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8703648024602562,
+    "expected_category": "UPI Scam",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 103.6,
+    "entities": [
+      {
+        "value": "http://tiny.cc/cashback",
+        "type": "shortened_url",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Destination hidden behind URL shortener"
+      },
+      {
+        "value": "Rs 5000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "upi-005",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.5109712439245887,
+    "expected_category": "UPI Scam",
+    "scam_category": "UPI Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "UPI",
+    "inference_ms": 113.8,
+    "entities": [
+      {
+        "value": "http://payment-confirm.ml",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 7200",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "upi-006",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8360182666142588,
+    "expected_category": "UPI Scam",
+    "scam_category": "UPI Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "UPI",
+    "inference_ms": 115.3,
+    "entities": [
+      {
+        "value": "https://bhim-upi.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "upi-007",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7923887254077617,
+    "expected_category": "UPI Scam",
+    "scam_category": "UPI Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "UPI",
+    "inference_ms": 109.0,
+    "entities": [
+      {
+        "value": "http://gpay-secure.xyz",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "upi-008",
+    "expected_prediction": "scam",
+    "prediction": "safe",
+    "confidence": 0.5717738394629952,
+    "expected_category": "UPI Scam",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 150.2,
+    "entities": [
+      {
+        "value": "http://refund-phonepe.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "upi-009",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8603538728136096,
+    "expected_category": "UPI Scam",
+    "scam_category": "UPI Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "UPI",
+    "inference_ms": 112.1,
+    "entities": [
+      {
+        "value": "https://reward-claim.ga",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 9999",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "upi-010",
+    "expected_prediction": "scam",
+    "prediction": "safe",
+    "confidence": 0.6088903530140725,
+    "expected_category": "UPI Scam",
+    "scam_category": "UPI Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "UPI",
+    "inference_ms": 197.9,
+    "entities": [
+      {
+        "value": "http://paytm-offer.top",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 2500",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "upi-011",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.964780023170836,
+    "expected_category": "UPI Scam",
+    "scam_category": "UPI Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "UPI",
+    "inference_ms": 122.5,
+    "entities": [
+      {
+        "value": "https://amazon-gift.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 5000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "upi-012",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.9047753533996928,
+    "expected_category": "UPI Scam",
+    "scam_category": "UPI Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "UPI",
+    "inference_ms": 122.6,
+    "entities": [
+      {
+        "value": "https://gpay-cash.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 8000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "upi-013",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7877722231117549,
+    "expected_category": "UPI Scam",
+    "scam_category": "UPI Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "UPI",
+    "inference_ms": 119.4,
+    "entities": [
+      {
+        "value": "http://phonepe-upgrade.top",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "upi-014",
+    "expected_prediction": "scam",
+    "prediction": "safe",
+    "confidence": 0.5836552587111359,
+    "expected_category": "UPI Scam",
+    "scam_category": "UPI Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "UPI",
+    "inference_ms": 106.5,
+    "entities": [
+      {
+        "value": "http://paytm-dispute.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 15000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "upi-015",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7505958747604858,
+    "expected_category": "UPI Scam",
+    "scam_category": "UPI Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "UPI",
+    "inference_ms": 133.9,
+    "entities": [
+      {
+        "value": "https://gpay-limit.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 50000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "lottery-001",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.91126145218304,
+    "expected_category": "Lottery Scam",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "CRITICAL",
+    "risk_level": "HIGH",
+    "expected_decision_level": "CRITICAL",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Lottery",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 168.3,
+    "entities": [
+      {
+        "value": "1800-123-4567",
+        "type": "phone_indian",
+        "confidence": 0.9,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Indian telecom contact point"
+      },
+      {
+        "value": "Rs 25,00,000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "lottery-002",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.9270720124238384,
+    "expected_category": "Lottery Scam",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Lottery",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 129.2,
+    "entities": [
+      {
+        "value": "amazon-promo.tk",
+        "type": "domain",
+        "confidence": 0.95,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "May host malicious content"
+      },
+      {
+        "value": "claim@amazon-promo.tk",
+        "type": "email",
+        "confidence": 0.98,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Potential phishing or impersonation"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "lottery-003",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.55561609656586,
+    "expected_category": "Lottery Scam",
+    "scam_category": "Job Scam",
+    "expected_risk_level": "CRITICAL",
+    "risk_level": "HIGH",
+    "expected_decision_level": "CRITICAL",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Lottery",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 117.5,
+    "entities": [
+      {
+        "value": "Rs 15,00,000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      },
+      {
+        "value": "Rs 2500",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "lottery-004",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.9139468161602076,
+    "expected_category": "Lottery Scam",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Lottery",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 119.8,
+    "entities": [
+      {
+        "value": "http://flipkart-winner.xyz",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 50,000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      },
+      {
+        "value": "Rs 199",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "lottery-005",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.867744088849868,
+    "expected_category": "Lottery Scam",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Lottery",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 112.3,
+    "entities": [
+      {
+        "value": "Rs 1 crore",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "lottery-006",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8559450650754359,
+    "expected_category": "Lottery Scam",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Lottery",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 84.6,
+    "entities": [
+      {
+        "value": "Rs 10 lakh",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "lottery-007",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8617015262898519,
+    "expected_category": "Lottery Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Lottery",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 207.8,
+    "entities": [
+      {
+        "value": "http://hdfc-draw.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Hdfc",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      },
+      {
+        "value": "Rs 50,000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "lottery-008",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7666480173110326,
+    "expected_category": "Lottery Scam",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Lottery",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 121.2,
+    "entities": [
+      {
+        "value": "http://uk-lottery.ml",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 75,000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "lottery-009",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8332804019447176,
+    "expected_category": "Lottery Scam",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Lottery",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 139.3,
+    "entities": [
+      {
+        "value": "outlook.com",
+        "type": "domain",
+        "confidence": 0.95,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "May host malicious content"
+      },
+      {
+        "value": "tata-promo@outlook.com",
+        "type": "email",
+        "confidence": 0.98,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Potential phishing or impersonation"
+      },
+      {
+        "value": "Rs 5 lakh",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "lottery-010",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.5107316422018884,
+    "expected_category": "Lottery Scam",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Lottery",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 98.8,
+    "entities": [
+      {
+        "value": "Rs 10,00,000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "lottery-011",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.637421614130293,
+    "expected_category": "Lottery Scam",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Lottery",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 105.3,
+    "entities": [
+      {
+        "value": "http://bigbazaar-offer.ga",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 25,000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "lottery-012",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.9639684042284246,
+    "expected_category": "Lottery Scam",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "SUSPICIOUS",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Lottery",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 58.4,
+    "entities": [],
+    "error": ""
+  },
+  {
+    "id": "invest-001",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.5109729875793028,
+    "expected_category": "Investment Scam",
+    "scam_category": "Investment Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Investment",
+    "reasoning_subfamily": "Investment",
+    "inference_ms": 124.3,
+    "entities": [
+      {
+        "value": "http://quick-profit.ml",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "invest-002",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.677008765571993,
+    "expected_category": "Investment Scam",
+    "scam_category": "Investment Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Investment",
+    "reasoning_subfamily": "Investment",
+    "inference_ms": 181.1,
+    "entities": [
+      {
+        "value": "https://crypto-profit.xyz",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 25,000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      },
+      {
+        "value": "Rs 1000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "invest-003",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.5215108859302745,
+    "expected_category": "Investment Scam",
+    "scam_category": "Investment Scam",
+    "expected_risk_level": "CRITICAL",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "CRITICAL",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Investment",
+    "reasoning_subfamily": "Investment",
+    "inference_ms": 154.1,
+    "entities": [
+      {
+        "value": "1800-123-4567",
+        "type": "phone_indian",
+        "confidence": 0.9,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Indian telecom contact point"
+      },
+      {
+        "value": "Sebi",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "invest-004",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.5445999707225588,
+    "expected_category": "Investment Scam",
+    "scam_category": "Investment Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Investment",
+    "reasoning_subfamily": "Investment",
+    "inference_ms": 92.9,
+    "entities": [
+      {
+        "value": "http://mutual-fund.top",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 5000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "invest-005",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.6555958233230459,
+    "expected_category": "Crypto Scam",
+    "scam_category": "Crypto Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Crypto",
+    "reasoning_subfamily": "Crypto",
+    "inference_ms": 153.1,
+    "entities": [
+      {
+        "value": "https://t.me/crypto-invest",
+        "type": "url",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "May lead to phishing site"
+      },
+      {
+        "value": "t.me/crypto",
+        "type": "social_handle",
+        "confidence": 0.9,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Potential social media vector"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "invest-006",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7220008350503703,
+    "expected_category": "Investment Scam",
+    "scam_category": "Job Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Investment",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 211.5,
+    "entities": [
+      {
+        "value": "home-work.tk",
+        "type": "domain",
+        "confidence": 0.95,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "May host malicious content"
+      },
+      {
+        "value": "job@home-work.tk",
+        "type": "email",
+        "confidence": 0.98,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Potential phishing or impersonation"
+      },
+      {
+        "value": "Rs 500",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "invest-007",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7616871105309588,
+    "expected_category": "Investment Scam",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "SUSPICIOUS",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Further assessment required",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Investment",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 5.5,
+    "entities": [],
+    "error": ""
+  },
+  {
+    "id": "invest-008",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.6771544599122119,
+    "expected_category": "Crypto Scam",
+    "scam_category": "Investment Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Crypto",
+    "reasoning_subfamily": "Investment",
+    "inference_ms": 79.4,
+    "entities": [
+      {
+        "value": "http://nft-drop.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "invest-009",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.5374077143484678,
+    "expected_category": "Investment Scam",
+    "scam_category": "Investment Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Investment",
+    "reasoning_subfamily": "Investment",
+    "inference_ms": 102.6,
+    "entities": [
+      {
+        "value": "http://rbi-scheme.ml",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rbi",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "invest-010",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.6771652084706338,
+    "expected_category": "Crypto Scam",
+    "scam_category": "Investment Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Crypto",
+    "reasoning_subfamily": "Investment",
+    "inference_ms": 113.3,
+    "entities": [
+      {
+        "value": "https://trading-bot.xyz",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 50,000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "invest-011",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.6257800021062611,
+    "expected_category": "Investment Scam",
+    "scam_category": "Investment Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "HIGH RISK",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Further assessment required",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Investment",
+    "reasoning_subfamily": "Investment",
+    "inference_ms": 108.5,
+    "entities": [
+      {
+        "value": "t.me",
+        "type": "domain",
+        "confidence": 0.95,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "May host malicious content"
+      },
+      {
+        "value": "Telegram: t",
+        "type": "social_handle",
+        "confidence": 0.9,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Potential social media vector"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "invest-012",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8195010124439986,
+    "expected_category": "Crypto Scam",
+    "scam_category": "Investment Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Crypto",
+    "reasoning_subfamily": "Investment",
+    "inference_ms": 104.9,
+    "entities": [
+      {
+        "value": "http://crypto-mine.ga",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 2000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "delivery-001",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7089852343408192,
+    "expected_category": "Courier Scam",
+    "scam_category": "Courier Scam",
+    "expected_risk_level": "CRITICAL",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "CRITICAL",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Social Engineering",
+    "expected_subfamily": "Delivery",
+    "reasoning_subfamily": "Delivery",
+    "inference_ms": 118.4,
+    "entities": [
+      {
+        "value": "http://dhl-customs.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 15000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "delivery-002",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.580727443532841,
+    "expected_category": "Customs Scam",
+    "scam_category": "Customs Scam",
+    "expected_risk_level": "CRITICAL",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "CRITICAL",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Social Engineering",
+    "expected_subfamily": "Customs",
+    "reasoning_subfamily": "Customs",
+    "inference_ms": 88.4,
+    "entities": [
+      {
+        "value": "http://fedex-alert.xyz",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 25000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "delivery-003",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7448358147075584,
+    "expected_category": "Courier Scam",
+    "scam_category": "Courier Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Social Engineering",
+    "expected_subfamily": "Delivery",
+    "reasoning_subfamily": "Delivery",
+    "inference_ms": 131.3,
+    "entities": [
+      {
+        "value": "http://dart-customs.ml",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 8000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "delivery-004",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8175844228131934,
+    "expected_category": "Customs Scam",
+    "scam_category": "Courier Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Social Engineering",
+    "expected_subfamily": "Customs",
+    "reasoning_subfamily": "Delivery",
+    "inference_ms": 101.3,
+    "entities": [
+      {
+        "value": "https://amazon-customs.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 12000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "delivery-005",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.6369716789070414,
+    "expected_category": "Courier Scam",
+    "scam_category": "Courier Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Social Engineering",
+    "expected_subfamily": "Delivery",
+    "reasoning_subfamily": "Delivery",
+    "inference_ms": 156.4,
+    "entities": [
+      {
+        "value": "http://track-customs.top",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "delivery-006",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7659184880689232,
+    "expected_category": "Customs Scam",
+    "scam_category": "Courier Scam",
+    "expected_risk_level": "CRITICAL",
+    "risk_level": "HIGH",
+    "expected_decision_level": "CRITICAL",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Social Engineering",
+    "expected_subfamily": "Customs",
+    "reasoning_subfamily": "Delivery",
+    "inference_ms": 62.2,
+    "entities": [
+      {
+        "value": "http://customs-india.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "delivery-007",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.5382858449775788,
+    "expected_category": "Courier Scam",
+    "scam_category": "Courier Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Social Engineering",
+    "expected_subfamily": "Delivery",
+    "reasoning_subfamily": "Delivery",
+    "inference_ms": 87.5,
+    "entities": [
+      {
+        "value": "http://dtdc-billing.xyz",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 3500",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "delivery-008",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.5297478129325787,
+    "expected_category": "Courier Scam",
+    "scam_category": "Courier Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Social Engineering",
+    "expected_subfamily": "Delivery",
+    "reasoning_subfamily": "Delivery",
+    "inference_ms": 140.9,
+    "entities": [
+      {
+        "value": "http://speedpost-in.ml",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 5 lakh",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "delivery-009",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8815526197992442,
+    "expected_category": "Customs Scam",
+    "scam_category": "Courier Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Social Engineering",
+    "expected_subfamily": "Customs",
+    "reasoning_subfamily": "Delivery",
+    "inference_ms": 127.3,
+    "entities": [
+      {
+        "value": "http://tiny.cc/amazon-customs",
+        "type": "shortened_url",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Destination hidden behind URL shortener"
+      },
+      {
+        "value": "Rs 9000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "delivery-010",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.6939607785935616,
+    "expected_category": "Customs Scam",
+    "scam_category": "Customs Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Social Engineering",
+    "expected_subfamily": "Customs",
+    "reasoning_subfamily": "Customs",
+    "inference_ms": 106.0,
+    "entities": [
+      {
+        "value": "http://customs-alert.ga",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "delivery-011",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.6074783053070313,
+    "expected_category": "Courier Scam",
+    "scam_category": "Courier Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Social Engineering",
+    "expected_subfamily": "Delivery",
+    "reasoning_subfamily": "Delivery",
+    "inference_ms": 176.3,
+    "entities": [
+      {
+        "value": "https://dhl-india.top",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 12000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "delivery-012",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7720628505556753,
+    "expected_category": "Courier Scam",
+    "scam_category": "Courier Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Social Engineering",
+    "expected_subfamily": "Delivery",
+    "reasoning_subfamily": "Delivery",
+    "inference_ms": 94.8,
+    "entities": [
+      {
+        "value": "http://courier-insure.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 5000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "job-001",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7099515102143342,
+    "expected_category": "Job Scam",
+    "scam_category": "Job Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 157.9,
+    "entities": [
+      {
+        "value": "http://job-hiring.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 25000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      },
+      {
+        "value": "Rs 999",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "job-002",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7924193583058008,
+    "expected_category": "Job Scam",
+    "scam_category": "Job Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 99.2,
+    "entities": [
+      {
+        "value": "https://amazon-jobs.xyz",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 50000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "job-003",
+    "expected_prediction": "scam",
+    "prediction": "safe",
+    "confidence": 0.6552036739519471,
+    "expected_category": "Job Scam",
+    "scam_category": "Job Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 91.7,
+    "entities": [
+      {
+        "value": "http://part-time.top",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 2000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      },
+      {
+        "value": "Rs 499",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "job-004",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7011455196025729,
+    "expected_category": "Job Scam",
+    "scam_category": "Job Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 88.4,
+    "entities": [
+      {
+        "value": "http://dataentry.ml",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 1500",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      },
+      {
+        "value": "Rs 599",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "job-005",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8808208214066021,
+    "expected_category": "Job Scam",
+    "scam_category": "Investment Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Investment",
+    "inference_ms": 98.1,
+    "entities": [
+      {
+        "value": "https://flipkart-review.ga",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 100",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "job-006",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.6136137175334929,
+    "expected_category": "Job Scam",
+    "scam_category": "Job Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 134.2,
+    "entities": [
+      {
+        "value": "http://youtube-jobs.top",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 30000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      },
+      {
+        "value": "Rs 2000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "job-007",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.751810585329639,
+    "expected_category": "Job Scam",
+    "scam_category": "Job Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 125.2,
+    "entities": [
+      {
+        "value": "dubai-jobs.tk",
+        "type": "domain",
+        "confidence": 0.95,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "May host malicious content"
+      },
+      {
+        "value": "hr@dubai-jobs.tk",
+        "type": "email",
+        "confidence": 0.98,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Potential phishing or impersonation"
+      },
+      {
+        "value": "Rs 15000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "job-008",
+    "expected_prediction": "scam",
+    "prediction": "safe",
+    "confidence": 0.5873002597109799,
+    "expected_category": "Job Scam",
+    "scam_category": "Job Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 99.2,
+    "entities": [
+      {
+        "value": "http://callcenter-hire.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 299",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "job-009",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.680520212746334,
+    "expected_category": "Job Scam",
+    "scam_category": "Job Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 98.1,
+    "entities": [
+      {
+        "value": "http://tamil-jobs.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 30,000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      },
+      {
+        "value": "Rs 999",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "job-010",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7662545040045059,
+    "expected_category": "Job Scam",
+    "scam_category": "Job Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 142.5,
+    "entities": [
+      {
+        "value": "http://mnc-hire.xyz",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 1499",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "job-011",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.6276110971118088,
+    "expected_category": "Job Scam",
+    "scam_category": "Job Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 147.7,
+    "entities": [
+      {
+        "value": "http://copy-work.ml",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 2000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "job-012",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.6703955591108174,
+    "expected_category": "Job Scam",
+    "scam_category": "Job Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 113.0,
+    "entities": [
+      {
+        "value": "https://t.me/earn_online",
+        "type": "url",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "May lead to phishing site"
+      },
+      {
+        "value": "Rs 5000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      },
+      {
+        "value": "Telegram part",
+        "type": "social_handle",
+        "confidence": 0.9,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Potential social media vector"
+      },
+      {
+        "value": "t.me/earn_online",
+        "type": "social_handle",
+        "confidence": 0.9,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Potential social media vector"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "govt-001",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7074716130022941,
+    "expected_category": "Government Scheme Scam",
+    "scam_category": "Government Scheme Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 167.0,
+    "entities": [
+      {
+        "value": "https://pm-scheme.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Pm",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      },
+      {
+        "value": "Modi",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      },
+      {
+        "value": "Rs 5000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "govt-002",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.5880918296837415,
+    "expected_category": "Government Scheme Scam",
+    "scam_category": "Government Scheme Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 127.1,
+    "entities": [
+      {
+        "value": "http://govt-subsidy.xyz",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 15000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "govt-003",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8133928172499639,
+    "expected_category": "Government Scheme Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 64.9,
+    "entities": [
+      {
+        "value": "http://aadhaar-link.ml",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Aadhaar",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "govt-004",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8929927464618204,
+    "expected_category": "Government Scheme Scam",
+    "scam_category": "Government Scheme Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 91.3,
+    "entities": [
+      {
+        "value": "http://pmay-scheme.top",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Pm",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      },
+      {
+        "value": "Rs 5000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "govt-005",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.669862753605124,
+    "expected_category": "Government Scheme Scam",
+    "scam_category": "Government Scheme Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 156.5,
+    "entities": [
+      {
+        "value": "http://ayushman.ga",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Ayushman",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      },
+      {
+        "value": "Rs 5 lakh",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      },
+      {
+        "value": "Rs 999",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "govt-006",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8344146300567233,
+    "expected_category": "Government Scheme Scam",
+    "scam_category": "Investment Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Investment",
+    "inference_ms": 123.1,
+    "entities": [
+      {
+        "value": "http://nrega-register.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Nrega",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      },
+      {
+        "value": "Rs 250",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "govt-007",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.6883489030912748,
+    "expected_category": "Government Scheme Scam",
+    "scam_category": "Government Scheme Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 89.3,
+    "entities": [
+      {
+        "value": "https://pension-scheme.ml",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 2000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "govt-008",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7498243855157551,
+    "expected_category": "Government Scheme Scam",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 91.2,
+    "entities": [
+      {
+        "value": "http://itr-refund.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Income Tax",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      },
+      {
+        "value": "Itr",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      },
+      {
+        "value": "Rs 8500",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "govt-009",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.6600051815510062,
+    "expected_category": "Government Scheme Scam",
+    "scam_category": "Investment Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Investment",
+    "inference_ms": 91.2,
+    "entities": [
+      {
+        "value": "http://sarkari-scheme.xyz",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Sarkari",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      },
+      {
+        "value": "Rs 5000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "govt-010",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.555262499980875,
+    "expected_category": "Government Scheme Scam",
+    "scam_category": "Investment Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Investment",
+    "inference_ms": 96.9,
+    "entities": [
+      {
+        "value": "http://csc-scheme.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Csc",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      },
+      {
+        "value": "Rs 999",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "govt-011",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8635585838224409,
+    "expected_category": "Government Scheme Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 83.4,
+    "entities": [
+      {
+        "value": "http://aadhaar-update.ml",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Aadhaar",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      },
+      {
+        "value": "Rs 500",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "govt-012",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7954144530221835,
+    "expected_category": "Electricity Bill Scam",
+    "scam_category": "Electricity Bill Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Subscription",
+    "reasoning_subfamily": "Subscription",
+    "inference_ms": 184.8,
+    "entities": [
+      {
+        "value": "http://tneb-bill.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "otp-001",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.9023051085123349,
+    "expected_category": "Bank KYC Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "CRITICAL",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "CRITICAL",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Banking",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 118.5,
+    "entities": [
+      {
+        "value": "Sbi",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      },
+      {
+        "value": "784512",
+        "type": "otp_code",
+        "confidence": 0.92,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Active authentication credential"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "otp-002",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8216873260380293,
+    "expected_category": "OTP Scam",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "OTP",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 41.9,
+    "entities": [
+      {
+        "value": "321654",
+        "type": "otp_code",
+        "confidence": 0.92,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Active authentication credential"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "otp-003",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.9166194628039597,
+    "expected_category": "Phishing",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Fake Login",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 49.2,
+    "entities": [
+      {
+        "value": "542389",
+        "type": "otp_code",
+        "confidence": 0.92,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Active authentication credential"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "otp-004",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.5737776044135842,
+    "expected_category": "Phishing",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Fake Login",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 90.8,
+    "entities": [
+      {
+        "value": "9988776655",
+        "type": "phone_indian",
+        "confidence": 0.95,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Indian telecom contact point"
+      },
+      {
+        "value": "984312",
+        "type": "otp_code",
+        "confidence": 0.92,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Active authentication credential"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "otp-005",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7922619932990242,
+    "expected_category": "OTP Scam",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "OTP",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 57.5,
+    "entities": [
+      {
+        "value": "9988776655",
+        "type": "phone_indian",
+        "confidence": 0.95,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Indian telecom contact point"
+      },
+      {
+        "value": "673421",
+        "type": "otp_code",
+        "confidence": 0.92,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Active authentication credential"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "otp-006",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8643905023638885,
+    "expected_category": "Account Suspension",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Banking",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 79.3,
+    "entities": [
+      {
+        "value": "782345",
+        "type": "otp_code",
+        "confidence": 0.92,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Active authentication credential"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "otp-007",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7771632048437594,
+    "expected_category": "Subscription Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Subscription",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 99.8,
+    "entities": [
+      {
+        "value": "http://netflix-renew.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "otp-008",
+    "expected_prediction": "scam",
+    "prediction": "safe",
+    "confidence": 0.6352159221370957,
+    "expected_category": "Phishing",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "LOW",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Legitimate",
+    "expected_subfamily": "Fake Login",
+    "reasoning_subfamily": "Safe",
+    "inference_ms": 45.7,
+    "entities": [
+      {
+        "value": "https://apple-verify.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "otp-009",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.5868934251690286,
+    "expected_category": "Phishing",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Fake Login",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 46.4,
+    "entities": [
+      {
+        "value": "http://fb-secure.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "otp-010",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8399026732019886,
+    "expected_category": "Phishing",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Fake Login",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 23.7,
+    "entities": [
+      {
+        "value": "https://email-update.ml",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "qr-001",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8771389726908708,
+    "expected_category": "QR Code Scam",
+    "scam_category": "UPI Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "UPI",
+    "inference_ms": 199.0,
+    "entities": [
+      {
+        "value": "http://paytm-qr.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "QR code",
+        "type": "qr_keyword",
+        "confidence": 0.95,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "QR-based payment request"
+      },
+      {
+        "value": "Rs 5000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "qr-002",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.6523866801476511,
+    "expected_category": "QR Code Scam",
+    "scam_category": "QR Code Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "UPI",
+    "inference_ms": 126.9,
+    "entities": [
+      {
+        "value": "http://gift-qr.xyz",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "QR code",
+        "type": "qr_keyword",
+        "confidence": 0.95,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "QR-based payment request"
+      },
+      {
+        "value": "Rs 10,000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "qr-003",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8051428058033009,
+    "expected_category": "QR Code Scam",
+    "scam_category": "Electricity Bill Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "Subscription",
+    "inference_ms": 103.1,
+    "entities": [
+      {
+        "value": "http://bill-qr.top",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "QR code",
+        "type": "qr_keyword",
+        "confidence": 0.95,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "QR-based payment request"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "qr-004",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.9173241819687085,
+    "expected_category": "QR Code Scam",
+    "scam_category": "QR Code Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "UPI",
+    "inference_ms": 82.7,
+    "entities": [
+      {
+        "value": "http://free-recharge.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 200",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "qr-005",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8001242831574498,
+    "expected_category": "QR Code Scam",
+    "scam_category": "UPI Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "UPI",
+    "inference_ms": 170.9,
+    "entities": [
+      {
+        "value": "http://gpay-qr.ml",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "QR code",
+        "type": "qr_keyword",
+        "confidence": 0.95,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "QR-based payment request"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "qr-006",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.790530682443036,
+    "expected_category": "QR Code Scam",
+    "scam_category": "Courier Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Social Engineering",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "Delivery",
+    "inference_ms": 212.9,
+    "entities": [
+      {
+        "value": "http://delivery-qr.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 500",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "qr-007",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7814670466563272,
+    "expected_category": "QR Code Scam",
+    "scam_category": "Investment Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "Investment",
+    "inference_ms": 75.2,
+    "entities": [
+      {
+        "value": "http://earn-qr.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "QR code",
+        "type": "qr_keyword",
+        "confidence": 0.95,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "QR-based payment request"
+      },
+      {
+        "value": "2000rs",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "qr-008",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7283608848007284,
+    "expected_category": "QR Code Scam",
+    "scam_category": "QR Code Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "UPI",
+    "reasoning_subfamily": "UPI",
+    "inference_ms": 102.9,
+    "entities": [
+      {
+        "value": "https://zomato-offer.ga",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "QR code",
+        "type": "qr_keyword",
+        "confidence": 0.95,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "QR-based payment request"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "support-001",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.5581732672020544,
+    "expected_category": "Fake Customer Care",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Fake Support",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 105.5,
+    "entities": [
+      {
+        "value": "1800-123-4567",
+        "type": "phone_indian",
+        "confidence": 0.9,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Indian telecom contact point"
+      },
+      {
+        "value": "Sbi",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "support-002",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.5895464437908596,
+    "expected_category": "Fake Customer Care",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Fake Support",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 46.1,
+    "entities": [],
+    "error": ""
+  },
+  {
+    "id": "support-003",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8275499405106006,
+    "expected_category": "Fake Customer Care",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Fake Support",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 159.5,
+    "entities": [
+      {
+        "value": "1800-999-8888",
+        "type": "phone_indian",
+        "confidence": 0.9,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Indian telecom contact point"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "support-004",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7821154649536398,
+    "expected_category": "Fake Customer Care",
+    "scam_category": "Loan Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Fake Support",
+    "reasoning_subfamily": "Loan",
+    "inference_ms": 174.3,
+    "entities": [
+      {
+        "value": "1800-111-2222",
+        "type": "phone_indian",
+        "confidence": 0.9,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Indian telecom contact point"
+      },
+      {
+        "value": "Rs 50000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "support-005",
+    "expected_prediction": "scam",
+    "prediction": "safe",
+    "confidence": 0.6078670103628612,
+    "expected_category": "Fake Customer Care",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "LOW",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Fake Support",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 130.9,
+    "entities": [
+      {
+        "value": "1800-111-3333",
+        "type": "phone_indian",
+        "confidence": 0.9,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Indian telecom contact point"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "support-006",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8563416626408666,
+    "expected_category": "Fake Customer Care",
+    "scam_category": "Fake Customer Care",
+    "expected_risk_level": "HIGH",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Social Engineering",
+    "expected_subfamily": "Fake Support",
+    "reasoning_subfamily": "Fake Support",
+    "inference_ms": 182.0,
+    "entities": [
+      {
+        "value": "1800-123-9999",
+        "type": "phone_indian",
+        "confidence": 0.9,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Indian telecom contact point"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "support-007",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.525981277068051,
+    "expected_category": "Fake Customer Care",
+    "scam_category": "UPI Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Fake Support",
+    "reasoning_subfamily": "UPI",
+    "inference_ms": 188.3,
+    "entities": [
+      {
+        "value": "1800-222-4444",
+        "type": "phone_indian",
+        "confidence": 0.9,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Indian telecom contact point"
+      },
+      {
+        "value": "Rs 25000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "support-008",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.722884042225166,
+    "expected_category": "Fake Customer Care",
+    "scam_category": "Courier Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Social Engineering",
+    "expected_subfamily": "Fake Support",
+    "reasoning_subfamily": "Delivery",
+    "inference_ms": 125.7,
+    "entities": [
+      {
+        "value": "1800-333-5555",
+        "type": "phone_indian",
+        "confidence": 0.9,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Indian telecom contact point"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "support-009",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.6943063517203079,
+    "expected_category": "Fake Customer Care",
+    "scam_category": "Fake Customer Care",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Social Engineering",
+    "expected_subfamily": "Fake Support",
+    "reasoning_subfamily": "Fake Support",
+    "inference_ms": 102.5,
+    "entities": [
+      {
+        "value": "1800-444-6666",
+        "type": "phone_indian",
+        "confidence": 0.9,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Indian telecom contact point"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "support-010",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.6998059995485276,
+    "expected_category": "Fake Customer Care",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Social Engineering",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Fake Support",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 129.9,
+    "entities": [
+      {
+        "value": "1800-555-7777",
+        "type": "phone_indian",
+        "confidence": 0.9,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Indian telecom contact point"
+      },
+      {
+        "value": "Sbi",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "utility-001",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7626418584480629,
+    "expected_category": "Electricity Bill Scam",
+    "scam_category": "Electricity Bill Scam",
+    "expected_risk_level": "CRITICAL",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "CRITICAL",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Subscription",
+    "reasoning_subfamily": "Subscription",
+    "inference_ms": 98.3,
+    "entities": [
+      {
+        "value": "http://tneb-bill.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 4500",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "utility-002",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7259507344025979,
+    "expected_category": "Electricity Bill Scam",
+    "scam_category": "Electricity Bill Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Subscription",
+    "reasoning_subfamily": "Subscription",
+    "inference_ms": 134.0,
+    "entities": [
+      {
+        "value": "http://elect-penalty.xyz",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 25000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "utility-003",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7954144530221835,
+    "expected_category": "Electricity Bill Scam",
+    "scam_category": "Electricity Bill Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Subscription",
+    "reasoning_subfamily": "Subscription",
+    "inference_ms": 97.7,
+    "entities": [
+      {
+        "value": "http://bses-pay.top",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "utility-004",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7782136687041813,
+    "expected_category": "Electricity Bill Scam",
+    "scam_category": "Electricity Bill Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Subscription",
+    "reasoning_subfamily": "Subscription",
+    "inference_ms": 126.8,
+    "entities": [
+      {
+        "value": "http://tneb-alert.ga",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "utility-005",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.808046873343807,
+    "expected_category": "Government Scheme Scam",
+    "scam_category": "Government Scheme Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 129.0,
+    "entities": [
+      {
+        "value": "http://lpg-subsidy.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 1800",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "utility-006",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8816503777475275,
+    "expected_category": "Government Scheme Scam",
+    "scam_category": "Government Scheme Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Credential Theft",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Identity Theft",
+    "inference_ms": 122.9,
+    "entities": [
+      {
+        "value": "http://gas-subsidy.ml",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 2000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "loan-001",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.5617500065423159,
+    "expected_category": "Loan Scam",
+    "scam_category": "Loan Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Loan",
+    "reasoning_subfamily": "Loan",
+    "inference_ms": 96.3,
+    "entities": [
+      {
+        "value": "1800-123-4567",
+        "type": "phone_indian",
+        "confidence": 0.9,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Indian telecom contact point"
+      },
+      {
+        "value": "Rs 5 lakh",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      },
+      {
+        "value": "Rs 2500",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "loan-002",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.5459212683298525,
+    "expected_category": "Loan Scam",
+    "scam_category": "Loan Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Loan",
+    "reasoning_subfamily": "Loan",
+    "inference_ms": 131.2,
+    "entities": [
+      {
+        "value": "http://loan-offer.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 10 lakh",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      },
+      {
+        "value": "Rs 999",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "loan-003",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.5140111245721832,
+    "expected_category": "Loan Scam",
+    "scam_category": "Loan Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Loan",
+    "reasoning_subfamily": "Loan",
+    "inference_ms": 90.7,
+    "entities": [
+      {
+        "value": "http://bajaj-loan.xyz",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 3 lakh",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      },
+      {
+        "value": "Rs 1499",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "loan-004",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.6577789203634581,
+    "expected_category": "Loan Scam",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for immediate action",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Loan",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 119.8,
+    "entities": [
+      {
+        "value": "http://instant-loan.ml",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Aadhaar",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      },
+      {
+        "value": "Rs 50000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      },
+      {
+        "value": "Rs 499",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "loan-005",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.660940840962938,
+    "expected_category": "Loan Scam",
+    "scam_category": "Loan Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Loan",
+    "reasoning_subfamily": "Loan",
+    "inference_ms": 201.6,
+    "entities": [
+      {
+        "value": "easy-finance.tk",
+        "type": "domain",
+        "confidence": 0.95,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "May host malicious content"
+      },
+      {
+        "value": "loan@easy-finance.tk",
+        "type": "email",
+        "confidence": 0.98,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Potential phishing or impersonation"
+      },
+      {
+        "value": "Rs 50 lakh",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "loan-006",
+    "expected_prediction": "scam",
+    "prediction": "safe",
+    "confidence": 0.6269346732836514,
+    "expected_category": "Loan Scam",
+    "scam_category": "Loan Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Loan",
+    "reasoning_subfamily": "Loan",
+    "inference_ms": 41.9,
+    "entities": [
+      {
+        "value": "http://loan-app.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "loan-007",
+    "expected_prediction": "scam",
+    "prediction": "safe",
+    "confidence": 0.5032769516646125,
+    "expected_category": "Loan Scam",
+    "scam_category": "Loan Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Loan",
+    "reasoning_subfamily": "Loan",
+    "inference_ms": 131.3,
+    "entities": [
+      {
+        "value": "1800-777-8888",
+        "type": "phone_indian",
+        "confidence": 0.9,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Indian telecom contact point"
+      },
+      {
+        "value": "Rs 2 lakh",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      },
+      {
+        "value": "Rs 1999",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "loan-008",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.5259628572881487,
+    "expected_category": "Loan Scam",
+    "scam_category": "Loan Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Loan",
+    "reasoning_subfamily": "Loan",
+    "inference_ms": 109.9,
+    "entities": [
+      {
+        "value": "http://home-loan.top",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 20 lakh",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      },
+      {
+        "value": "Rs 5000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "legit-001",
+    "expected_prediction": "safe",
+    "prediction": "safe",
+    "confidence": 0.6925410816629638,
+    "expected_category": "Legitimate",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "LOW",
+    "risk_level": "HIGH",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 35.7,
+    "entities": [
+      {
+        "value": "Sbi",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      },
+      {
+        "value": "456782",
+        "type": "otp_code",
+        "confidence": 0.6,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Active authentication credential"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "legit-002",
+    "expected_prediction": "safe",
+    "prediction": "scam",
+    "confidence": 0.5479778278167072,
+    "expected_category": "Legitimate",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "LOW",
+    "risk_level": "HIGH",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 77.2,
+    "entities": [
+      {
+        "value": "Aadhaar",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      },
+      {
+        "value": "783421",
+        "type": "otp_code",
+        "confidence": 0.92,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Active authentication credential"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "legit-003",
+    "expected_prediction": "safe",
+    "prediction": "scam",
+    "confidence": 0.6195130535690817,
+    "expected_category": "Legitimate",
+    "scam_category": "Bank KYC Scam",
+    "expected_risk_level": "VERY LOW",
+    "risk_level": "HIGH",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 96.1,
+    "entities": [
+      {
+        "value": "Hdfc",
+        "type": "bank_name",
+        "confidence": 0.9,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Institutional reference"
+      },
+      {
+        "value": "Rs 15000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      },
+      {
+        "value": "Rs 45200",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "legit-004",
+    "expected_prediction": "safe",
+    "prediction": "scam",
+    "confidence": 0.6270733259872311,
+    "expected_category": "Legitimate",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "LOW",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 73.3,
+    "entities": [
+      {
+        "value": "https://flipkart.com/track",
+        "type": "shortened_url",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Destination hidden behind URL shortener"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "legit-005",
+    "expected_prediction": "safe",
+    "prediction": "safe",
+    "confidence": 0.5684623447913764,
+    "expected_category": "Legitimate",
+    "scam_category": "Courier Scam",
+    "expected_risk_level": "VERY LOW",
+    "risk_level": "VERY LOW",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "SUSPICIOUS",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Further assessment required",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Social Engineering",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Delivery",
+    "inference_ms": 80.6,
+    "entities": [
+      {
+        "value": "https://amazon.in/track",
+        "type": "url",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "May lead to phishing site"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "legit-006",
+    "expected_prediction": "safe",
+    "prediction": "safe",
+    "confidence": 0.6635321589897677,
+    "expected_category": "Legitimate",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "VERY LOW",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "LOW RISK",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Further assessment required",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 19.7,
+    "entities": [],
+    "error": ""
+  },
+  {
+    "id": "legit-007",
+    "expected_prediction": "safe",
+    "prediction": "safe",
+    "confidence": 0.7096102380537999,
+    "expected_category": "Legitimate",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "VERY LOW",
+    "risk_level": "VERY LOW",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "SUSPICIOUS",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Further assessment required",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Legitimate",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Safe",
+    "inference_ms": 5.7,
+    "entities": [
+      {
+        "value": "4785213698",
+        "type": "bank_account",
+        "confidence": 0.55,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Direct financial instrument"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "legit-008",
+    "expected_prediction": "safe",
+    "prediction": "scam",
+    "confidence": 0.6454803898055396,
+    "expected_category": "Legitimate",
+    "scam_category": "Electricity Bill Scam",
+    "expected_risk_level": "VERY LOW",
+    "risk_level": "HIGH",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Subscription",
+    "inference_ms": 77.8,
+    "entities": [
+      {
+        "value": "7845129630",
+        "type": "phone_indian",
+        "confidence": 0.95,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Indian telecom contact point"
+      },
+      {
+        "value": "Rs 499",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "legit-009",
+    "expected_prediction": "safe",
+    "prediction": "safe",
+    "confidence": 0.7372652667064856,
+    "expected_category": "Legitimate",
+    "scam_category": "Investment Scam",
+    "expected_risk_level": "VERY LOW",
+    "risk_level": "LOW",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Legitimate",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Safe",
+    "inference_ms": 64.8,
+    "entities": [
+      {
+        "value": "8596321478",
+        "type": "phone_indian",
+        "confidence": 0.95,
+        "source": "regex",
+        "risk": "MEDIUM",
+        "risk_reason": "Indian telecom contact point"
+      },
+      {
+        "value": "Income Tax",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      },
+      {
+        "value": "Itr",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      },
+      {
+        "value": "478596321478",
+        "type": "bank_account",
+        "confidence": 0.55,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Direct financial instrument"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "legit-010",
+    "expected_prediction": "safe",
+    "prediction": "safe",
+    "confidence": 0.7996970027714857,
+    "expected_category": "Legitimate",
+    "scam_category": "Loan Scam",
+    "expected_risk_level": "VERY LOW",
+    "risk_level": "LOW",
+    "expected_decision_level": "SAFE",
+    "decision_level": "LOW RISK",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Suitable for normal communication",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Loan",
+    "inference_ms": 58.7,
+    "entities": [],
+    "error": ""
+  },
+  {
+    "id": "legit-011",
+    "expected_prediction": "safe",
+    "prediction": "safe",
+    "confidence": 0.8023512746662557,
+    "expected_category": "Legitimate",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "VERY LOW",
+    "risk_level": "VERY LOW",
+    "expected_decision_level": "SAFE",
+    "decision_level": "SAFE",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Suitable for normal communication",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Legitimate",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Safe",
+    "inference_ms": 6.6,
+    "entities": [],
+    "error": ""
+  },
+  {
+    "id": "legit-012",
+    "expected_prediction": "safe",
+    "prediction": "scam",
+    "confidence": 0.7496588332477118,
+    "expected_category": "Legitimate",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "VERY LOW",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "LOW RISK",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Further assessment required",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 5.4,
+    "entities": [],
+    "error": ""
+  },
+  {
+    "id": "legit-013",
+    "expected_prediction": "safe",
+    "prediction": "scam",
+    "confidence": 0.6755433294076632,
+    "expected_category": "Legitimate",
+    "scam_category": "Fake Customer Care",
+    "expected_risk_level": "LOW",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "HIGH RISK",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Social Engineering",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Fake Support",
+    "inference_ms": 49.5,
+    "entities": [],
+    "error": ""
+  },
+  {
+    "id": "legit-014",
+    "expected_prediction": "safe",
+    "prediction": "safe",
+    "confidence": 0.5305802758410056,
+    "expected_category": "Legitimate",
+    "scam_category": "Loan Scam",
+    "expected_risk_level": "VERY LOW",
+    "risk_level": "LOW",
+    "expected_decision_level": "SAFE",
+    "decision_level": "LOW RISK",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Further assessment required",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Loan",
+    "inference_ms": 45.0,
+    "entities": [],
+    "error": ""
+  },
+  {
+    "id": "legit-015",
+    "expected_prediction": "safe",
+    "prediction": "safe",
+    "confidence": 0.5951664698812025,
+    "expected_category": "Legitimate",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "VERY LOW",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "LOW RISK",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Further assessment required",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Legitimate",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Safe",
+    "inference_ms": 39.6,
+    "entities": [
+      {
+        "value": "Rs 649",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "legit-016",
+    "expected_prediction": "safe",
+    "prediction": "safe",
+    "confidence": 0.6208529324743537,
+    "expected_category": "Legitimate",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "LOW",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "LOW RISK",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Further assessment required",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Legitimate",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Safe",
+    "inference_ms": 35.7,
+    "entities": [
+      {
+        "value": "Rs 299",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "legit-017",
+    "expected_prediction": "safe",
+    "prediction": "safe",
+    "confidence": 0.6423147537941479,
+    "expected_category": "Legitimate",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "VERY LOW",
+    "risk_level": "VERY LOW",
+    "expected_decision_level": "SAFE",
+    "decision_level": "SAFE",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Suitable for normal communication",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Legitimate",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Safe",
+    "inference_ms": 7.4,
+    "entities": [],
+    "error": ""
+  },
+  {
+    "id": "legit-018",
+    "expected_prediction": "safe",
+    "prediction": "safe",
+    "confidence": 0.76508640073447,
+    "expected_category": "Legitimate",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "VERY LOW",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "LOW RISK",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Further assessment required",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 5.8,
+    "entities": [],
+    "error": ""
+  },
+  {
+    "id": "legit-019",
+    "expected_prediction": "safe",
+    "prediction": "safe",
+    "confidence": 0.6226110303704859,
+    "expected_category": "Legitimate",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "LOW",
+    "risk_level": "VERY LOW",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "SAFE",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Suitable for normal communication",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Legitimate",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Safe",
+    "inference_ms": 34.2,
+    "entities": [
+      {
+        "value": "Epfo",
+        "type": "government_entity",
+        "confidence": 0.85,
+        "source": "keyword",
+        "risk": "LOW",
+        "risk_reason": "Government impersonation possible"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "legit-020",
+    "expected_prediction": "safe",
+    "prediction": "safe",
+    "confidence": 0.5019216477119635,
+    "expected_category": "Legitimate",
+    "scam_category": "Electricity Bill Scam",
+    "expected_risk_level": "VERY LOW",
+    "risk_level": "HIGH",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "HIGH RISK",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Subscription",
+    "inference_ms": 78.6,
+    "entities": [
+      {
+        "value": "Rs 12500",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "mixed-001",
+    "expected_prediction": "safe",
+    "prediction": "scam",
+    "confidence": 0.7566873628295646,
+    "expected_category": "Legitimate",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "LOW",
+    "risk_level": "HIGH",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "SUSPICIOUS",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 36.9,
+    "entities": [
+      {
+        "value": "Rs 1000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "mixed-002",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.7987767417741443,
+    "expected_category": "Loan Scam",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "HIGH",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Financial Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Loan",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 60.4,
+    "entities": [
+      {
+        "value": "http://insurance-pay.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 5000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "mixed-003",
+    "expected_prediction": "safe",
+    "prediction": "scam",
+    "confidence": 0.7232542819457988,
+    "expected_category": "Legitimate",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "LOW",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "SUSPICIOUS",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Further assessment required",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 5.7,
+    "entities": [],
+    "error": ""
+  },
+  {
+    "id": "mixed-004",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.9737422141546355,
+    "expected_category": "Lottery Scam",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Lottery",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 54.3,
+    "entities": [
+      {
+        "value": "http://survey-free.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "mixed-005",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.8910439086277546,
+    "expected_category": "Lottery Scam",
+    "scam_category": "Lottery Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Consumer Fraud",
+    "reasoning_family": "Consumer Fraud",
+    "expected_subfamily": "Lottery",
+    "reasoning_subfamily": "Lottery",
+    "inference_ms": 139.4,
+    "entities": [
+      {
+        "value": "Rs 5000",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "mixed-006",
+    "expected_prediction": "safe",
+    "prediction": "safe",
+    "confidence": 0.8625616043777978,
+    "expected_category": "Legitimate",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "LOW",
+    "risk_level": "LOW",
+    "expected_decision_level": "SAFE",
+    "decision_level": "SUSPICIOUS",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Further assessment required",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Legitimate",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Safe",
+    "inference_ms": 78.5,
+    "entities": [],
+    "error": ""
+  },
+  {
+    "id": "mixed-007",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.788337188558525,
+    "expected_category": "Government Scheme Scam",
+    "scam_category": "Investment Scam",
+    "expected_risk_level": "HIGH",
+    "risk_level": "CRITICAL",
+    "expected_decision_level": "HIGH RISK",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Suitable for security investigation",
+    "assessment_band": "Suitable for immediate action",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Identity Theft",
+    "reasoning_subfamily": "Investment",
+    "inference_ms": 90.6,
+    "entities": [
+      {
+        "value": "http://student-scheme.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      },
+      {
+        "value": "Rs 200",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "mixed-008",
+    "expected_prediction": "safe",
+    "prediction": "scam",
+    "confidence": 0.6271643292366339,
+    "expected_category": "Legitimate",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "LOW",
+    "risk_level": "MEDIUM",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "LOW RISK",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Further assessment required",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 6.0,
+    "entities": [],
+    "error": ""
+  },
+  {
+    "id": "mixed-009",
+    "expected_prediction": "safe",
+    "prediction": "scam",
+    "confidence": 0.7397915902030916,
+    "expected_category": "Legitimate",
+    "scam_category": "Loan Scam",
+    "expected_risk_level": "LOW",
+    "risk_level": "HIGH",
+    "expected_decision_level": "LOW RISK",
+    "decision_level": "HIGH RISK",
+    "expected_assessment_band": "Suitable for normal communication",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Legitimate",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Safe",
+    "reasoning_subfamily": "Loan",
+    "inference_ms": 80.2,
+    "entities": [
+      {
+        "value": "Rs 5 lakh",
+        "type": "currency_amount",
+        "confidence": 0.88,
+        "source": "regex",
+        "risk": "LOW",
+        "risk_reason": "Financial transaction mention"
+      }
+    ],
+    "error": ""
+  },
+  {
+    "id": "mixed-010",
+    "expected_prediction": "scam",
+    "prediction": "scam",
+    "confidence": 0.6392412499813827,
+    "expected_category": "Phishing",
+    "scam_category": "Unknown Scam",
+    "expected_risk_level": "MEDIUM",
+    "risk_level": "HIGH",
+    "expected_decision_level": "SUSPICIOUS",
+    "decision_level": "CRITICAL",
+    "expected_assessment_band": "Further assessment required",
+    "assessment_band": "Suitable for security investigation",
+    "expected_family": "Credential Theft",
+    "reasoning_family": "Financial Fraud",
+    "expected_subfamily": "Fake Login",
+    "reasoning_subfamily": "Banking",
+    "inference_ms": 81.6,
+    "entities": [
+      {
+        "value": "https://renew-insure.tk",
+        "type": "suspicious_tld",
+        "confidence": 0.99,
+        "source": "regex",
+        "risk": "HIGH",
+        "risk_reason": "Common phishing infrastructure"
+      }
+    ],
+    "error": ""
+  }
+]

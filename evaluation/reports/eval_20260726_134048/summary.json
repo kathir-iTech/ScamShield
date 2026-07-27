@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-07-26T08:10:48Z",
+  "dataset": "C:\\Users\\jeeva\\Desktop\\scamshield-main\\evaluation\\datasets/knowledge_benchmark.json",
+  "samples": 12,
+  "metrics": {
+    "total_samples": 12,
+    "overall_accuracy": 0.75,
+    "retrieval_accuracy": 0.8333333333333334,
+    "advisory_accuracy": 0.8333333333333334,
+    "nonmatch_accuracy": 1.0
+  },
+  "errors": {
+    "false_positives": 0,
+    "false_negatives": 0,
+    "wrong_category": 0
+  },
+  "report": "C:\\Users\\jeeva\\Desktop\\scamshield-main\\evaluation\\reports\\eval_20260726_134048\\report.html",
+  "mode": "knowledge"
+}

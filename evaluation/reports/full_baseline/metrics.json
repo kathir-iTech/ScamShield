@@ -1,0 +1,19 @@
+{
+  "total_samples": 162,
+  "accuracy": 0.8333333333333334,
+  "precision": 0.9044117647058824,
+  "recall": 0.8978102189781022,
+  "f1": 0.9010989010989011,
+  "false_positive_rate": 0.52,
+  "false_negative_rate": 0.10218978102189781,
+  "category_accuracy": 0.6341463414634146,
+  "risk_accuracy": 0.4444444444444444,
+  "assessment_accuracy": 0.36419753086419754,
+  "average_confidence": 0.7333209517627588,
+  "average_inference_ms": 57.7,
+  "p95_latency_ms": 14.8,
+  "tp": 123,
+  "fp": 13,
+  "fn": 14,
+  "tn": 12
+}

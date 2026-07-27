@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scamshield-backend
+  labels:
+    app: scamshield
+    component: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: scamshield
+      component: backend
+  template:
+    metadata:
+      labels:
+        app: scamshield
+        component: backend
+    spec:
+      containers:
+      - name: backend
+        image: scamshield/backend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: scamshield-config
+        - secretRef:
+            name: scamshield-secrets
+        livenessProbe:
+          httpGet:
+            path: /api/v1/health/ping
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /api/v1/health/readiness
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 15
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: scamshield-backend
+  labels:
+    app: scamshield
+    component: backend
+spec:
+  selector:
+    app: scamshield
+    component: backend
+  ports:
+  - port: 8000
+    targetPort: 8000
+  type: ClusterIP

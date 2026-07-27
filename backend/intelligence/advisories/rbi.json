@@ -1,0 +1,28 @@
+[
+  {
+    "advisory_id": "RBI-2025-001",
+    "title": "KYC Update Scam Warning",
+    "source": "rbi",
+    "date": "2025-03-15",
+    "summary": "RBI warns against fraudsters posing as bank officials asking customers to update KYC via links. Banks never send KYC links via SMS or email.",
+    "recommendation": "Never share OTP, PIN, password, or card details. Visit bank branch for KYC updates. Report suspicious messages to bank immediately.",
+    "affected_indicators": ["kyc update", "kyc complete", "link", "otp share"],
+    "indicator_types": ["keyword", "url"],
+    "severity": "CRITICAL",
+    "url": "https://rbi.org.in/kyc-advisory",
+    "tags": ["kyc", "banking", "otp"]
+  },
+  {
+    "advisory_id": "RBI-2024-001",
+    "title": "OTP Security Advisory",
+    "source": "rbi",
+    "date": "2024-02-01",
+    "summary": "Never share OTP with anyone claiming to be from bank or any other organisation. OTP is for personal use only and should never be disclosed.",
+    "recommendation": "OTP should never be shared. Banks never ask for OTP verification over phone or message. Report OTP fraud to 1930 immediately.",
+    "affected_indicators": ["otp", "share otp", "otp verification", "otp code"],
+    "indicator_types": ["keyword"],
+    "severity": "CRITICAL",
+    "url": "https://rbi.org.in/otp-security",
+    "tags": ["otp", "banking", "credential-theft"]
+  }
+]

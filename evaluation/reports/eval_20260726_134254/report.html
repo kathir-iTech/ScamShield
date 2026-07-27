@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScamShield Evaluation Report</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+       background:#fafafa; color:#18181b; padding:20px; }
+.container { max-width:960px; margin:0 auto; }
+h1 { font-size:24px; margin-bottom:4px; }
+h2 { font-size:18px; margin:24px 0 12px; padding-bottom:6px; border-bottom:2px solid #e4e4e7; }
+h3 { font-size:15px; margin:16px 0 8px; color:#3f3f46; }
+.card { background:white; border-radius:8px; padding:20px; margin:12px 0; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+.metric-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:12px; }
+.metric { text-align:center; padding:12px; background:#f4f4f5; border-radius:6px; }
+.metric .value { font-size:28px; font-weight:700; color:#18181b; }
+.metric .label { font-size:11px; color:#71717a; text-transform:uppercase; letter-spacing:0.5px; }
+.metric .good { color:#16a34a; } .metric .bad { color:#dc2626; } .metric .warn { color:#f59e0b; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+th, td { padding:8px 12px; text-align:left; border-bottom:1px solid #e4e4e7; }
+th { background:#f4f4f5; font-weight:600; color:#52525b; }
+tr:hover { background:#fafafa; }
+.badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600; }
+.badge-danger { background:#fee2e2; color:#991b1b; }
+.badge-success { background:#dcfce7; color:#166534; }
+.badge-warning { background:#fef3c7; color:#92400e; }
+.summary-row { display:flex; gap:12px; flex-wrap:wrap; }
+.summary-item { flex:1; min-width:200px; }
+.footer { margin-top:30px; padding-top:12px; border-top:1px solid #e4e4e7; font-size:11px; color:#a1a1aa; text-align:center; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>ScamShield Evaluation Report</h1>
+<p style="color:#71717a;margin-bottom:16px;">
+  162 samples evaluated |
+  135 correct |
+  27 errors |
+  Accuracy: 83.3%
+</p>
+
+<div class="card">
+<h2>Overall Metrics</h2>
+<div class="metric-grid">
+  <div class="metric"><div class="value">83.3%</div><div class="label">Accuracy</div></div>
+  <div class="metric"><div class="value good">90.4%</div><div class="label">Precision</div></div>
+  <div class="metric"><div class="value good">89.8%</div><div class="label">Recall</div></div>
+  <div class="metric"><div class="value good">90.1%</div><div class="label">F1 Score</div></div>
+  <div class="metric"><div class="value bad">52.0%</div><div class="label">False Positive Rate</div></div>
+  <div class="metric"><div class="value bad">10.2%</div><div class="label">False Negative Rate</div></div>
+  <div class="metric"><div class="value">73.3%</div><div class="label">Avg Confidence</div></div>
+  <div class="metric"><div class="value">113.2</div><div class="label">Avg Inference (ms)</div></div>
+  <div class="metric"><div class="value">91.9</div><div class="label">P95 Latency (ms)</div></div>
+  <div class="metric"><div class="value">63.4%</div><div class="label">Category Accuracy</div></div>
+  <div class="metric"><div class="value">44.4%</div><div class="label">Risk Level Accuracy</div></div>
+  <div class="metric"><div class="value">36.4%</div><div class="label">Assessment Accuracy</div></div>
+</div>
+</div>
+
+<div class="card">
+<svg width="380" height="200" xmlns="http://www.w3.org/2000/svg">
+  <text x="190" y="20" font-size="14" font-weight="bold" text-anchor="middle" fill="#18181b">Confusion Matrix</text>
+  <text x="95" y="40" font-size="12" text-anchor="middle" fill="#71717a">Predicted: Safe</text>
+  <text x="285" y="40" font-size="12" text-anchor="middle" fill="#71717a">Predicted: Scam</text>
+  <text x="12" y="100" font-size="12" text-anchor="middle" fill="#71717a" transform="rotate(-90,12,100)">Actual: Safe</text>
+  <text x="12" y="170" font-size="12" text-anchor="middle" fill="#71717a" transform="rotate(-90,12,170)">Actual: Scam</text>
+  <rect x="60" y="55" width="140" height="70" rx="6" fill="#dcfce7" stroke="#86efac" stroke-width="2"/>
+  <text x="130" y="90" font-size="28" font-weight="bold" text-anchor="middle" fill="#166534">12</text>
+  <text x="130" y="110" font-size="10" text-anchor="middle" fill="#166534">TN</text>
+  <rect x="210" y="55" width="140" height="70" rx="6" fill="#fee2e2" stroke="#fca5a5" stroke-width="2"/>
+  <text x="280" y="90" font-size="28" font-weight="bold" text-anchor="middle" fill="#991b1b">13</text>
+  <text x="280" y="110" font-size="10" text-anchor="middle" fill="#991b1b">FP</text>
+  <rect x="60" y="130" width="140" height="70" rx="6" fill="#fee2e2" stroke="#fca5a5" stroke-width="2"/>
+  <text x="130" y="165" font-size="28" font-weight="bold" text-anchor="middle" fill="#991b1b">14</text>
+  <text x="130" y="185" font-size="10" text-anchor="middle" fill="#991b1b">FN</text>
+  <rect x="210" y="130" width="140" height="70" rx="6" fill="#dcfce7" stroke="#86efac" stroke-width="2"/>
+  <text x="280" y="165" font-size="28" font-weight="bold" text-anchor="middle" fill="#166534">123</text>
+  <text x="280" y="185" font-size="10" text-anchor="middle" fill="#166534">TP</text>
+</svg>
+</div>
+
+<div class="card">
+<h2>Per-Category Accuracy</h2>
+<svg width="600" height="652" xmlns="http://www.w3.org/2000/svg">
+<text x="5" y="18" font-size="14" font-weight="bold" fill="#18181b">Accuracy by Category (%)</text>
+<text x="5" y="52" font-size="12" fill="#52525b">Account Suspension</text><rect x="155" y="30" width="440" height="26" rx="3" fill="#22c55e" opacity="0.85"/><text x="600" y="52" font-size="11" fill="#18181b">100.0</text>
+<text x="5" y="86" font-size="12" fill="#52525b">Bank KYC Scam</text><rect x="155" y="64" width="440" height="26" rx="3" fill="#22c55e" opacity="0.85"/><text x="600" y="86" font-size="11" fill="#18181b">100.0</text>
+<text x="5" y="120" font-size="12" fill="#52525b">Courier Scam</text><rect x="155" y="98" width="440" height="26" rx="3" fill="#22c55e" opacity="0.85"/><text x="600" y="120" font-size="11" fill="#18181b">100.0</text>
+<text x="5" y="154" font-size="12" fill="#52525b">Crypto Scam</text><rect x="155" y="132" width="220" height="26" rx="3" fill="#22c55e" opacity="0.85"/><text x="380" y="154" font-size="11" fill="#18181b">50.0</text>
+<text x="5" y="188" font-size="12" fill="#52525b">Customs Scam</text><rect x="155" y="166" width="440" height="26" rx="3" fill="#22c55e" opacity="0.85"/><text x="600" y="188" font-size="11" fill="#18181b">100.0</text>
+<text x="5" y="222" font-size="12" fill="#52525b">Electricity Bill Scam</text><rect x="155" y="200" width="440" height="26" rx="3" fill="#22c55e" opacity="0.85"/><text x="600" y="222" font-size="11" fill="#18181b">100.0</text>
+<text x="5" y="256" font-size="12" fill="#52525b">Fake Customer Care</text><rect x="155" y="234" width="396" height="26" rx="3" fill="#22c55e" opacity="0.85"/><text x="556" y="256" font-size="11" fill="#18181b">90.0</text>
+<text x="5" y="290" font-size="12" fill="#52525b">Government Scheme Scam</text><rect x="155" y="268" width="440" height="26" rx="3" fill="#22c55e" opacity="0.85"/><text x="600" y="290" font-size="11" fill="#18181b">100.0</text>
+<text x="5" y="324" font-size="12" fill="#52525b">Investment Scam</text><rect x="155" y="302" width="330" height="26" rx="3" fill="#22c55e" opacity="0.85"/><text x="490" y="324" font-size="11" fill="#18181b">75.0</text>
+<text x="5" y="358" font-size="12" fill="#52525b">Job Scam</text><rect x="155" y="336" width="330" height="26" rx="3" fill="#22c55e" opacity="0.85"/><text x="490" y="358" font-size="11" fill="#18181b">75.0</text>
+<text x="5" y="392" font-size="12" fill="#52525b">Legitimate</text><rect x="155" y="370" width="211" height="26" rx="3" fill="#22c55e" opacity="0.85"/><text x="371" y="392" font-size="11" fill="#18181b">48.0</text>
+<text x="5" y="426" font-size="12" fill="#52525b">Loan Scam</text><rect x="155" y="404" width="342" height="26" rx="3" fill="#22c55e" opacity="0.85"/><text x="502" y="426" font-size="11" fill="#18181b">77.78</text>
+<text x="5" y="460" font-size="12" fill="#52525b">Lottery Scam</text><rect x="155" y="438" width="440" height="26" rx="3" fill="#22c55e" opacity="0.85"/><text x="600" y="460" font-size="11" fill="#18181b">100.0</text>
+<text x="5" y="494" font-size="12" fill="#52525b">OTP Scam</text><rect x="155" y="472" width="440" height="26" rx="3" fill="#22c55e" opacity="0.85"/><text x="600" y="494" font-size="11" fill="#18181b">100.0</text>
+<text x="5" y="528" font-size="12" fill="#52525b">Phishing</text><rect x="155" y="506" width="366" height="26" rx="3" fill="#22c55e" opacity="0.85"/><text x="526" y="528" font-size="11" fill="#18181b">83.33</text>
+<text x="5" y="562" font-size="12" fill="#52525b">QR Code Scam</text><rect x="155" y="540" width="440" height="26" rx="3" fill="#22c55e" opacity="0.85"/><text x="600" y="562" font-size="11" fill="#18181b">100.0</text>
+<text x="5" y="596" font-size="12" fill="#52525b">Subscription Scam</text><rect x="155" y="574" width="440" height="26" rx="3" fill="#22c55e" opacity="0.85"/><text x="600" y="596" font-size="11" fill="#18181b">100.0</text>
+<text x="5" y="630" font-size="12" fill="#52525b">UPI Scam</text><rect x="155" y="608" width="352" height="26" rx="3" fill="#22c55e" opacity="0.85"/><text x="512" y="630" font-size="11" fill="#18181b">80.0</text>
+</svg>
+</div>
+
+<div class="card">
+<h2>Category Sample Counts</h2>
+<svg width="600" height="652" xmlns="http://www.w3.org/2000/svg">
+<text x="5" y="18" font-size="14" font-weight="bold" fill="#18181b">Samples per Category</text>
+<text x="5" y="52" font-size="12" fill="#52525b">Account Suspension</text><rect x="155" y="30" width="17" height="26" rx="3" fill="#3b82f6" opacity="0.85"/><text x="177" y="52" font-size="11" fill="#18181b">1</text>
+<text x="5" y="86" font-size="12" fill="#52525b">Bank KYC Scam</text><rect x="155" y="64" width="281" height="26" rx="3" fill="#3b82f6" opacity="0.85"/><text x="441" y="86" font-size="11" fill="#18181b">16</text>
+<text x="5" y="120" font-size="12" fill="#52525b">Courier Scam</text><rect x="155" y="98" width="123" height="26" rx="3" fill="#3b82f6" opacity="0.85"/><text x="283" y="120" font-size="11" fill="#18181b">7</text>
+<text x="5" y="154" font-size="12" fill="#52525b">Crypto Scam</text><rect x="155" y="132" width="70" height="26" rx="3" fill="#3b82f6" opacity="0.85"/><text x="230" y="154" font-size="11" fill="#18181b">4</text>
+<text x="5" y="188" font-size="12" fill="#52525b">Customs Scam</text><rect x="155" y="166" width="88" height="26" rx="3" fill="#3b82f6" opacity="0.85"/><text x="248" y="188" font-size="11" fill="#18181b">5</text>
+<text x="5" y="222" font-size="12" fill="#52525b">Electricity Bill Scam</text><rect x="155" y="200" width="88" height="26" rx="3" fill="#3b82f6" opacity="0.85"/><text x="248" y="222" font-size="11" fill="#18181b">5</text>
+<text x="5" y="256" font-size="12" fill="#52525b">Fake Customer Care</text><rect x="155" y="234" width="176" height="26" rx="3" fill="#3b82f6" opacity="0.85"/><text x="336" y="256" font-size="11" fill="#18181b">10</text>
+<text x="5" y="290" font-size="12" fill="#52525b">Government Scheme Scam</text><rect x="155" y="268" width="246" height="26" rx="3" fill="#3b82f6" opacity="0.85"/><text x="406" y="290" font-size="11" fill="#18181b">14</text>
+<text x="5" y="324" font-size="12" fill="#52525b">Investment Scam</text><rect x="155" y="302" width="140" height="26" rx="3" fill="#3b82f6" opacity="0.85"/><text x="300" y="324" font-size="11" fill="#18181b">8</text>
+<text x="5" y="358" font-size="12" fill="#52525b">Job Scam</text><rect x="155" y="336" width="211" height="26" rx="3" fill="#3b82f6" opacity="0.85"/><text x="371" y="358" font-size="11" fill="#18181b">12</text>
+<text x="5" y="392" font-size="12" fill="#52525b">Legitimate</text><rect x="155" y="370" width="440" height="26" rx="3" fill="#3b82f6" opacity="0.85"/><text x="600" y="392" font-size="11" fill="#18181b">25</text>
+<text x="5" y="426" font-size="12" fill="#52525b">Loan Scam</text><rect x="155" y="404" width="158" height="26" rx="3" fill="#3b82f6" opacity="0.85"/><text x="318" y="426" font-size="11" fill="#18181b">9</text>
+<text x="5" y="460" font-size="12" fill="#52525b">Lottery Scam</text><rect x="155" y="438" width="246" height="26" rx="3" fill="#3b82f6" opacity="0.85"/><text x="406" y="460" font-size="11" fill="#18181b">14</text>
+<text x="5" y="494" font-size="12" fill="#52525b">OTP Scam</text><rect x="155" y="472" width="35" height="26" rx="3" fill="#3b82f6" opacity="0.85"/><text x="195" y="494" font-size="11" fill="#18181b">2</text>
+<text x="5" y="528" font-size="12" fill="#52525b">Phishing</text><rect x="155" y="506" width="105" height="26" rx="3" fill="#3b82f6" opacity="0.85"/><text x="265" y="528" font-size="11" fill="#18181b">6</text>
+<text x="5" y="562" font-size="12" fill="#52525b">QR Code Scam</text><rect x="155" y="540" width="140" height="26" rx="3" fill="#3b82f6" opacity="0.85"/><text x="300" y="562" font-size="11" fill="#18181b">8</text>
+<text x="5" y="596" font-size="12" fill="#52525b">Subscription Scam</text><rect x="155" y="574" width="17" height="26" rx="3" fill="#3b82f6" opacity="0.85"/><text x="177" y="596" font-size="11" fill="#18181b">1</text>
+<text x="5" y="630" font-size="12" fill="#52525b">UPI Scam</text><rect x="155" y="608" width="264" height="26" rx="3" fill="#3b82f6" opacity="0.85"/><text x="424" y="630" font-size="11" fill="#18181b">15</text>
+</svg>
+</div>
+
+<div class="card">
+<h2>Error Analysis</h2>
+<div class="summary-row">
+  <div class="summary-item">
+    <h3>Summary</h3>
+    <table>
+      <tr><td>False Positives</td><td><strong>13</strong></td></tr>
+      <tr><td>False Negatives</td><td><strong>14</strong></td></tr>
+      <tr><td>Wrong Category</td><td><strong>45</strong></td></tr>
+      <tr><td>Low Confidence</td><td><strong>0</strong></td></tr>
+      <tr><td>Entity Extraction Failures</td><td><strong>124</strong></td></tr>
+    </table>
+  </div>
+</div>
+</div>
+<div class="card"><h2>False Positives (Safe classified as Scam)</h2><table><tr><th>ID</th><th>Text</th><th>Confidence</th><th>Difficulty</th></tr><tr><td>legit-018</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Weekly grocery delivery from BigBasket will arrive tomorrow 7-9AM. Order BB784512.</td><td>76.5%</td><td>easy</td></tr><tr><td>mixed-001</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Your account has been credited with Rs 1000. Thank you for being a valued customer.</td><td>75.7%</td><td>medium</td></tr><tr><td>legit-012</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Zomato: Your order #7845 has been delivered! Rate your delivery experience. Have a great day!</td><td>75.0%</td><td>easy</td></tr><tr><td>mixed-009</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Congratulations! You have been pre-selected for our credit card with Rs 5 lakh limit. Terms apply.</td><td>74.0%</td><td>hard</td></tr><tr><td>mixed-003</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Free consultation! Our financial advisor will call you. Reply YES for callback.</td><td>72.3%</td><td>hard</td></tr><tr><td>legit-001</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Your OTP for SBI transaction is 456782. Do not share this with anyone.</td><td>69.3%</td><td>easy</td></tr><tr><td>legit-013</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Your password was changed successfully. If this was not you, contact support immediately.</td><td>67.6%</td><td>easy</td></tr><tr><td>legit-006</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Swiggy: Your order from Saravana Bhavan has been confirmed. ETA 30 mins.</td><td>66.4%</td><td>easy</td></tr><tr><td>legit-008</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Your monthly mobile bill of Rs 499 has been paid via auto-debit. Receipt: 7845129630</td><td>64.5%</td><td>easy</td></tr><tr><td>mixed-008</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Thank you for your recent purchase. Your feedback matters. Complete survey and get 10% off next orde</td><td>62.7%</td><td>hard</td></tr><tr><td>legit-004</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Your Flipkart order OD784512345 has been shipped. Track: https://flipkart.com/track</td><td>62.7%</td><td>easy</td></tr><tr><td>legit-003</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">HDFC Bank: Rs 15000 credited to account 4567 from NEFT transfer. Available balance: Rs 45200.</td><td>62.0%</td><td>easy</td></tr><tr><td>legit-002</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Your Aadhaar OTP 783421 is valid for UIDAI authentication. Valid for 10 minutes.</td><td>54.8%</td><td>easy</td></tr></table></div><div class="card"><h2>False Negatives (Scam classified as Safe)</h2><table><tr><th>ID</th><th>Text</th><th>Confidence</th><th>Difficulty</th></tr><tr><td>job-010</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Excellent opportunity! MNC company hiring. Work from home or office. Registration Rs 1499. http://mn</td><td>76.6%</td><td>medium</td></tr><tr><td>invest-008</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">NFT investment! Limited edition digital art. 1000x returns. Mint now: http://nft-drop.tk</td><td>67.7%</td><td>medium</td></tr><tr><td>invest-005</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Cryptocurrency investment! Get 10x returns. Bitcoin ethereum trading. WhatsApp group: https://t.me/c</td><td>65.6%</td><td>medium</td></tr><tr><td>job-003</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Part-time job: Rs 2000 per day. Simple online work. Register with Rs 499 refundable deposit. http://</td><td>65.5%</td><td>easy</td></tr><tr><td>otp-008</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Your Apple ID has been locked. Verify here: https://apple-verify.tk</td><td>63.5%</td><td>medium</td></tr><tr><td>loan-006</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Loan app: Quick approval, minimal documents. EMI starts after 90 days. Download: http://loan-app.tk</td><td>62.7%</td><td>medium</td></tr><tr><td>upi-010</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Paytm cashback offer! Rs 2500 unclaimed. http://paytm-offer.top</td><td>60.9%</td><td>easy</td></tr><tr><td>support-005</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">IRCTC helpdesk: Your train ticket is cancelled. Refund processing. Call 1800-111-3333</td><td>60.8%</td><td>medium</td></tr><tr><td>job-008</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Call center job! Work from home. Good salary. Exam fee Rs 299. http://callcenter-hire.tk</td><td>58.7%</td><td>medium</td></tr><tr><td>upi-014</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Alert: Rs 15000 withdrawn from your Paytm wallet. Dispute: http://paytm-dispute.tk</td><td>58.4%</td><td>medium</td></tr><tr><td>upi-008</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">PhonePe transaction failed! Refund available. Process: http://refund-phonepe.tk</td><td>57.2%</td><td>medium</td></tr><tr><td>invest-004</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Mutual fund guaranteed returns! 50% profit in 3 months. Start with Rs 5000. http://mutual-fund.top</td><td>54.5%</td><td>medium</td></tr><tr><td>invest-001</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Double your money in 7 days! Guaranteed 200% returns. Invest now: http://quick-profit.ml</td><td>51.1%</td><td>easy</td></tr><tr><td>loan-007</td><td style="max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Gold loan: No income proof needed. Rs 2 lakhs loan. Processing fee Rs 1999. Call 1800-777-8888</td><td>50.3%</td><td>medium</td></tr></table></div>
+<div class="footer">
+  Generated by ScamShield Evaluation Framework |
+  <span id="timestamp"></span>
+</div>
+</div>
+<script>document.getElementById('timestamp').textContent = new Date().toISOString();</script>
+</body>
+</html>

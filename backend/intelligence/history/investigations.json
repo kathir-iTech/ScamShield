@@ -1,0 +1,49 @@
+[
+  {
+    "investigation_id": "inv-2026-0001",
+    "date": "2026-07-01",
+    "artefacts_analysed": 3,
+    "overall_risk": "HIGH",
+    "overall_score": 72,
+    "dominant_family": "Financial Fraud",
+    "entities": {
+      "phone": [{"value": "+91-9876543210", "occurrences": 2, "max_risk": "HIGH"}],
+      "domain": [{"value": "sbi-kyc-update.xyz", "occurrences": 2, "max_risk": "CRITICAL"}],
+      "keyword": [{"value": "kyc update", "occurrences": 3, "max_risk": "HIGH"}, {"value": "account deactivated", "occurrences": 2, "max_risk": "HIGH"}]
+    },
+    "indicators": {"KYC Update Request": 3, "Account Threat": 2, "Suspicious URL": 2},
+    "campaign_detected": true,
+    "summary": "Coordinated KYC scam campaign targeting SBI customers with phishing links"
+  },
+  {
+    "investigation_id": "inv-2026-0002",
+    "date": "2026-07-05",
+    "artefacts_analysed": 2,
+    "overall_risk": "CRITICAL",
+    "overall_score": 85,
+    "dominant_family": "Consumer Fraud",
+    "entities": {
+      "phone": [{"value": "+91-8765432109", "occurrences": 2, "max_risk": "MEDIUM"}],
+      "keyword": [{"value": "lottery", "occurrences": 2, "max_risk": "HIGH"}, {"value": "processing fee", "occurrences": 2, "max_risk": "MEDIUM"}]
+    },
+    "indicators": {"Lottery Win": 2, "Payment Request": 2},
+    "campaign_detected": false,
+    "summary": "Lottery scam attempt demanding processing fee for fake winnings"
+  },
+  {
+    "investigation_id": "inv-2026-0003",
+    "date": "2026-07-10",
+    "artefacts_analysed": 4,
+    "overall_risk": "HIGH",
+    "overall_score": 68,
+    "dominant_family": "Financial Fraud",
+    "entities": {
+      "upi": [{"value": "scamcollector@paytm", "occurrences": 3, "max_risk": "HIGH"}],
+      "domain": [{"value": "secure-pay.top", "occurrences": 2, "max_risk": "HIGH"}],
+      "keyword": [{"value": "upi payment failed", "occurrences": 3, "max_risk": "HIGH"}]
+    },
+    "indicators": {"Payment Request": 4, "Suspicious URL": 2, "UPI Reference": 4},
+    "campaign_detected": true,
+    "summary": "UPI collect request scam campaign using fake payment failure messages"
+  }
+]

@@ -1,0 +1,108 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "backend/**"
+      - "VERSION"
+      - ".github/workflows/backend.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "backend/**"
+      - "VERSION"
+      - ".github/workflows/backend.yml"
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION: "3.12"
+
+jobs:
+  lint:
+    name: Lint & Imports
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - run: pip install -r requirements.txt
+      - name: Check importability
+        run: python -c "
+import importlib, sys;
+modules = ['core.constants','core.exceptions','core.logger','core.metrics','core.middleware',
+           'config.settings','services.orchestrator','services.ml_service','services.rules_service',
+           'services.explanation_service','services.intelligence_service','services.evidence_service',
+           'services.assessment_service','services.report_service','services.ocr_service',
+           'routers.health','routers.analyze','schemas.requests','schemas.responses',
+           'utils.validate','predict'];
+ok=0; fail=0;
+for m in modules:
+    try:
+        importlib.import_module(m); print(f'  OK: {m}'); ok+=1
+    except Exception as e:
+        print(f'  FAIL: {m} — {e}'); fail+=1
+print(f'Summary: {ok}/{len(modules)} passed, {fail} failed');
+sys.exit(1 if fail else 0)
+"
+      - name: Check OpenAPI generation
+        run: |
+          python -c "
+import sys, os; sys.path.insert(0, os.getcwd())
+from main import app; spec = app.openapi()
+paths = ['/health','/ready','/live','/analyze/text','/analyze/image','/metrics']
+missing = [p for p in paths if p not in spec.get('paths',{})]
+if missing: print(f'Missing paths: {missing}'); exit(1)
+print('OpenAPI spec valid with all required routes')
+"
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - run: pip install -r requirements.txt
+      - name: Run quality gate
+        run: python scripts/quality_gate.py
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - run: pip install -r requirements.txt
+      - name: Install pip-audit
+        run: pip install pip-audit
+      - name: Audit dependencies
+        run: pip-audit --strict --requirement requirements.txt
+        continue-on-error: true
+
+  docker-build:
+    name: Docker Build Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t scamshield-backend:ci --build-arg VERSION=$(cat VERSION) ./backend

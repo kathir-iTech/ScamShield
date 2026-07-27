@@ -1,0 +1,7 @@
+{
+  "total_samples": 12,
+  "overall_accuracy": 0.9166666666666666,
+  "retrieval_accuracy": 1.0,
+  "advisory_accuracy": 1.0,
+  "nonmatch_accuracy": 1.0
+}

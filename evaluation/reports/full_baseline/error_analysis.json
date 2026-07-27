@@ -1,0 +1,1039 @@
+{
+  "false_positives": [
+    {
+      "id": "legit-018",
+      "text": "Weekly grocery delivery from BigBasket will arrive tomorrow 7-9AM. Order BB784512.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.76508640073447,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "mixed-001",
+      "text": "Your account has been credited with Rs 1000. Thank you for being a valued customer.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.7566873628295646,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "legit-012",
+      "text": "Zomato: Your order #7845 has been delivered! Rate your delivery experience. Have a great day!",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.7496588332477118,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "mixed-009",
+      "text": "Congratulations! You have been pre-selected for our credit card with Rs 5 lakh limit. Terms apply.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.7397915902030916,
+      "expected_category": "Legitimate",
+      "actual_category": "Loan Scam",
+      "difficulty": "hard"
+    },
+    {
+      "id": "mixed-003",
+      "text": "Free consultation! Our financial advisor will call you. Reply YES for callback.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.7232542819457988,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "hard"
+    },
+    {
+      "id": "legit-001",
+      "text": "Your OTP for SBI transaction is 456782. Do not share this with anyone.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.6925410816629638,
+      "expected_category": "Legitimate",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "legit-013",
+      "text": "Your password was changed successfully. If this was not you, contact support immediately.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.6755433294076632,
+      "expected_category": "Legitimate",
+      "actual_category": "Fake Customer Care",
+      "difficulty": "easy"
+    },
+    {
+      "id": "legit-006",
+      "text": "Swiggy: Your order from Saravana Bhavan has been confirmed. ETA 30 mins.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.6635321589897677,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "legit-008",
+      "text": "Your monthly mobile bill of Rs 499 has been paid via auto-debit. Receipt: 7845129630",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.6454803898055396,
+      "expected_category": "Legitimate",
+      "actual_category": "Electricity Bill Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "mixed-008",
+      "text": "Thank you for your recent purchase. Your feedback matters. Complete survey and get 10% off next orde",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.6271643292366339,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "hard"
+    },
+    {
+      "id": "legit-004",
+      "text": "Your Flipkart order OD784512345 has been shipped. Track: https://flipkart.com/track",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.6270733259872311,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "legit-003",
+      "text": "HDFC Bank: Rs 15000 credited to account 4567 from NEFT transfer. Available balance: Rs 45200.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.6195130535690817,
+      "expected_category": "Legitimate",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "legit-002",
+      "text": "Your Aadhaar OTP 783421 is valid for UIDAI authentication. Valid for 10 minutes.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.5479778278167072,
+      "expected_category": "Legitimate",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy"
+    }
+  ],
+  "false_negatives": [
+    {
+      "id": "job-010",
+      "text": "Excellent opportunity! MNC company hiring. Work from home or office. Registration Rs 1499. http://mn",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7662545040045059,
+      "expected_category": "Job Scam",
+      "actual_category": "Job Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "invest-008",
+      "text": "NFT investment! Limited edition digital art. 1000x returns. Mint now: http://nft-drop.tk",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.6771544599122119,
+      "expected_category": "Crypto Scam",
+      "actual_category": "Investment Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "invest-005",
+      "text": "Cryptocurrency investment! Get 10x returns. Bitcoin ethereum trading. WhatsApp group: https://t.me/c",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.6555958233230459,
+      "expected_category": "Crypto Scam",
+      "actual_category": "Crypto Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "job-003",
+      "text": "Part-time job: Rs 2000 per day. Simple online work. Register with Rs 499 refundable deposit. http://",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.6552036739519471,
+      "expected_category": "Job Scam",
+      "actual_category": "Job Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "otp-008",
+      "text": "Your Apple ID has been locked. Verify here: https://apple-verify.tk",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.6352159221370957,
+      "expected_category": "Phishing",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "loan-006",
+      "text": "Loan app: Quick approval, minimal documents. EMI starts after 90 days. Download: http://loan-app.tk",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.6269346732836514,
+      "expected_category": "Loan Scam",
+      "actual_category": "Loan Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "upi-010",
+      "text": "Paytm cashback offer! Rs 2500 unclaimed. http://paytm-offer.top",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.6088903530140725,
+      "expected_category": "UPI Scam",
+      "actual_category": "UPI Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "support-005",
+      "text": "IRCTC helpdesk: Your train ticket is cancelled. Refund processing. Call 1800-111-3333",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.6078670103628612,
+      "expected_category": "Fake Customer Care",
+      "actual_category": "Lottery Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "job-008",
+      "text": "Call center job! Work from home. Good salary. Exam fee Rs 299. http://callcenter-hire.tk",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.5873002597109799,
+      "expected_category": "Job Scam",
+      "actual_category": "Job Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "upi-014",
+      "text": "Alert: Rs 15000 withdrawn from your Paytm wallet. Dispute: http://paytm-dispute.tk",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.5836552587111359,
+      "expected_category": "UPI Scam",
+      "actual_category": "UPI Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "upi-008",
+      "text": "PhonePe transaction failed! Refund available. Process: http://refund-phonepe.tk",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.5717738394629952,
+      "expected_category": "UPI Scam",
+      "actual_category": "Lottery Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "invest-004",
+      "text": "Mutual fund guaranteed returns! 50% profit in 3 months. Start with Rs 5000. http://mutual-fund.top",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.5445999707225588,
+      "expected_category": "Investment Scam",
+      "actual_category": "Investment Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "invest-001",
+      "text": "Double your money in 7 days! Guaranteed 200% returns. Invest now: http://quick-profit.ml",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.5109729875793028,
+      "expected_category": "Investment Scam",
+      "actual_category": "Investment Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "loan-007",
+      "text": "Gold loan: No income proof needed. Rs 2 lakhs loan. Processing fee Rs 1999. Call 1800-777-8888",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.5032769516646125,
+      "expected_category": "Loan Scam",
+      "actual_category": "Loan Scam",
+      "difficulty": "medium"
+    }
+  ],
+  "wrong_category": [
+    {
+      "id": "support-007",
+      "text": "PhonePe customer care: Your Rs 25000 payment is stuck. Call 1800-222-4444 to resolve.",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.525981277068051,
+      "expected_category": "Fake Customer Care",
+      "actual_category": "UPI Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "govt-010",
+      "text": "CSC centre: Digital India scheme! Laptop free me paaye. Registration Rs 999. http://csc-scheme.tk",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.555262499980875,
+      "expected_category": "Government Scheme Scam",
+      "actual_category": "Investment Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "lottery-003",
+      "text": "KBC winner 2025! Your cheque of Rs 15,00,000 is ready. Processing fee Rs 2500 required. Call now!",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.55561609656586,
+      "expected_category": "Lottery Scam",
+      "actual_category": "Job Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "support-001",
+      "text": "SBI customer care: Your complaint has been registered. Call 1800-123-4567 for immediate resolution.",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5581732672020544,
+      "expected_category": "Fake Customer Care",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "otp-004",
+      "text": "Google verification: Your account will be deleted. OTP 984312. Forward to 9988776655 to keep active.",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5737776044135842,
+      "expected_category": "Phishing",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "otp-009",
+      "text": "Facebook: Someone tried to login from Kolkata. Secure your account: http://fb-secure.tk",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5868934251690286,
+      "expected_category": "Phishing",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "support-002",
+      "text": "Amazon helpdesk: Your order has been cancelled. Refund available. Call 1900-123-456 to process.",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5895464437908596,
+      "expected_category": "Fake Customer Care",
+      "actual_category": "Lottery Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "mixed-010",
+      "text": "Your vehicle insurance expires in 7 days. Renew now to avoid penalty. https://renew-insure.tk",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.6392412499813827,
+      "expected_category": "Phishing",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "loan-004",
+      "text": "Loan 1 minute me! Aadhaar card se. Rs 50000 instantly. Fee Rs 499. http://instant-loan.ml",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.6577789203634581,
+      "expected_category": "Loan Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "govt-009",
+      "text": "Sarkari yojna: Rs 5000 har mahine! Apply karein: http://sarkari-scheme.xyz",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.6600051815510062,
+      "expected_category": "Government Scheme Scam",
+      "actual_category": "Investment Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "invest-010",
+      "text": "Passive income: Earn Rs 50,000 monthly from crypto trading bot. Fully automated. https://trading-bot",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.6771652084706338,
+      "expected_category": "Crypto Scam",
+      "actual_category": "Investment Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "support-010",
+      "text": "Your card has been blocked due to suspicious transactions. Call SBI support 1800-555-7777 to unblock",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.6998059995485276,
+      "expected_category": "Fake Customer Care",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "invest-006",
+      "text": "Work from home data entry. Earn Rs 500-2000 daily. No investment required. Contact: job@home-work.tk",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.7220008350503703,
+      "expected_category": "Investment Scam",
+      "actual_category": "Job Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "support-008",
+      "text": "Swift customer support: Your parcel is held at customs. Call 1800-333-5555 for clearance.",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.722884042225166,
+      "expected_category": "Fake Customer Care",
+      "actual_category": "Courier Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "govt-008",
+      "text": "Income Tax refund of Rs 8500 is pending. Update your bank details: http://itr-refund.tk",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.7498243855157551,
+      "expected_category": "Government Scheme Scam",
+      "actual_category": "Lottery Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "invest-007",
+      "text": "Stock market tips! 100% accuracy. 7 day free trial. SMS JOIN to 56789",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.7616871105309588,
+      "expected_category": "Investment Scam",
+      "actual_category": "Unknown Scam",
+      "difficulty": "hard"
+    },
+    {
+      "id": "delivery-006",
+      "text": "Your parcel contains undeclared goods. Customs department has seized it. Pay penalty: http://customs",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.7659184880689232,
+      "expected_category": "Customs Scam",
+      "actual_category": "Courier Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "otp-007",
+      "text": "Netflix: Your subscription is suspended! Update payment: http://netflix-renew.tk",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.7771632048437594,
+      "expected_category": "Subscription Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "qr-007",
+      "text": "QR code scanner app download panni 2000rs daily earn pannunga! http://earn-qr.tk",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.7814670466563272,
+      "expected_category": "QR Code Scam",
+      "actual_category": "Investment Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "support-004",
+      "text": "Your credit card has been charged Rs 50000 for Amazon purchase. Dispute: Call 1800-111-2222",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.7821154649536398,
+      "expected_category": "Fake Customer Care",
+      "actual_category": "Loan Scam",
+      "difficulty": "medium"
+    }
+  ],
+  "low_confidence": [],
+  "entity_failures": [
+    {
+      "id": "upi-001",
+      "text": "Your GPay account has been credited Rs 4500. Claim now: http://gpay-cashback.tk",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.8739979013444382,
+      "expected_category": "UPI Scam",
+      "actual_category": "Lottery Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "url",
+        "suspicious_tld",
+        "upi_id"
+      ],
+      "found_entities": [
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url",
+        "upi_id"
+      ]
+    },
+    {
+      "id": "upi-005",
+      "text": "UPI reference number UTR32984739. Payment of Rs 7200 received. Check now: http://payment-confirm.ml",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5109712439245887,
+      "expected_category": "UPI Scam",
+      "actual_category": "UPI Scam",
+      "difficulty": "medium",
+      "expected_entities": [
+        "transaction_id",
+        "url",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "transaction_id",
+        "url"
+      ]
+    },
+    {
+      "id": "delivery-005",
+      "text": "Urgent: Your shipment tracking ID: SH2024IN9065 requires customs clearance. http://track-customs.top",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.6369716789070414,
+      "expected_category": "Courier Scam",
+      "actual_category": "Courier Scam",
+      "difficulty": "medium",
+      "expected_entities": [
+        "tracking_id",
+        "url",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "tracking_id",
+        "url"
+      ]
+    },
+    {
+      "id": "legit-004",
+      "text": "Your Flipkart order OD784512345 has been shipped. Track: https://flipkart.com/track",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.6270733259872311,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "tracking_id",
+        "url"
+      ],
+      "found_entities": [],
+      "missing_entities": [
+        "tracking_id",
+        "url"
+      ]
+    },
+    {
+      "id": "bank-kyc-001",
+      "text": "Your SBI account will be blocked today. Update KYC immediately: http://bit.ly/kyc-update",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.9325332002320893,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "bank_name",
+        "url"
+      ],
+      "found_entities": [
+        "bank_name"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "bank-kyc-002",
+      "text": "HDFC Bank: Your account has been deactivated due to incomplete KYC. Click https://hdfc-verify.tk to ",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.8956266178790672,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "bank_name",
+        "url",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "bank_name",
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "bank-kyc-003",
+      "text": "Dear Customer, your ICICI bank a/c will be suspended. Update your Aadhaar KYC now. https://icici-upd",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.8834425394194951,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "bank_name",
+        "url",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "bank_name",
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "bank-kyc-004",
+      "text": "SBI Alert: Your account is blocked due to KYC not updated. Click: http://sbi-kyc.ml to update now",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.9670374043261828,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "bank_name",
+        "url",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "bank_name",
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "bank-kyc-005",
+      "text": "Your Axis Bank ATM card will be deactivated. Update KYC: https://axisverify.tk",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.8807256863191049,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "bank_name",
+        "url",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "bank_name",
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "bank-kyc-006",
+      "text": "KYC update mandatory for your account. Failing to update will result in permanent block. https://sbi",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.926671022378661,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "url",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "bank-kyc-008",
+      "text": "PNB: Your account is temporarily suspended. Complete KYC to restore. http://pnb-update.tk",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.7918198989911082,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "bank_name",
+        "url",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "bank_name",
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "bank-kyc-009",
+      "text": "Canara Bank: Your aadhaar seeding incomplete. Update now or account will freeze. https://canara-kyc.",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.894723993946811,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "medium",
+      "expected_entities": [
+        "bank_name",
+        "url",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "bank_name",
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "bank-kyc-010",
+      "text": "We have detected unusual activity. Your BOB account needs verification. http://bob-verify.tk",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.6149324536718281,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "medium",
+      "expected_entities": [
+        "bank_name",
+        "url",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "bank_name",
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "bank-kyc-011",
+      "text": "Dear IndusInd customer, your account will be disabled in 24hrs. Update KYC: https://indusind-alert.t",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.9234991978267336,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "bank_name",
+        "url",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "bank_name",
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "bank-kyc-012",
+      "text": "Your SBI YONO access has been restricted. Please update your KYC profile. http://secure-sbi.xyz",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.8535101156606585,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "medium",
+      "expected_entities": [
+        "bank_name",
+        "url",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "bank_name",
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "bank-kyc-013",
+      "text": "RBI Mandatory: All bank accounts require KYC update by tomorrow. http://rbi-kyc.ml",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.7974106200080378,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "url",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "bank-kyc-014",
+      "text": "Ungal SBI account KYC update pannitt illaina block aagum. https://sbi-update.tk",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.9362708201106152,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "medium",
+      "expected_entities": [
+        "bank_name",
+        "url",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "bank_name",
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "upi-002",
+      "text": "PhonePe: You won Rs 10000 cashback! Click to redeem: https://phonepe-winner.top",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.83414014492402,
+      "expected_category": "UPI Scam",
+      "actual_category": "Lottery Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "url",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "upi-003",
+      "text": "Your Paytm wallet has been blocked. Update KYC: https://paytm-verify.xyz",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.8194120330226682,
+      "expected_category": "UPI Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "url",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "upi-006",
+      "text": "Your BHIM UPI pin is expiring. Update now: https://bhim-upi.tk",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.8360182666142588,
+      "expected_category": "UPI Scam",
+      "actual_category": "UPI Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "url",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    }
+  ],
+  "fp_count": 13,
+  "fn_count": 14,
+  "wc_count": 45,
+  "lc_count": 0,
+  "ef_count": 124,
+  "per_class": {
+    "Bank KYC Scam": {
+      "tp": 16,
+      "fp": 0,
+      "fn": 0,
+      "total": 16,
+      "correct": 0
+    },
+    "UPI Scam": {
+      "tp": 12,
+      "fp": 0,
+      "fn": 3,
+      "total": 15,
+      "correct": 0
+    },
+    "Lottery Scam": {
+      "tp": 14,
+      "fp": 0,
+      "fn": 0,
+      "total": 14,
+      "correct": 0
+    },
+    "Investment Scam": {
+      "tp": 6,
+      "fp": 0,
+      "fn": 2,
+      "total": 8,
+      "correct": 0
+    },
+    "Crypto Scam": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 2,
+      "total": 4,
+      "correct": 0
+    },
+    "Courier Scam": {
+      "tp": 7,
+      "fp": 0,
+      "fn": 0,
+      "total": 7,
+      "correct": 0
+    },
+    "Customs Scam": {
+      "tp": 5,
+      "fp": 0,
+      "fn": 0,
+      "total": 5,
+      "correct": 0
+    },
+    "Job Scam": {
+      "tp": 9,
+      "fp": 0,
+      "fn": 3,
+      "total": 12,
+      "correct": 0
+    },
+    "Government Scheme Scam": {
+      "tp": 14,
+      "fp": 0,
+      "fn": 0,
+      "total": 14,
+      "correct": 0
+    },
+    "Electricity Bill Scam": {
+      "tp": 5,
+      "fp": 0,
+      "fn": 0,
+      "total": 5,
+      "correct": 0
+    },
+    "OTP Scam": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "total": 2,
+      "correct": 0
+    },
+    "Phishing": {
+      "tp": 5,
+      "fp": 0,
+      "fn": 1,
+      "total": 6,
+      "correct": 0
+    },
+    "Account Suspension": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "total": 1,
+      "correct": 0
+    },
+    "Subscription Scam": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "total": 1,
+      "correct": 0
+    },
+    "QR Code Scam": {
+      "tp": 8,
+      "fp": 0,
+      "fn": 0,
+      "total": 8,
+      "correct": 0
+    },
+    "Fake Customer Care": {
+      "tp": 9,
+      "fp": 0,
+      "fn": 1,
+      "total": 10,
+      "correct": 0
+    },
+    "Loan Scam": {
+      "tp": 7,
+      "fp": 0,
+      "fn": 2,
+      "total": 9,
+      "correct": 0
+    },
+    "Legitimate": {
+      "tp": 0,
+      "fp": 13,
+      "fn": 0,
+      "total": 25,
+      "correct": 0
+    }
+  }
+}

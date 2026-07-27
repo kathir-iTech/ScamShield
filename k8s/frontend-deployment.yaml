@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scamshield-frontend
+  labels:
+    app: scamshield
+    component: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: scamshield
+      component: frontend
+  template:
+    metadata:
+      labels:
+        app: scamshield
+        component: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: scamshield/frontend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        envFrom:
+        - configMapRef:
+            name: scamshield-config
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 15
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: scamshield-frontend
+  labels:
+    app: scamshield
+    component: frontend
+spec:
+  selector:
+    app: scamshield
+    component: frontend
+  ports:
+  - port: 80
+    targetPort: 80
+  type: ClusterIP

@@ -1,0 +1,34 @@
+[
+  {
+    "indicator_id": "email-wl-001",
+    "type": "email",
+    "value": "support@secure-bank-verify.com",
+    "aliases": ["support@secure-bank-verify.com"],
+    "family": "Credential Theft",
+    "subfamily": "Fake Login",
+    "risk": "HIGH",
+    "confidence": 0.90,
+    "source": "internal",
+    "first_seen": "2026-02-01",
+    "last_seen": "2026-07-15",
+    "description": "Fake bank support email used in phishing campaigns",
+    "related_indicators": ["domain-wl-003"],
+    "references": []
+  },
+  {
+    "indicator_id": "email-wl-002",
+    "type": "email",
+    "value": "lotterywinner@prizeclaim.co",
+    "aliases": ["lotterywinner@prizeclaim.co"],
+    "family": "Consumer Fraud",
+    "subfamily": "Lottery",
+    "risk": "MEDIUM",
+    "confidence": 0.75,
+    "source": "community",
+    "first_seen": "2026-05-01",
+    "last_seen": "2026-06-30",
+    "description": "Fake lottery prize claim email address",
+    "related_indicators": [],
+    "references": []
+  }
+]

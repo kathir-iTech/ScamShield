@@ -1,0 +1,130 @@
+{
+  "false_positives": [],
+  "false_negatives": [],
+  "wrong_category": [],
+  "low_confidence": [],
+  "entity_failures": [
+    {
+      "id": "bank-kyc-001",
+      "text": "Your SBI account will be blocked today. Update KYC immediately: http://bit.ly/kyc-update",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.9325332002320893,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "url",
+        "bank_name"
+      ],
+      "found_entities": [
+        "bank_name"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "bank-kyc-002",
+      "text": "HDFC Bank: Your account has been deactivated due to incomplete KYC. Click https://hdfc-verify.tk to ",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.8956266178790672,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "url",
+        "bank_name",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "bank_name",
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "bank-kyc-003",
+      "text": "Dear Customer, your ICICI bank a/c will be suspended. Update your Aadhaar KYC now. https://icici-upd",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.8834425394194951,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "url",
+        "bank_name",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "bank_name",
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "bank-kyc-004",
+      "text": "SBI Alert: Your account is blocked due to KYC not updated. Click: http://sbi-kyc.ml to update now",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.9670374043261828,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "url",
+        "bank_name",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "bank_name",
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    },
+    {
+      "id": "bank-kyc-005",
+      "text": "Your Axis Bank ATM card will be deactivated. Update KYC: https://axisverify.tk",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.8807256863191049,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy",
+      "expected_entities": [
+        "url",
+        "bank_name",
+        "suspicious_tld"
+      ],
+      "found_entities": [
+        "bank_name",
+        "suspicious_tld"
+      ],
+      "missing_entities": [
+        "url"
+      ]
+    }
+  ],
+  "fp_count": 0,
+  "fn_count": 0,
+  "wc_count": 0,
+  "lc_count": 0,
+  "ef_count": 5,
+  "per_class": {
+    "Bank KYC Scam": {
+      "tp": 5,
+      "fp": 0,
+      "fn": 0,
+      "total": 5,
+      "correct": 0
+    }
+  }
+}

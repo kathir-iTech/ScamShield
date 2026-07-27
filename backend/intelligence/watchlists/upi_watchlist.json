@@ -1,0 +1,34 @@
+[
+  {
+    "indicator_id": "upi-wl-001",
+    "type": "upi",
+    "value": "scamcollector@paytm",
+    "aliases": ["scamcollector@paytm"],
+    "family": "Financial Fraud",
+    "subfamily": "UPI",
+    "risk": "HIGH",
+    "confidence": 0.85,
+    "source": "internal",
+    "first_seen": "2026-03-01",
+    "last_seen": "2026-07-10",
+    "description": "UPI ID used in fake payment collection scams",
+    "related_indicators": [],
+    "references": []
+  },
+  {
+    "indicator_id": "upi-wl-002",
+    "type": "upi",
+    "value": "fraudpayment@ybl",
+    "aliases": ["fraudpayment@ybl", "fraudpayment@okaxis"],
+    "family": "Financial Fraud",
+    "subfamily": "UPI",
+    "risk": "HIGH",
+    "confidence": 0.80,
+    "source": "community",
+    "first_seen": "2026-04-01",
+    "last_seen": "2026-07-05",
+    "description": "UPI ID reported in multiple QR code scams",
+    "related_indicators": ["upi-wl-001"],
+    "references": []
+  }
+]

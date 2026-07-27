@@ -1,0 +1,146 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to release (e.g. v1.0.0)"
+        required: true
+        type: string
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  version:
+    name: Validate Version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get-version.outputs.version }}
+      is_valid: ${{ steps.validate.outputs.is_valid }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: get-version
+        run: echo "version=$(cat VERSION)" >> $GITHUB_OUTPUT
+      - id: validate
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          FILE_VER="${{ steps.get-version.outputs.version }}"
+          if [ "$TAG" != "$FILE_VER" ]; then
+            echo "Tag version ($TAG) does not match VERSION file ($FILE_VER)"
+            echo "is_valid=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+          echo "is_valid=true" >> $GITHUB_OUTPUT
+
+  backend-ci:
+    name: Backend Checks
+    needs: [version]
+    uses: ./.github/workflows/backend.yml
+
+  frontend-ci:
+    name: Frontend Checks
+    needs: [version]
+    uses: ./.github/workflows/frontend.yml
+
+  build-and-push:
+    name: Build & Push Images
+    needs: [version, backend-ci, frontend-ci]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata for backend
+        id: meta-backend
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository }}/backend
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,prefix=
+
+      - name: Extract metadata for frontend
+        id: meta-frontend
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository }}/frontend
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,prefix=
+
+      - name: Build and push backend
+        uses: docker/build-push-action@v6
+        with:
+          context: ./backend
+          push: true
+          tags: ${{ steps.meta-backend.outputs.tags }}
+          labels: ${{ steps.meta-backend.outputs.labels }}
+
+      - name: Build and push frontend
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend
+          push: true
+          tags: ${{ steps.meta-frontend.outputs.tags }}
+          labels: ${{ steps.meta-frontend.outputs.labels }}
+          build-args: |
+            VITE_API_BASE_URL=/api
+
+  release:
+    name: Create Release
+    needs: [version, build-and-push]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate release notes
+        id: release-notes
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const version = '${{ needs.version.outputs.version }}';
+            const notes = [
+              `## ScamShield v${version}`,
+              '',
+              '### Changes',
+              '- See the commit history for details',
+              '',
+              '### Docker Images',
+              `- \`ghcr.io/${{ github.repository }}/backend:${version}\``,
+              `- \`ghcr.io/${{ github.repository }}/frontend:${version}\``,
+              '',
+              '### Deployment',
+              '```bash',
+              'docker compose pull',
+              'docker compose up -d',
+              '```',
+            ].join('\n');
+            fs.writeFileSync('release-notes.md', notes);
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release v${{ needs.version.outputs.version }}
+          body_path: release-notes.md
+          files: |
+            VERSION
+          draft: false
+          prerelease: false

@@ -1,0 +1,28 @@
+[
+  {
+    "advisory_id": "NPCI-2025-001",
+    "title": "UPI Payment Scam Warning",
+    "source": "npci",
+    "date": "2025-06-01",
+    "summary": "Fraudsters are sending fake UPI payment failure messages with links to collect payments. These links lead to phishing sites that steal UPI credentials.",
+    "recommendation": "Never click on payment links in unsolicited messages. Use official UPI apps for transactions. Verify payment status within the app itself.",
+    "affected_indicators": ["upi payment failed", "upi refund", "collect request", "payment pending"],
+    "indicator_types": ["keyword", "url"],
+    "severity": "HIGH",
+    "url": "https://npci.org.in/upi-safety",
+    "tags": ["upi", "payment", "phishing"]
+  },
+  {
+    "advisory_id": "NPCI-2025-002",
+    "title": "QR Code Safety Guidelines",
+    "source": "npci",
+    "date": "2025-06-15",
+    "summary": "QR code scams where fraudsters replace legitimate merchant QR codes or send fake QR code payment requests through messages.",
+    "recommendation": "Always verify the merchant name before making QR payments. Do not scan QR codes received via SMS or WhatsApp from unknown senders.",
+    "affected_indicators": ["scan qr", "qr code", "qr payment"],
+    "indicator_types": ["keyword"],
+    "severity": "HIGH",
+    "url": "https://npci.org.in/qr-safety",
+    "tags": ["qr", "payment", "upi"]
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-07-26T15:05:08Z",
+  "dataset": "C:\\Users\\jeeva\\Desktop\\scamshield-main\\evaluation\\datasets/benchmark.json",
+  "samples": 162,
+  "metrics": {
+    "total_samples": 162,
+    "accuracy": 0.8827160493827161,
+    "precision": 0.927536231884058,
+    "recall": 0.9343065693430657,
+    "f1": 0.9309090909090909,
+    "false_positive_rate": 0.4,
+    "false_negative_rate": 0.06569343065693431,
+    "category_accuracy": 0.640625,
+    "risk_accuracy": 0.4506172839506173,
+    "assessment_accuracy": 0.36419753086419754,
+    "family_accuracy": 0.6851851851851852,
+    "subfamily_accuracy": 0.6111111111111112,
+    "average_confidence": 0.7333209517627588,
+    "average_inference_ms": 179.6,
+    "p95_latency_ms": 197.9,
+    "tp": 128,
+    "fp": 10,
+    "fn": 9,
+    "tn": 15
+  },
+  "errors": {
+    "false_positives": 10,
+    "false_negatives": 9,
+    "wrong_category": 46
+  },
+  "report": "C:\\Users\\jeeva\\Desktop\\scamshield-main\\evaluation\\reports/refined_v2\\report.html",
+  "mode": "standard"
+}

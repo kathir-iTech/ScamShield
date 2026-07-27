@@ -1,0 +1,957 @@
+{
+  "false_positives": [
+    {
+      "id": "VAL-208",
+      "text": "Your DigiLocker account has new document: 10th Marksheet issued by CBSE. -DigiLocker",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.9454763483675813,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-169",
+      "text": "Delivery update: Your Zomato order #ZO123456 is out for delivery. ETA: 10 mins.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.9066975019071786,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-193",
+      "text": "Your LPG subsidy of â‚¹300 credited to your bank account XX1234. -OMC",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.8716159449468852,
+      "expected_category": "Legitimate",
+      "actual_category": "Government Scheme Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-197",
+      "text": "Your INB account XX5678 login from Chrome browser on Windows. If not you, contact SBI.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.871347165625963,
+      "expected_category": "Legitimate",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-196",
+      "text": "Dear customer, your new ICICI Bank credit card (XX4567) has been dispatched via Speed Post.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.8396177184081397,
+      "expected_category": "Legitimate",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-181",
+      "text": "Your monthly electricity bill of â‚¹1240 for October is ready. Pay by 15-Nov to avoid late fee. -TAN",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.8319342780861291,
+      "expected_category": "Legitimate",
+      "actual_category": "Electricity Bill Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-189",
+      "text": "Milk delivery subscription for October has been activated. Daily 2L. -Aavin Dairy",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.8235455014983107,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-687",
+      "text": "Your UPI mandate for â‚¹500 to Society Maintenance has been set up successfully. -SBI",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.8096188977500488,
+      "expected_category": "Legitimate",
+      "actual_category": "UPI Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-164",
+      "text": "Your monthly salary of INR 75000.00 has been credited to your account XX7890. -Payroll Dept",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.8013519324089902,
+      "expected_category": "Legitimate",
+      "actual_category": "Job Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-520",
+      "text": "Your cash withdrawal of â‚¹10,000 from ATM at City Center branch. -SBI",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.7971897668815319,
+      "expected_category": "Legitimate",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-163",
+      "text": "Your Aadhaar OTP for eKYC with HDFC Bank is 389472. Valid for 10 mins. -UIDAI",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.7876816102788553,
+      "expected_category": "Legitimate",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-168",
+      "text": "Your credit card bill of â‚¹18,500 is due on 05-Nov-2024. Auto-pay will deduct on due date. -ICICI B",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.768206743397506,
+      "expected_category": "Legitimate",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-167",
+      "text": "Amazon Pay Cashback: You earned â‚¹50 cashback on your recent bill payment. No action needed.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.7361136615539028,
+      "expected_category": "Legitimate",
+      "actual_category": "Lottery Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-206",
+      "text": "Your grand welcome! Free 5GB data added to your Jio number as loyalty reward. Valid 3 days.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.7346039271100424,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-160",
+      "text": "Your A/c XX1234 credited with INR 5000.00 on 15-Oct-2024 (UPI: ref123456). Available bal: 25000.00 -",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.7226048053259136,
+      "expected_category": "Legitimate",
+      "actual_category": "UPI Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-172",
+      "text": "NPS contribution of â‚¹5000 credited to your Tier-1 account. Current balance: â‚¹285000. -NPS Trust",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.7210056895966601,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-174",
+      "text": "Your mutual fund SIP of â‚¹5000 in HDFC Top 100 Fund will be debited on 01-Nov-2024.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.7200947712413033,
+      "expected_category": "Legitimate",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-484",
+      "text": "Bus pass renewal for DTC AC service confirmed. Pass valid Nov 2024-Jan 2025. Amount: â‚¹1500",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.711347681310095,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-215",
+      "text": "Bus pass renewal for BMTC AC service confirmed. Pass valid Oct-Dec 2024. Amount: â‚¹2500",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.7044788212949556,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-525",
+      "text": "Your donation of â‚¹500 to Child Rights and You (CRY) is tax exempt under 80G.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.7022350035489052,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-161",
+      "text": "Dear customer, your Flipkart order #OD1234567890 has been delivered. Thank you for shopping!",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.6825555218074891,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-117",
+      "text": "Your SBI account has been credited with salary of Rs 45000. Available balance: Rs 78250.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.6795144374694917,
+      "expected_category": "Legitimate",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-210",
+      "text": "Your Aadhaar PVC card has been dispatched. Tracking: ADHAARSP12345678IN -India Post",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.6733594112947107,
+      "expected_category": "Legitimate",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-201",
+      "text": "Your credit card reward points (12,500) will expire on 31-Dec. Redeem on our official app.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.671300913402491,
+      "expected_category": "Legitimate",
+      "actual_category": "Loan Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-184",
+      "text": "Your Zerodha account statement for Sep 2024 is available for download. -Zerodha Broking",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.6576771827942076,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-688",
+      "text": "Your insurance premium payment of â‚¹8,500 for LIC Jeevan Anand is due on 30-Nov.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.654261054267425,
+      "expected_category": "Legitimate",
+      "actual_category": "Loan Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-217",
+      "text": "Your PG hosting invoice for October: â‚¹8,500. Pay by 5th to avoid late fee. -OYO Life",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.6480001885921927,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-691",
+      "text": "Your application for AWS Activate credits has been approved. ,000 credits applied.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.6457854299853445,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-522",
+      "text": "Your mobile bill of â‚¹499 for Vodafone Idea postpaid is due on 15-Nov.",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.636041738408023,
+      "expected_category": "Legitimate",
+      "actual_category": "Electricity Bill Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-185",
+      "text": "Metro card recharge of â‚¹500 successful at Green Park station. Balance: â‚¹620. -DMRC",
+      "expected": "safe",
+      "actual": "scam",
+      "confidence": 0.626913597688514,
+      "expected_category": "Legitimate",
+      "actual_category": "Unknown Scam",
+      "difficulty": "easy"
+    }
+  ],
+  "false_negatives": [
+    {
+      "id": "VAL-453",
+      "text": ".tk: Your annual plan has been activated. â‚¹.xyz debited. Not you? Dispute: .tk",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.8616480771359676,
+      "expected_category": "Subscription Scam",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-506",
+      "text": "Your iCloud Drive storage is 95% full. Upgrade to 1TB: 28945",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.8313447253284689,
+      "expected_category": "Phishing",
+      "actual_category": "Unknown Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-447",
+      "text": "Medical loan with no income proof. Up to â‚¹.ga disbursed in 1 hour: .ga",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7922771913947378,
+      "expected_category": "Loan Scam",
+      "actual_category": "Loan Scam",
+      "difficulty": "hard"
+    },
+    {
+      "id": "VAL-154",
+      "text": "Apple: Your iCloud has been compromised. Call Apple care: 1800-xxx-xxx",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7878927831946365,
+      "expected_category": "Fake Support",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-477",
+      "text": ".tk Remote Tech Support: Your laptop has a hardware failure. Remote diagnosis required: .tk",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7804123886243822,
+      "expected_category": "Fake Support",
+      "actual_category": "Fake Customer Care",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-685",
+      "text": "Your Zomato request has been processed. Track status: 864381",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7698296061667255,
+      "expected_category": "Phishing",
+      "actual_category": "Unknown Scam",
+      "difficulty": "hard"
+    },
+    {
+      "id": "VAL-686",
+      "text": "Your Airtel request has been processed. Track status: 955230",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7698296061667255,
+      "expected_category": "Phishing",
+      "actual_category": "Unknown Scam",
+      "difficulty": "hard"
+    },
+    {
+      "id": "VAL-133",
+      "text": "Kotak Mahindra: Your internet banking is locked. Unlock: verify-account.top",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7691562949786372,
+      "expected_category": "Phishing",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-417",
+      "text": "Your portfolio manager recommends switching to high-return fund. Switch now: fund-switch.xyz",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7611110946696635,
+      "expected_category": "Investment Scam",
+      "actual_category": "Investment Scam",
+      "difficulty": "hard"
+    },
+    {
+      "id": "VAL-77",
+      "text": "NSE insider tips - beat market! Subscribe â‚¹499/month: invest-profit.xyz",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7561878362156949,
+      "expected_category": "Investment Scam",
+      "actual_category": "Investment Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-630",
+      "text": "Jio: Your investment portfolio has been restructured. View changes: 10466",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7485277253214135,
+      "expected_category": "Investment Scam",
+      "actual_category": "Investment Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-631",
+      "text": "Airtel: Your investment portfolio has been restructured. View changes: 28077",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7485277253214135,
+      "expected_category": "Investment Scam",
+      "actual_category": "Investment Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-633",
+      "text": "Netflix: Your investment portfolio has been restructured. View changes: 1536",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7485277253214135,
+      "expected_category": "Investment Scam",
+      "actual_category": "Investment Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-634",
+      "text": "CRED: Your investment portfolio has been restructured. View changes: 45444",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7485277253214135,
+      "expected_category": "Investment Scam",
+      "actual_category": "Investment Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-463",
+      "text": ".ml: Your profile will be deleted due to inactivity. Login to keep active: .tk",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7451009565205406,
+      "expected_category": "Account Suspension",
+      "actual_category": "Unknown Scam",
+      "difficulty": "hard"
+    },
+    {
+      "id": "VAL-684",
+      "text": "Your Google request has been processed. Track status: 694782",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7416397052727035,
+      "expected_category": "Phishing",
+      "actual_category": "Unknown Scam",
+      "difficulty": "hard"
+    },
+    {
+      "id": "VAL-258",
+      "text": "à®‰à®™à¯à®•à®³à¯ à®®à®¿à®©à¯à®šà®¾à®° à®‡à®£à¯ˆà®ªà¯à®ªà¯ à®¤à¯à®£à¯à®Ÿà®¿à®•à¯à®•à®ªà¯à®ªà",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7372652667064856,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "Electricity Bill Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-259",
+      "text": "à®‰à®™à¯à®•à®³à¯ à®•à®£à®•à¯à®•à¯ à®‡à®Ÿà¯ˆà®¨à®¿à®±à¯à®¤à¯à®¤à®ªà¯à®ªà®Ÿà¯à®Ÿà¯à®³à¯à®³à®",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7372652667064856,
+      "expected_category": "Courier Scam",
+      "actual_category": "Bank KYC Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-261",
+      "text": "à®‰à®™à¯à®•à®³à¯ à®•à¯‚à®°à®¿à®¯à®°à¯ à®šà¯à®™à¯à®•à®¤à¯à®¤à®¿à®²à¯ à®¨à®¿à®±à¯à®¤à¯à®¤à®ªà",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7372652667064856,
+      "expected_category": "Account Suspension",
+      "actual_category": "Courier Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-264",
+      "text": "Bitcoin à®‡à®²à¯ à®®à¯à®¤à®²à¯€à®Ÿà¯ à®šà¯†à®¯à¯à®¤à¯ 2 à®µà®¾à®°à®™à¯à®•à®³à®¿à®²à¯ à®‡à®°à®",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7372652667064856,
+      "expected_category": "Account Suspension",
+      "actual_category": "Crypto Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-266",
+      "text": "à®‰à®Ÿà®©à®Ÿà®¿ à®•à®Ÿà®©à¯ â‚¹5 à®²à®Ÿà¯à®šà®®à¯ à®…à®©à¯à®®à®¤à®¿! à®µà®Ÿà¯à®Ÿà®¿ à®‡à®²à¯à®",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7372652667064856,
+      "expected_category": "Investment Scam",
+      "actual_category": "Loan Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-268",
+      "text": "Netflix à®šà®¨à¯à®¤à®¾ à®•à®¾à®²à®¾à®µà®¤à®¿à®¯à®¾à®•à®¿à®±à®¤à¯. à®ªà¯à®¤à¯à®ªà¯à®ªà®¿à®•à¯à®",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7372652667064856,
+      "expected_category": "Customs Scam",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-269",
+      "text": "à®‰à®™à¯à®•à®³à¯ Telegram à®•à®£à®•à¯à®•à¯ à®‡à®Ÿà¯ˆà®¨à®¿à®±à¯à®¤à¯à®¤à®ªà¯à®ªà®Ÿà¯à®Ÿà®¤à¯",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7372652667064856,
+      "expected_category": "Subscription Scam",
+      "actual_category": "Unknown Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-270",
+      "text": "à®‰à®™à¯à®•à®³à¯ PhonePe à®•à®£à®•à¯à®•à®¿à®²à¯ â‚¹12,500 à®Ÿà¯†à®ªà®¿à®Ÿà¯ à®†à®•à®¿à®¯à¯à®³à",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7372652667064856,
+      "expected_category": "Bank KYC Scam",
+      "actual_category": "UPI Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-271",
+      "text": "à®‰à®™à¯à®•à®³à¯ LIC à®ªà®¾à®²à®¿à®šà®¿ à®ªà¯‹à®©à®¸à¯ â‚¹8 à®²à®Ÿà¯à®šà®®à¯! à®•à¯‹à®°: lic-bo",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7372652667064856,
+      "expected_category": "Lottery Scam",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-273",
+      "text": "à®‰à®™à¯à®•à®³à¯ à®ªà®¾à®°à¯à®šà®²à®¿à®²à¯ à®¤à®™à¯à®•à®®à¯ à®•à®£à¯à®Ÿà®±à®¿à®¯à®ªà¯à®ªà®Ÿà",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7372652667064856,
+      "expected_category": "Courier Scam",
+      "actual_category": "Courier Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-275",
+      "text": "AIDSL: à®‰à®™à¯à®•à®³à¯ à®®à®¿à®©à¯à®šà®¾à®° à®®à¯€à®Ÿà¯à®Ÿà®°à¯ à®•à¯ˆà®¯à®¾à®³à¯à®¤à®²à¯ à®",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7372652667064856,
+      "expected_category": "QR Code Scam",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-105",
+      "text": "TSSPDCL: Meter tampering detected. Fine â‚¹15000 payable: bill-pay.xyz",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7343179622701365,
+      "expected_category": "Electricity Bill Scam",
+      "actual_category": "Electricity Bill Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-433",
+      "text": "Data annotation work from home. â‚¹.xyz per hour. Training provided: .tk",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7260823115943332,
+      "expected_category": "Job Scam",
+      "actual_category": "Job Scam",
+      "difficulty": "hard"
+    },
+    {
+      "id": "VAL-513",
+      "text": "You have 15 mutual contacts on this platform. Connect now: 41571",
+      "expected": "scam",
+      "actual": "safe",
+      "confidence": 0.7244269251050344,
+      "expected_category": "Phishing",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    }
+  ],
+  "wrong_category": [
+    {
+      "id": "VAL-97",
+      "text": "PM Awas Yojana: Housing loan â‚¹8 lakhs approved. Accept: govt-scheme.xyz",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5002088267034683,
+      "expected_category": "Government Scheme Scam",
+      "actual_category": "Investment Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-99",
+      "text": "PM Mudra Yojana: â‚¹5 lakh loan approved at 0% interest. Accept: govt-scheme.tk",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5002088267034683,
+      "expected_category": "Government Scheme Scam",
+      "actual_category": "Investment Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-248",
+      "text": "PM Awas Yojana loan â‚¹8 lakhs approved! Accept: pm-awas.ga",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5002088267034683,
+      "expected_category": "Investment Scam",
+      "actual_category": "Loan Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-107",
+      "text": "India Post: Your international package contains banned items. Customs fine â‚¹22000: customs-clear.t",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5028113601208465,
+      "expected_category": "Customs Scam",
+      "actual_category": "Courier Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-511",
+      "text": "Your Instagram profile has been viewed 150 times this week. Upgrade to see who: 49817",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5041697111023605,
+      "expected_category": "Phishing",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-147",
+      "text": "I accidentally sent â‚¹5500 to your 3200. Please return via UPI: refund-claim.ga",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5049942200340438,
+      "expected_category": "OTP Scam",
+      "actual_category": "UPI Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-676",
+      "text": "Amazon: Your warranty has been extended by 2 years. Confirm: 194764",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5121813070830579,
+      "expected_category": "Fake Support",
+      "actual_category": "Unknown Scam",
+      "difficulty": "hard"
+    },
+    {
+      "id": "VAL-411",
+      "text": "Your .tk card has been used for online purchase of â‚¹.top. Not you? Dispute: .tk",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5240373684367663,
+      "expected_category": "Phishing",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-140",
+      "text": "GPay: Rs 5000 received from Rahul Sharma. UPI ref 784596321478. Balance: Rs 15200.",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.530908930610417,
+      "expected_category": "Account Suspension",
+      "actual_category": "UPI Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-666",
+      "text": "Your Netflix chat history has been requested. Download here: 633556",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5338299153477317,
+      "expected_category": "Phishing",
+      "actual_category": "Unknown Scam",
+      "difficulty": "hard"
+    },
+    {
+      "id": "VAL-667",
+      "text": "Your PhonePe chat history has been requested. Download here: 572594",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5338299153477317,
+      "expected_category": "Phishing",
+      "actual_category": "UPI Scam",
+      "difficulty": "hard"
+    },
+    {
+      "id": "VAL-668",
+      "text": "Your Paytm chat history has been requested. Download here: 628649",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5338299153477317,
+      "expected_category": "Phishing",
+      "actual_category": "UPI Scam",
+      "difficulty": "hard"
+    },
+    {
+      "id": "VAL-98",
+      "text": "Ayushman Bharat: Your health card is ready. Download: govt-scheme.ml",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5359004668480767,
+      "expected_category": "Government Scheme Scam",
+      "actual_category": "Investment Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-227",
+      "text": "Bitcoin invest panninga? Double money 2 weeks la! Join: btc-profit.tk",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5389386693765866,
+      "expected_category": "Mixed",
+      "actual_category": "Crypto Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-124",
+      "text": "Meesho: Your order OD789456 has been shipped. Track: https://meesho.com/track/OD789456",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5400511015106119,
+      "expected_category": "QR Code Scam",
+      "actual_category": "Unknown Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-257",
+      "text": "à®¨à¯€à®™à¯à®•à®³à¯ Amazon à®²à®¾à®Ÿà¯à®Ÿà®°à®¿à®¯à®¿à®²à¯ â‚¹25 à®²à®Ÿà¯à®šà®®à¯ à®µà¯†à®©à¯",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5428106751904386,
+      "expected_category": "Fake Customer Care",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-282",
+      "text": "[IMAGE] Photo of a laptop screen showing Windows Defender alert: '15 viruses detected. Call Microsof",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5444936981697731,
+      "expected_category": "Fake Support",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    },
+    {
+      "id": "VAL-253",
+      "text": "QR code scan panni metro recharge 50% bonus! metro-qr.top",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5504428031148436,
+      "expected_category": "UPI Scam",
+      "actual_category": "QR Code Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-109",
+      "text": "Bangalore Customs: Parcel from China with undeclared goods. Penalty â‚¹18000: customs-clear.top",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.5525392869854842,
+      "expected_category": "Customs Scam",
+      "actual_category": "Courier Scam",
+      "difficulty": "easy"
+    },
+    {
+      "id": "VAL-452",
+      "text": "Your .tk subscription will auto-renew at â‚¹.ga. Cancel anytime: .tk",
+      "expected": "scam",
+      "actual": "scam",
+      "confidence": 0.553199490704416,
+      "expected_category": "Subscription Scam",
+      "actual_category": "Unknown Scam",
+      "difficulty": "medium"
+    }
+  ],
+  "low_confidence": [],
+  "entity_failures": [],
+  "fp_count": 50,
+  "fn_count": 89,
+  "wc_count": 201,
+  "lc_count": 0,
+  "ef_count": 0,
+  "per_class": {
+    "Bank KYC Scam": {
+      "tp": 38,
+      "fp": 0,
+      "fn": 3,
+      "total": 41,
+      "correct": 0
+    },
+    "UPI Scam": {
+      "tp": 35,
+      "fp": 0,
+      "fn": 1,
+      "total": 36,
+      "correct": 0
+    },
+    "Lottery Scam": {
+      "tp": 48,
+      "fp": 0,
+      "fn": 2,
+      "total": 50,
+      "correct": 0
+    },
+    "Investment Scam": {
+      "tp": 14,
+      "fp": 0,
+      "fn": 14,
+      "total": 28,
+      "correct": 0
+    },
+    "Courier Scam": {
+      "tp": 14,
+      "fp": 0,
+      "fn": 6,
+      "total": 20,
+      "correct": 0
+    },
+    "Job Scam": {
+      "tp": 8,
+      "fp": 0,
+      "fn": 4,
+      "total": 12,
+      "correct": 0
+    },
+    "Government Scheme Scam": {
+      "tp": 17,
+      "fp": 0,
+      "fn": 3,
+      "total": 20,
+      "correct": 0
+    },
+    "Electricity Bill Scam": {
+      "tp": 11,
+      "fp": 0,
+      "fn": 3,
+      "total": 14,
+      "correct": 0
+    },
+    "Customs Scam": {
+      "tp": 9,
+      "fp": 0,
+      "fn": 3,
+      "total": 12,
+      "correct": 0
+    },
+    "Loan Scam": {
+      "tp": 10,
+      "fp": 0,
+      "fn": 8,
+      "total": 18,
+      "correct": 0
+    },
+    "Fake Customer Care": {
+      "tp": 15,
+      "fp": 0,
+      "fn": 2,
+      "total": 17,
+      "correct": 0
+    },
+    "Legitimate": {
+      "tp": 0,
+      "fp": 50,
+      "fn": 0,
+      "total": 81,
+      "correct": 0
+    },
+    "QR Code Scam": {
+      "tp": 10,
+      "fp": 0,
+      "fn": 4,
+      "total": 14,
+      "correct": 0
+    },
+    "Crypto Scam": {
+      "tp": 7,
+      "fp": 0,
+      "fn": 3,
+      "total": 10,
+      "correct": 0
+    },
+    "Phishing": {
+      "tp": 52,
+      "fp": 0,
+      "fn": 13,
+      "total": 65,
+      "correct": 0
+    },
+    "Account Suspension": {
+      "tp": 13,
+      "fp": 0,
+      "fn": 4,
+      "total": 17,
+      "correct": 0
+    },
+    "Subscription Scam": {
+      "tp": 17,
+      "fp": 0,
+      "fn": 5,
+      "total": 22,
+      "correct": 0
+    },
+    "OTP Scam": {
+      "tp": 9,
+      "fp": 0,
+      "fn": 1,
+      "total": 10,
+      "correct": 0
+    },
+    "Fake Support": {
+      "tp": 5,
+      "fp": 0,
+      "fn": 8,
+      "total": 13,
+      "correct": 0
+    },
+    "Mixed": {
+      "tp": 9,
+      "fp": 0,
+      "fn": 2,
+      "total": 11,
+      "correct": 0
+    }
+  }
+}

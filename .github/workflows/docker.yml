@@ -1,0 +1,99 @@
+name: Docker CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "backend/Dockerfile"
+      - "frontend/Dockerfile"
+      - "frontend/nginx.conf"
+      - "docker-compose.yml"
+      - ".github/workflows/docker.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "backend/Dockerfile"
+      - "frontend/Dockerfile"
+      - "frontend/nginx.conf"
+      - "docker-compose.yml"
+      - ".github/workflows/docker.yml"
+  workflow_dispatch:
+
+jobs:
+  build-backend:
+    name: Build Backend Image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build backend image
+        run: docker build -t scamshield-backend:ci ./backend
+      - name: Verify image
+        run: |
+          docker image inspect scamshield-backend:ci --format='{{.Config.User}}'
+          echo "Backend image built successfully"
+
+  build-frontend:
+    name: Build Frontend Image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build frontend image
+        run: |
+          docker build \
+            --build-arg VITE_API_BASE_URL=/api \
+            -t scamshield-frontend:ci \
+            ./frontend
+      - name: Verify image
+        run: |
+          docker image inspect scamshield-frontend:ci --format='{{.Config.User}}'
+          echo "Frontend image built successfully"
+
+  validate-compose:
+    name: Validate docker-compose
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate docker-compose.yml
+        run: docker compose -f docker-compose.yml config --quiet
+      - name: Check services
+        run: |
+          services=$(docker compose -f docker-compose.yml config --services)
+          echo "Services defined: $services"
+          echo "$services" | grep -q "backend" || (echo "Missing backend service"; exit 1)
+          echo "$services" | grep -q "frontend" || (echo "Missing frontend service"; exit 1)
+          echo "All required services present"
+
+  security-scan:
+    name: Trivy Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build backend image for scanning
+        run: docker build -t scamshield-backend:scan ./backend
+      - name: Build frontend image for scanning
+        run: docker build --build-arg VITE_API_BASE_URL=/api -t scamshield-frontend:scan ./frontend
+      - name: Run Trivy on backend
+        uses: aquasecurity/trivy-action@0.29.0
+        with:
+          image-ref: scamshield-backend:scan
+          format: sarif
+          output: trivy-backend.sarif
+          severity: HIGH,CRITICAL
+          exit-code: 1
+        continue-on-error: true
+      - name: Run Trivy on frontend
+        uses: aquasecurity/trivy-action@0.29.0
+        with:
+          image-ref: scamshield-frontend:scan
+          format: sarif
+          output: trivy-frontend.sarif
+          severity: HIGH,CRITICAL
+          exit-code: 1
+        continue-on-error: true
+      - name: Upload Trivy results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trivy-reports
+          path: "*.sarif"
+          retention-days: 30
