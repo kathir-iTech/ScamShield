@@ -7,7 +7,6 @@ import { transformToTimelineEvents, generateCampaigns } from '@/features/timelin
 import { DemoPanel, DemoWalkthrough } from '@/features/demo';
 import { GraphSkeleton, TimelineSkeleton, ReportSkeleton } from '@/features/shared/investigation-skeleton';
 import type { AnalysisResponse } from '@/types';
-import type { PanelId } from '@/features/investigation/types';
 import { PageTransition } from '@/components/ui/page-transition';
 import { Button } from '@/components/ui/button';
 import { EmptyPanel } from '@/components/ui/empty-panel';
@@ -23,7 +22,6 @@ export default function Investigation() {
   const navigate = useNavigate();
   const [showDemo, setShowDemo] = useState(false);
   const [showWalkthrough, setShowWalkthrough] = useState(false);
-  const [walkthroughTab, setWalkthroughTab] = useState<PanelId>('summary');
 
   const result = useMemo(() => {
     if (!current?.result) return null;
@@ -182,10 +180,7 @@ export default function Investigation() {
       {showWalkthrough && (
         <DemoWalkthrough
           onClose={() => setShowWalkthrough(false)}
-          onNavigateTab={(tab) => {
-            const mapped: PanelId = tab === 'campaigns' ? 'timeline' : tab as PanelId;
-            setWalkthroughTab(mapped);
-          }}
+          onNavigateTab={() => {}}
         />
       )}
     </PageTransition>

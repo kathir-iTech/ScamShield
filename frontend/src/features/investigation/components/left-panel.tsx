@@ -25,7 +25,7 @@ export function LeftPanel({ currentId, history, onSelectHistory, onClearCurrent 
             </div>
           </CardHeader>
           <CardContent className="pt-0">
-            <Badge variant="secondary" className="text-[10px]">Active</Badge>
+            <Badge variant="success" className="text-[10px]">Active</Badge>
           </CardContent>
         </Card>
       )}

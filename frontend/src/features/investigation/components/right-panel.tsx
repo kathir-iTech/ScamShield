@@ -108,7 +108,7 @@ export function RightPanel({ result }: RightPanelProps) {
           </CardHeader>
           <CardContent className="flex flex-wrap gap-1 pt-0">
             {result.detected_indicators.map((indicator, i) => (
-              <Badge key={i} variant="secondary" className="text-[9px]">{indicator}</Badge>
+              <Badge key={i} variant="outline" className="text-[9px]">{indicator}</Badge>
             ))}
           </CardContent>
         </Card>

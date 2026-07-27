@@ -26,7 +26,7 @@ function IntelCard({ icon, label, count, children }: {
           {icon}
           <span className="text-xs font-medium text-zinc-700 dark:text-zinc-300">{label}</span>
           {count !== undefined && (
-            <Badge variant="secondary" className="text-[9px]">{count}</Badge>
+            <Badge variant="outline" className="text-[9px]">{count}</Badge>
           )}
         </div>
         {open ? <ChevronDown className="h-3.5 w-3.5 text-zinc-400" /> : <ChevronRight className="h-3.5 w-3.5 text-zinc-400" />}
@@ -88,7 +88,7 @@ export function ThreatIntelViewer({ result }: ThreatIntelViewerProps) {
             <Shield className="h-4 w-4 text-purple-500" />
             <CardTitle className="text-sm">Threat Intelligence</CardTitle>
             {(connectorMatches.length > 0 || knowledgeMatches.length > 0) && (
-              <Badge variant="secondary" className="text-[9px]">
+              <Badge variant="outline" className="text-[9px]">
                 {connectorMatches.length + knowledgeMatches.length} matches
               </Badge>
             )}
@@ -107,14 +107,14 @@ export function ThreatIntelViewer({ result }: ThreatIntelViewerProps) {
                     <p className="font-medium text-zinc-700 dark:text-zinc-300">
                       {String(m.source_name || m.source || 'Unknown')}
                     </p>
-                    {m.description && (
+                    {m.description ? (
                       <p className="mt-0.5 text-zinc-500">{String(m.description)}</p>
-                    )}
-                    {m.risk && (
-                      <Badge variant={String(m.risk) === 'high' ? 'destructive' : String(m.risk) === 'medium' ? 'warning' : 'secondary'} className="mt-1 text-[9px]">
+                    ) : null}
+                    {m.risk ? (
+                      <Badge variant={String(m.risk) === 'high' ? 'destructive' : String(m.risk) === 'medium' ? 'warning' : 'info'} className="mt-1 text-[9px]">
                         {String(m.risk)}
                       </Badge>
-                    )}
+                    ) : null}
                   </div>
                 );
               })}

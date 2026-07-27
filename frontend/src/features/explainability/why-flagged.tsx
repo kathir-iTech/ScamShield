@@ -101,7 +101,7 @@ export function WhyFlagged({ result }: WhyFlaggedProps) {
           <div className="flex items-center gap-2">
             <HelpCircle className="h-4 w-4 text-emerald-500" />
             <CardTitle className="text-sm">Why was this flagged?</CardTitle>
-            <Badge variant="secondary" className="text-[9px]">{flags.length} factors</Badge>
+            <Badge variant="outline" className="text-[9px]">{flags.length} factors</Badge>
           </div>
           {expanded ? <ChevronDown className="h-4 w-4 text-zinc-400" /> : <ChevronRight className="h-4 w-4 text-zinc-400" />}
         </button>

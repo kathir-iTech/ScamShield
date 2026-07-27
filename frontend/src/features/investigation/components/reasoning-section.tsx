@@ -73,7 +73,7 @@ export function ReasoningSection({ result }: ReasoningSectionProps) {
             <p className="mb-2 text-xs font-medium text-zinc-500">Risk Breakdown</p>
             <div className="flex flex-wrap gap-1.5">
               {Object.entries(result.risk_breakdown).map(([key, value]) => (
-                <Badge key={key} variant={value > 0.6 ? 'destructive' : value > 0.3 ? 'warning' : 'secondary'}>
+                <Badge key={key} variant={value > 0.6 ? 'destructive' : value > 0.3 ? 'warning' : 'info'}>
                   {key.replace(/_/g, ' ')}: {(value * 100).toFixed(0)}%
                 </Badge>
               ))}

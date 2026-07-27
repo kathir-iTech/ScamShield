@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { LeftPanel } from '@/features/investigation/components/left-panel';
 import { CenterPanel } from '@/features/investigation/components/center-panel';
 import { RightPanel } from '@/features/investigation/components/right-panel';

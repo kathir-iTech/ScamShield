@@ -9,7 +9,7 @@ interface EntityExplorerProps {
   result: AnalysisResponse;
 }
 
-const RISK_BADGE: Record<string, 'destructive' | 'warning' | 'info' | 'secondary' | 'outline' | 'default'> = {
+const RISK_BADGE: Record<string, 'destructive' | 'warning' | 'info' | 'outline' | 'default'> = {
   high: 'destructive',
   medium: 'warning',
   low: 'info',
@@ -72,7 +72,7 @@ export function EntityExplorer({ result }: EntityExplorerProps) {
           <div className="flex items-center gap-2">
             <Users className="h-4 w-4 text-blue-500" />
             <CardTitle className="text-sm">Entity Explorer</CardTitle>
-            <Badge variant="secondary" className="text-[9px]">{allEntities.length} entities</Badge>
+            <Badge variant="outline" className="text-[9px]">{allEntities.length} entities</Badge>
           </div>
           {expanded ? <ChevronDown className="h-4 w-4 text-zinc-400" /> : <ChevronRight className="h-4 w-4 text-zinc-400" />}
         </button>

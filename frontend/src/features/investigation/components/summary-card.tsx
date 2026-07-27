@@ -9,7 +9,7 @@ interface SummaryCardProps {
   loading?: boolean;
 }
 
-const RISK_BADGE_VARIANTS: Record<string, 'destructive' | 'warning' | 'info' | 'default' | 'secondary' | 'outline'> = {
+const RISK_BADGE_VARIANTS: Record<string, 'destructive' | 'warning' | 'info' | 'default' | 'outline'> = {
   critical: 'destructive',
   high: 'destructive',
   medium: 'warning',
@@ -92,9 +92,9 @@ export function SummaryCard({ result, loading }: SummaryCardProps) {
 
         {result.entity_summary && (
           <div className="flex flex-wrap gap-2">
-            <Badge variant="secondary">{result.entity_summary.total_entities} entities</Badge>
-            <Badge variant="secondary">{result.supporting_evidence.length + result.conflicting_evidence.length} evidence</Badge>
-            <Badge variant="secondary">{result.threats.length} threats</Badge>
+            <Badge variant="outline">{result.entity_summary.total_entities} entities</Badge>
+            <Badge variant="outline">{result.supporting_evidence.length + result.conflicting_evidence.length} evidence</Badge>
+            <Badge variant="outline">{result.threats.length} threats</Badge>
           </div>
         )}
 
