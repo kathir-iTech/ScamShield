@@ -1,0 +1,117 @@
+[
+  {
+    "id": "TELECOM_SCAM_0016",
+    "text": "Aadhaar OTP: 374829. Call us immediately with this OTP to update your mobile num",
+    "hash": "92681cf40e2c0f008aceb7d7e2c7724c"
+  },
+  {
+    "id": "INVESTMENT_SCAM_0017",
+    "text": "SEBI registered investment advisor. Get 10x returns in 30 days. Join our elite g",
+    "hash": "3b9bb9f772f6de82322547c331605ce1"
+  },
+  {
+    "id": "INVESTMENT_SCAM_0018",
+    "text": "Forex trading made easy. Earn $500 daily. Automated trading bot. One-time setup ",
+    "hash": "920ba695a85d5096d8d2880ae56cdfb3"
+  },
+  {
+    "id": "INVESTMENT_SCAM_0019",
+    "text": "Mutual fund bonus scheme. Government approved. Invest Rs 25,000 get Rs 1,00,000 ",
+    "hash": "40b54457efb6562bb262aa9ceb483cf2"
+  },
+  {
+    "id": "INVESTMENT_SCAM_0022",
+    "text": "Real estate fractional ownership. Invest Rs 1,00,000 get 30% returns annually. G",
+    "hash": "cb024ff8bf5d7b2e66ac7389418f02c5"
+  },
+  {
+    "id": "ROMANCE_SCAM_0008",
+    "text": "I am a British oil engineer on offshore rig. I have fallen in love with you. Sen",
+    "hash": "9a0eb5b10bf415c882e8c88d757fc95a"
+  },
+  {
+    "id": "ROMANCE_SCAM_0009",
+    "text": "Hello dear. I am Maria from Russia. I want to marry you. Please send Rs 50,000 f",
+    "hash": "df282e1eec5fa1a3f22185ca0e345c12"
+  },
+  {
+    "id": "ROMANCE_SCAM_0010",
+    "text": "I am a UN doctor working in Congo. I received a gold shipment worth $5 million. ",
+    "hash": "2388e6e08189aaee60c030c5d4f010fb"
+  },
+  {
+    "id": "ROMANCE_SCAM_0011",
+    "text": "Sweetheart, I am a US soldier in Afghanistan. My leave has been denied. Pay $2,5",
+    "hash": "555d72b647ae61b4ff91e73aa42b74f2"
+  },
+  {
+    "id": "ROMANCE_SCAM_0012",
+    "text": "I am a wealthy widow from UK. I need a trustworthy person to inherit my $10 mill",
+    "hash": "4ce7a3c79ec857399047b30ff46fcdbf"
+  },
+  {
+    "id": "GOVERNMENT_IMPERSONATION_0020",
+    "text": "Your PAN card has been used in illegal transactions. Call Income Tax Dept immedi",
+    "hash": "1242c034ab177c7a643a7ecc6c62bc86"
+  },
+  {
+    "id": "GOVERNMENT_IMPERSONATION_0022",
+    "text": "Your Aadhaar card will be deactivated. Update your Aadhaar now at https://uidai-",
+    "hash": "8570e0f1a1278e52750b634ed14c451f"
+  },
+  {
+    "id": "GOVERNMENT_IMPERSONATION_0024",
+    "text": "PM Kisan Yojana: You are eligible for Rs 6,000 installment. Click to claim: http",
+    "hash": "56f5bf36f456a395b8337a8f3c04b773"
+  },
+  {
+    "id": "GOVERNMENT_IMPERSONATION_0026",
+    "text": "Central Government: Rs 1,50,000 subsidy approved for your bank account. Pay Rs 2",
+    "hash": "7d3566933ae6b11241c240b772b728f6"
+  },
+  {
+    "id": "GOVERNMENT_IMPERSONATION_0028",
+    "text": "NREGA: You have pending wages of Rs 12,000. Update your bank details at https://",
+    "hash": "2bd1c9768afacc016370168e2304c011"
+  },
+  {
+    "id": "GOVERNMENT_IMPERSONATION_0029",
+    "text": "Ayushman Bharat: Your health insurance is expiring. Renew now with Rs 1,200 prem",
+    "hash": "0625cb3ab9e734b6245f1d186daa26aa"
+  },
+  {
+    "id": "LEGITIMATE_BANKING_0010",
+    "text": "SBI: Your FD of Rs 2,00,000 has matured. Maturity amount Rs 2,45,678 credited to",
+    "hash": "e6079477ce7d69d9765dd2fc90d2bcb6"
+  },
+  {
+    "id": "LEGITIMATE_UPI_0001",
+    "text": "Paytm: Rs 250 received from Ravi Kumar. UPI Ref: 987654321098. Wallet balance: R",
+    "hash": "de0d0db61cb1d85db3b92f634ab95d4b"
+  },
+  {
+    "id": "LEGITIMATE_OTP_0005",
+    "text": "WhatsApp: Your verification code is 482-931. Do not share this code with anyone.",
+    "hash": "35ab3d23f2098028eda852aa723a16e5"
+  },
+  {
+    "id": "LEGITIMATE_COURIER_0001",
+    "text": "Your Flipkart order #OD12345678 has been shipped. Track here: https://flipkart.c",
+    "hash": "251d6757c5faaafdf9028723904ee3d3"
+  },
+  {
+    "id": "LEGITIMATE_OTHER_0046",
+    "text": "Your appointment with Dr Sharma at Apollo Hospital is confirmed for 10:30 AM on ",
+    "hash": "a83b361dded152186a9d67030a8e37b0"
+  },
+  {
+    "id": "LEGITIMATE_OTHER_0048",
+    "text": "Your Uber ride is arriving. Driver: Rajesh, Car: MH12AB1234 White Swift. ETA 3 m",
+    "hash": "192188d883d15758b63b053acc559d94"
+  },
+  {
+    "id": "LEGITIMATE_OTHER_0051",
+    "text": "Zerodha: Your trade of 100 shares of TCS at Rs 3,450 executed successfully. Ledg",
+    "hash": "6fcd40faaf9d6e6051d29ae129595abf"
+  }
+]

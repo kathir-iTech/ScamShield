@@ -1,0 +1,18 @@
+{
+  "dataset": {
+    "name": "ScamShield Indian Scam Intelligence Dataset",
+    "version": "2.0.0-alpha",
+    "description": "Curated dataset of Indian scam and legitimate messages for training production-grade detection models",
+    "schema_version": "2.0",
+    "created_at": "2026-07-28",
+    "total_samples": 0,
+    "categories": 25,
+    "languages": ["en", "hi", "ta", "te", "kn", "ml", "bn", "mr", "gu", "hi-en", "ta-en"],
+    "sources": ["cert_in", "rbi", "ncpc", "npci", "public_dataset", "synthetic", "manual"],
+    "annotation_guidelines": "docs/v2/ANNOTATION_GUIDE.md",
+    "collection_plan": "docs/v2/DATA_COLLECTION_PLAN.md",
+    "benchmark": "docs/v2/BENCHMARK.md",
+    "maintainer": "ScamShield Team"
+  },
+  "samples": []
+}
