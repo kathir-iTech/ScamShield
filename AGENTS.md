@@ -40,9 +40,21 @@
 - **Expanded model (2181 gamma):** Acc=0.9091, F1=0.9275, AUC=0.9503, FPR=2.88%
 - **Key improvements:** OTP_SCAM 0.55→0.93, Personal 0.69→0.92, FP 19→3, English F1 0.90→0.97
 
-## Next Priorities (Post-Expansion)
-1. Fix non-English regression (Hindi 0.89→0.80, Tamil 0.89→0.82, Telugu 0.85→0.77)
-2. Fix FAKE_CUSTOMER_CARE regression (0.95→0.84)
-3. Fix LEGITIMATE_TELECOM FN issue (0.67→0.75, 6 FNs from multilingual Airtel scams)
-4. Fix LEGITIMATE_SHOPPING FN issue (F1_legit=0.80, 6 FNs from multilingual delivery scams)
-5. Add REST API endpoint for model retraining
+## Gold Evaluation (2026-07-30 v3 — final)
+- **Dataset:** 308 samples (204 scam, 104 legit), 30 categories, 4 languages
+- **Initial model (1668 gamma):** Acc=0.8604, F1=0.8933, AUC=0.9260, FPR=18.27%
+- **Expanded model (2531 gamma):** Acc=0.9513, F1=0.9622, AUC=0.9898, FPR=1.92%
+- **3 improvement cycles:** Baseline→2181→2502→2531 (+863 total)
+  - F1: 0.893 → 0.928 → 0.947 → 0.962 (+6.9pp)
+  - FPR: 18.3% → 2.88% → 2.88% → 1.92% (-16.3pp)
+  - FP: 19 → 3 → 3 → 2 (-17)
+  - FN: 24 → 25 → 18 → 13 (-11)
+  - Error rate: 14.0% → 9.1% → 6.8% → 4.9% (-9.1pp)
+- **Language F1:** English 0.98, Hindi 0.95, Tamil 0.89, Telugu 0.88
+- **All scam categories F1≥0.93** — FAKE_CUSTOMER_CARE recovered to 1.00
+- **Remaining errors:** 13 FNs + 2 FPs — diminishing returns from synthetic data
+
+## Next Priorities
+1. Add real-world data collection to fix remaining 13 FNs (3 TELECOM, 3 SHOPPING, 3 PERSONAL)
+2. Add REST API endpoint for model retraining
+3. Train SVM with CalibratedClassifierCV and compare to current LR backend model
