@@ -53,6 +53,9 @@ export interface MetricsSnapshot {
   failed_requests: number;
   active_requests: number;
   validation_failures: number;
+  auth_failures: number;
+  rate_limit_events: number;
+  pipeline_failures: number;
   ocr_requests: number;
   text_requests: number;
   average_latency_ms: number;
@@ -60,6 +63,15 @@ export interface MetricsSnapshot {
   p95_latency_ms: number;
   maximum_latency_ms: number;
   uptime_seconds: number;
+  system?: {
+    memory: MemoryUsage;
+    cpu: { percent: number };
+    process: {
+      memory_mb: number;
+      cpu_percent: number;
+      threads: number;
+    };
+  };
 }
 
 export interface EntityItem {
@@ -143,8 +155,26 @@ export interface AnalysisResponse {
   review_required: boolean;
   manual_review_reason: string;
   investigation_report: Record<string, unknown>;
-  connector_matches?: unknown[];
-  knowledge_matches?: unknown[];
+  refined_prediction?: string;
+  refined_assessment_score?: number;
+  refined_assessment_confidence?: string;
+  refined_review_required?: boolean;
+  refinement_summary?: string;
+  decision_stable?: boolean;
+  stability_concerns?: string[];
+  reasoning_family?: string;
+  reasoning_subfamily?: string;
+  reasoning_family_confidence?: number;
+  reasoning_primary_evidence?: Record<string, unknown>[];
+  reasoning_supporting_evidence?: Record<string, unknown>[];
+  reasoning_weak_evidence?: Record<string, unknown>[];
+  reasoning_contradictory_evidence?: Record<string, unknown>[];
+  reasoning_dominant_evidence_chain?: string[];
+  reasoning_summary?: string;
+  knowledge_matches?: Record<string, unknown>[];
+  advisory_references?: Record<string, unknown>[];
+  historical_matches?: Record<string, unknown>[];
+  connector_matches?: Record<string, unknown>[];
   threat_intel_fusion?: Record<string, unknown>;
 }
 

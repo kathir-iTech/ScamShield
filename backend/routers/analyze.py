@@ -33,7 +33,7 @@ from schemas.responses import (
 from services.orchestrator import analyze_text, PipelineError
 from domains.investigation.public import investigate
 from domains.knowledge.public import enrich_investigation_result
-from ocr import extract_text
+from ocr import extract_text_async
 from utils.validate import sanitise_text
 from config.settings import MAX_FILE_SIZE_MB, SUPPORTED_IMAGE_TYPES
 
@@ -119,7 +119,7 @@ async def analyze_image_endpoint(file: UploadFile = File(...)) -> ImageAnalysisR
                     )
 
             ocr_start = time.perf_counter()
-            extracted = extract_text(temp_path)
+            extracted = await extract_text_async(temp_path)
             ocr_elapsed = (time.perf_counter() - ocr_start) * 1000
             metrics.record_stage("OCR", ocr_elapsed)
         except (ImageCorruptedError, ImageDecompressionBombError, ImageDimensionError):

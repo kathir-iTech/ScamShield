@@ -7,6 +7,11 @@ _EMAILS_RE: re.Pattern = re.compile(r"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}\b", 
 _PHONES_RE: re.Pattern = re.compile(r"(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b")
 _UPI_RE: re.Pattern = re.compile(r"[a-z0-9._-]+@[a-z]{3,}\b", re.IGNORECASE)
 
+_VALID_UPI_HANDLES: frozenset = frozenset({
+    "paytm", "gpay", "phonepe", "amazonpay", "bhim", "upi",
+    "ybl", "ibl", "apl", "axl", "payu", "icici", "hdfc", "sbi", "kotak",
+})
+
 
 def extract_entities(text: str) -> Dict[str, List[str]]:
     entities: Dict[str, List[str]] = {"urls": [], "emails": [], "phones": [], "upis": []}
@@ -18,7 +23,7 @@ def extract_entities(text: str) -> Dict[str, List[str]]:
         entities["phones"].append(m.group(0))
     for m in _UPI_RE.finditer(text):
         handle = m.group(0).split("@")[1].lower() if "@" in m.group(0) else ""
-        if handle in {"paytm", "gpay", "phonepe", "amazonpay", "bhim", "upi", "ybl", "ibl", "apl", "axl", "payu", "icici", "hdfc", "sbi", "kotak"}:
+        if handle in _VALID_UPI_HANDLES:
             entities["upis"].append(m.group(0).lower())
     return entities
 
@@ -39,7 +44,7 @@ def preserve_placeholders(text: str) -> Tuple[str, Dict[str, str]]:
         text = text.replace(m.group(0), key, 1)
     for m in _UPI_RE.finditer(text):
         handle = m.group(0).split("@")[1].lower() if "@" in m.group(0) else ""
-        if handle in {"paytm", "gpay", "phonepe", "amazonpay", "bhim", "upi", "ybl", "ibl", "apl", "axl", "payu", "icici", "hdfc", "sbi", "kotak"}:
+        if handle in _VALID_UPI_HANDLES:
             key = f"__upi_{len(placeholders)}__"
             placeholders[key] = m.group(0)
             text = text.replace(m.group(0), key, 1)

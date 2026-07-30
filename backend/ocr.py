@@ -1,7 +1,10 @@
+import asyncio
 import re
+import concurrent.futures
+from typing import Dict, List, Optional
+
 from PIL import Image
 import pytesseract
-from typing import Dict, List
 
 from utils.text import clean_text
 from core.exceptions import ImageCorruptedError, ImageDecompressionBombError, ImageDimensionError
@@ -13,6 +16,15 @@ EMAIL_REGEX = re.compile(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}")
 
 _MAX_IMAGE_PIXELS: int = 50_000_000
 _MAX_IMAGE_DIMENSION: int = 10_000
+
+_thread_pool: Optional[concurrent.futures.ThreadPoolExecutor] = None
+
+
+def _get_thread_pool() -> concurrent.futures.ThreadPoolExecutor:
+    global _thread_pool
+    if _thread_pool is None:
+        _thread_pool = concurrent.futures.ThreadPoolExecutor(max_workers=2, thread_name_prefix="ocr")
+    return _thread_pool
 
 
 def _validate_image(img: Image.Image) -> None:
@@ -29,7 +41,7 @@ def _validate_image(img: Image.Image) -> None:
         )
 
 
-def extract_text(image_path: str) -> str:
+def _run_ocr(image_path: str) -> str:
     try:
         img = Image.open(image_path)
     except Exception as exc:
@@ -48,6 +60,18 @@ def extract_text(image_path: str) -> str:
     _validate_image(img)
     text = pytesseract.image_to_string(img)
     return text.strip()
+
+
+def extract_text(image_path: str) -> str:
+    return _run_ocr(image_path)
+
+
+async def extract_text_async(image_path: str) -> str:
+    """Run OCR in a thread pool to avoid blocking the async event loop."""
+    pool = _get_thread_pool()
+    loop = asyncio.get_running_loop()
+    text = await loop.run_in_executor(pool, _run_ocr, image_path)
+    return text
 
 
 def extract_metadata(text: str) -> Dict[str, List[str]]:
