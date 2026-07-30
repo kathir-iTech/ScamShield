@@ -31,8 +31,10 @@ def load_training_data(path: str) -> Tuple[List[str], List[int]]:
         reader = csv.DictReader(f)
         for row in reader:
             texts.append(row.get("text", ""))
-            raw_label = row.get("label", "").strip().lower()
-            labels.append(1 if raw_label in ("scam", "1", "true") else 0)
+            raw_label = row.get("is_scam") or row.get("label", "")
+            if isinstance(raw_label, str):
+                raw_label = raw_label.strip().lower()
+            labels.append(1 if raw_label in ("true", "scam", "1", "yes") else 0)
     logger.info("Loaded %d samples from %s (%d scam, %d safe)", len(texts), path, sum(labels), len(labels) - sum(labels))
     return texts, labels
 
@@ -43,8 +45,10 @@ def load_benchmark_dataset(path: str) -> Dict[str, List[Tuple[str, int]]]:
         reader = csv.DictReader(f)
         for row in reader:
             text = row.get("text", "")
-            raw_label = row.get("label", "").strip().lower()
-            label = 1 if raw_label in ("scam", "1", "true") else 0
+            raw_label = row.get("is_scam") or row.get("label", "")
+            if isinstance(raw_label, str):
+                raw_label = raw_label.strip().lower()
+            label = 1 if raw_label in ("true", "scam", "1", "yes") else 0
             category = row.get("category", "general").strip()
             _CATEGORY_MAP[category] = _CATEGORY_MAP.get(category, category)
             categories[category].append((text, label))

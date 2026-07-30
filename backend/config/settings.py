@@ -23,8 +23,14 @@ DATA_FOLDER: str = os.path.join(BASE_DIR, "data")
 MODEL_PATH: str = os.path.join(MODEL_FOLDER, "model.joblib")
 VECTORIZER_PATH: str = os.path.join(MODEL_FOLDER, "vectorizer.joblib")
 DATASET_PATH: str = os.path.join(DATA_FOLDER, "scam_dataset.csv")
+V2_DATASET_PATH: str = os.path.join(DATA_FOLDER, "dataset_v2_beta.csv")
+V2_MODEL_PATH: str = os.path.join(MODEL_FOLDER, "v2_model.joblib")
+V2_VECTORIZER_PATH: str = os.path.join(MODEL_FOLDER, "v2_vectorizer.joblib")
 
 # -- Env-var overrides (applied at module load time) --
+_dataset_path = os.getenv("SCAMSHIELD_DATASET_PATH", "")
+if _dataset_path:
+    DATASET_PATH = _dataset_path
 MAX_TEXT_LENGTH = int(os.getenv("SCAMSHIELD_MAX_TEXT_LENGTH", str(MAX_TEXT_LENGTH)))
 MAX_FILE_SIZE_MB = int(os.getenv("SCAMSHIELD_MAX_FILE_SIZE_MB", str(MAX_FILE_SIZE_MB)))
 CONNECTOR_TIMEOUT = int(os.getenv("SCAMSHIELD_CONNECTOR_TIMEOUT", str(CONNECTOR_TIMEOUT)))

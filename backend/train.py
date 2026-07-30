@@ -30,7 +30,11 @@ def load_data(path: str) -> Tuple[List[str], List[int], List[str]]:
         reader = csv.DictReader(f)
         for row in reader:
             texts.append(row["text"])
-            labels.append(1 if row["label"] == "scam" else 0)
+            if "is_scam" in row:
+                raw = row["is_scam"].strip().lower()
+                labels.append(1 if raw in ("true", "1", "yes") else 0)
+            else:
+                labels.append(1 if row.get("label", "safe") == "scam" else 0)
             categories.append(row.get("category", "unknown"))
     return texts, labels, categories
 
@@ -182,6 +186,7 @@ def main() -> None:
     logger.info("  Confusion: TP=%d FP=%d FN=%d TN=%d",
                 test_metrics["tp"], test_metrics["fp"], test_metrics["fn"], test_metrics["tn"])
 
+    X_test_vec = vectorizer.transform(X_test)
     y_pred = model.predict(X_test_vec)
     print()
     print(classification_report(y_test, y_pred, target_names=["safe", "scam"]))
