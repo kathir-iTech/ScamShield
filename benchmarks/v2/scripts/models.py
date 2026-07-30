@@ -140,9 +140,11 @@ def _get_trainer_cls():
 
 
 def _get_training_args():
+    import tempfile
     from transformers import TrainingArguments
+    cache_dir = tempfile.mkdtemp(prefix="transformer_cache_")
     return TrainingArguments(
-        output_dir="C:\\Users\\jeeva\\AppData\\Local\\Temp\\opencode\\transformer_cache",
+        output_dir=cache_dir,
         num_train_epochs=3,
         per_device_train_batch_size=16,
         logging_steps=50,

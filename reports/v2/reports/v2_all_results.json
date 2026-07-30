@@ -1,0 +1,851 @@
+{
+  "embedding": {
+    "model_type": "embedding",
+    "train_time_seconds": 317.42,
+    "inference_time_seconds": 317.4221,
+    "throughput_samples_per_sec": 0.4,
+    "vocab_size": "N/A",
+    "cross_validation": {
+      "mean_f1": 0.9616801626709732,
+      "std_f1": 0.007082574260853917,
+      "fold_scores": [
+        0.9682,
+        0.953,
+        0.9673,
+        0.9669,
+        0.953
+      ]
+    },
+    "overall": {
+      "total": 112,
+      "accuracy": 0.9553571428571429,
+      "precision": 0.978494623655914,
+      "recall": 0.9680851063829787,
+      "f1": 0.9732620320855615,
+      "specificity": 0.8888888888888888,
+      "false_positive_rate": 0.1111111111111111,
+      "false_negative_rate": 0.031914893617021274,
+      "mcc": 0.8385897468503131,
+      "balanced_accuracy": 0.9284869976359338,
+      "roc_auc": 0.9379432624113475,
+      "confusion_matrix": {
+        "tp": 91,
+        "fn": 3,
+        "fp": 2,
+        "tn": 16
+      }
+    },
+    "per_category": {
+      "AADHAAR_SCAM": {
+        "total": 4,
+        "tp": 4,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "BANKING_FRAUD": {
+        "total": 17,
+        "tp": 16,
+        "fn": 1,
+        "fp": 0,
+        "tn": 0,
+        "recall": 0.9411764705882353,
+        "precision": 1.0,
+        "f1": 0.9696969696969697
+      },
+      "COURIER_SCAM": {
+        "total": 7,
+        "tp": 7,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "CRYPTO_SCAM": {
+        "total": 4,
+        "tp": 4,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "DIGITAL_ARREST": {
+        "total": 1,
+        "tp": 1,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "ELECTRICITY_BILL_SCAM": {
+        "total": 3,
+        "tp": 3,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "FAKE_CUSTOMER_CARE": {
+        "total": 5,
+        "tp": 5,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "GOVERNMENT_IMPERSONATION": {
+        "total": 7,
+        "tp": 7,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "INCOME_TAX_SCAM": {
+        "total": 1,
+        "tp": 1,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "INVESTMENT_SCAM": {
+        "total": 4,
+        "tp": 4,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "JOB_SCAM": {
+        "total": 9,
+        "tp": 9,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "KYC_SCAM": {
+        "total": 5,
+        "tp": 5,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "LEGITIMATE_BANKING": {
+        "total": 2,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 2,
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0
+      },
+      "LEGITIMATE_COURIER": {
+        "total": 1,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 1,
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0
+      },
+      "LEGITIMATE_GOVERNMENT": {
+        "total": 3,
+        "tp": 0,
+        "fn": 0,
+        "fp": 1,
+        "tn": 2,
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0
+      },
+      "LEGITIMATE_OTHER": {
+        "total": 8,
+        "tp": 0,
+        "fn": 0,
+        "fp": 1,
+        "tn": 7,
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0
+      },
+      "LEGITIMATE_OTP": {
+        "total": 2,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 2,
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0
+      },
+      "LEGITIMATE_UPI": {
+        "total": 2,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 2,
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0
+      },
+      "LOAN_SCAM": {
+        "total": 7,
+        "tp": 7,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "LOTTERY_SCAM": {
+        "total": 3,
+        "tp": 3,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "PAN_SCAM": {
+        "total": 1,
+        "tp": 1,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "QR_SCAM": {
+        "total": 4,
+        "tp": 4,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "TELECOM_SCAM": {
+        "total": 4,
+        "tp": 2,
+        "fn": 2,
+        "fp": 0,
+        "tn": 0,
+        "recall": 0.5,
+        "precision": 1.0,
+        "f1": 0.6666666666666666
+      },
+      "UPI_FRAUD": {
+        "total": 8,
+        "tp": 8,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      }
+    },
+    "error_details_summary": {
+      "fp_count": 2,
+      "fn_count": 3
+    }
+  },
+  "tfidf_lr": {
+    "model_type": "tfidf_lr",
+    "train_time_seconds": 0.64,
+    "inference_time_seconds": 0.6371,
+    "throughput_samples_per_sec": 175.8,
+    "vocab_size": 1206,
+    "cross_validation": {
+      "mean_f1": 0.9696209330210109,
+      "std_f1": 0.012492286403805479,
+      "fold_scores": [
+        0.974,
+        0.9804,
+        0.9801,
+        0.9467,
+        0.9669
+      ]
+    },
+    "overall": {
+      "total": 112,
+      "accuracy": 0.9375,
+      "precision": 0.9578947368421052,
+      "recall": 0.9680851063829787,
+      "f1": 0.9629629629629629,
+      "specificity": 0.7777777777777778,
+      "false_positive_rate": 0.2222222222222222,
+      "false_negative_rate": 0.031914893617021274,
+      "mcc": 0.7634364867051743,
+      "balanced_accuracy": 0.8729314420803782,
+      "roc_auc": 0.9716312056737588,
+      "confusion_matrix": {
+        "tp": 91,
+        "fn": 3,
+        "fp": 4,
+        "tn": 14
+      }
+    },
+    "per_category": {
+      "AADHAAR_SCAM": {
+        "total": 4,
+        "tp": 4,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "BANKING_FRAUD": {
+        "total": 17,
+        "tp": 17,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "COURIER_SCAM": {
+        "total": 7,
+        "tp": 7,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "CRYPTO_SCAM": {
+        "total": 4,
+        "tp": 4,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "DIGITAL_ARREST": {
+        "total": 1,
+        "tp": 1,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "ELECTRICITY_BILL_SCAM": {
+        "total": 3,
+        "tp": 3,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "FAKE_CUSTOMER_CARE": {
+        "total": 5,
+        "tp": 5,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "GOVERNMENT_IMPERSONATION": {
+        "total": 7,
+        "tp": 7,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "INCOME_TAX_SCAM": {
+        "total": 1,
+        "tp": 1,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "INVESTMENT_SCAM": {
+        "total": 4,
+        "tp": 4,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "JOB_SCAM": {
+        "total": 9,
+        "tp": 9,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "KYC_SCAM": {
+        "total": 5,
+        "tp": 5,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "LEGITIMATE_BANKING": {
+        "total": 2,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 2,
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0
+      },
+      "LEGITIMATE_COURIER": {
+        "total": 1,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 1,
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0
+      },
+      "LEGITIMATE_GOVERNMENT": {
+        "total": 3,
+        "tp": 0,
+        "fn": 0,
+        "fp": 2,
+        "tn": 1,
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0
+      },
+      "LEGITIMATE_OTHER": {
+        "total": 8,
+        "tp": 0,
+        "fn": 0,
+        "fp": 2,
+        "tn": 6,
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0
+      },
+      "LEGITIMATE_OTP": {
+        "total": 2,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 2,
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0
+      },
+      "LEGITIMATE_UPI": {
+        "total": 2,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 2,
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0
+      },
+      "LOAN_SCAM": {
+        "total": 7,
+        "tp": 7,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "LOTTERY_SCAM": {
+        "total": 3,
+        "tp": 3,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "PAN_SCAM": {
+        "total": 1,
+        "tp": 1,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "QR_SCAM": {
+        "total": 4,
+        "tp": 4,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "TELECOM_SCAM": {
+        "total": 4,
+        "tp": 2,
+        "fn": 2,
+        "fp": 0,
+        "tn": 0,
+        "recall": 0.5,
+        "precision": 1.0,
+        "f1": 0.6666666666666666
+      },
+      "UPI_FRAUD": {
+        "total": 8,
+        "tp": 7,
+        "fn": 1,
+        "fp": 0,
+        "tn": 0,
+        "recall": 0.875,
+        "precision": 1.0,
+        "f1": 0.9333333333333333
+      }
+    },
+    "error_details_summary": {
+      "fp_count": 4,
+      "fn_count": 3
+    }
+  },
+  "tfidf_svm": {
+    "model_type": "tfidf_svm",
+    "train_time_seconds": 0.64,
+    "inference_time_seconds": 0.6443,
+    "throughput_samples_per_sec": 173.8,
+    "vocab_size": 1206,
+    "cross_validation": {
+      "mean_f1": 0.9698973322009732,
+      "std_f1": 0.009059763220207144,
+      "fold_scores": [
+        0.974,
+        0.9677,
+        0.9737,
+        0.9804,
+        0.9536
+      ]
+    },
+    "overall": {
+      "total": 112,
+      "accuracy": 0.9553571428571429,
+      "precision": 0.9587628865979382,
+      "recall": 0.9893617021276596,
+      "f1": 0.9738219895287958,
+      "specificity": 0.7777777777777778,
+      "false_positive_rate": 0.2222222222222222,
+      "false_negative_rate": 0.010638297872340425,
+      "mcc": 0.8272618873027345,
+      "balanced_accuracy": 0.8835697399527187,
+      "roc_auc": 0.9657210401891253,
+      "confusion_matrix": {
+        "tp": 93,
+        "fn": 1,
+        "fp": 4,
+        "tn": 14
+      }
+    },
+    "per_category": {
+      "AADHAAR_SCAM": {
+        "total": 4,
+        "tp": 4,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "BANKING_FRAUD": {
+        "total": 17,
+        "tp": 17,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "COURIER_SCAM": {
+        "total": 7,
+        "tp": 7,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "CRYPTO_SCAM": {
+        "total": 4,
+        "tp": 4,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "DIGITAL_ARREST": {
+        "total": 1,
+        "tp": 1,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "ELECTRICITY_BILL_SCAM": {
+        "total": 3,
+        "tp": 3,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "FAKE_CUSTOMER_CARE": {
+        "total": 5,
+        "tp": 5,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "GOVERNMENT_IMPERSONATION": {
+        "total": 7,
+        "tp": 7,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "INCOME_TAX_SCAM": {
+        "total": 1,
+        "tp": 1,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "INVESTMENT_SCAM": {
+        "total": 4,
+        "tp": 4,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "JOB_SCAM": {
+        "total": 9,
+        "tp": 9,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "KYC_SCAM": {
+        "total": 5,
+        "tp": 5,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "LEGITIMATE_BANKING": {
+        "total": 2,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 2,
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0
+      },
+      "LEGITIMATE_COURIER": {
+        "total": 1,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 1,
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0
+      },
+      "LEGITIMATE_GOVERNMENT": {
+        "total": 3,
+        "tp": 0,
+        "fn": 0,
+        "fp": 2,
+        "tn": 1,
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0
+      },
+      "LEGITIMATE_OTHER": {
+        "total": 8,
+        "tp": 0,
+        "fn": 0,
+        "fp": 2,
+        "tn": 6,
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0
+      },
+      "LEGITIMATE_OTP": {
+        "total": 2,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 2,
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0
+      },
+      "LEGITIMATE_UPI": {
+        "total": 2,
+        "tp": 0,
+        "fn": 0,
+        "fp": 0,
+        "tn": 2,
+        "recall": 0.0,
+        "precision": 0.0,
+        "f1": 0.0
+      },
+      "LOAN_SCAM": {
+        "total": 7,
+        "tp": 7,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "LOTTERY_SCAM": {
+        "total": 3,
+        "tp": 3,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "PAN_SCAM": {
+        "total": 1,
+        "tp": 1,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "QR_SCAM": {
+        "total": 4,
+        "tp": 4,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "TELECOM_SCAM": {
+        "total": 4,
+        "tp": 4,
+        "fn": 0,
+        "fp": 0,
+        "tn": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0
+      },
+      "UPI_FRAUD": {
+        "total": 8,
+        "tp": 7,
+        "fn": 1,
+        "fp": 0,
+        "tn": 0,
+        "recall": 0.875,
+        "precision": 1.0,
+        "f1": 0.9333333333333333
+      }
+    },
+    "error_details_summary": {
+      "fp_count": 4,
+      "fn_count": 1
+    }
+  }
+}
