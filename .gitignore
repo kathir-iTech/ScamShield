@@ -7,4 +7,6 @@ node_modules/
 dist/
 build/
 *.pkl
+*.pt
+*.joblib
 .DS_Store

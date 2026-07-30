@@ -34,9 +34,23 @@
 4. No non-English samples yet (Tamil/Hindi/Telugu)
 5. Benchmark/gamma still uses beta DATA_PATH in run_beta_benchmark.py — need separate gamma benchmark
 
+## Gold Evaluation (2026-07-30)
+- **Dataset:** 308 samples (204 scam, 104 legit), 30 categories, 4 languages
+- **Location:** `datasets/gold/gold_dataset.csv`
+- **Zero leakage:** 8327 training texts checked — exact, cleaned, near-duplicate, template variant
+- **Production model performance:**
+  - Accuracy: 0.8604 | F1: 0.8933 | ROC-AUC: 0.9260 | MCC: 0.6920
+  - FPR: 0.1827 | FNR: 0.1176
+  - English F1=0.8986, Hindi=0.8947, Tamil=0.8889, Telugu=0.8485
+  - Scam strong (F1 0.83-1.00) except OTP_SCAM (0.55)
+  - Legit strong: govt/OTP perfect; weak: personal(0.69), telecom(0.67)
+- **Reports:** GOLD_DATASET_REPORT.md, LEAKAGE_REPORT.md, GOLD_EVALUATION_REPORT.md, ERROR_ANALYSIS_GOLD.md
+
 ## Next Priorities
 1. Create gamma benchmark script (copy of run_beta_benchmark.py with gamma DATA_PATH)
-2. Add non-English samples (Tamil/Hindi codeswitched) to fill legit categories
-3. Collect real-world scam messages from social sources
-4. Train SVM with CalibratedClassifierCV and compare to current LR backend model
-5. Add REST API endpoint for model retraining
+2. Add non-English samples to fill legitimate categories (Tamil, Hindi, Telugu)
+3. Expand OTP_SCAM training data (weakest scam category, F1=0.55 on gold)
+4. Collect more real-world scam messages from social sources
+5. Train SVM with CalibratedClassifierCV and compare to current LR backend model
+6. Fix legitimate personal/telecom FP issue (FPR=18%)
+7. Add REST API endpoint for model retraining
