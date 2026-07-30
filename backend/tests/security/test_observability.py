@@ -96,6 +96,59 @@ class TestMetricsEndpoint:
         assert isinstance(data["rate_limit_events"], int)
         assert isinstance(data["pipeline_failures"], int)
 
+    def test_metrics_prometheus_format(self, client):
+        resp = client.get("/metrics", headers={"Accept": "text/plain"})
+        assert resp.status_code == 200
+        text = resp.text
+        assert "scamshield_requests_total" in text
+        assert "scamshield_request_duration_seconds" in text
+        assert "scamshield_active_requests" in text
+        assert "scamshield_validation_failures_total" in text
+        assert "scamshield_auth_failures_total" in text
+        assert "scamshield_rate_limit_events_total" in text
+        assert "scamshield_pipeline_failures_total" in text
+        assert "scamshield_ocr_requests_total" in text
+        assert "scamshield_text_requests_total" in text
+        assert "scamshield_memory_usage_bytes" in text
+        assert "scamshield_cpu_percent" in text
+        assert "scamshield_process_memory_bytes" in text
+        assert "scamshield_process_cpu_percent" in text
+        assert "scamshield_process_threads" in text
+        assert "scamshield_process_fds" in text
+        assert "# TYPE" in text
+        assert "# HELP" in text
+
+    def test_metrics_prometheus_content_type(self, client):
+        resp = client.get("/metrics", headers={"Accept": "text/plain"})
+        assert resp.status_code == 200
+        assert resp.headers.get("content-type", "").startswith("text/plain") or "openmetrics" in resp.headers.get("content-type", "")
+
+    def test_metrics_json_still_works(self, client):
+        resp = client.get("/metrics", headers={"Accept": "application/json"})
+        assert resp.status_code == 200
+        data = resp.json()
+        assert "total_requests" in data
+
+    def test_record_prometheus_request_increments(self, client):
+        from prometheus_client import REGISTRY
+        def get_total():
+            for metric in REGISTRY.collect():
+                if metric.name == "scamshield_requests":
+                    return sum(s.value for s in metric.samples if not s.name.endswith("_created"))
+            return 0.0
+        before = get_total()
+        from core.prometheus_metrics import record_prometheus_request
+        record_prometheus_request("GET", "/test", 200, 0.1)
+        after = get_total()
+        assert after == before + 1.0
+
+    def test_system_metrics_non_negative(self):
+        import core.prometheus_metrics as pm
+        pm.init_prometheus_metrics()
+        pm.update_prometheus_metrics()
+        assert pm.scamshield_process_threads._value.get() >= 0
+        assert pm.scamshield_process_fds._value.get() >= 0
+
 
 class TestCorrelationID:
     def test_correlation_id_in_response(self, client):

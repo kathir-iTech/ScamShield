@@ -6,6 +6,7 @@ from typing import Dict, List, Optional
 from PIL import Image
 import pytesseract
 
+from config import settings
 from utils.text import clean_text
 from core.exceptions import ImageCorruptedError, ImageDecompressionBombError, ImageDimensionError
 
@@ -14,8 +15,8 @@ OTP_REGEX = re.compile(r"(?<!\w)(\d{4,8})(?!\w)")
 URL_REGEX = re.compile(r"https?://(?:[-\w.]|%[\da-fA-F]{2})+[^\s]*")
 EMAIL_REGEX = re.compile(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}")
 
-_MAX_IMAGE_PIXELS: int = 50_000_000
-_MAX_IMAGE_DIMENSION: int = 10_000
+_MAX_IMAGE_PIXELS: int = settings.OCR_MAX_IMAGE_PIXELS
+_MAX_IMAGE_DIMENSION: int = settings.OCR_MAX_IMAGE_DIMENSION
 
 _thread_pool: Optional[concurrent.futures.ThreadPoolExecutor] = None
 
@@ -23,8 +24,17 @@ _thread_pool: Optional[concurrent.futures.ThreadPoolExecutor] = None
 def _get_thread_pool() -> concurrent.futures.ThreadPoolExecutor:
     global _thread_pool
     if _thread_pool is None:
-        _thread_pool = concurrent.futures.ThreadPoolExecutor(max_workers=2, thread_name_prefix="ocr")
+        _thread_pool = concurrent.futures.ThreadPoolExecutor(
+            max_workers=settings.OCR_MAX_WORKERS, thread_name_prefix="ocr"
+        )
     return _thread_pool
+
+
+def shutdown_ocr_pool() -> None:
+    global _thread_pool
+    if _thread_pool is not None:
+        _thread_pool.shutdown(wait=True)
+        _thread_pool = None
 
 
 def _validate_image(img: Image.Image) -> None:

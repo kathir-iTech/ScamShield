@@ -84,6 +84,62 @@ if _jwt_clock_skew:
     except ValueError:
         pass
 
+# -- Redis / Token store --
+_redis_url = os.getenv("SCAMSHIELD_REDIS_URL", "")
+if _redis_url:
+    REDIS_URL = _redis_url
+
+# -- Auth rate limit overrides --
+_auth_rl_max = os.getenv("SCAMSHIELD_AUTH_RATE_LIMIT_MAX", "")
+if _auth_rl_max:
+    try:
+        AUTH_RATE_LIMIT_MAX = int(_auth_rl_max)
+    except ValueError:
+        pass
+
+_auth_rl_window = os.getenv("SCAMSHIELD_AUTH_RATE_LIMIT_WINDOW", "")
+if _auth_rl_window:
+    try:
+        AUTH_RATE_LIMIT_WINDOW = int(_auth_rl_window)
+    except ValueError:
+        pass
+
+_auth_admin_rl_max = os.getenv("SCAMSHIELD_AUTH_ADMIN_RATE_LIMIT_MAX", "")
+if _auth_admin_rl_max:
+    try:
+        AUTH_ADMIN_RATE_LIMIT_MAX = int(_auth_admin_rl_max)
+    except ValueError:
+        pass
+
+_auth_admin_rl_window = os.getenv("SCAMSHIELD_AUTH_ADMIN_RATE_LIMIT_WINDOW", "")
+if _auth_admin_rl_window:
+    try:
+        AUTH_ADMIN_RATE_LIMIT_WINDOW = int(_auth_admin_rl_window)
+    except ValueError:
+        pass
+
+# -- OCR overrides --
+_ocr_workers = os.getenv("SCAMSHIELD_OCR_MAX_WORKERS", "")
+if _ocr_workers:
+    try:
+        OCR_MAX_WORKERS = int(_ocr_workers)
+    except ValueError:
+        pass
+
+_ocr_dim = os.getenv("SCAMSHIELD_OCR_MAX_IMAGE_DIMENSION", "")
+if _ocr_dim:
+    try:
+        OCR_MAX_IMAGE_DIMENSION = int(_ocr_dim)
+    except ValueError:
+        pass
+
+_ocr_pixels = os.getenv("SCAMSHIELD_OCR_MAX_IMAGE_PIXELS", "")
+if _ocr_pixels:
+    try:
+        OCR_MAX_IMAGE_PIXELS = int(_ocr_pixels)
+    except ValueError:
+        pass
+
 # -- CORS / Security overrides --
 _cors_origins = os.getenv("SCAMSHIELD_CORS_ORIGINS", "")
 if _cors_origins:

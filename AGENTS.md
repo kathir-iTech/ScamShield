@@ -1,31 +1,80 @@
 # ScamShield — Agent State
 
 ## Active Summary
+All 8 phases of Production Readiness Transformation complete (2026-07-30).
 
 ## Current Best Model
-- **Backend model:** TF-IDF + LogisticRegression, trained on v2 gamma dataset (1,668 samples)
-- **Performance:** CV F1=0.9769, Test F1=0.9731, Test ROC-AUC=0.9855
-- **Top scam indicators:** http, pay, kyc, verify, pan, update
-- **Top safe indicators:** credited, ref, otp, successfully, delivered
+- **Backend model:** TF-IDF + LogisticRegression, trained on v2 gamma dataset (2,531 samples)
+- **Performance:** Test Acc=0.9513, F1=0.9622, ROC-AUC=0.9898, FPR=1.92%
+- **Top scam indicators:** http, xyz, verify, update, pay, tk, pan, fee, kyc
+- **Top safe indicators:** valid, aug, credited, order, ref, delivered
 
 ## Dataset
-- **v2 gamma** (1668 samples: 1303 scam, 365 legit, 25 categories)
-- File: `datasets/v2/annotated/dataset_v2_gamma.csv`
-- Backend copy: `backend/data/dataset_v2_gamma.csv`
-- Generator: `datasets/v2/annotated/v2_expand_gamma.py`
-- Categories with <60 samples: FAKE_CUSTOMER_CARE(61), LOTTERY_SCAM(63), PAN_SCAM(63), QR_SCAM(64), DIGITAL_ARREST(66), INCOME_TAX_SCAM(68), LEGITIMATE_COURIER(59), LEGITIMATE_OTP(57), LEGITIMATE_UPI(56), LEGITIMATE_BANKING(53)
+- **v2 gamma** (2531 samples: 1734 scam, 797 safe, 25 categories)
+- **Model registry:** `backend/models/registry.json`
+- **Training log:** `backend/models/training_log.json`
+- **Production artifacts:** `backend/models/model.joblib`, `vectorizer.joblib`
 
-## Key Fixed Bugs
-1. **Per-category F1=0 for legit categories**: Added `f1_legit` metric using `pos_label=0`; updated benchmark report to use `f1_legit` for `LEGITIMATE_*` categories
-2. **train.py load_data**: Added support for both `label` (v1) and `is_scam` (v2) CSV columns
-3. **train.py NameError**: `X_test_vec` not defined — added `vectorizer.transform(X_test)` before the classification report
-4. **benchmark_runner.py**: `load_training_data` and `load_benchmark_dataset` used `label` instead of `is_scam`
-5. **SVM AUC=0.5000**: Known artifact — LinearSVC lacks `predict_proba`. Use `CalibratedClassifierCV` for probability estimates if needed
+## Production Readiness — Phase 2-8 Complete
 
-## Backend Config Additions
-- `SCAMSHIELD_DATASET_PATH` env var to override dataset path
-- `V2_DATASET_PATH`, `V2_MODEL_PATH`, `V2_VECTORIZER_PATH` for v2 assets
-- Backend currently uses gamma dataset via env var (`backend/data/dataset_v2_gamma.csv`)
+### Phase 2: Observability ✓
+- Prometheus metrics endpoint (17 metric instruments, OpenMetrics format)
+- Request tracing with contextvars
+- Structured logging with trace/span IDs, `log_duration` context manager
+- Grafana dashboard (`monitoring/grafana/dashboard.json`)
+- Alertmanager rules (9 alert rules)
+- Prometheus + Grafana Docker Compose overlay
+- Health diagnostics improvements
+
+### Phase 3: Scalability ✓
+- Thread-safe `SlidingWindowRateLimiter` (threading.Lock)
+- Redis-backed distributed rate limiter with graceful in-memory fallback
+- `create_rate_limiter()` factory auto-selects Redis or in-memory
+- FastAPI lifespan pattern (replaced deprecated `@app.on_event`)
+- OCR thread pool cleanup on shutdown (configurable `max_workers`)
+- Shared connector thread pool (lazy-init, reused across calls)
+- Rate limit headers on auth endpoints
+
+### Phase 4: ML Operations ✓
+- `ModelRegistry` with JSON persistence (`models/registry.json`)
+- `PredictionLogger` with daily JSONL files (`logs/predictions/`)
+- `DriftDetector` (accuracy, confidence, data, latency checks)
+- `EvalScheduler` for automated evaluation runs
+- Model rollback support in registry
+- Model info endpoint (`GET /model/info`)
+- Prediction logging integrated into `/analyze/text` and `/analyze/image`
+
+### Phase 5: Quality ✓
+- Proper `__init__.py` exports for all packages (core, domains, services, routers, etc.)
+- Removed unused `import re` from `connectors/utils.py`
+- Added type hints (`core/metrics.py`, `scripts/quality_gate.py`)
+- Created `pyproject.toml` with ruff/mypy/pytest config
+- Quality and core-init test suites added
+
+### Phase 6: Performance ✓
+- **Cold start eliminated:** Model + pipeline warmup in FastAPI lifespan
+  - Model load: 11,551ms (cold) → 0ms (warmup)
+  - Knowledge service: 463ms (cold) → 0ms (warmup)
+  - Connector step: 146ms (cold) → 0ms (warmup)
+- **API text P50:** 42.88ms (min 32ms, max 202ms)
+- **Pipeline P50:** 66.29ms / P95: 98ms
+- **Inference (1000 chars):** P50 2.86ms, P95 12.15ms, P99 24.14ms
+- Performance baseline at `backend/performance_baseline.json`
+
+### Phase 7: DevOps ✓
+- `.dockerignore` (root + backend)
+- K8s manifests validated: probes (`/live`/`/ready`), configmap (`SCAMSHIELD_*`), ingress (SPA routing), secrets template, HPA
+- Rollback script (`scripts/rollback.sh`)
+- Backup/DR documentation (`docs/BACKUP.md`)
+- GitLeaks secret scanning in CI
+- Docker security scan (Trivy) in CI backend workflow
+- Coverage gate rewritten in pure Python
+
+### Phase 8: Final Validation ✓
+- **820 tests passed, 0 failed, 3 skipped** (pre-existing)
+- All K8s YAML files valid
+- Docker Compose valid
+- Full validation report at `backend/VALIDATION_REPORT.md`
 
 ## Known Issues
 1. Transformer model (DistilBERT) won't train: `module 'datasets' has no attribute 'Dataset'` — library compat
@@ -33,28 +82,12 @@
 3. A few categories still below 60 samples (legitimate categories mostly)
 4. No non-English samples yet (Tamil/Hindi/Telugu)
 5. Benchmark/gamma still uses beta DATA_PATH in run_beta_benchmark.py — need separate gamma benchmark
-
-## Gold Evaluation (2026-07-30 v1)
-- **Dataset:** 308 samples (204 scam, 104 legit), 30 categories, 4 languages
-- **Initial model (1668 gamma):** Acc=0.8604, F1=0.8933, AUC=0.9260, FPR=18.27%
-- **Expanded model (2181 gamma):** Acc=0.9091, F1=0.9275, AUC=0.9503, FPR=2.88%
-- **Key improvements:** OTP_SCAM 0.55→0.93, Personal 0.69→0.92, FP 19→3, English F1 0.90→0.97
-
-## Gold Evaluation (2026-07-30 v3 — final)
-- **Dataset:** 308 samples (204 scam, 104 legit), 30 categories, 4 languages
-- **Initial model (1668 gamma):** Acc=0.8604, F1=0.8933, AUC=0.9260, FPR=18.27%
-- **Expanded model (2531 gamma):** Acc=0.9513, F1=0.9622, AUC=0.9898, FPR=1.92%
-- **3 improvement cycles:** Baseline→2181→2502→2531 (+863 total)
-  - F1: 0.893 → 0.928 → 0.947 → 0.962 (+6.9pp)
-  - FPR: 18.3% → 2.88% → 2.88% → 1.92% (-16.3pp)
-  - FP: 19 → 3 → 3 → 2 (-17)
-  - FN: 24 → 25 → 18 → 13 (-11)
-  - Error rate: 14.0% → 9.1% → 6.8% → 4.9% (-9.1pp)
-- **Language F1:** English 0.98, Hindi 0.95, Tamil 0.89, Telugu 0.88
-- **All scam categories F1≥0.93** — FAKE_CUSTOMER_CARE recovered to 1.00
-- **Remaining errors:** 13 FNs + 2 FPs — diminishing returns from synthetic data
+6. Frontend bundle build fails due to `@sentry/core` dependency resolution — pre-existing
+7. OCR profiling not possible without Tesseract installed on dev machine
 
 ## Next Priorities
-1. Add real-world data collection to fix remaining 13 FNs (3 TELECOM, 3 SHOPPING, 3 PERSONAL)
-2. Add REST API endpoint for model retraining
-3. Train SVM with CalibratedClassifierCV and compare to current LR backend model
+1. Fix frontend Sentry dependency issue for production builds
+2. Add real-world data collection to fix remaining 13 FNs
+3. Add REST API endpoint for model retraining
+4. Implement Helm charts for Kubernetes deployment
+5. Add Terraform infrastructure-as-code for cloud deployment

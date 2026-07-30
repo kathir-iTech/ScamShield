@@ -7,9 +7,19 @@ on:
     branches: [main]
 
 env:
-  PYTHON_VERSION: "3.14"
+  PYTHON_VERSION: "3.12"
 
 jobs:
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Gitleaks secret scan
+        uses: gitleaks/gitleaks-action@v2
+        continue-on-error: true
+
   test:
     runs-on: ubuntu-latest
     defaults:
@@ -44,20 +54,19 @@ jobs:
 
       - name: Coverage quality gate
         run: |
-          $coverage = python -c "
+          python -c "
 import xml.etree.ElementTree as ET
 tree = ET.parse('coverage.xml')
 root = tree.getroot()
 line_rate = float(root.attrib.get('line-rate', 0))
-print(f'{line_rate:.4f}')
+threshold = 0.70
+print(f'Coverage: {line_rate:.4f}')
+if line_rate < threshold:
+    print(f'FAIL: Line coverage {line_rate:.4f} is below threshold {threshold}')
+    exit(1)
+else:
+    print(f'PASS: Line coverage {line_rate:.4f} meets threshold {threshold}')
 "
-          $threshold = 0.70
-          $coverageNum = [double]$coverage
-          if ($coverageNum -lt $threshold) {
-            Write-Host "FAIL: Line coverage $coverageNum is below threshold $threshold"
-            exit 1
-          }
-          Write-Host "PASS: Line coverage $coverageNum meets threshold $threshold"
 
       - name: Run chaos tests (non-blocking)
         run: |

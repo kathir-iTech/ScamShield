@@ -19,6 +19,8 @@ from core.exceptions import (
 )
 from core.logger import logger
 from core.metrics import metrics
+from core.prediction_logger import log_prediction
+from predict import get_model_info
 from schemas.requests import TextAnalysisRequest, InvestigationRequest
 from schemas.responses import (
     AnalysisResponse,
@@ -36,11 +38,12 @@ from domains.knowledge.public import enrich_investigation_result
 from ocr import extract_text_async
 from utils.validate import sanitise_text
 from config.settings import MAX_FILE_SIZE_MB, SUPPORTED_IMAGE_TYPES
+from config.settings import OCR_MAX_IMAGE_DIMENSION
 
 router = APIRouter(tags=["Analysis"])
 
 _MAX_FILE_SIZE_BYTES: int = MAX_FILE_SIZE_MB * 1024 * 1024
-_MAX_IMAGE_DIMENSION = 8000
+_MAX_IMAGE_DIMENSION = OCR_MAX_IMAGE_DIMENSION
 _FILENAME_SANITISE_RE = re.compile(r"[^\w.\-]")
 _ALLOWED_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".bmp"}
 
@@ -66,6 +69,19 @@ def analyze_text_endpoint(request: TextAnalysisRequest) -> AnalysisResponse:
         result = analyze_text(text)
         elapsed = (time.perf_counter() - start) * 1000
         metrics.record_request(elapsed, success=True, is_ocr=False, is_validation_failure=False)
+        try:
+            model_info = get_model_info()
+            log_prediction(
+                request_id=rid,
+                text=text,
+                prediction=result.get("prediction", "unknown"),
+                confidence=result.get("confidence", 0.0),
+                model_version=model_info.get("version", "unknown"),
+                latency_ms=elapsed,
+                category=result.get("scam_category"),
+            )
+        except Exception:
+            logger.warning("Failed to log prediction", exc_info=True)
         return AnalysisResponse(**result)
     except ValidationError:
         elapsed = (time.perf_counter() - start) * 1000
@@ -155,6 +171,19 @@ async def analyze_image_endpoint(file: UploadFile = File(...)) -> ImageAnalysisR
         result = analyze_text(extracted)
         elapsed = (time.perf_counter() - start) * 1000
         metrics.record_request(elapsed, success=True, is_ocr=True, is_validation_failure=False)
+        try:
+            model_info = get_model_info()
+            log_prediction(
+                request_id=rid,
+                text=extracted,
+                prediction=result.get("prediction", "unknown"),
+                confidence=result.get("confidence", 0.0),
+                model_version=model_info.get("version", "unknown"),
+                latency_ms=elapsed,
+                category=result.get("scam_category"),
+            )
+        except Exception:
+            logger.warning("Failed to log prediction", exc_info=True)
         return ImageAnalysisResponse(extracted_text=extracted, **result)
     except (InvalidImageError, ImageExtractionError):
         elapsed = (time.perf_counter() - start) * 1000

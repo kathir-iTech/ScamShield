@@ -22,6 +22,25 @@ from connectors.utils import (
 )
 
 
+_shared_pool: Optional[concurrent.futures.ThreadPoolExecutor] = None
+
+
+def _get_shared_pool() -> concurrent.futures.ThreadPoolExecutor:
+    global _shared_pool
+    if _shared_pool is None:
+        _shared_pool = concurrent.futures.ThreadPoolExecutor(
+            max_workers=CONNECTOR_PARALLELISM, thread_name_prefix="connector"
+        )
+    return _shared_pool
+
+
+def shutdown_connector_pool() -> None:
+    global _shared_pool
+    if _shared_pool is not None:
+        _shared_pool.shutdown(wait=True)
+        _shared_pool = None
+
+
 class ConnectorManager:
     def __init__(self) -> None:
         self._cache = ConnectorCache()
@@ -108,38 +127,38 @@ class ConnectorManager:
         lookup_limit = min(len(connectors), CONNECTOR_PARALLELISM)
         active = connectors[:lookup_limit]
         results: List[LookupResult] = []
-        with concurrent.futures.ThreadPoolExecutor(max_workers=lookup_limit) as executor:
-            future_map = {
-                executor.submit(
-                    self._lookup_single, conn, indicator, indicator_type
-                ): conn
-                for conn in active
-            }
-            for future in concurrent.futures.as_completed(future_map, timeout=CONNECTOR_TIMEOUT + 5):
-                conn = future_map[future]
-                try:
-                    result = future.result(timeout=CONNECTOR_TIMEOUT)
-                    results.append(result)
-                except concurrent.futures.TimeoutError:
-                    results.append(LookupResult(
-                        indicator=indicator,
-                        indicator_type=indicator_type,
-                        matched=False,
-                        risk="UNKNOWN",
-                        confidence=0.0,
-                        source=conn.name,
-                        error=f"Timeout after {CONNECTOR_TIMEOUT}s",
-                    ))
-                except Exception as exc:
-                    results.append(LookupResult(
-                        indicator=indicator,
-                        indicator_type=indicator_type,
-                        matched=False,
-                        risk="UNKNOWN",
-                        confidence=0.0,
-                        source=conn.name,
-                        error=str(exc),
-                    ))
+        pool = _get_shared_pool()
+        future_map = {
+            pool.submit(
+                self._lookup_single, conn, indicator, indicator_type
+            ): conn
+            for conn in active
+        }
+        for future in concurrent.futures.as_completed(future_map, timeout=CONNECTOR_TIMEOUT + 5):
+            conn = future_map[future]
+            try:
+                result = future.result(timeout=CONNECTOR_TIMEOUT)
+                results.append(result)
+            except concurrent.futures.TimeoutError:
+                results.append(LookupResult(
+                    indicator=indicator,
+                    indicator_type=indicator_type,
+                    matched=False,
+                    risk="UNKNOWN",
+                    confidence=0.0,
+                    source=conn.name,
+                    error=f"Timeout after {CONNECTOR_TIMEOUT}s",
+                ))
+            except Exception as exc:
+                results.append(LookupResult(
+                    indicator=indicator,
+                    indicator_type=indicator_type,
+                    matched=False,
+                    risk="UNKNOWN",
+                    confidence=0.0,
+                    source=conn.name,
+                    error=str(exc),
+                ))
         return self._merge_results(results, indicator, indicator_type)
 
     def _merge_results(

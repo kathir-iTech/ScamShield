@@ -19,6 +19,25 @@ from core.constants import (
 )
 from config import settings
 
+_prometheus_available: bool = False
+_redis_available: bool = False
+_model_version: str = API_VERSION
+
+
+def set_prometheus_available(available: bool) -> None:
+    global _prometheus_available
+    _prometheus_available = available
+
+
+def set_redis_available(available: bool) -> None:
+    global _redis_available
+    _redis_available = available
+
+
+def set_model_version(version: str) -> None:
+    global _model_version
+    _model_version = version
+
 _startup_time: float = time.time()
 
 
@@ -135,4 +154,9 @@ def get_diagnostics() -> Dict:
             "/analyze/image",
             "/metrics",
         ],
+        "observability": {
+            "prometheus": "available" if _prometheus_available else "unavailable",
+            "redis": "available" if _redis_available else "unavailable",
+        },
+        "model_version": _model_version,
     }

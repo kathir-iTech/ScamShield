@@ -106,3 +106,26 @@ print('OpenAPI spec valid with all required routes')
       - uses: actions/checkout@v4
       - name: Build Docker image
         run: docker build -t scamshield-backend:ci --build-arg VERSION=$(cat VERSION) ./backend
+
+  docker-security:
+    name: Docker Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t scamshield-backend:scan --build-arg VERSION=$(cat VERSION) ./backend
+      - name: Run Trivy scan
+        uses: aquasecurity/trivy-action@0.29.0
+        with:
+          image-ref: scamshield-backend:scan
+          format: sarif
+          output: trivy-backend-security.sarif
+          severity: CRITICAL
+          exit-code: 1
+      - name: Upload Trivy results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trivy-backend-security
+          path: trivy-backend-security.sarif
+          retention-days: 30

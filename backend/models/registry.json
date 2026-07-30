@@ -1,0 +1,212 @@
+{
+  "models": {
+    "20260730_115411": {
+      "version": "20260730_115411",
+      "model_type": "LogisticRegression",
+      "trained_at": "2026-07-30T11:54:11Z",
+      "dataset_path": "D:\\Developer\\Desktop\\ScamShield\\backend\\data\\dataset_v2_gamma.csv",
+      "dataset_samples": 2531,
+      "dataset_categories": 0,
+      "params": {
+        "vectorizer": {
+          "max_features": 5000,
+          "ngram_range": "(1, 2)",
+          "stop_words": "english",
+          "min_df": 2,
+          "max_df": 0.95
+        },
+        "model": {
+          "class_weight": "balanced",
+          "max_iter": 1000,
+          "random_state": 42,
+          "C": 1.0,
+          "solver": "lbfgs"
+        }
+      },
+      "cv_metrics": {
+        "accuracy": 0.9459,
+        "f1": 0.9602,
+        "roc_auc": 0.9834
+      },
+      "test_metrics": {
+        "accuracy": 0.9527,
+        "f1": 0.9654,
+        "roc_auc": 0.9881,
+        "precision": 0.9654,
+        "recall": 0.9654,
+        "fpr": 0.075,
+        "fnr": 0.0346
+      },
+      "top_features": {
+        "scam": [
+          [
+            "http",
+            4.0944
+          ],
+          [
+            "xyz",
+            2.768
+          ],
+          [
+            "verify",
+            2.3742
+          ],
+          [
+            "update",
+            2.265
+          ],
+          [
+            "pay",
+            2.2113
+          ],
+          [
+            "tk",
+            2.1343
+          ],
+          [
+            "pan",
+            2.1246
+          ],
+          [
+            "fee",
+            2.041
+          ],
+          [
+            "kyc",
+            2.0327
+          ],
+          [
+            "pay rs",
+            1.9587
+          ],
+          [
+            "immediately",
+            1.7616
+          ],
+          [
+            "click",
+            1.7532
+          ],
+          [
+            "block",
+            1.5935
+          ],
+          [
+            "claim",
+            1.5263
+          ],
+          [
+            "forward",
+            1.4208
+          ],
+          [
+            "digital",
+            1.3918
+          ],
+          [
+            "won",
+            1.3372
+          ],
+          [
+            "loan",
+            1.3078
+          ],
+          [
+            "returns",
+            1.2993
+          ],
+          [
+            "link",
+            1.2945
+          ]
+        ],
+        "safe": [
+          [
+            "valid",
+            -2.7274
+          ],
+          [
+            "aug",
+            -2.6534
+          ],
+          [
+            "credited",
+            -2.5393
+          ],
+          [
+            "order",
+            -2.2722
+          ],
+          [
+            "ref",
+            -1.9881
+          ],
+          [
+            "delivered",
+            -1.9438
+          ],
+          [
+            "paid",
+            -1.8122
+          ],
+          [
+            "successfully",
+            -1.8101
+          ],
+          [
+            "ac",
+            -1.66
+          ],
+          [
+            "track",
+            -1.5042
+          ],
+          [
+            "generated",
+            -1.4968
+          ],
+          [
+            "mins",
+            -1.3797
+          ],
+          [
+            "10",
+            -1.3795
+          ],
+          [
+            "payment rs",
+            -1.3433
+          ],
+          [
+            "dispatched",
+            -1.3368
+          ],
+          [
+            "successful",
+            -1.3335
+          ],
+          [
+            "late",
+            -1.2519
+          ],
+          [
+            "balance",
+            -1.2269
+          ],
+          [
+            "ill",
+            -1.2048
+          ],
+          [
+            "water",
+            -1.2018
+          ]
+        ]
+      },
+      "file_path": "D:\\Developer\\Desktop\\ScamShield\\backend\\models\\model.joblib",
+      "vectorizer_path": "D:\\Developer\\Desktop\\ScamShield\\backend\\models\\vectorizer.joblib",
+      "status": "active"
+    }
+  },
+  "active_version": "20260730_115411"
+}

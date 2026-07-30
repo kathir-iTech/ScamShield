@@ -1,0 +1,53 @@
+{
+  "baseline_date": "2026-07-30",
+  "environment": "development (Windows, Python 3.14)",
+  "model": "TF-IDF + LogisticRegression (20260730_115411)",
+  "pipeline": "12-step pipeline (ml, rules, explanation, intelligence, evidence, assessment, refinement, reasoning, report, knowledge, connector, fusion)",
+  "optimizations_applied": [
+    "Model warmup on startup (predict('warmup') in lifespan)",
+    "Pipeline warmup on startup (analyze_text('warmup') in lifespan)"
+  ],
+  "metrics": {
+    "model_load_time_ms": 8015.5,
+    "inference_p50_ms": 1.86,
+    "inference_p95_ms": 12.15,
+    "inference_p99_ms": 24.14,
+    "pipeline_p50_ms": 66.29,
+    "pipeline_p95_ms": 108.32,
+    "pipeline_total_steps": 12,
+    "api_text_p50_ms": 42.88,
+    "api_text_p95_ms": 66.98,
+    "api_text_p99_ms": 146.55,
+    "api_text_avg_ms": 47.98,
+    "api_text_min_ms": 32.29,
+    "api_text_max_ms": 202.44,
+    "startup_time_ms": 8015.5,
+    "memory_mb": null,
+    "frontend_bundle_kb": null
+  },
+  "bottlenecks": {
+    "top_3": [
+      {
+        "rank": 1,
+        "component": "Cold start / Model loading (joblib.load)",
+        "before_ms": 11551.17,
+        "after_ms": 0,
+        "detail": "Lazy-loaded on first predict(), moved to startup warmup"
+      },
+      {
+        "rank": 2,
+        "component": "Knowledge service data loading (first pipeline run)",
+        "before_ms": 462.86,
+        "after_ms": 0,
+        "detail": "KnowledgeService.load() from intelligence.loader.load_all(), moved to startup warmup"
+      },
+      {
+        "rank": 3,
+        "component": "Connector step (first pipeline run)",
+        "before_ms": 146.19,
+        "after_ms": 0,
+        "detail": "ConnectorManager load_connectors and first-time ThreadPoolExecutor creation, moved to startup warmup"
+      }
+    ]
+  }
+}

@@ -2,7 +2,7 @@ import os
 import threading
 import time
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 
 @dataclass
@@ -127,7 +127,7 @@ class Metrics:
                     }
             return result
 
-    def _get_system_metrics(self) -> Dict:
+    def _get_system_metrics(self) -> Dict[str, Any]:
         result = {}
         try:
             import psutil

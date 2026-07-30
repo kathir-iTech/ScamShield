@@ -1,0 +1,99 @@
+groups:
+  - name: scamshield_alerts
+    interval: 30s
+    rules:
+      - alert: HighErrorRate
+        expr: |
+          rate(scamshield_requests_total{status=~"5.."}[5m])
+          /
+          rate(scamshield_requests_total[5m])
+          * 100 > 5
+        for: 5m
+        labels:
+          severity: critical
+          team: backend
+        annotations:
+          summary: "High error rate ({{ $value | humanizePercentage }})"
+          description: "Error rate is {{ $value | humanizePercentage }} for the last 5 minutes. Threshold: > 5%."
+
+      - alert: HighLatency
+        expr: |
+          histogram_quantile(0.95, rate(scamshield_request_duration_seconds_bucket[5m])) > 2
+        for: 5m
+        labels:
+          severity: warning
+          team: backend
+        annotations:
+          summary: "High P95 latency ({{ $value }}s)"
+          description: "P95 request latency is {{ $value }}s for the last 5 minutes. Threshold: > 2s."
+
+      - alert: HighMemoryUsage
+        expr: scamshield_memory_usage_bytes / (1024^3) > 0.8 * on()
+        for: 5m
+        labels:
+          severity: warning
+          team: backend
+        annotations:
+          summary: "High memory usage ({{ $value | humanizePercentage }})"
+          description: "System memory usage is {{ $value | humanizePercentage }} for the last 5 minutes. Threshold: > 80%."
+
+      - alert: HighCPUUsage
+        expr: scamshield_cpu_percent > 80
+        for: 5m
+        labels:
+          severity: warning
+          team: backend
+        annotations:
+          summary: "High CPU usage ({{ $value }}%)"
+          description: "System CPU usage is {{ $value }}% for the last 5 minutes. Threshold: > 80%."
+
+      - alert: RateLimitSpike
+        expr: rate(scamshield_rate_limit_events_total[5m]) * 60 > 100
+        for: 5m
+        labels:
+          severity: warning
+          team: backend
+        annotations:
+          summary: "Rate limit spike ({{ $value | humanize }} events/min)"
+          description: "Rate limit events are {{ $value | humanize }} per minute for the last 5 minutes. Threshold: > 100/min."
+
+      - alert: ModelNotLoaded
+        expr: scamshield_model_info{status="1"} != 1
+        for: 1m
+        labels:
+          severity: critical
+          team: backend
+        annotations:
+          summary: "Model not loaded"
+          description: "Model status indicates the ML model is not loaded for more than 1 minute."
+
+      - alert: PipelineFailureSpike
+        expr: rate(scamshield_pipeline_failures_total[5m]) * 60 > 10
+        for: 5m
+        labels:
+          severity: warning
+          team: backend
+        annotations:
+          summary: "Pipeline failure spike ({{ $value | humanize }}/min)"
+          description: "Pipeline failures are {{ $value | humanize }} per minute for the last 5 minutes. Threshold: > 10/min."
+
+      - alert: OcrBottleneck
+        expr: |
+          histogram_quantile(0.95, rate(scamshield_request_duration_seconds_bucket{path=~".*ocr.*|.*image.*"}[5m])) > 5
+        for: 5m
+        labels:
+          severity: warning
+          team: backend
+        annotations:
+          summary: "OCR latency bottleneck (P95 {{ $value }}s)"
+          description: "P95 OCR request latency is {{ $value }}s for the last 5 minutes. Threshold: > 5s."
+
+      - alert: InstanceDown
+        expr: absent(up{job="scamshield"})
+        for: 1m
+        labels:
+          severity: critical
+          team: backend
+        annotations:
+          summary: "Instance down"
+          description: "ScamShield backend instance has been unreachable for more than 1 minute."

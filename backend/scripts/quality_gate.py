@@ -3,6 +3,7 @@ import os
 import subprocess
 import sys
 import traceback
+from typing import Callable, List, Tuple
 
 
 def _check_pytest() -> bool:

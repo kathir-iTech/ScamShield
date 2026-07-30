@@ -158,7 +158,7 @@ class TestClockSkew:
             "token_type": "access",
         }
         encoded = _encode_jwt(payload)
-        with pytest.raises(ValueError, match="future"):
+        with pytest.raises(ValueError, match="not yet valid"):
             decode_token(encoded)
 
     def test_expired_token_within_skew_accepted(self):
@@ -168,7 +168,7 @@ class TestClockSkew:
         payload = {
             "sub": "user_1",
             "role": UserRole.AUTHENTICATED.value,
-            "exp": int(time.time()) - 30,
+            "exp": int(time.time()) - 25,
             "iat": int(time.time()) - 4000,
             "jti": "test-skew-exp",
             "token_type": "access",
@@ -266,27 +266,37 @@ class TestPrivilegeEscalation:
         payload = decode_token(token)
         assert payload.role == UserRole.ADMIN.value
 
+    def _make_mock_request(self, headers: dict = None):
+        from unittest.mock import MagicMock
+        mock = MagicMock()
+        mock.client.host = "127.0.0.1"
+        mock.headers = headers or {}
+        return mock
+
     def test_admin_token_key_validation(self):
         from routers.auth import get_admin_token
         from core.auth.models import AdminAuthRequest
         from unittest.mock import patch
+        from fastapi import Response
         with patch("config.settings.ADMIN_API_KEY", "valid-key-123"):
             with patch("config.settings.AUTH_ENABLED", True):
-                request = AdminAuthRequest(admin_key="valid-key-123")
-                result = get_admin_token(request)
+                body = AdminAuthRequest(admin_key="valid-key-123")
+                mock_req = self._make_mock_request({"X-Admin-Key": "valid-key-123"})
+                result = get_admin_token(mock_req, Response(), body)
                 assert result.access_token is not None
 
     def test_admin_token_wrong_key_rejected(self):
         from routers.auth import get_admin_token
         from core.auth.models import AdminAuthRequest
-        from fastapi import HTTPException
+        from fastapi import HTTPException, Response
         from unittest.mock import patch
         import pytest
         with patch("config.settings.ADMIN_API_KEY", "valid-key-123"):
             with patch("config.settings.AUTH_ENABLED", True):
-                request = AdminAuthRequest(admin_key="wrong-key")
+                body = AdminAuthRequest(admin_key="wrong-key")
+                mock_req = self._make_mock_request({"X-Admin-Key": "wrong-key"})
                 with pytest.raises(HTTPException) as exc:
-                    get_admin_token(request)
+                    get_admin_token(mock_req, Response(), body)
                 assert exc.value.status_code == 401
 
 

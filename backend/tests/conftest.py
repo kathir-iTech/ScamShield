@@ -14,9 +14,8 @@ os.environ.setdefault("SCAMSHIELD_RATE_LIMIT_MAX", "1000000")
 def _reset_globals():
     from core.abuse import get_rate_limiter
     get_rate_limiter().reset()
-    from core.auth.jwt import _blacklisted_jti, _used_refresh_jti
-    _blacklisted_jti.clear()
-    _used_refresh_jti.clear()
+    from core.auth import reset_blacklist
+    reset_blacklist()
     yield
 
 
