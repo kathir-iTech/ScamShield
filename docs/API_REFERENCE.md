@@ -6,7 +6,7 @@
 
 ## Endpoints
 
-### POST /api/v1/analyze/text
+### POST /analyze/text
 
 Analyze SMS text for scam indicators.
 
@@ -17,27 +17,7 @@ Analyze SMS text for scam indicators.
 }
 ```
 
-**Response:**
-```json
-{
-  "is_scam": true,
-  "confidence_score": 0.87,
-  "ml_probability": 0.82,
-  "rule_matches": [
-    {"rule": "kyc_impersonation", "category": "identity", "confidence": 0.9},
-    {"rule": "suspicious_url", "category": "phishing", "confidence": 0.85}
-  ],
-  "entities": [
-    {"type": "url", "value": "https://fake-kyc.com", "risk": "malicious"},
-    {"type": "organization", "value": "Aadhaar", "risk": "impersonated"}
-  ],
-  "reasoning": "ML confidence 0.82 matches KYC impersonation pattern. URL domain appears suspicious.",
-  "rule_summary": "Matched 2 of 18 rules across 2 categories.",
-  "pipeline_used": ["ml", "rules", "confidence", "reasoning"]
-}
-```
-
-### POST /api/v1/analyze/image
+### POST /analyze/image
 
 Analyze a screenshot for scam content.
 
@@ -45,37 +25,46 @@ Analyze a screenshot for scam content.
 
 **Response:** Same structure as text analysis with `ocr_text` field added.
 
-### GET /api/v1/health
+### POST /analyze/investigation
+
+Run a full investigation pipeline on input text.
+
+### POST /auth/token
+
+Obtain an access token. Requires `CLIENT_API_KEY` when `AUTH_ENABLED=true`.
+
+### POST /auth/token/admin
+
+Obtain an admin access token. Requires `ADMIN_API_KEY` when `AUTH_ENABLED=true`.
+
+### POST /auth/refresh
+
+Refresh an access token using a refresh token.
+
+### POST /auth/logout
+
+Revoke the current session's tokens.
+
+### POST /auth/revoke
+
+Revoke a specific token by value. Requires authentication.
+
+### POST /auth/verify
+
+Verify a token and return its payload without requiring authentication.
+
+### GET /health
 
 System health check.
 
-**Response:**
-```json
-{
-  "status": "healthy",
-  "version": "1.0.0",
-  "uptime_seconds": 3600,
-  "ml_model_loaded": true,
-  "ocr_available": true,
-  "connectors": [
-    {"name": "google_safe_browsing", "status": "healthy", "latency_ms": 150}
-  ],
-  "metrics": {
-    "total_analyses": 1250,
-    "avg_latency_ms": 58,
-    "p95_latency_ms": 110
-  }
-}
-```
-
-### GET /api/v1/health/ping
-
-Simple connectivity check.
-
-**Response:** `{"ping": "pong"}`
-
-### GET /api/v1/health/readiness
+### GET /ready
 
 Readiness probe for orchestration.
 
-**Response:** `{"status": "ready"}`
+### GET /live
+
+Liveness probe for orchestration.
+
+### GET /model/info
+
+Model metadata (version, accuracy, registry info).

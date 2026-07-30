@@ -95,13 +95,13 @@ def main():
         per_cat = evaluate_categories(wrapper, X_test, y_test, c_test)
 
         opt_probas = []
-        for t in X_test:
+        for t in X_train:
             r = wrapper.predict(t)
             opt_probas.append(r.get("probabilities", {}).get("scam", 0.5))
         best_f1, best_thresh = 0.0, 0.5
         for th in np.linspace(0.1, 0.9, 81):
             p = [1 if v >= th else 0 for v in opt_probas]
-            f = f1_score(y_test, p, zero_division=0)
+            f = f1_score(y_train, p, zero_division=0)
             if f > best_f1:
                 best_f1, best_thresh = f, th
 

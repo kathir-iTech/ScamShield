@@ -332,3 +332,48 @@ class TestRoles:
         user = AuthenticatedUser(id="anonymous", role=UserRole.GUEST, token_id="")
         assert user.is_admin is False
         assert user.is_authenticated is False
+
+
+class TestC4TokenRequiresClientKey:
+    def test_token_endpoint_rejects_missing_key(self):
+        from unittest.mock import patch
+        from fastapi import HTTPException, Response
+        from routers.auth import get_token
+        import pytest
+        with patch("config.settings.CLIENT_API_KEY", "valid-client-key"):
+            with patch("config.settings.AUTH_ENABLED", True):
+                mock_req = self._make_mock_request({"X-Admin-Key": ""})
+                with pytest.raises(HTTPException) as exc:
+                    get_token(mock_req, Response(), None)
+                assert exc.value.status_code == 401
+
+    def test_token_endpoint_rejects_wrong_key(self):
+        from unittest.mock import patch
+        from fastapi import HTTPException, Response
+        from routers.auth import get_token
+        import pytest
+        with patch("config.settings.CLIENT_API_KEY", "valid-client-key"):
+            with patch("config.settings.AUTH_ENABLED", True):
+                mock_req = self._make_mock_request({"X-Admin-Key": "wrong-key"})
+                with pytest.raises(HTTPException) as exc:
+                    get_token(mock_req, Response(), None)
+                assert exc.value.status_code == 401
+
+    def _make_mock_request(self, headers: dict = None):
+        from unittest.mock import MagicMock
+        mock = MagicMock()
+        mock.client.host = "127.0.0.1"
+        mock.headers = headers or {}
+        return mock
+
+    def test_revoke_endpoint_requires_auth(self):
+        from fastapi.testclient import TestClient
+        from unittest.mock import patch
+        with patch("config.settings.AUTH_ENABLED", True):
+            with patch("config.settings.CLIENT_API_KEY", "valid-client-key"):
+                with patch("config.settings.ADMIN_API_KEY", "valid-admin-key"):
+                    with patch("config.settings.AUTH_JWT_SECRET", "test-secret"):
+                        from main import app
+                        with TestClient(app) as c:
+                            resp = c.post("/auth/revoke", json={"token": "test"})
+                            assert resp.status_code == 401

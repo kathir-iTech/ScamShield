@@ -77,6 +77,10 @@ _admin_api_key = os.getenv("SCAMSHIELD_ADMIN_API_KEY", "")
 if _admin_api_key:
     ADMIN_API_KEY = _admin_api_key
 
+_client_api_key = os.getenv("SCAMSHIELD_CLIENT_API_KEY", "")
+if _client_api_key:
+    CLIENT_API_KEY = _client_api_key
+
 _jwt_clock_skew = os.getenv("SCAMSHIELD_JWT_CLOCK_SKEW", "")
 if _jwt_clock_skew:
     try:
@@ -241,6 +245,9 @@ def validate_config() -> List[str]:
 
     if AUTH_ENABLED and not ADMIN_API_KEY:
         errors.append("SCAMSHIELD_ADMIN_API_KEY required when SCAMSHIELD_AUTH_ENABLED is true")
+
+    if AUTH_ENABLED and not CLIENT_API_KEY:
+        errors.append("SCAMSHIELD_CLIENT_API_KEY required when SCAMSHIELD_AUTH_ENABLED is true")
 
     jwt_clock_skew = int(os.getenv("SCAMSHIELD_JWT_CLOCK_SKEW", str(JWT_CLOCK_SKEW_SECONDS)))
     if jwt_clock_skew < 0:

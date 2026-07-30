@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import pytest
+from core.exceptions import ValidationError as CoreValidationError
 
 from pipeline.exceptions import (
     PipelineError,
@@ -84,3 +85,43 @@ class TestExceptionHierarchy:
                 raise exc_class(*args)
             except PipelineError:
                 pass
+
+
+class TestC3ExceptionDeduplication:
+    def test_domain_exceptions_are_core_exceptions(self):
+        from domains.shared.exceptions import (
+            ScamShieldError as DomainScamShieldError,
+            ValidationError as DomainValidationError,
+            ConfigurationError as DomainConfigurationError,
+            ServiceError as DomainServiceError,
+        )
+        from core.exceptions import (
+            ScamShieldError as CoreScamShieldError,
+            ValidationError as CoreValidationError,
+            ConfigurationError as CoreConfigurationError,
+            ServiceError as CoreServiceError,
+        )
+
+        assert DomainScamShieldError is CoreScamShieldError
+        assert DomainValidationError is CoreValidationError
+        assert DomainConfigurationError is CoreConfigurationError
+        assert DomainServiceError is CoreServiceError
+
+    def test_domain_exception_caught_by_core_handler(self):
+        from domains.shared.exceptions import ValidationError as DomainValidationError, NotFoundError
+        from core.exceptions import ValidationError as CoreValidationError
+
+        exc = DomainValidationError("test")
+        assert isinstance(exc, CoreValidationError)
+
+    def test_domain_not_found_not_in_core(self):
+        from domains.shared.exceptions import NotFoundError
+
+        with pytest.raises(NotFoundError):
+            raise NotFoundError("not found")
+
+    def test_domain_error_not_in_core(self):
+        from domains.shared.exceptions import DomainError
+
+        assert DomainError.__mro__[1] is Exception
+        assert DomainError.__module__.startswith("domains")

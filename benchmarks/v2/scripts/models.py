@@ -186,8 +186,8 @@ class ModelWrapper:
             confidence = float(abs(self.model.decision_function(vec)[0])) if hasattr(self.model, "decision_function") else 0.5
         return {
             "prediction": "scam" if pred == 1 else "safe",
-            "confidence": confidence,
-            "probabilities": {"safe": float(1 - confidence), "scam": float(confidence)} if proba is not None else {},
+            "confidence": float(probs[1]) if proba is not None else confidence,
+            "probabilities": {"safe": float(probs[0]), "scam": float(probs[1])} if proba is not None else {},
         }
 
     def _predict_embedding(self, text: str) -> Dict:

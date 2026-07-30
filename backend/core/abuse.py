@@ -108,8 +108,10 @@ class RedisSlidingWindowRateLimiter:
             r = self._connect()
             key = self._key(client_ip, limiter_name)
             return bool(r.exists(key))
-        except Exception:
-            return False
+        except Exception as exc:
+            logger.error("Redis is_blocked failed for %s/%s: %s", client_ip, limiter_name, exc,
+                         extra={"structured": {"event": "redis_fail_closed", "client_ip": client_ip, "limiter": limiter_name}})
+            return True
 
     def get_block_time(self, client_ip: str, limiter_name: str = "default") -> float:
         return 0.0
@@ -126,8 +128,10 @@ class RedisSlidingWindowRateLimiter:
             r.zadd(key, {str(now): now})
             r.expire(key, self.window_seconds + 10)
             return True
-        except Exception:
-            return True
+        except Exception as exc:
+            logger.error("Redis record_request failed for %s/%s: %s", client_ip, limiter_name, exc,
+                         extra={"structured": {"event": "redis_fail_closed", "client_ip": client_ip, "limiter": limiter_name}})
+            return False
 
     def remaining(self, client_ip: str, limiter_name: str = "default") -> int:
         try:
@@ -138,8 +142,10 @@ class RedisSlidingWindowRateLimiter:
             r.zremrangebyscore(key, 0, min_score)
             count = r.zcard(key)
             return max(0, self.max_requests - count)
-        except Exception:
-            return self.max_requests
+        except Exception as exc:
+            logger.error("Redis remaining failed for %s/%s: %s", client_ip, limiter_name, exc,
+                         extra={"structured": {"event": "redis_fail_closed", "client_ip": client_ip, "limiter": limiter_name}})
+            return 0
 
     def reset(self) -> None:
         pass
@@ -149,8 +155,9 @@ class RedisSlidingWindowRateLimiter:
             r = self._connect()
             key = self._key(client_ip, limiter_name)
             r.delete(key)
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.error("Redis reset_ip failed for %s/%s: %s", client_ip, limiter_name, exc,
+                         extra={"structured": {"event": "redis_fail_closed", "client_ip": client_ip, "limiter": limiter_name}})
 
 
 def create_rate_limiter(name: str = "default", max_requests: int = 100, window_seconds: int = 60):

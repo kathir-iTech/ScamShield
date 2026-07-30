@@ -124,3 +124,26 @@ class TestSlidingWindowRateLimitMiddleware:
         assert limiter.record_request("127.0.0.1", now) is False
         limiter.reset()
         assert limiter.record_request("127.0.0.1", time.monotonic()) is True
+
+
+class TestC6RedisFailClosed:
+    def test_redis_is_blocked_fails_closed(self):
+        from core.abuse import RedisSlidingWindowRateLimiter
+        limiter = RedisSlidingWindowRateLimiter(max_requests=5, window_seconds=60)
+        limiter._redis = None
+        limiter._connect = lambda: (_ for _ in ()).throw(Exception("Redis unreachable"))
+        assert limiter.is_blocked("127.0.0.1") is True
+
+    def test_redis_record_request_fails_closed(self):
+        from core.abuse import RedisSlidingWindowRateLimiter
+        limiter = RedisSlidingWindowRateLimiter(max_requests=5, window_seconds=60)
+        limiter._redis = None
+        limiter._connect = lambda: (_ for _ in ()).throw(Exception("Redis unreachable"))
+        assert limiter.record_request("127.0.0.1", 0.0) is False
+
+    def test_redis_remaining_fails_closed(self):
+        from core.abuse import RedisSlidingWindowRateLimiter
+        limiter = RedisSlidingWindowRateLimiter(max_requests=5, window_seconds=60)
+        limiter._redis = None
+        limiter._connect = lambda: (_ for _ in ()).throw(Exception("Redis unreachable"))
+        assert limiter.remaining("127.0.0.1") == 0

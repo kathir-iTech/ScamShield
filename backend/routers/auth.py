@@ -9,7 +9,7 @@ from core.auth import (
     AdminAuthRequest, AuthenticatedUser, LogoutRequest,
     RefreshRequest, TokenResponse, UserRole,
     blacklist_token, create_access_token, create_refresh_token,
-    decode_token, mark_refresh_used, require_admin,
+    decode_token, mark_refresh_used, require_admin, require_auth,
 )
 from core.audit import record_audit_event, record_auth_event, record_auth_failure
 from core.logger import logger
@@ -59,12 +59,28 @@ def _get_admin_key(request: Request, body_key: str = "") -> str:
 
 
 @router.post("/auth/token", response_model=TokenResponse)
-def get_token(request: Request, response: Response) -> TokenResponse:
+def get_token(request: Request, response: Response, body: AdminAuthRequest = None) -> TokenResponse:
     if not settings.AUTH_ENABLED:
         raise HTTPException(status_code=404, detail="Authentication is not enabled")
 
     _check_rate_limit(request, _auth_limiter)
     _add_rate_limit_headers(response, _auth_limiter, request)
+
+    expected_key = settings.CLIENT_API_KEY
+    if not expected_key:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Client authentication not configured",
+        )
+
+    body_key = body.admin_key if body else ""
+    client_key = _get_admin_key(request, body_key)
+    if not client_key or client_key != expected_key:
+        record_auth_failure(detail="Token request with invalid client API key")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid client API key",
+        )
 
     subject = f"user_{int(time.time())}"
     access = create_access_token(subject=subject, role=UserRole.AUTHENTICATED)
@@ -198,7 +214,8 @@ def logout(request: Request, response: Response, body: LogoutRequest) -> Dict:
 
 
 @router.post("/auth/revoke")
-def revoke_token(request: Request, response: Response, token_data: Dict[str, str]) -> Dict:
+def revoke_token(request: Request, response: Response, token_data: Dict[str, str],
+                 user: AuthenticatedUser = Depends(require_auth)) -> Dict:
     _check_rate_limit(request, _auth_limiter)
     _add_rate_limit_headers(response, _auth_limiter, request)
 

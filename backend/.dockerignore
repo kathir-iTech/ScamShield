@@ -7,7 +7,6 @@ tests/
 .cache/
 .coverage
 .pytest_cache
-*.joblib
 *.pkl
 *.pt
 training_reports/

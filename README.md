@@ -1,8 +1,8 @@
 <div align="center">
   <img src="https://img.shields.io/badge/version-1.0.0-emerald?style=for-the-badge" alt="Version 1.0.0" />
   <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="MIT License" />
-  <img src="https://img.shields.io/badge/tests-244%20passing-brightgreen?style=for-the-badge" alt="244 tests passing" />
-  <img src="https://img.shields.io/badge/accuracy-83.3%25-emerald?style=for-the-badge" alt="83.3% accuracy" />
+  <img src="https://img.shields.io/badge/tests-820%20passing-brightgreen?style=for-the-badge" alt="820 tests passing" />
+  <img src="https://img.shields.io/badge/accuracy-95.1%25-emerald?style=for-the-badge" alt="95.1% accuracy" />
   <img src="https://img.shields.io/badge/python-3.12+-blue?style=for-the-badge" alt="Python 3.12+" />
   <img src="https://img.shields.io/badge/react-19-61DAFB?style=for-the-badge&logo=react" alt="React 19" />
   <br />
