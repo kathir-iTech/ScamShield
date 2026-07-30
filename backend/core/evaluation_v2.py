@@ -63,6 +63,20 @@ class EvaluationMetrics:
             f"f1={d['f1']:.1%}  fpr={d['fpr']:.1%}  fnr={d['fnr']:.1%}  mcc={d['mcc']:.3f}"
         )
 
+    @classmethod
+    def from_confusion(cls, tp: int, fp: int, fn: int, tn: int) -> "EvaluationMetrics":
+        y_true = [1] * (tp + fn) + [0] * (fp + tn)
+        y_pred = [1] * tp + [0] * fn + [1] * fp + [0] * tn
+        return cls(y_true, y_pred)
+
+    @classmethod
+    def aggregate(cls, metrics_list: List["EvaluationMetrics"]) -> "EvaluationMetrics":
+        total_tp = sum(m.tp for m in metrics_list)
+        total_fp = sum(m.fp for m in metrics_list)
+        total_fn = sum(m.fn for m in metrics_list)
+        total_tn = sum(m.tn for m in metrics_list)
+        return cls.from_confusion(total_tp, total_fp, total_fn, total_tn)
+
 
 def evaluate_classification(
     classifier_fn: Callable[[str], Dict[str, Any]],

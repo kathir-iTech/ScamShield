@@ -1,47 +1,74 @@
 import re
 import urllib.parse
-from typing import List, Tuple, Dict
+from typing import Dict, List, Tuple
 
 from core.constants import SCAM_KEYWORDS, KNOWN_SHORTENERS as _KNOWN_SHORTENERS, SUSPICIOUS_TLDS as _SUSPICIOUS_TLDS
 
 SUSPICIOUS_TLD = set(_SUSPICIOUS_TLDS)
 KNOWN_SHORTENERS = set(_KNOWN_SHORTENERS)
 
+RULE_WEIGHTS: Dict[str, float] = {
+    "otp_request": 5.0,
+    "otp_share_request": 20.0,
+    "urgency_word": 5.0,
+    "money_mention": 8.0,
+    "suspension_threat": 15.0,
+    "url_shortener": 15.0,
+    "suspicious_tld": 15.0,
+    "url_suspicious_keywords": 10.0,
+    "url_present": 5.0,
+    "multiple_urls": 5.0,
+    "bank_mention": 3.0,
+    "payment_app_mention": 3.0,
+    "scam_keyword": 2.0,
+    "govt_reference": 5.0,
+}
 
-def check_otp(text: str) -> Tuple[int, List[str]]:
+THRESHOLDS: Dict[str, float] = {
+    "high": 70.0,
+    "medium": 35.0,
+    "low": 0.0,
+}
+
+
+def check_otp(text: str, weights: Dict[str, float] = RULE_WEIGHTS) -> Tuple[float, List[str]]:
     t = text.lower()
+    score = 0.0
+    reasons: List[str] = []
+
     otp_patterns = [
         r"\botp\b", r"one[\s-]*time[\s-]*password", r"verification code",
         r"(?:otp|code)\s*[:\-]\s*\d{4,8}",
     ]
-    score = 0
-    reasons: List[str] = []
     for p in otp_patterns:
         if re.search(p, t):
-            has_sharing_ref = (
+            sharing_ref = (
                 re.search(r"\bshare\b", t) and not re.search(r"\bdo\s+not\s+share\b", t)
             ) or (
                 re.search(r"\bsend\b", t) and not re.search(r"\bdo\s+not\s+send\b", t)
             )
-            if has_sharing_ref or "forward" in t or "whatsapp" in t:
-                score += 20
+            if sharing_ref or "forward" in t or "whatsapp" in t:
+                score += weights["otp_share_request"]
                 reasons.append("Message asks you to share OTP with someone")
             else:
-                score += 5
+                score += weights["otp_request"]
                 reasons.append("Contains OTP-sensitive keywords")
             break
+
     return score, reasons
 
 
-def check_urgent_money(text: str) -> Tuple[int, List[str]]:
+def check_urgent_money(text: str, weights: Dict[str, float] = RULE_WEIGHTS) -> Tuple[float, List[str]]:
     t = text.lower()
-    score = 0
+    score = 0.0
     reasons: List[str] = []
 
-    urgency_words = ["urgent", "immediately", "asap", "right away", "now", "hurry", "limited time", "expires", "expiring", "today only", "final notice", "last warning"]
+    urgency_words = ["urgent", "immediately", "asap", "right away", "now", "hurry",
+                     "limited time", "expires", "expiring", "today only",
+                     "final notice", "last warning"]
     for w in urgency_words:
         if re.search(r"\b" + re.escape(w) + r"\b", t):
-            score += 5
+            score += weights["urgency_word"]
             reasons.append(f"Urgency keyword: '{w}'")
             break
 
@@ -55,19 +82,19 @@ def check_urgent_money(text: str) -> Tuple[int, List[str]]:
     ]
     for pat, reason in money_phrases:
         if re.search(pat, t):
-            score += 8
+            score += weights["money_mention"]
             reasons.append(reason)
             break
 
     if re.search(r"(?:block|suspend|freeze|deactiv|disconnect|cancel)\s*(?:ed|ing)?\s*(?:within|in|after)", t):
-        score += 15
+        score += weights["suspension_threat"]
         reasons.append("Threat of account suspension/disconnection")
 
     return score, reasons
 
 
-def check_suspicious_links(text: str) -> Tuple[int, List[str]]:
-    score = 0
+def check_suspicious_links(text: str, weights: Dict[str, float] = RULE_WEIGHTS) -> Tuple[float, List[str]]:
+    score = 0.0
     reasons: List[str] = []
 
     urls = re.findall(r"https?://(?:[-\w.]|%[\da-fA-F]{2})+[^\s]*", text)
@@ -77,57 +104,62 @@ def check_suspicious_links(text: str) -> Tuple[int, List[str]]:
         domain = parsed.netloc.lower()
 
         if any(s in domain for s in KNOWN_SHORTENERS):
-            score += 15
+            score += weights["url_shortener"]
             reasons.append(f"Use of URL shortener: {domain}")
             continue
 
         for tld in SUSPICIOUS_TLD:
             if domain.endswith(tld):
-                score += 15
+                score += weights["suspicious_tld"]
                 reasons.append(f"Suspicious TLD in URL: {tld}")
                 break
         else:
-            suspicious_keywords_in_url = {"kyc", "update", "verify", "secure", "login", "account", "bank", "upi", "aadhaar", "aadhar", "otp", "confirm", "reset"}
+            suspicious_keywords_in_url = {"kyc", "update", "verify", "secure", "login",
+                                          "account", "bank", "upi", "aadhaar", "aadhar",
+                                          "otp", "confirm", "reset"}
             if any(kw in domain for kw in suspicious_keywords_in_url):
-                score += 10
+                score += weights["url_suspicious_keywords"]
                 reasons.append(f"URL contains suspicious keywords: {domain}")
                 continue
-            known_legit_domains = {"flipkart.com", "amazon.in", "amazon.com", "flipkart.co.in",
-                                   "paytm.com", "phonepe.com", "whatsapp.com",
-                                   "google.com", "facebook.com", "youtube.com",
-                                   "instagram.com", "twitter.com", "linkedin.com",
-                                   "outlook.com", "hotmail.com", "gmail.com",
-                                   "yahoo.com", "reddit.com", "netflix.com", "amazon.co.in"}
+            known_legit_domains = {
+                "flipkart.com", "amazon.in", "amazon.com", "flipkart.co.in",
+                "paytm.com", "phonepe.com", "whatsapp.com",
+                "google.com", "facebook.com", "youtube.com",
+                "instagram.com", "twitter.com", "linkedin.com",
+                "outlook.com", "hotmail.com", "gmail.com",
+                "yahoo.com", "reddit.com", "netflix.com", "amazon.co.in",
+            }
             if domain not in known_legit_domains:
-                score += 5
+                score += weights["url_present"]
                 reasons.append("Contains a URL link")
 
     if len(urls) > 1:
-        score += 5
+        score += weights["multiple_urls"]
         reasons.append("Multiple URLs in message")
 
     return score, reasons
 
 
-def check_service_keywords(text: str) -> Tuple[int, List[str]]:
+def check_service_keywords(text: str, weights: Dict[str, float] = RULE_WEIGHTS) -> Tuple[float, List[str]]:
     t = text.lower()
-    score = 0
+    score = 0.0
     reasons: List[str] = []
 
-    india_banks = ["sbi", "hdfc", "icici", "axis", "kotak", "pnb", "canara", "bob", "indusind", "rbi", "sebi"]
+    india_banks = ["sbi", "hdfc", "icici", "axis", "kotak", "pnb",
+                    "canara", "bob", "indusind", "rbi", "sebi"]
     for bank in india_banks:
         if re.search(r"\b" + re.escape(bank) + r"\b", t):
-            score += 3
+            score += weights["bank_mention"]
             reasons.append(f"Bank/financial institution mentioned: '{bank}'")
             break
     if re.search(r"\byes\s+bank\b", t) or re.search(r"\bunion\s+bank\b", t):
-        score += 3
+        score += weights["bank_mention"]
         reasons.append("Bank/financial institution mentioned")
 
     payment_apps = ["gpay", "phonepe", "paytm", "bhim", "upi", "amazon pay"]
     for app in payment_apps:
         if re.search(r"\b" + re.escape(app) + r"\b", t):
-            score += 3
+            score += weights["payment_app_mention"]
             reasons.append(f"Payment app mentioned: '{app}'")
             break
 
@@ -135,35 +167,40 @@ def check_service_keywords(text: str) -> Tuple[int, List[str]]:
     for kw, pts in SCAM_KEYWORDS.items():
         pattern = r"\b" + re.escape(kw) + r"\b" if " " not in kw else re.escape(kw)
         if re.search(pattern, t):
-            score += pts * 0.5
+            score += pts * weights["scam_keyword"]
             matched.append(kw)
     if matched:
         reasons.append(f"Suspicious keywords: {', '.join(matched[:3])}")
 
-    govt_refs = ["pm", "modi", "sarkari", "government of india", "central govt", "nrega", "ayushman"]
+    govt_refs = ["pm", "modi", "sarkari", "government of india", "central govt",
+                  "nrega", "ayushman"]
     for ref in govt_refs:
         if re.search(r"\b" + re.escape(ref) + r"\b", t):
-            score += 5
+            score += weights["govt_reference"]
             reasons.append(f"Government scheme reference: '{ref}'")
             break
 
     return score, reasons
 
 
-def analyze_message(text: str) -> Dict[str, object]:
-    score = 0
+def analyze_message(
+    text: str,
+    weights: Dict[str, float] = RULE_WEIGHTS,
+    thresholds: Dict[str, float] = THRESHOLDS,
+) -> Dict[str, object]:
+    score = 0.0
     all_reasons: List[str] = []
 
     for check_fn in [check_otp, check_urgent_money, check_suspicious_links, check_service_keywords]:
-        s, reasons = check_fn(text)
+        s, reasons = check_fn(text, weights)
         score += s
         all_reasons.extend(reasons)
 
-    score = min(score, 100)
+    score = min(score, 100.0)
 
-    if score >= 70:
+    if score >= thresholds["high"]:
         risk = "high"
-    elif score >= 35:
+    elif score >= thresholds["medium"]:
         risk = "medium"
     else:
         risk = "low"
