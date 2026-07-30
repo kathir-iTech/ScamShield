@@ -34,23 +34,15 @@
 4. No non-English samples yet (Tamil/Hindi/Telugu)
 5. Benchmark/gamma still uses beta DATA_PATH in run_beta_benchmark.py — need separate gamma benchmark
 
-## Gold Evaluation (2026-07-30)
+## Gold Evaluation (2026-07-30 v1)
 - **Dataset:** 308 samples (204 scam, 104 legit), 30 categories, 4 languages
-- **Location:** `datasets/gold/gold_dataset.csv`
-- **Zero leakage:** 8327 training texts checked — exact, cleaned, near-duplicate, template variant
-- **Production model performance:**
-  - Accuracy: 0.8604 | F1: 0.8933 | ROC-AUC: 0.9260 | MCC: 0.6920
-  - FPR: 0.1827 | FNR: 0.1176
-  - English F1=0.8986, Hindi=0.8947, Tamil=0.8889, Telugu=0.8485
-  - Scam strong (F1 0.83-1.00) except OTP_SCAM (0.55)
-  - Legit strong: govt/OTP perfect; weak: personal(0.69), telecom(0.67)
-- **Reports:** GOLD_DATASET_REPORT.md, LEAKAGE_REPORT.md, GOLD_EVALUATION_REPORT.md, ERROR_ANALYSIS_GOLD.md
+- **Initial model (1668 gamma):** Acc=0.8604, F1=0.8933, AUC=0.9260, FPR=18.27%
+- **Expanded model (2181 gamma):** Acc=0.9091, F1=0.9275, AUC=0.9503, FPR=2.88%
+- **Key improvements:** OTP_SCAM 0.55→0.93, Personal 0.69→0.92, FP 19→3, English F1 0.90→0.97
 
-## Next Priorities
-1. Create gamma benchmark script (copy of run_beta_benchmark.py with gamma DATA_PATH)
-2. Add non-English samples to fill legitimate categories (Tamil, Hindi, Telugu)
-3. Expand OTP_SCAM training data (weakest scam category, F1=0.55 on gold)
-4. Collect more real-world scam messages from social sources
-5. Train SVM with CalibratedClassifierCV and compare to current LR backend model
-6. Fix legitimate personal/telecom FP issue (FPR=18%)
-7. Add REST API endpoint for model retraining
+## Next Priorities (Post-Expansion)
+1. Fix non-English regression (Hindi 0.89→0.80, Tamil 0.89→0.82, Telugu 0.85→0.77)
+2. Fix FAKE_CUSTOMER_CARE regression (0.95→0.84)
+3. Fix LEGITIMATE_TELECOM FN issue (0.67→0.75, 6 FNs from multilingual Airtel scams)
+4. Fix LEGITIMATE_SHOPPING FN issue (F1_legit=0.80, 6 FNs from multilingual delivery scams)
+5. Add REST API endpoint for model retraining
