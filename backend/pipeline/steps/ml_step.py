@@ -11,4 +11,6 @@ class MLStep(AnalysisStep):
 
     def execute(self, context: Any) -> Any:
         label, confidence = ml_predict(context.text)
+        context.data.prediction = label
+        context.data.confidence = confidence
         return self._ok({"prediction": label, "confidence": confidence})

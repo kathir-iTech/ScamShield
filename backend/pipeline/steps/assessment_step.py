@@ -11,6 +11,15 @@ class AssessmentStep(AnalysisStep):
 
     def execute(self, context: Any) -> Any:
         assessment = assess(dict(context.shared))
+        context.data.assessment_score = assessment["assessment_score"]
+        context.data.assessment_band = assessment["assessment_band"]
+        context.data.assessment_confidence = assessment["assessment_confidence"]
+        context.data.assessment_summary = assessment["assessment_summary"]
+        context.data.business_reason = assessment["business_reason"]
+        context.data.technical_reason = assessment["technical_reason"]
+        context.data.recommended_action = assessment["recommended_action"]
+        context.data.review_required = assessment["review_required"]
+        context.data.manual_review_reason = assessment["manual_review_reason"]
         return self._ok({
             "assessment_score": assessment["assessment_score"],
             "assessment_band": assessment["assessment_band"],

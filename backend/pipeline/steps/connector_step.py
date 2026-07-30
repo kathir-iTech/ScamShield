@@ -11,7 +11,8 @@ class ConnectorStep(AnalysisStep):
 
     def execute(self, context: Any) -> Any:
         enrichment = enrich_with_connectors(dict(context.shared))
-        rep = context.shared.get("investigation_report")
+        context.data.connector_matches = enrichment
+        rep = context.data.investigation_report
         if isinstance(rep, dict):
             rep["connector_enrichment"] = enrichment
         return self._ok({

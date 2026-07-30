@@ -10,10 +10,11 @@ class FusionStep(AnalysisStep):
         super().__init__(step_id="fusion", name="Threat Intel Fusion", priority=120, dependencies=["connector"])
 
     def execute(self, context: Any) -> Any:
-        connector_matches = context.shared.get("connector_matches", [])
+        connector_matches = context.data.connector_matches
         fusion = fuse_connector_results(connector_matches)
         fusion_dict = fusion.to_dict()
-        rep = context.shared.get("investigation_report")
+        context.data.threat_intel_fusion = fusion_dict
+        rep = context.data.investigation_report
         if isinstance(rep, dict):
             rep["threat_intel_fusion"] = fusion_dict
         return self._ok({

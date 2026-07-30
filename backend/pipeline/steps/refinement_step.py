@@ -13,11 +13,18 @@ class RefinementStep(AnalysisStep):
         analysis = dict(context.shared)
         analysis["_original_text"] = context.text
         assessment = {
-            "assessment_score": context.shared.get("assessment_score"),
-            "assessment_confidence": context.shared.get("assessment_confidence"),
-            "review_required": context.shared.get("review_required"),
+            "assessment_score": context.data.assessment_score,
+            "assessment_confidence": context.data.assessment_confidence,
+            "review_required": context.data.review_required,
         }
         refinement_result = refine(analysis, assessment)
+        context.data.refined_prediction = refinement_result.refined_prediction
+        context.data.refined_assessment_score = refinement_result.refined_assessment_score
+        context.data.refined_assessment_confidence = refinement_result.refined_assessment_confidence
+        context.data.refined_review_required = refinement_result.refined_review_required
+        context.data.decision_stable = refinement_result.decision_stable
+        context.data.stability_concerns = refinement_result.stability_concerns
+        context.data.refinement_summary = refinement_result.refinement_summary
         return self._ok({
             "refined_prediction": refinement_result.refined_prediction,
             "refined_assessment_score": refinement_result.refined_assessment_score,

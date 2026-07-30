@@ -14,7 +14,10 @@ class KnowledgeStep(AnalysisStep):
         knowledge_matches = enrichment.get("knowledge_matches", [])
         advisory_references = enrichment.get("advisory_references", [])
         historical_matches = enrichment.get("historical_matches", [])
-        rep = context.shared.get("investigation_report")
+        context.data.knowledge_matches = knowledge_matches
+        context.data.advisory_references = advisory_references
+        context.data.historical_matches = historical_matches
+        rep = context.data.investigation_report
         if isinstance(rep, dict):
             rep["knowledge_enrichment"] = {
                 "knowledge_matches": knowledge_matches,

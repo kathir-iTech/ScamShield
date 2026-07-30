@@ -11,6 +11,7 @@ class ReportStep(AnalysisStep):
 
     def execute(self, context: Any) -> Any:
         report = generate_report(dict(context.shared))
+        context.data.investigation_report = report
         return self._ok({
             "investigation_report": report,
         })

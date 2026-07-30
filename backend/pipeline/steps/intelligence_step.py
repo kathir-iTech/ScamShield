@@ -11,6 +11,9 @@ class IntelligenceStep(AnalysisStep):
 
     def execute(self, context: Any) -> Any:
         intel = threat_intel(context.text)
+        context.data.entities = intel["entities"]
+        context.data.entity_summary = intel["entity_summary"]
+        context.data.entity_risk = intel["entity_risk"]
         return self._ok({
             "entities": intel["entities"],
             "entity_summary": intel["entity_summary"],

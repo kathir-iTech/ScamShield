@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 from .contracts import PipelineContext as PipelineContextContract, StepResult
+from .shared import PipelineData
 from .types import StepID, TelemetryEntry, StepStatus
 
 
@@ -13,6 +14,7 @@ class PipelineContext(PipelineContextContract):
     text: str
     config: Dict[str, Any] = field(default_factory=dict)
     shared: Dict[str, Any] = field(default_factory=dict)
+    data: PipelineData = field(default_factory=PipelineData)
     telemetry: List[TelemetryEntry] = field(default_factory=list)
     step_results: Dict[StepID, StepResult] = field(default_factory=dict)
     metadata: Dict[str, Any] = field(default_factory=dict)
@@ -38,3 +40,4 @@ class PipelineContext(PipelineContextContract):
     def store_result(self, step_id: StepID, result: StepResult) -> None:
         self.step_results[step_id] = result
         self.shared.update(result.data)
+        self.data.update_from(result.data)
