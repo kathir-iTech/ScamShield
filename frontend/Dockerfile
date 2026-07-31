@@ -14,7 +14,7 @@ ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
 RUN npm run build
 
 # Stage 2: Nginx runtime
-FROM nginx:1.27-alpine
+FROM nginx:1.31-alpine
 
 RUN adduser -D -g '' -s /sbin/nologin -u 1000 appuser
 
