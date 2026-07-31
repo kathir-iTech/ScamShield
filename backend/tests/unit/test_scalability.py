@@ -144,14 +144,14 @@ class TestRedisSlidingWindowRateLimiter:
         remaining = limiter.remaining("10.0.0.1")
         assert remaining == 7
 
-    def test_redis_failure_falls_open(self):
+    def test_redis_failure_fails_closed(self):
         limiter = RedisSlidingWindowRateLimiter(max_requests=10, window_seconds=60)
 
         result = limiter.record_request("10.0.0.1", time.monotonic())
-        assert result is True
+        assert result is False
 
         remaining = limiter.remaining("10.0.0.1")
-        assert remaining == 10
+        assert remaining == 0
 
     def test_redis_reset_ip(self):
         redis_mock = MagicMock()

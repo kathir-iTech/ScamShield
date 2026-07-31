@@ -18,7 +18,6 @@ jobs:
           fetch-depth: 0
       - name: Gitleaks secret scan
         uses: gitleaks/gitleaks-action@v2
-        continue-on-error: true
 
   test:
     runs-on: ubuntu-latest
