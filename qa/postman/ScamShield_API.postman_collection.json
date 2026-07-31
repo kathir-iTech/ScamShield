@@ -1,0 +1,208 @@
+{
+  "info": {
+    "name": "ScamShield API",
+    "description": "ScamShield API collection for manual QA. Base URL: http://localhost:8000. When SCAMSHIELD_AUTH_ENABLED=true, obtain a token from POST /auth/token using the client API key (X-Admin-Key header), then use the Authorization Bearer token for protected endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8000" },
+    { "key": "clientApiKey", "value": "your-client-api-key" },
+    { "key": "adminApiKey", "value": "your-admin-api-key" },
+    { "key": "accessToken", "value": "" },
+    { "key": "refreshToken", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "GET /health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/health", "host": ["{{baseUrl}}"], "path": ["health"] }
+          }
+        },
+        {
+          "name": "GET /ready",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/ready", "host": ["{{baseUrl}}"], "path": ["ready"] }
+          }
+        },
+        {
+          "name": "GET /live",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/live", "host": ["{{baseUrl}}"], "path": ["live"] }
+          }
+        },
+        {
+          "name": "GET /model/info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/model/info", "host": ["{{baseUrl}}"], "path": ["model", "info"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analysis",
+      "item": [
+        {
+          "name": "POST /analyze/text - Scam SMS",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"URGENT: Your SBI account will be deactivated in 24 hours. Update KYC immediately: https://sbi-kyc.xyz\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/analyze/text", "host": ["{{baseUrl}}"], "path": ["analyze", "text"] }
+          }
+        },
+        {
+          "name": "POST /analyze/text - Legit SMS",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"Hi, are we still meeting for coffee tomorrow at 5pm?\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/analyze/text", "host": ["{{baseUrl}}"], "path": ["analyze", "text"] }
+          }
+        },
+        {
+          "name": "POST /analyze/text - Empty Text (validation)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"text\": \"   \"\n}" },
+            "url": { "raw": "{{baseUrl}}/analyze/text", "host": ["{{baseUrl}}"], "path": ["analyze", "text"] }
+          }
+        },
+        {
+          "name": "POST /analyze/image (multipart file field)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "file", "type": "file", "src": "/path/to/test-scam-screenshot.png" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/analyze/image", "host": ["{{baseUrl}}"], "path": ["analyze", "image"] }
+          }
+        },
+        {
+          "name": "POST /analyze/investigation",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"artefacts\": [\n    {\n      \"text\": \"URGENT: Your account is blocked. Call 1800-123-4567 now.\",\n      \"type\": \"text\"\n    },\n    {\n      \"text\": \"Win a free iPhone! Click https://bit.ly/free-iphone\",\n      \"type\": \"text\"\n    }\n  ]\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/analyze/investigation", "host": ["{{baseUrl}}"], "path": ["analyze", "investigation"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "POST /auth/token (client API key)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "X-Admin-Key", "value": "{{clientApiKey}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/auth/token", "host": ["{{baseUrl}}"], "path": ["auth", "token"] },
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "exec": [
+                    "pm.test('Status 200', function () { pm.response.to.have.status(200); });",
+                    "const json = pm.response.json();",
+                    "if (json.access_token) { pm.collectionVariables.set('accessToken', json.access_token); }",
+                    "if (json.refresh_token) { pm.collectionVariables.set('refreshToken', json.refresh_token); }"
+                  ],
+                  "type": "text/javascript"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "POST /auth/token - Missing key (expect 401)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/auth/token", "host": ["{{baseUrl}}"], "path": ["auth", "token"] }
+          }
+        },
+        {
+          "name": "POST /auth/token/admin (admin API key)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "X-Admin-Key", "value": "{{adminApiKey}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"admin_key\": \"{{adminApiKey}}\"\n}" },
+            "url": { "raw": "{{baseUrl}}/auth/token/admin", "host": ["{{baseUrl}}"], "path": ["auth", "token", "admin"] }
+          }
+        },
+        {
+          "name": "POST /auth/refresh",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"refresh_token\": \"{{refreshToken}}\"\n}" },
+            "url": { "raw": "{{baseUrl}}/auth/refresh", "host": ["{{baseUrl}}"], "path": ["auth", "refresh"] }
+          }
+        },
+        {
+          "name": "POST /auth/logout",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"refresh_token\": \"{{refreshToken}}\"\n}" },
+            "url": { "raw": "{{baseUrl}}/auth/logout", "host": ["{{baseUrl}}"], "path": ["auth", "logout"] }
+          }
+        },
+        {
+          "name": "POST /auth/revoke (requires Bearer token)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"token\": \"{{accessToken}}\"\n}" },
+            "url": { "raw": "{{baseUrl}}/auth/revoke", "host": ["{{baseUrl}}"], "path": ["auth", "revoke"] }
+          }
+        },
+        {
+          "name": "POST /auth/verify",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"token\": \"{{accessToken}}\"\n}" },
+            "url": { "raw": "{{baseUrl}}/auth/verify", "host": ["{{baseUrl}}"], "path": ["auth", "verify"] }
+          }
+        }
+      ]
+    }
+  ]
+}

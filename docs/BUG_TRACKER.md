@@ -191,6 +191,34 @@
 
 ---
 
+## QA Validation Blockers Fixed
+
+### BUG-RC2-06: Frontend Container Crash (tmpfs Permission Denied)
+- **Severity:** Critical
+- **Status:** Verified Fixed
+- **File:** `docker-compose.yml`
+- **Root Cause:** tmpfs mounts for `/var/cache/nginx` and `/var/run` were root-owned (`drwxr-xr-x root:root`), but container runs as `appuser` (uid 1000) — nginx failed at startup with `mkdir() "/var/cache/nginx/client_temp" failed (13: Permission denied)`, causing crash loop
+- **Fix:** Mounted tmpfs with `uid=1000,gid=1000`
+- **Regression:** `docker compose up` — frontend container starts, serves HTTP 200, healthcheck passes
+
+### BUG-RC2-07: API Proxy 404 via Nginx (/api prefix not stripped)
+- **Severity:** Critical
+- **Status:** Verified Fixed
+- **File:** `frontend/nginx.conf`
+- **Root Cause:** `location /api/` used `proxy_pass http://backend;` which forwards the full URI (`/api/analyze/text`) unchanged, but backend routes live at root (`/analyze/text`) — every proxied API call returned 404
+- **Fix:** Added trailing slash: `proxy_pass http://backend/;` (strips the `/api/` prefix)
+- **Regression:** `POST /api/analyze/text` via nginx returns 200 — scam sample `is_scam=true` (conf=0.910), legit sample `prediction=safe`
+
+### BUG-RC2-08: Frontend Healthcheck Always Fails (localhost → IPv6)
+- **Severity:** High
+- **Status:** Verified Fixed
+- **Files:** `docker-compose.yml`, `frontend/Dockerfile`
+- **Root Cause:** Healthcheck used `wget http://localhost:80/`; `localhost` resolves to `::1`, but nginx listens on IPv4 only (`listen 80;` — the ipv6-by-default entrypoint script can't modify the conf as non-root `appuser`). Every healthcheck failed with "Connection refused" → container perpetually `unhealthy` (crash-looping restart policies would be useless)
+- **Fix:** Healthcheck now targets `http://127.0.0.1:80/` in both compose and Dockerfile
+- **Regression:** `docker compose ps` shows `scamshield-frontend Up (healthy)`
+
+---
+
 ## Summary
 
 | Category | Count |
@@ -198,4 +226,5 @@
 | Open Bugs | 2 |
 | Fixed (RC1) | 10 |
 | Fixed (RC2) | 5 |
-| **Total** | **17** |
+| Fixed (QA Validation) | 3 |
+| **Total** | **20** |
