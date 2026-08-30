@@ -8,3 +8,4 @@ dist/
 build/
 *.pt
 .DS_Store
+*.env.production
