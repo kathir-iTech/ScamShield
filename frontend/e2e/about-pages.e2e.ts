@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('About and legal pages', () => {
   test('about page renders', async ({ page }) => {
     await page.goto('/about');
-    await expect(page.getByText(/about scamshield/i)).toBeVisible();
+    await expect(page.getByText(/about kaaval/i)).toBeVisible();
   });
 
   test('privacy page renders', async ({ page }) => {

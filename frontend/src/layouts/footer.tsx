@@ -5,7 +5,7 @@ export function Footer() {
     <footer className="border-t border-glass-border bg-glass backdrop-blur-2xl">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
         <p className="text-xs text-text-tertiary">
-          &copy; {new Date().getFullYear()} ScamShield
+          &copy; {new Date().getFullYear()} Kaaval
         </p>
         <nav className="flex gap-5" aria-label="Footer navigation">
           <Link to="/privacy" className="text-xs text-text-tertiary transition-colors hover:text-text-secondary">Privacy</Link>

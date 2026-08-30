@@ -11,11 +11,11 @@
   <img src="https://img.shields.io/badge/code%20style-black-000000?style=flat-square" alt="Code style: black" />
 </div>
 
-<h1 align="center">🛡️ ScamShield</h1>
+<h1 align="center">🛡️ Kaaval</h1>
 <p align="center"><strong>AI-Powered Scam SMS Detection Engine</strong></p>
 
 <p align="center">
-  ScamShield combines machine learning classification with heuristic rule analysis to detect phishing, fraud, and scam SMS messages — fully offline capable with optional cloud threat intelligence connectors.
+  Kaaval combines machine learning classification with heuristic rule analysis to detect phishing, fraud, and scam SMS messages — fully offline capable with optional cloud threat intelligence connectors.
 </p>
 
 ---
@@ -39,8 +39,8 @@
 ### One-command Docker
 
 ```bash
-git clone https://github.com/scamshield/scamshield.git
-cd scamshield
+git clone https://github.com/kaaval/kaaval.git
+cd kaaval
 cp .env.example .env
 docker compose up -d
 ```
@@ -71,10 +71,10 @@ npm run dev
 
 ## 🖥️ Live Demo
 
-Explore ScamShield without installing anything:
+Explore Kaaval without installing anything:
 
-- **Live App**: [https://scamshield.dev](https://scamshield.dev)
-- **API Docs**: [https://scamshield.dev/docs](https://scamshield.dev/docs)
+- **Live App**: [https://kaaval.vercel.app](https://kaaval.vercel.app)
+- **API Docs**: [https://kaaval.vercel.app/docs](https://kaaval.vercel.app/docs)
 - **Demo Cases**: Pre-built investigation cases (Bank Phishing, UPI Fraud, Investment Scam, and more)
 
 ---
@@ -114,7 +114,7 @@ Full benchmark: [BENCHMARK_REPORT.md](BENCHMARK_REPORT.md)
 ## 🏗️ Project Structure
 
 ```
-scamshield/
+kaaval/
 ├── backend/              # FastAPI Python backend
 │   ├── main.py           # Application entry point
 │   ├── config/           # Settings & configuration
@@ -173,8 +173,8 @@ cd frontend && npm run build
 
 We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-- 🐛 **Report bugs** via [GitHub Issues](https://github.com/scamshield/scamshield/issues)
-- 💡 **Suggest features** via [GitHub Discussions](https://github.com/scamshield/scamshield/discussions)
+- 🐛 **Report bugs** via [GitHub Issues](https://github.com/kaaval/kaaval/issues)
+- 💡 **Suggest features** via [GitHub Discussions](https://github.com/kaaval/kaaval/discussions)
 - 🔀 **Submit PRs** — please read the [Developer Guide](docs/DEVELOPER_GUIDE.md)
 
 ---

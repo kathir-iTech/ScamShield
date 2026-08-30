@@ -1,16 +1,16 @@
-# ScamShield Frontend — Deployment Guide
+# Kaaval Frontend — Deployment Guide
 
 ## Architecture Overview
 
 ```
-User ──────► Vercel (CDN) ──────► scamshield-frontend.vercel.app
+User ──────► Vercel (CDN) ──────► kaaval.vercel.app
                 │
                 │  API calls (VITE_API_BASE_URL)
                 ▼
         Render (FastAPI) ──────► scamshield-backend-rv5v.onrender.com
 ```
 
-ScamShield is a single-page application (SPA) built with Vite + React 19 + TypeScript + Tailwind CSS v4. The frontend is decoupled from the backend API — all communication happens at runtime via the `VITE_API_BASE_URL` environment variable. In production, the backend runs as a FastAPI service on Render, while the frontend static assets are served by Vercel's global edge network. DNS for the custom domain `scamshield.dev` is managed through Vercel.
+Kaaval is a single-page application (SPA) built with Vite + React 19 + TypeScript + Tailwind CSS v4. The frontend is decoupled from the backend API — all communication happens at runtime via the `VITE_API_BASE_URL` environment variable. In production, the backend runs as a FastAPI service on Render, while the frontend static assets are served by Vercel's global edge network. DNS for the custom domain `kaaval.vercel.app` is managed through Vercel.
 
 A Dockerized deployment option using `nginx:1.27-alpine` is also available for self-hosted environments.
 
@@ -79,7 +79,7 @@ npm run preview
 
 ## Deploy to Vercel
 
-ScamShield deploys to **Vercel** at `scamshield-frontend.vercel.app` with a custom domain at `scamshield.dev`.
+Kaaval deploys to **Vercel** at `kaaval.vercel.app` with a custom domain at `kaaval.vercel.app`.
 
 ### Manual setup (first time)
 
@@ -109,7 +109,7 @@ Once connected, every push to the `main` branch triggers an automatic production
 
 ### Custom domain
 
-In the Vercel dashboard under **Project → Domains**, add `scamshield.dev` and update the DNS nameservers or add the required `CNAME` and `TXT` records as instructed by Vercel. Vercel provisions a TLS certificate automatically via Let's Encrypt.
+In the Vercel dashboard under **Project → Domains**, add `kaaval.vercel.app` and update the DNS nameservers or add the required `CNAME` and `TXT` records as instructed by Vercel. Vercel provisions a TLS certificate automatically via Let's Encrypt.
 
 ---
 
@@ -121,14 +121,14 @@ A multi-stage `Dockerfile` is provided for containerized deployment:
 # Build the image
 docker build \
   --build-arg VITE_API_BASE_URL=https://scamshield-backend-rv5v.onrender.com \
-  -t scamshield-frontend \
+  -t kaaval-frontend \
   ./frontend
 
 # Run the container
 docker run -d \
-  --name scamshield-frontend \
+  --name kaaval-frontend \
   -p 80:80 \
-  scamshield-frontend
+  kaaval-frontend
 ```
 
 The multi-stage build works as follows:
@@ -197,18 +197,18 @@ Once the Vercel project is linked to the GitHub repo, Vercel handles deployments
 
 ```bash
 # List available images
-docker images scamshield-frontend
+docker images kaaval-frontend
 
 # Roll back to a specific tag
-docker stop scamshield-frontend
-docker run -d --name scamshield-frontend -p 80:80 scamshield-frontend:<previous-tag>
+docker stop kaaval-frontend
+docker run -d --name kaaval-frontend -p 80:80 kaaval-frontend:<previous-tag>
 ```
 
 If using a registry, tag images with Git SHA or semantic version to simplify rollbacks:
 
 ```bash
-docker build -t scamshield-frontend:$(git rev-parse --short HEAD) ./frontend
-docker tag scamshield-frontend:$(git rev-parse --short HEAD) scamshield-frontend:latest
+docker build -t kaaval-frontend:$(git rev-parse --short HEAD) ./frontend
+docker tag kaaval-frontend:$(git rev-parse --short HEAD) kaaval-frontend:latest
 ```
 
 ---

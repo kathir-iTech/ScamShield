@@ -9,7 +9,7 @@
 
 ## Reporting a Vulnerability
 
-Please report security vulnerabilities by emailing security@scamshield.dev.
+Please report security vulnerabilities by emailing security@kaaval.dev.
 
 Do not open public issues for security vulnerabilities.
 

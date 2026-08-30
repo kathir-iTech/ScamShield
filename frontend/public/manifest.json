@@ -1,6 +1,6 @@
 {
-  "name": "ScamShield",
-  "short_name": "ScamShield",
+  "name": "Kaaval",
+  "short_name": "Kaaval",
   "description": "Free AI-powered scam detection for messages and images.",
   "start_url": "/",
   "display": "standalone",

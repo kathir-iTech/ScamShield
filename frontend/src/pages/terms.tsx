@@ -3,10 +3,10 @@ import { Shield } from 'lucide-react';
 
 export default function Terms() {
   const sections = [
-    { title: 'Acceptance', content: 'By using ScamShield, you agree to these terms. If you do not agree, please do not use the service.' },
-    { title: 'Service', content: 'ScamShield provides AI-powered scam detection. The service is free and provided "as is".' },
+    { title: 'Acceptance', content: 'By using Kaaval, you agree to these terms. If you do not agree, please do not use the service.' },
+    { title: 'Service', content: 'Kaaval provides AI-powered scam detection. The service is free and provided "as is".' },
     { title: 'Your responsibilities', content: 'Do not submit illegal content or use the service to harass others. Analysis is for informational purposes only.' },
-    { title: 'Limitations', content: 'ScamShield assists in scam detection. We do not guarantee all scams will be detected. Always use your judgment.' },
+    { title: 'Limitations', content: 'Kaaval assists in scam detection. We do not guarantee all scams will be detected. Always use your judgment.' },
     { title: 'Changes', content: 'We may update these terms. Continued use after changes constitutes acceptance.' },
   ];
 

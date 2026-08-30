@@ -6,8 +6,8 @@ PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 
 cd "$PROJECT_DIR"
 
-echo "Restarting ScamShield ..."
+echo "Restarting Kaaval ..."
 docker compose down
 docker compose up --build -d
 
-echo "ScamShield restarted."
+echo "Kaaval restarted."

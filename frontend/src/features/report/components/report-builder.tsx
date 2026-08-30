@@ -42,7 +42,7 @@ export function ReportBuilder({ result, events }: ReportBuilderProps) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `scamshield-report-${Date.now()}.json`;
+    a.download = `kaaval-report-${Date.now()}.json`;
     a.click();
     URL.revokeObjectURL(url);
   }, [report]);
@@ -53,7 +53,7 @@ export function ReportBuilder({ result, events }: ReportBuilderProps) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `scamshield-report-${Date.now()}.md`;
+    a.download = `kaaval-report-${Date.now()}.md`;
     a.click();
     URL.revokeObjectURL(url);
   }, [report]);

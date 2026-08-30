@@ -3,11 +3,11 @@ import { Shield } from 'lucide-react';
 
 export default function Privacy() {
   const sections = [
-    { title: 'What we collect', content: 'ScamShield processes text or images you submit for analysis. Content is analysed in real time and is not stored, logged, or retained after analysis.' },
+    { title: 'What we collect', content: 'Kaaval processes text or images you submit for analysis. Content is analysed in real time and is not stored, logged, or retained after analysis.' },
     { title: 'How we use it', content: 'Submitted content is used only for scam detection. We do not use your data for training, marketing, or any other purpose.' },
     { title: 'Storage', content: 'We do not store submitted messages or images. Results are held temporarily in memory and discarded immediately.' },
     { title: 'Third parties', content: 'We do not share data with third parties. No analytics, tracking, or advertising services are used.' },
-    { title: 'Contact', content: 'Questions? Contact support@scamshield.dev.' },
+    { title: 'Contact', content: 'Questions? Contact us via the form on our Contact page.' },
   ];
 
   return (

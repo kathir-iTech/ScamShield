@@ -2,7 +2,7 @@
 set -euo pipefail
 
 echo "╔═══════════════════════════════════════════════╗"
-echo "║        ScamShield — Version Information       ║"
+echo "║         Kaaval — Version Information          ║"
 echo "╚═══════════════════════════════════════════════╝"
 
 BASE_URL="${1:-http://localhost:8000}"
@@ -43,7 +43,7 @@ fi
 echo ""
 echo "━━━ Docker Images ━━━"
 if command -v docker &>/dev/null; then
-  docker images --filter "reference=scamshield*" --format "table {{.Repository}}\t{{.Tag}}\t{{.ID}}\t{{.CreatedAt}}" 2>/dev/null || echo "  No scamshield images found"
+  docker images --filter "reference=kaaval*" --format "table {{.Repository}}\t{{.Tag}}\t{{.ID}}\t{{.CreatedAt}}" 2>/dev/null || echo "  No kaaval images found"
 else
   echo "  Docker not available"
 fi

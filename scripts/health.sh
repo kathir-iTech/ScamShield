@@ -6,7 +6,7 @@ PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 
 cd "$PROJECT_DIR"
 
-echo "ScamShield — Health Check"
+echo "Kaaval — Health Check"
 echo "========================"
 echo ""
 

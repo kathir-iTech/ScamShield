@@ -2,7 +2,7 @@
 set -euo pipefail
 
 echo "╔═══════════════════════════════════════════════╗"
-echo "║         ScamShield — Service Status            ║"
+echo "║           Kaaval — Service Status              ║"
 echo "╚═══════════════════════════════════════════════╝"
 
 BASE_URL="${1:-http://localhost:8000}"
@@ -51,7 +51,7 @@ fi
 echo ""
 echo "━━━ Docker Containers ━━━"
 if command -v docker &>/dev/null; then
-  docker compose ps 2>/dev/null || docker ps --filter "name=scamshield" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" 2>/dev/null || echo "Docker not available"
+  docker compose ps 2>/dev/null || docker ps --filter "name=kaaval" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" 2>/dev/null || echo "Docker not available"
 else
   echo "Docker not available"
 fi

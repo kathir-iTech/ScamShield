@@ -1,10 +1,10 @@
-# ScamShield — Operations Guide
+# Kaaval — Operations Guide
 
 ## 1. Monitoring
 
 ### Error Tracking (Sentry)
 
-ScamShield uses Sentry for server-side error aggregation and alerting. Set the `VITE_SENTRY_DSN` environment variable in the Vercel project dashboard to enable client-side error forwarding. When configured, `src/services/monitoring.ts` sends error-level log entries directly to Sentry's envelope endpoint.
+Kaaval uses Sentry for server-side error aggregation and alerting. Set the `VITE_SENTRY_DSN` environment variable in the Vercel project dashboard to enable client-side error forwarding. When configured, `src/services/monitoring.ts` sends error-level log entries directly to Sentry's envelope endpoint.
 
 ### Client-Side Monitoring
 
@@ -26,7 +26,7 @@ Configure uptime checks for both endpoints using Better Uptime (or equivalent):
 
 | Target | Check interval | Expected status |
 |---|---|---|
-| `https://scamshield-frontend.vercel.app` | 1 minute | 200 |
+| `https://kaaval.vercel.app` | 1 minute | 200 |
 | `https://scamshield-backend-rv5v.onrender.com` | 1 minute | 200 |
 
 Each check should verify a response body that confirms the service is healthy (e.g., the frontend returns a 200 HTML page; the backend returns a valid JSON health response at `/health`).

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 echo "╔═══════════════════════════════════════════════╗"
-echo "║       ScamShield — System Diagnostics         ║"
+echo "║         Kaaval — System Diagnostics           ║"
 echo "╚═══════════════════════════════════════════════╝"
 
 BASE_URL="${1:-http://localhost:8000}"
@@ -37,7 +37,7 @@ if command -v docker &>/dev/null; then
   echo "Docker: available"
   docker info --format 'Server Version: {{.ServerVersion}}' 2>/dev/null || echo "Docker daemon: not accessible"
   echo ""
-  docker compose ps 2>/dev/null || docker ps --filter "name=scamshield" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" 2>/dev/null || echo "No scamshield containers found"
+  docker compose ps 2>/dev/null || docker ps --filter "name=kaaval" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" 2>/dev/null || echo "No kaaval containers found"
 else
   echo "Docker: not available"
 fi

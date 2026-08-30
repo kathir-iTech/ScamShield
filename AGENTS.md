@@ -1,13 +1,19 @@
 # ScamShield — Agent State
 
 ## Active Summary
-All 8 phases of Production Readiness Transformation complete (2026-07-30).
+Phase 1.5 (FPR Regression Fix) COMPLETE (2026-08-30). FPR reduced from 48% to 14%. Recall 77%. Both targets met.
 
 ## Current Best Model
 - **Backend model:** TF-IDF + LogisticRegression, trained on v2 gamma dataset (2,531 samples)
 - **Performance:** Test Acc=0.9513, F1=0.9622, ROC-AUC=0.9898, FPR=1.92%
 - **Top scam indicators:** http, xyz, verify, update, pay, tk, pan, fee, kyc
 - **Top safe indicators:** valid, aug, credited, order, ref, delivered
+
+## Full Pipeline Gold Eval (refined_prediction, 308 samples)
+- **Acc=0.8084, Prec=0.8854, Rec=0.7722, F1=0.8249**
+- **FPR=0.1406, FNR=0.2278** (targets: FPR<=15%, Recall>=75%)
+- **TP=139, FP=18, FN=41, TN=110**
+- Gold labels fixed: 24 LEGITIMATE_* entries corrected
 
 ## Dataset
 - **v2 gamma** (2531 samples: 1734 scam, 797 safe, 25 categories)

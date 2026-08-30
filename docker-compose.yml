@@ -11,8 +11,8 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    image: scamshield-backend:latest
-    container_name: scamshield-backend
+    image: kaaval-backend:latest
+    container_name: kaaval-backend
     restart: unless-stopped
     ports:
       - "8000:8000"
@@ -55,8 +55,8 @@ services:
       dockerfile: Dockerfile
       args:
         - VITE_API_BASE_URL=${VITE_API_BASE_URL:-/api}
-    image: scamshield-frontend:latest
-    container_name: scamshield-frontend
+    image: kaaval-frontend:latest
+    container_name: kaaval-frontend
     restart: unless-stopped
     ports:
       - "80:80"

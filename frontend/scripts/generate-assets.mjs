@@ -28,7 +28,7 @@ const OG_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630
   </g>
 
   <!-- Text -->
-  <text x="250" y="300" font-family="system-ui, -apple-system, sans-serif" font-size="64" font-weight="700" fill="#fff">ScamShield</text>
+  <text x="250" y="300" font-family="system-ui, -apple-system, sans-serif" font-size="64" font-weight="700" fill="#fff">Kaaval</text>
   <text x="250" y="370" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="500" fill="#d1fae5">AI-Powered Scam Detection</text>
 
   <!-- Decorative dots -->

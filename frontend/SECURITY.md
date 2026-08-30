@@ -1,4 +1,4 @@
-# ScamShield Frontend — Security Documentation
+# Kaaval Frontend — Security Documentation
 
 ## 1. Security Headers
 
@@ -39,17 +39,17 @@ frame-ancestors 'none';
 
 ## 3. Data Privacy
 
-ScamShield is designed with privacy as a core requirement:
+Kaaval is designed with privacy as a core requirement:
 
 - **No storage of user content.** Messages and images submitted for analysis are processed in real-time by the backend and are never persisted to disk or database.
 - **No account system.** The application has no authentication, no user profiles, and no session management. There is no personal identifiable information (PII) to collect or protect.
 - **No cookies.** The frontend does not set or read any cookies. No tracking, no analytics cookies, no session tokens.
-- **No third-party data sharing.** The application communicates exclusively with the ScamShield backend API and Google Fonts. No data is sent to advertising, analytics, or tracking networks.
+- **No third-party data sharing.** The application communicates exclusively with the Kaaval backend API and Google Fonts. No data is sent to advertising, analytics, or tracking networks.
 - **No local storage of submissions.** Analysis results are held in React state and TanStack Query's in-memory cache only; they are lost on page refresh.
 
 ## 4. API Security
 
-- **CORS.** The backend must restrict `Access-Control-Allow-Origin` to the frontend origin (e.g., `https://scamshield.app`). The frontend does not rely on credentials (`credentials: "omit"`).
+- **CORS.** The backend must restrict `Access-Control-Allow-Origin` to the frontend origin (e.g., `https://kaaval.vercel.app`). The frontend does not rely on credentials (`credentials: "omit"`).
 - **Rate limiting.** Nginx enforces `limit_req zone=api burst=20 nodelay` on all `/api/` requests, returning HTTP 429 when the burst capacity is exhausted.
 - **Dev endpoints blocked.** The nginx production config (`frontend/nginx.conf:86-101`) returns 404 for `/docs`, `/redoc`, `/openapi.json`, and `/metrics`, preventing exposure of API documentation and telemetry.
 - **Upload validation.** The client validates image type (JPEG/PNG/WebP) and size (max 10 MB) via a Zod schema before upload.
@@ -67,9 +67,9 @@ The dependency tree is intentionally minimal to reduce the attack surface:
 
 ## 6. Vulnerability Reporting
 
-If you discover a security vulnerability in ScamShield, please do not open a public GitHub issue. Instead, report it privately to:
+If you discover a security vulnerability in Kaaval, please do not open a public GitHub issue. Instead, report it privately to:
 
-**security@scamshield.dev**
+**security@kaaval.dev**
 
 We will acknowledge receipt within 48 hours and work toward a resolution. Responsible disclosures are appreciated and will be acknowledged.
 

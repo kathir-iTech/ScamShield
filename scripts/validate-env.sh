@@ -4,7 +4,7 @@ set -euo pipefail
 ENV_FILE="${1:-.env}"
 errors=0
 
-echo "🔍 ScamShield Environment Validation"
+echo "🔍 Kaaval Environment Validation"
 echo "====================================="
 
 # Check .env
