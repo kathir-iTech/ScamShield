@@ -1,8 +1,6 @@
 <div align="center">
   <img src="https://img.shields.io/badge/version-1.0.0-emerald?style=for-the-badge" alt="Version 1.0.0" />
   <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="MIT License" />
-  <img src="https://img.shields.io/badge/tests-820%20passing-brightgreen?style=for-the-badge" alt="820 tests passing" />
-  <img src="https://img.shields.io/badge/accuracy-95.1%25-emerald?style=for-the-badge" alt="95.1% accuracy" />
   <img src="https://img.shields.io/badge/python-3.12+-blue?style=for-the-badge" alt="Python 3.12+" />
   <img src="https://img.shields.io/badge/react-19-61DAFB?style=for-the-badge&logo=react" alt="React 19" />
   <br />
@@ -10,6 +8,8 @@
   <img src="https://img.shields.io/badge/PRs-welcome-orange?style=flat-square" alt="PRs Welcome" />
   <img src="https://img.shields.io/badge/code%20style-black-000000?style=flat-square" alt="Code style: black" />
 </div>
+
+> **Current evaluation:** Full-pipeline gold-eval (308 samples) — **FPR 14.06% / Recall 77.2%** — see [MODEL_STATUS.md](MODEL_STATUS.md) for the sourced baseline. Do not re-tune against the 308-sample set without adding more gold data.
 
 <h1 align="center">🛡️ Kaaval</h1>
 <p align="center"><strong>AI-Powered Scam SMS Detection Engine</strong></p>
@@ -97,17 +97,7 @@ Explore Kaaval without installing anything:
 
 ## 📊 Benchmark
 
-| Metric | Value |
-|--------|-------|
-| Accuracy | **83.3%** |
-| F1 Score | **90.1%** |
-| Precision | **87.5%** |
-| Recall | **92.8%** |
-| ROC-AUC | **0.91** |
-| Benchmark Size | **162 samples** |
-| Tests | **244 passing** |
-
-Full benchmark: [BENCHMARK_REPORT.md](BENCHMARK_REPORT.md)
+> **Sourced numbers:** See [MODEL_STATUS.md](MODEL_STATUS.md) — Full-pipeline (gold 308) FPR 14.06% / Recall 77.2% / Precision 88.5% / F1 0.825 / Accuracy 80.8% (TP=139 FP=18 FN=41 TN=110). Raw-model only: Accuracy 97.4% / F1 0.918 / ROC-AUC 0.99. Historic 162-sample table archived in [docs/archive/BENCHMARK_REPORT.md](docs/archive/BENCHMARK_REPORT.md).
 
 ---
 

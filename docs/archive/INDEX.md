@@ -1,0 +1,58 @@
+# Archive Index
+
+These are historical working documents from earlier development phases. Several contain outdated metrics (see MODEL_STATUS.md for current numbers). Kept for history, not current status.
+
+- AGENTS.md — Agent State handoff notes listing active prompts and phase status.
+- ARCHITECTURE.md — System architecture and folder structure overview.
+- ARCHITECTURE_REVIEW.md — Independent architecture review and recommendations.
+- ASSESSMENT_ENGINE.md — Risk assessment and verdict aggregation design.
+- AUDIT_REPORT_01_PROJECT_CURRENT_STATE.md — Audit Report 1: project current state snapshot.
+- AUDIT_REPORT_02_THREAT_MODEL.md — Audit Report 2: threat model analysis.
+- AUDIT_REPORT_03_CODEBASE_HEALTH.md — Audit Report 3: codebase health metrics.
+- AUDIT_REPORT_04_DOCUMENTATION_ACCURACY.md — Audit Report 4: documentation accuracy check.
+- AUDIT_REPORT_05_OPERATIONAL_READINESS.md — Audit Report 5: operational readiness gaps.
+- AUDIT_REPORT_06_FRONTEND_AUDIT.md — Audit Report 6: frontend audit findings.
+- AUDIT_REPORT_07_DATA_QUALITY.md — Audit Report 7: training data quality review.
+- AUDIT_REPORT_08_ML_MODEL_AUDIT.md — Audit Report 8: ML model performance audit.
+- AUDIT_REPORT_09_INTEGRATION_POINTS.md — Audit Report 9: integration points and dependencies.
+- AUDIT_REPORT_10_RECOMMENDATIONS.md — Audit Report 10: prioritized recommendations and roadmap.
+- BENCHMARK_REPORT.md — Benchmark results for ScamShield v1.0.0 (superseded by MODEL_STATUS.md).
+- CI_CD.md — CI/CD pipeline description and workflows.
+- CODE_OF_CONDUCT.md — Contributor Covenant Code of Conduct.
+- CONNECTOR_FRAMEWORK.md — Pluggable threat-intelligence connector framework.
+- CONTRIBUTING.md — Contribution guidelines and workflow.
+- DATASET_MANAGEMENT.md — Dataset versioning and management notes.
+- DEPLOYMENT.md — Deployment guide (historical, see infra-future/).
+- DEPLOYMENT_CHECKLIST.md — Pre-release deployment checklist for v1.0.0.
+- ENGINEERING_DECISIONS.md — Log of key engineering decisions.
+- EVALUATION_FRAMEWORK_V2.md — Evaluation harness and protocol for v2.
+- FINAL_ENGINEERING_REVIEW.md — Final independent engineering review (509 lines).
+- INVESTIGATION_ENGINE.md — Investigation engine and evidence graph design.
+- KNOWLEDGE_ENGINE.md — Threat Intelligence Knowledge Base (TIKB) spec.
+- MIGRATION_NOTES.md — Migration notes for v1.0.0.
+- MULTILINGUAL_ENGINE.md — Multilingual and transliteration handling.
+- OPERATIONS.md — Historical operations runbook (superseded by current runbooks).
+- PRODUCT_REVIEW.md — Product-level review and UX notes.
+- PRODUCTION_READINESS.md —Production readiness checklist (historical).
+- PRODUCTION_READINESS_AUDIT.md — Production readiness audit findings.
+- PROJECT_AUDIT.md — Project audit for v1.0.0.
+- PROJECT_CURRENT_STATE.md — Snapshot of project state at audit time.
+- PROJECT_SCORECARD.md — Scorecard of coverage and quality gates.
+- PUBLIC_RELEASE.md — Public release notes for v1.0.0.
+- QUALITY_ASSURANCE.md — QA process and test strategy.
+- QUALITY_REVIEW.md — Quality review summary.
+- RC1_FINAL_AUDIT.md — RC1 final audit report.
+- REASONING_ENGINE.md — Multi-evidence reasoning engine design.
+- REFINEMENT_ENGINE.md — Refinement and calibration engine design.
+- RELEASE_CHECKLIST.md — Release checklist for v1.0.0.
+- RELEASE_NOTES.md — Versioned release notes.
+- REPORT_FORMAT.md — Investigation report JSON format spec.
+- RESEARCH_REPORT.md — Research background and references.
+- ROADMAP.md — Historical roadmap (see current roadmap in repo root if any).
+- SAFE_BROWSING_CONNECTOR.md — Google Safe Browsing connector implementation.
+- SCAMSHIELD_X_FOUNDATION.md — ScamShield X architecture vision (future P0/P1 plan).
+- SECURITY.md — Historical security policy (see current SECURITY.md if moved, now archived).
+- THINGS_NOT_TO_BUILD.md — Explicit non-goals and scope guards.
+- THREAT_INTELLIGENCE_FUSION.md — Multi-source threat intelligence fusion engine.
+- v1_1_ai_certification_report.md — AI certification report for v1.1 Phase 12.
+- VERSION_1.0.md — Release summary for v1.0.0.
