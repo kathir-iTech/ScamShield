@@ -21,7 +21,7 @@ def test_low_threshold_value():
 
 
 def test_medium_threshold_value():
-    assert MEDIUM_CONFIDENCE_THRESHOLD == 0.6
+    assert MEDIUM_CONFIDENCE_THRESHOLD == 0.7
 
 
 def test_high_threshold_value():

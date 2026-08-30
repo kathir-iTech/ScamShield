@@ -21,8 +21,13 @@ def test_otp_share_detected():
 
 def test_otp_mention():
     score, reasons = check_otp("Your OTP is 123456")
+    assert score == 0
+    assert reasons == []
+
+
+def test_otp_mention_with_scam_context():
+    score, reasons = check_otp("URGENT: Share your OTP 123456 immediately to avoid account suspension")
     assert score >= 5
-    assert any("otp" in r.lower() for r in reasons)
 
 
 def test_urgent_money_detected():
@@ -44,9 +49,14 @@ def test_shortened_url():
 
 
 def test_service_keywords():
-    score, reasons = check_service_keywords("Your SBI account is blocked. Lottery won!")
+    score, reasons = check_service_keywords("URGENT: Your SBI account is blocked. Verify now! Lottery won!")
     assert score >= 3
     assert any("sbi" in r.lower() for r in reasons)
+
+
+def test_service_keywords_no_context():
+    score, reasons = check_service_keywords("Your SBI account is blocked. Lottery won!")
+    assert score == 0
 
 
 def test_risk_score_capped():

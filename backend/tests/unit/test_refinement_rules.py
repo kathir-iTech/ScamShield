@@ -268,9 +268,9 @@ class TestAdjustments:
 
 class TestAllRules:
     def test_all_rules_count(self):
-        assert len(FP_RULES) == 9
-        assert len(FN_RULES) == 9
-        assert len(ALL_RULES) == 18
+        assert len(FP_RULES) == 14
+        assert len(FN_RULES) == 12
+        assert len(ALL_RULES) == 26
 
     def test_all_rules_have_unique_ids(self):
         ids = [r.rule_id for r in ALL_RULES]

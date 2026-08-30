@@ -58,8 +58,15 @@ def test_calculate_severity(ml_label, conf, rule_score, rule_label, indicators, 
 
 
 def test_detect_indicators_from_text():
-    inds = detect_indicators("URGENT: Your OTP is 123456. Click https://evil.com immediately!", [])
+    inds = detect_indicators("URGENT: Share your OTP 123456 immediately! Click https://evil.com now!", [])
     assert "OTP Request" in inds
+    assert "Suspicious URL" in inds
+    assert "Urgency Language" in inds
+
+
+def test_detect_indicators_from_text_no_otp_sharing():
+    inds = detect_indicators("URGENT: Your OTP is 123456. Click https://evil.com immediately!", [])
+    assert "OTP Request" not in inds
     assert "Suspicious URL" in inds
     assert "Urgency Language" in inds
 

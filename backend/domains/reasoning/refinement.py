@@ -21,26 +21,34 @@ logger = logging.getLogger(__name__)
 _KNOWN_BANKS: Tuple[str, ...] = (
     "sbi", "state bank of india", "hdfc", "icici", "axis", "kotak",
     "pnb", "canara", "bob", "indusind", "yes bank", "idbi",
+    "bank of baroda", "union bank", "central bank",
 )
 
 _GOVT_ENTITIES: Tuple[str, ...] = (
     "government", "sarkari", "pm", "modi", "nrega", "ayushman",
-    "epfo", "itr", "income tax",
+    "epfo", "itr", "income tax", "nps", "aadhaar", "uidai",
+    "voter id", "epic", "upsc", "delhi university",
 )
 
 _TRACKING_WORDS: Tuple[str, ...] = (
     "tracking", "track", "shipment", "delivery", "order", "dispatch",
-    "shipped", "out for delivery",
+    "shipped", "out for delivery", "pickup", "courier", "transit",
+    "awb", "delivered",
 )
 
 _TRANSACTION_WORDS: Tuple[str, ...] = (
     "txn", "transaction", "credited", "debited", "received", "paid",
-    "refund", "payment of", "trf",
+    "refund", "payment of", "trf", "sent to", "paid to",
+    "reward points", "balance", "deposit", "withdrawal", "interest",
 )
 
 _LEGITIMATE_BANK_PHRASES: Tuple[str, ...] = (
     "your a/c", "your account", "has been credited", "has been debited",
     "transaction", "trf", "ref no", "available balance",
+    "reward points", "credit card payment", "interest of",
+    "balance as of", "monthly contribution", "cash deposit",
+    "credit", "debited", "neft", "imps", "rtgs",
+    "thank you for using",
 )
 
 
@@ -52,7 +60,13 @@ def _has_suspicious_url(analysis: Dict[str, Any]) -> bool:
                    "whatsapp.com", "telegram.me", "t.me", "youtube.com",
                    "google.com", "facebook.com", "twitter.com", "instagram.com",
                    "linkedin.com", "outlook.com", "hotmail.com", "gmail.com",
-                   "yahoo.com", "reddit.com", "netflix.com", "amazon.co.in"}
+                   "yahoo.com", "reddit.com", "netflix.com", "amazon.co.in",
+                   "myntra.com", "nykaa.com", "ajio.com", "meesho.com",
+                   "airtel.in", "jio.com", "vi.in", "bsnl.co.in",
+                   "eci.gov.in", "upsc.gov.in", "uidai.gov.in",
+                   "vit.ac.in", "vit-placement.in",
+                   "delhivery.com", "shiprocket.in", "ecom-express.com",
+                   "tatapower.com", "ndmc.gov.in", "bsesdelhi.com"}
     for e in entities:
         etype = e.get("type", "")
         if etype not in ("url", "shortened_url", "suspicious_tld"):
@@ -171,8 +185,11 @@ def _fp_legitimate_otp(analysis: Dict[str, Any]) -> bool:
     if analysis.get("prediction") != ML_LABEL_SCAM:
         return False
     text = _text_lower(analysis)
-    has_otp_code = bool(re.search(r"\b\d{4,8}\b", text)) and _has_otp_request(analysis)
+    has_otp_code = bool(re.search(r"\b\d{4,8}\b", text))
     if not has_otp_code:
+        return False
+    has_otp_keyword = bool(re.search(r"\botp\b", text))
+    if not has_otp_keyword:
         return False
     if _has_suspicious_url(analysis):
         return False
@@ -274,6 +291,137 @@ def _fp_subscription_reminder(analysis: Dict[str, Any]) -> bool:
     return True
 
 
+_UPI_APPS: Tuple[str, ...] = (
+    "gpay", "google pay", "phonepe", "phone pe", "paytm", "bhim",
+    "amazon pay", "mobiwik", "freecharge",
+)
+
+_ECOMMERCE_PLATFORMS: Tuple[str, ...] = (
+    "amazon", "flipkart", "myntra", "nykaa", "ajio", "meesho",
+    "snapdeal", "jabong", "limeroad",
+)
+
+_DELIVERY_SERVICES: Tuple[str, ...] = (
+    "delhivery", "ecom express", "blue dart", "dt dc", "professional courier",
+    "india post", "speed post", "shiprocket", "fedex", "dhl", "aramex",
+)
+
+_UTILITY_KEYWORDS: Tuple[str, ...] = (
+    "electricity", "water bill", "gas bill", "broadband", "mobile bill",
+    "postpaid", "prepaid", "recharge",
+)
+
+_TELECOM_ENTITIES: Tuple[str, ...] = (
+    "airtel", "jio", "vi", "vodafone", "bsnl", "tata play", "dth",
+    "jiofiber", "airtel fiber", "act fiber", "bsnl fiber",
+)
+
+_COLLEGE_ENTITIES: Tuple[str, ...] = (
+    "vit", "iit", "nit", "bits", "iiit", "nits", "manipal",
+    "srm", "amity", "lpu", "christ", "st xaviers",
+)
+
+
+def _fp_upi_transaction(analysis: Dict[str, Any]) -> bool:
+    if analysis.get("prediction") != ML_LABEL_SCAM:
+        return False
+    text = _text_lower(analysis)
+    has_upi_app = any(re.search(r"\b" + re.escape(a) + r"\b", text) for a in _UPI_APPS)
+    has_upi_ref = bool(re.search(r"upi\s*(?:ref|refno|ref no|reference)", text))
+    has_transaction = any(re.search(r"\b" + re.escape(t) + r"\b", text) for t in ["sent to", "paid to", "received from", "refund", "successful"])
+    if not (has_upi_app or has_upi_ref):
+        return False
+    if not has_transaction:
+        return False
+    if _has_suspicious_url(analysis):
+        return False
+    if _has_account_threat(analysis):
+        return False
+    if _has_payment_request(analysis):
+        return False
+    return True
+
+
+def _fp_shopping_update(analysis: Dict[str, Any]) -> bool:
+    if analysis.get("prediction") != ML_LABEL_SCAM:
+        return False
+    text = _text_lower(analysis)
+    has_platform = any(re.search(r"\b" + re.escape(p) + r"\b", text) for p in _ECOMMERCE_PLATFORMS)
+    if not has_platform:
+        return False
+    update_keywords = ["order", "shipped", "delivered", "return", "refund", "pickup", "dispatch", "tracking"]
+    has_update = any(re.search(r"\b" + re.escape(k) + r"\b", text) for k in update_keywords)
+    if not has_update:
+        return False
+    if _has_suspicious_url(analysis):
+        return False
+    if _has_account_threat(analysis):
+        return False
+    if _has_payment_request(analysis):
+        return False
+    return True
+
+
+def _fp_utility_bill(analysis: Dict[str, Any]) -> bool:
+    if analysis.get("prediction") != ML_LABEL_SCAM:
+        return False
+    text = _text_lower(analysis)
+    has_utility = any(re.search(r"\b" + re.escape(k) + r"\b", text) for k in _UTILITY_KEYWORDS)
+    if not has_utility:
+        return False
+    has_amount = bool(re.search(r"rs\.?\s*\d+|inr\s*\d+|₹\s*\d+", text))
+    if not has_amount:
+        return False
+    has_due = any(re.search(r"\b" + re.escape(d) + r"\b", text) for d in ["due date", "due by", "pay before", "pay by", "last date"])
+    if not has_due:
+        return False
+    if _has_suspicious_url(analysis):
+        return False
+    if _has_account_threat(analysis):
+        return False
+    return True
+
+
+def _fp_telecom_notification(analysis: Dict[str, Any]) -> bool:
+    if analysis.get("prediction") != ML_LABEL_SCAM:
+        return False
+    text = _text_lower(analysis)
+    has_telecom = any(re.search(r"\b" + re.escape(e) + r"\b", text) for e in _TELECOM_ENTITIES)
+    if not has_telecom:
+        return False
+    info_phrases = ["recharge", "plan", "data", "expiry", "expire", "renew",
+                    "valid", "activated", "monthly", "speed", "gb", "mbps"]
+    has_info = any(p in text for p in info_phrases)
+    if not has_info:
+        return False
+    if _has_suspicious_url(analysis):
+        return False
+    if _has_payment_request(analysis):
+        return False
+    if _has_account_threat(analysis):
+        return False
+    return True
+
+
+def _fp_college_notification(analysis: Dict[str, Any]) -> bool:
+    if analysis.get("prediction") != ML_LABEL_SCAM:
+        return False
+    text = _text_lower(analysis)
+    has_college = any(re.search(r"\b" + re.escape(e) + r"\b", text) for e in _COLLEGE_ENTITIES)
+    if not has_college:
+        return False
+    info_phrases = ["placement", "exam", "result", "semester", "attendance",
+                    "assignment", "lecture", "lab", "register", "drive", "campus"]
+    has_info = any(p in text for p in info_phrases)
+    if not has_info:
+        return False
+    if _has_suspicious_url(analysis):
+        return False
+    if _has_payment_request(analysis):
+        return False
+    return True
+
+
 def _fn_obfuscated_url(analysis: Dict[str, Any]) -> bool:
     text = _text_lower(analysis)
     obfuscated_patterns = [
@@ -360,8 +508,8 @@ def _fn_investment_scam(analysis: Dict[str, Any]) -> bool:
     if analysis.get("prediction") != ML_LABEL_SAFE:
         return False
     text = _text_lower(analysis)
-    invest_keywords = ["investment", "profit", "return", "earn", "income", "trading", "crypto", "bitcoin"]
-    has_invest = any(re.search(r"\b" + re.escape(k) + r"\b", text) for k in invest_keywords)
+    invest_keywords = ["investment", "profit", "returns", "return", "earn", "income", "trading", "crypto", "bitcoin"]
+    has_invest = any(re.search(r"\b" + re.escape(k), text) for k in invest_keywords)
     if not has_invest:
         return False
     guarantee_keywords = ["guaranteed", "100%", "assured", "risk free", "double", "limited", "hurry"]
@@ -379,13 +527,65 @@ def _fn_obfuscated_contact(analysis: Dict[str, Any]) -> bool:
     return any(re.search(p, text) for p in obfuscation)
 
 
+def _fn_digital_arrest_scam(analysis: Dict[str, Any]) -> bool:
+    if analysis.get("prediction") != ML_LABEL_SAFE:
+        return False
+    text = _text_lower(analysis)
+    authority_keywords = [
+        "enforcement directorate", "supreme court", "high court", "ncb",
+        "cbi", "police", "crime branch", "cyber crime",
+        "anti corruption", "edar", "ed notice",
+    ]
+    has_authority = any(k in text for k in authority_keywords)
+    if not has_authority:
+        return False
+    threat_keywords = ["arrest", "custody", "warrant", "case registered",
+                       "investigation", "summon", "attached", "frozen",
+                       "blackmailed", "legal action"]
+    has_threat = any(k in text for k in threat_keywords)
+    return has_threat
+
+
+def _fn_romance_scam(analysis: Dict[str, Any]) -> bool:
+    if analysis.get("prediction") != ML_LABEL_SAFE:
+        return False
+    text = _text_lower(analysis)
+    affection_phrases = ["fell in love", "i love you", "my love", "dear",
+                         "baby", "darling", "sweetheart", "hi dear"]
+    has_affection = any(p in text for p in affection_phrases)
+    if not has_affection:
+        return False
+    money_keywords = ["send", "need", "visa", "flight", "fee", "transfer",
+                      "money", "rupees", "dollars", "inheritance", "release fee"]
+    has_money = any(k in text for k in money_keywords)
+    return has_money
+
+
+def _fn_job_scam(analysis: Dict[str, Any]) -> bool:
+    if analysis.get("prediction") != ML_LABEL_SAFE:
+        return False
+    text = _text_lower(analysis)
+    job_phrases = ["job", "salary", "hiring", "vacancy", "position",
+                   "work from home", "earn money", "part time"]
+    has_job = any(re.search(r"\b" + re.escape(p), text) for p in job_phrases)
+    if not has_job:
+        return False
+    fee_keywords = ["training fee", "training bond", "registration fee",
+                    "security deposit", "processing fee", "registration rs"]
+    has_fee = any(k in text for k in fee_keywords)
+    if not has_fee:
+        return False
+    high_salary = bool(re.search(r"salary\s+rs[\s.]*\d{2,}", text))
+    return has_fee or high_salary
+
+
 FP_RULES: List[RefinementRule] = [
     RefinementRule(
         rule_id="FP-001",
         description="Legitimate banking notification misclassified as scam",
         category="fp_reduction",
         priority="HIGH",
-        confidence_impact=-0.20,
+        confidence_impact=-0.25,
         condition=_fp_legitimate_banking_notification,
         reason="Contains legitimate banking notification patterns (transaction/credit info with bank name, no phishing indicators). Downgrading scam confidence.",
     ),
@@ -394,7 +594,7 @@ FP_RULES: List[RefinementRule] = [
         description="Government alert misclassified as scam",
         category="fp_reduction",
         priority="HIGH",
-        confidence_impact=-0.20,
+        confidence_impact=-0.25,
         condition=_fp_government_alert,
         reason="Contains government scheme references without payment request or suspicious URLs. Likely a legitimate government communication.",
     ),
@@ -403,7 +603,7 @@ FP_RULES: List[RefinementRule] = [
         description="Delivery notification misclassified as scam",
         category="fp_reduction",
         priority="HIGH",
-        confidence_impact=-0.20,
+        confidence_impact=-0.25,
         condition=_fp_delivery_notification,
         reason="Contains delivery tracking language without payment demands or suspicious links. Likely a legitimate delivery notification.",
     ),
@@ -412,7 +612,7 @@ FP_RULES: List[RefinementRule] = [
         description="Legitimate OTP message misclassified as scam",
         category="fp_reduction",
         priority="MEDIUM",
-        confidence_impact=-0.15,
+        confidence_impact=-0.20,
         condition=_fp_legitimate_otp,
         reason="Contains an OTP code but no sharing request or phishing indicators. Likely a legitimate one-time password message.",
     ),
@@ -421,7 +621,7 @@ FP_RULES: List[RefinementRule] = [
         description="Transaction receipt misclassified as scam",
         category="fp_reduction",
         priority="HIGH",
-        confidence_impact=-0.20,
+        confidence_impact=-0.25,
         condition=_fp_transaction_receipt,
         reason="Contains transaction reference without payment demands or suspicious URLs. Likely a legitimate financial receipt.",
     ),
@@ -430,7 +630,7 @@ FP_RULES: List[RefinementRule] = [
         description="Subscription reminder misclassified as scam",
         category="fp_reduction",
         priority="MEDIUM",
-        confidence_impact=-0.15,
+        confidence_impact=-0.20,
         condition=_fp_subscription_reminder,
         reason="Contains subscription or billing reminder without account threats or phishing links. Likely a legitimate reminder.",
     ),
@@ -439,7 +639,7 @@ FP_RULES: List[RefinementRule] = [
         description="High ML confidence but insufficient evidence",
         category="fp_reduction",
         priority="MEDIUM",
-        confidence_impact=-0.10,
+        confidence_impact=-0.15,
         condition=_fp_low_indicator_high_confidence,
         reason="ML model is confident but lacks corroborating indicators or entities. Reducing confidence to prevent over-reliance on single signal.",
     ),
@@ -448,7 +648,7 @@ FP_RULES: List[RefinementRule] = [
         description="Security notification misclassified as scam",
         category="fp_reduction",
         priority="HIGH",
-        confidence_impact=-0.20,
+        confidence_impact=-0.25,
         condition=_fp_security_notification,
         reason="Contains security notification language (password change, login alert) without phishing indicators. Likely a legitimate security alert.",
     ),
@@ -457,9 +657,54 @@ FP_RULES: List[RefinementRule] = [
         description="Marketing or promotional message misclassified as scam",
         category="fp_reduction",
         priority="MEDIUM",
-        confidence_impact=-0.15,
+        confidence_impact=-0.20,
         condition=_fp_legitimate_marketing,
         reason="Contains marketing/promotional language without suspicious URLs or strong scam indicators. Likely a legitimate commercial message.",
+    ),
+    RefinementRule(
+        rule_id="FP-010",
+        description="UPI transaction confirmation misclassified as scam",
+        category="fp_reduction",
+        priority="HIGH",
+        confidence_impact=-0.25,
+        condition=_fp_upi_transaction,
+        reason="Contains UPI transaction confirmation with reference number. Likely a legitimate payment receipt.",
+    ),
+    RefinementRule(
+        rule_id="FP-011",
+        description="Shopping/ecommerce update misclassified as scam",
+        category="fp_reduction",
+        priority="HIGH",
+        confidence_impact=-0.25,
+        condition=_fp_shopping_update,
+        reason="Contains order update or return confirmation from known ecommerce platform. Likely a legitimate order notification.",
+    ),
+    RefinementRule(
+        rule_id="FP-012",
+        description="Utility bill notification misclassified as scam",
+        category="fp_reduction",
+        priority="MEDIUM",
+        confidence_impact=-0.20,
+        condition=_fp_utility_bill,
+        reason="Contains utility bill notification with amount and due date. Likely a legitimate bill reminder.",
+    ),
+    RefinementRule(
+        rule_id="FP-013",
+        description="Telecom notification misclassified as scam",
+        category="fp_reduction",
+        priority="MEDIUM",
+        confidence_impact=-0.20,
+        condition=_fp_telecom_notification,
+        reason="Contains telecom provider name with plan/recharge info. Likely a legitimate telecom notification.",
+    ),
+    RefinementRule(
+        rule_id="FP-014",
+        description="College notification misclassified as scam",
+        category="fp_reduction",
+        priority="MEDIUM",
+        confidence_impact=-0.20,
+        condition=_fp_college_notification,
+        reason="Contains college name with academic info. Likely a legitimate college notification.",
     ),
 ]
 
@@ -544,6 +789,33 @@ FN_RULES: List[RefinementRule] = [
         confidence_impact=0.15,
         condition=_fn_obfuscated_contact,
         reason="Message uses obfuscated contact information to avoid detection. Increasing scam confidence.",
+    ),
+    RefinementRule(
+        rule_id="FN-010",
+        description="Digital arrest / authority impersonation scam",
+        category="fn_reduction",
+        priority="HIGH",
+        confidence_impact=0.25,
+        condition=_fn_digital_arrest_scam,
+        reason="Message impersonates law enforcement or judicial authority with arrest/custody threats. Classic digital arrest scam pattern. Increasing scam confidence.",
+    ),
+    RefinementRule(
+        rule_id="FN-011",
+        description="Romance / sweetheart scam",
+        category="fn_reduction",
+        priority="HIGH",
+        confidence_impact=0.20,
+        condition=_fn_romance_scam,
+        reason="Message uses affection language combined with money requests. Classic romance scam pattern. Increasing scam confidence.",
+    ),
+    RefinementRule(
+        rule_id="FN-012",
+        description="Job scam with upfront fees",
+        category="fn_reduction",
+        priority="HIGH",
+        confidence_impact=0.20,
+        condition=_fn_job_scam,
+        reason="Message offers employment but requires upfront fees (training bond, registration). Classic job scam pattern. Increasing scam confidence.",
     ),
 ]
 

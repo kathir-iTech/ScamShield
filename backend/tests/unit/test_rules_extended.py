@@ -43,6 +43,10 @@ class TestCheckOtpEdgeCases:
 
     def test_otp_code_pattern(self):
         score, reasons = check_otp("Your OTP: 784512 is valid")
+        assert score == 0
+
+    def test_otp_code_with_scam_context(self):
+        score, reasons = check_otp("URGENT: Send OTP 784512 to verify your account immediately")
         assert score > 0
 
     def test_otp_forward_request(self):
@@ -65,10 +69,18 @@ class TestCheckUrgentMoneyEdgeCases:
 
     def test_loan_mention(self):
         score, reasons = check_urgent_money("Get a loan with low EMI")
+        assert score == 0
+
+    def test_loan_mention_with_scam_context(self):
+        score, reasons = check_urgent_money("URGENT: Apply now for guaranteed loan approval, low EMI!")
         assert score >= 8
 
     def test_credit_card(self):
         score, reasons = check_urgent_money("Your credit card limit increased")
+        assert score == 0
+
+    def test_credit_card_with_scam_context(self):
+        score, reasons = check_urgent_money("URGENT: Verify your credit card now or it will be blocked!")
         assert score >= 8
 
 
@@ -112,24 +124,44 @@ class TestCheckServiceKeywordsEdgeCases:
         assert score == 0
 
     def test_multiple_banks(self):
-        score, reasons = check_service_keywords("SBI HDFC ICICI Axis Kotak")
+        score, reasons = check_service_keywords("URGENT: SBI HDFC ICICI Axis Kotak accounts suspended! Verify now!")
         assert score >= 3
         matches = [r for r in reasons if "bank" in r.lower()]
         assert len(matches) >= 1
 
+    def test_multiple_banks_no_context(self):
+        score, reasons = check_service_keywords("SBI HDFC ICICI Axis Kotak")
+        assert score == 0
+
     def test_payment_apps(self):
-        score, reasons = check_service_keywords("Use GPay or PhonePe")
+        score, reasons = check_service_keywords("URGENT: Use GPay or PhonePe to pay now!")
         assert score >= 3
 
+    def test_payment_apps_no_context(self):
+        score, reasons = check_service_keywords("Use GPay or PhonePe")
+        assert score == 0
+
     def test_government_reference(self):
-        score, reasons = check_service_keywords("PM Modi scheme")
+        score, reasons = check_service_keywords("URGENT: PM Modi scheme subsidy, apply now!")
         assert score >= 5
 
+    def test_government_reference_no_context(self):
+        score, reasons = check_service_keywords("PM Modi scheme")
+        assert score == 0
+
     def test_scam_keywords(self):
-        score, reasons = check_service_keywords("This is a lottery win")
+        score, reasons = check_service_keywords("URGENT: This is a lottery win, claim now!")
         assert score > 0
         assert any("keyword" in r.lower() for r in reasons)
 
+    def test_scam_keywords_no_context(self):
+        score, reasons = check_service_keywords("This is a lottery win")
+        assert score == 0
+
     def test_yes_bank(self):
-        score, reasons = check_service_keywords("Yes Bank account")
+        score, reasons = check_service_keywords("URGENT: Yes Bank account suspended, verify now!")
         assert score >= 3
+
+    def test_yes_bank_no_context(self):
+        score, reasons = check_service_keywords("Yes Bank account")
+        assert score == 0

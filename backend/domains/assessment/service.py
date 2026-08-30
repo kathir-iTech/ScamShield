@@ -64,6 +64,10 @@ def assess(analysis: dict) -> Dict:
         ml_points = round(ASSESSMENT_MAX_ML_POINTS * (1 - confidence))
     ml_points = min(ml_points, ASSESSMENT_MAX_ML_POINTS)
 
+    if prediction == ML_LABEL_SCAM and confidence < MEDIUM_CONFIDENCE_THRESHOLD:
+        if not indicators and rule_label == RISK_LOW and not entity_risk.get("high"):
+            ml_points = round(ml_points * 0.3)
+
     decision_points = round(ASSESSMENT_MAX_DECISION_POINTS * (decision_score / 100))
 
     high_count = sum(1 for e in supporting_evidence if e.get("severity") == "HIGH")

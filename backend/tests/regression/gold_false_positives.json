@@ -1,0 +1,949 @@
+[
+  {
+    "index": 204,
+    "text": "SBI: Your account XX3456 is credited with Rs 50,000 by NEFT from ABC Corp. Ref: NEFT1234567890.",
+    "gold_category": "LEGITIMATE_BANKING",
+    "ml_prediction": "scam",
+    "confidence": 0.6660661864784712,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Bank KYC Scam",
+    "threats": [
+      "Financial Theft",
+      "Identity Theft"
+    ],
+    "summary": "Suspicious message potentially related to bank kyc scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 205,
+    "text": "HDFC Bank: Your credit card payment of Rs 15,000 received on 28 July 2026. Thank you.",
+    "gold_category": "LEGITIMATE_BANKING",
+    "ml_prediction": "scam",
+    "confidence": 0.5695593287820084,
+    "risk_level": "LOW",
+    "rule_score": 8.0,
+    "rule_label": "low",
+    "reasons": [
+      "Specific monetary demand"
+    ],
+    "detected_indicators": [],
+    "scam_category": "Bank KYC Scam",
+    "threats": [
+      "Financial Theft",
+      "Identity Theft"
+    ],
+    "summary": "Suspicious message potentially related to bank kyc scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 207,
+    "text": "Axis Bank: Reward points earned this month: 2,450. Redeem via Axis Rewards portal.",
+    "gold_category": "LEGITIMATE_BANKING",
+    "ml_prediction": "scam",
+    "confidence": 0.55562732640754,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Bank KYC Scam",
+    "threats": [
+      "Financial Theft",
+      "Identity Theft"
+    ],
+    "summary": "Suspicious message potentially related to bank kyc scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 211,
+    "text": "Bank of Baroda: Interest of Rs 3,540 credited to your savings account for Q1.",
+    "gold_category": "LEGITIMATE_BANKING",
+    "ml_prediction": "scam",
+    "confidence": 0.7014874750680113,
+    "risk_level": "LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Bank KYC Scam",
+    "threats": [
+      "Financial Theft",
+      "Identity Theft"
+    ],
+    "summary": "Suspicious message potentially related to bank kyc scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 214,
+    "text": "Rs 2,000 sent to Rahul Sharma via GPay. UPI ref: 7890123456. Date: 28 July 2026.",
+    "gold_category": "LEGITIMATE_UPI",
+    "ml_prediction": "scam",
+    "confidence": 0.5604895094089681,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "UPI Scam",
+    "threats": [
+      "Financial Theft",
+      "Credential Harvesting"
+    ],
+    "summary": "Suspicious message potentially related to upi scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 216,
+    "text": "Paytm UPI: Rs 3,200 paid to BigBasket for groceries. UPI mandate active.",
+    "gold_category": "LEGITIMATE_UPI",
+    "ml_prediction": "scam",
+    "confidence": 0.5169354154652903,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "UPI Scam",
+    "threats": [
+      "Financial Theft",
+      "Credential Harvesting"
+    ],
+    "summary": "Suspicious message potentially related to upi scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 218,
+    "text": "Amazon Pay: Rs 15,000 refund credited to your bank for cancelled order #OD9876543210.",
+    "gold_category": "LEGITIMATE_UPI",
+    "ml_prediction": "scam",
+    "confidence": 0.8060028640504193,
+    "risk_level": "LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Bank KYC Scam",
+    "threats": [
+      "Financial Theft",
+      "Identity Theft"
+    ],
+    "summary": "Suspicious message potentially related to bank kyc scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 219,
+    "text": "GPay: Your weekly transaction summary: 12 payments totalling Rs 8,750.",
+    "gold_category": "LEGITIMATE_UPI",
+    "ml_prediction": "scam",
+    "confidence": 0.5170387107325872,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "UPI Scam",
+    "threats": [
+      "Financial Theft",
+      "Credential Harvesting"
+    ],
+    "summary": "Suspicious message potentially related to upi scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 220,
+    "text": "UPI collect request from Flipkart: Rs 2,499 for order OD123456. Pay by 31 July.",
+    "gold_category": "LEGITIMATE_UPI",
+    "ml_prediction": "scam",
+    "confidence": 0.803214599033962,
+    "risk_level": "LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "UPI Scam",
+    "threats": [
+      "Financial Theft",
+      "Credential Harvesting"
+    ],
+    "summary": "Suspicious message potentially related to upi scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 222,
+    "text": "Amazon: Your order #OD8765432109 has been shipped via Delhivery. Track: http://amazon.in/track",
+    "gold_category": "LEGITIMATE_COURIER",
+    "ml_prediction": "scam",
+    "confidence": 0.7388159560332009,
+    "risk_level": "MEDIUM",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [
+      "Suspicious URL"
+    ],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 223,
+    "text": "Delhivery: Your parcel from Myntra is out for delivery. Expected between 4-7 PM today.",
+    "gold_category": "LEGITIMATE_COURIER",
+    "ml_prediction": "scam",
+    "confidence": 0.543710136531735,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [
+      "Government Impersonation"
+    ],
+    "scam_category": "Courier Scam",
+    "threats": [
+      "Advance Fee Fraud",
+      "Impersonation Fraud"
+    ],
+    "summary": "Suspicious message potentially related to courier scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 224,
+    "text": "FedEx: Your international package cleared customs. Delivery scheduled for 30 July.",
+    "gold_category": "LEGITIMATE_COURIER",
+    "ml_prediction": "scam",
+    "confidence": 0.632162746376167,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Courier Scam",
+    "threats": [
+      "Advance Fee Fraud",
+      "Impersonation Fraud"
+    ],
+    "summary": "Suspicious message potentially related to courier scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 228,
+    "text": "Ecom Express: Delivery attempted but address not found. Update location: http://ecom-update.tk",
+    "gold_category": "LEGITIMATE_COURIER",
+    "ml_prediction": "scam",
+    "confidence": 0.9149210760955973,
+    "risk_level": "HIGH",
+    "rule_score": 15.0,
+    "rule_label": "low",
+    "reasons": [
+      "Suspicious TLD in URL: .tk"
+    ],
+    "detected_indicators": [
+      "Suspicious URL"
+    ],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 229,
+    "text": "Shiprocket: Your order is in transit from Mumbai hub. AWB: 1234567890123.",
+    "gold_category": "LEGITIMATE_COURIER",
+    "ml_prediction": "scam",
+    "confidence": 0.708329352991313,
+    "risk_level": "LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 231,
+    "text": "PM Kisan: The 19th installment of Rs 2,000 has been credited to your Aadhaar-linked account.",
+    "gold_category": "LEGITIMATE_GOVERNMENT",
+    "ml_prediction": "scam",
+    "confidence": 0.6855666363687068,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [
+      "Government Impersonation"
+    ],
+    "scam_category": "Bank KYC Scam",
+    "threats": [
+      "Financial Theft",
+      "Identity Theft"
+    ],
+    "summary": "Suspicious message potentially related to bank kyc scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 232,
+    "text": "EPFO: Your EPF claim of Rs 1,85,000 has been approved. Amount will be credited within 5 working days.",
+    "gold_category": "LEGITIMATE_GOVERNMENT",
+    "ml_prediction": "scam",
+    "confidence": 0.6187630439821196,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Lottery Scam",
+    "threats": [
+      "Financial Fraud",
+      "Advance Fee Fraud"
+    ],
+    "summary": "Suspicious message potentially related to lottery scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 233,
+    "text": "Aadhaar: Your address update request has been processed. Download updated Aadhaar from UIDAI portal.",
+    "gold_category": "LEGITIMATE_GOVERNMENT",
+    "ml_prediction": "scam",
+    "confidence": 0.525974247288138,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Bank KYC Scam",
+    "threats": [
+      "Financial Theft",
+      "Identity Theft"
+    ],
+    "summary": "Suspicious message potentially related to bank kyc scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 234,
+    "text": "Voter ID: Your new EPIC card has been dispatched via India Post. Track at http://eci.gov.in",
+    "gold_category": "LEGITIMATE_GOVERNMENT",
+    "ml_prediction": "scam",
+    "confidence": 0.8563050145066755,
+    "risk_level": "MEDIUM",
+    "rule_score": 5.0,
+    "rule_label": "low",
+    "reasons": [
+      "Contains a URL link"
+    ],
+    "detected_indicators": [
+      "Suspicious URL"
+    ],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 236,
+    "text": "NPS: Your Tier 1 account balance as of 31 July: Rs 8,25,000. Monthly contribution Rs 10,000.",
+    "gold_category": "LEGITIMATE_GOVERNMENT",
+    "ml_prediction": "scam",
+    "confidence": 0.5904977369512436,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 238,
+    "text": "RTO: Your driving licence renewal application is approved. New valid till 30 July 2036.",
+    "gold_category": "LEGITIMATE_GOVERNMENT",
+    "ml_prediction": "scam",
+    "confidence": 0.6477986349031412,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 239,
+    "text": "Your SBI OTP for transaction of Rs 25,000 is 392847. Valid for 5 minutes.",
+    "gold_category": "LEGITIMATE_OTP",
+    "ml_prediction": "scam",
+    "confidence": 0.5763810798673638,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Bank KYC Scam",
+    "threats": [
+      "Financial Theft",
+      "Identity Theft"
+    ],
+    "summary": "Suspicious message potentially related to bank kyc scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 240,
+    "text": "Amazon login OTP: 583920. If you did not request this, reset your password immediately.",
+    "gold_category": "LEGITIMATE_OTP",
+    "ml_prediction": "scam",
+    "confidence": 0.5766222382866183,
+    "risk_level": "HIGH",
+    "rule_score": 60.0,
+    "rule_label": "medium",
+    "reasons": [
+      "Contains OTP-sensitive keywords with suspicious context",
+      "Urgency keyword: 'immediately'",
+      "Suspicious keywords: otp, immediately"
+    ],
+    "detected_indicators": [
+      "Urgency Language"
+    ],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 241,
+    "text": "HDFC Bank: OTP 829475 for adding beneficiary. Valid until 15:45.",
+    "gold_category": "LEGITIMATE_OTP",
+    "ml_prediction": "scam",
+    "confidence": 0.6908089881351238,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Bank KYC Scam",
+    "threats": [
+      "Financial Theft",
+      "Identity Theft"
+    ],
+    "summary": "Suspicious message potentially related to bank kyc scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 242,
+    "text": "GPay: OTP 746281 for sending money to new contact. Do not share.",
+    "gold_category": "LEGITIMATE_OTP",
+    "ml_prediction": "scam",
+    "confidence": 0.79422980774475,
+    "risk_level": "HIGH",
+    "rule_score": 38.0,
+    "rule_label": "medium",
+    "reasons": [
+      "Contains OTP-sensitive keywords with suspicious context",
+      "Payment app mentioned: 'gpay'",
+      "Suspicious keywords: otp"
+    ],
+    "detected_indicators": [],
+    "scam_category": "UPI Scam",
+    "threats": [
+      "Financial Theft",
+      "Credential Harvesting"
+    ],
+    "summary": "Suspicious message potentially related to upi scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 243,
+    "text": "IRCTC: OTP 938472 for booking of PNR 2345678901. Valid for 10 minutes.",
+    "gold_category": "LEGITIMATE_OTP",
+    "ml_prediction": "scam",
+    "confidence": 0.5433270677741531,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 245,
+    "text": "PhonePe: OTP 183945 for login from new device. Ignore if not you.",
+    "gold_category": "LEGITIMATE_OTP",
+    "ml_prediction": "scam",
+    "confidence": 0.7222968996374647,
+    "risk_level": "LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "UPI Scam",
+    "threats": [
+      "Financial Theft",
+      "Credential Harvesting"
+    ],
+    "summary": "Suspicious message potentially related to upi scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 246,
+    "text": "Aadhaar PVC card: OTP 674839 for ordering. Delivery in 7 working days.",
+    "gold_category": "LEGITIMATE_OTP",
+    "ml_prediction": "scam",
+    "confidence": 0.6878496218284604,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Bank KYC Scam",
+    "threats": [
+      "Financial Theft",
+      "Identity Theft"
+    ],
+    "summary": "Suspicious message potentially related to bank kyc scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 248,
+    "text": "Airtel: Your data usage is 90% of 2GB/day limit. Top up at http://airtel.in",
+    "gold_category": "LEGITIMATE_TELECOM",
+    "ml_prediction": "scam",
+    "confidence": 0.6414954581318407,
+    "risk_level": "LOW",
+    "rule_score": 5.0,
+    "rule_label": "low",
+    "reasons": [
+      "Contains a URL link"
+    ],
+    "detected_indicators": [
+      "Suspicious URL"
+    ],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 254,
+    "text": "Delhi University: Fee payment for semester 3 of Rs 25,000 is due by 15 Aug. Pay online.",
+    "gold_category": "LEGITIMATE_COLLEGE",
+    "ml_prediction": "scam",
+    "confidence": 0.554161430384296,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 257,
+    "text": "VIT Vellore: Campus placement drive on 5 Aug. Register at http://vit-placement.in",
+    "gold_category": "LEGITIMATE_COLLEGE",
+    "ml_prediction": "scam",
+    "confidence": 0.7479831125292975,
+    "risk_level": "MEDIUM",
+    "rule_score": 5.0,
+    "rule_label": "low",
+    "reasons": [
+      "Contains a URL link"
+    ],
+    "detected_indicators": [
+      "Suspicious URL"
+    ],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 258,
+    "text": "Tata Power: Your electricity bill for July is Rs 2,850. Due date: 15 Aug. Pay via app.",
+    "gold_category": "LEGITIMATE_UTILITY",
+    "ml_prediction": "scam",
+    "confidence": 0.6675097445857615,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [
+      "Utility Bill Mention"
+    ],
+    "scam_category": "Electricity Bill Scam",
+    "threats": [
+      "Utility Fraud",
+      "Impersonation Fraud"
+    ],
+    "summary": "Suspicious message potentially related to electricity bill scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 260,
+    "text": "Ajao Water: Your water bill for Q2 is Rs 1,250. Pay before 31 Aug to avoid late fee.",
+    "gold_category": "LEGITIMATE_UTILITY",
+    "ml_prediction": "scam",
+    "confidence": 0.5003817562150872,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Electricity Bill Scam",
+    "threats": [
+      "Utility Fraud",
+      "Impersonation Fraud"
+    ],
+    "summary": "Suspicious message potentially related to electricity bill scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 263,
+    "text": "Amazon: Your order of iPhone 16 has been delivered. Rate your purchase on the app.",
+    "gold_category": "LEGITIMATE_SHOPPING",
+    "ml_prediction": "scam",
+    "confidence": 0.8151250505616731,
+    "risk_level": "LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 264,
+    "text": "Flipkart: Your return request for jeans has been approved. Pickup scheduled for 31 July.",
+    "gold_category": "LEGITIMATE_SHOPPING",
+    "ml_prediction": "scam",
+    "confidence": 0.5136256396037421,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Investment Scam",
+    "threats": [
+      "Investment Fraud",
+      "Ponzi Scheme"
+    ],
+    "summary": "Suspicious message potentially related to investment scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 265,
+    "text": "Myntra: 50% off on your favourite brands. Use code MINT50. Shop now: http://myntra.com",
+    "gold_category": "LEGITIMATE_SHOPPING",
+    "ml_prediction": "scam",
+    "confidence": 0.8610510330869804,
+    "risk_level": "MEDIUM",
+    "rule_score": 10.0,
+    "rule_label": "low",
+    "reasons": [
+      "Urgency keyword: 'now'",
+      "Contains a URL link"
+    ],
+    "detected_indicators": [
+      "Suspicious URL"
+    ],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 266,
+    "text": "BigBasket: Your order of Rs 2,800 has been delivered. Fresh vegetables guaranteed!",
+    "gold_category": "LEGITIMATE_SHOPPING",
+    "ml_prediction": "scam",
+    "confidence": 0.5598122589351574,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Investment Scam",
+    "threats": [
+      "Investment Fraud",
+      "Ponzi Scheme"
+    ],
+    "summary": "Suspicious message potentially related to investment scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 268,
+    "text": "Blinkit: Your order of Rs 450 will be delivered in 10 minutes. Track live.",
+    "gold_category": "LEGITIMATE_SHOPPING",
+    "ml_prediction": "scam",
+    "confidence": 0.569220314530358,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 283,
+    "text": "Your car service is due at 15,000 km. Book appointment at Maruti service center.",
+    "gold_category": "LEGITIMATE_PERSONAL",
+    "ml_prediction": "scam",
+    "confidence": 0.6388388012732831,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 286,
+    "text": "Cash deposit of Rs 20,000 at SBI ATM successful on 26 July.",
+    "gold_category": "LEGITIMATE_BANKING",
+    "ml_prediction": "scam",
+    "confidence": 0.5787285106102452,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Bank KYC Scam",
+    "threats": [
+      "Financial Theft",
+      "Identity Theft"
+    ],
+    "summary": "Suspicious message potentially related to bank kyc scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 287,
+    "text": "Your credit card bill of Rs 22,500 generated. Due date: 15 Aug.",
+    "gold_category": "LEGITIMATE_BANKING",
+    "ml_prediction": "scam",
+    "confidence": 0.5215974257917412,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Electricity Bill Scam",
+    "threats": [
+      "Utility Fraud",
+      "Impersonation Fraud"
+    ],
+    "summary": "Suspicious message potentially related to electricity bill scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 294,
+    "text": "Nykaa: 30% off on beauty products. Use code NYK30. Offer ends midnight.",
+    "gold_category": "LEGITIMATE_SHOPPING",
+    "ml_prediction": "scam",
+    "confidence": 0.553153359507508,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 295,
+    "text": "Your Meesho order has been delivered successfully. Rate your experience.",
+    "gold_category": "LEGITIMATE_SHOPPING",
+    "ml_prediction": "scam",
+    "confidence": 0.7168677909060963,
+    "risk_level": "LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 296,
+    "text": "Croma: Your new AC installation scheduled for 2 Aug between 9 AM - 12 PM.",
+    "gold_category": "LEGITIMATE_SHOPPING",
+    "ml_prediction": "scam",
+    "confidence": 0.760161714120934,
+    "risk_level": "MEDIUM",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [
+      "Government Impersonation"
+    ],
+    "scam_category": "Government Scheme Scam",
+    "threats": [
+      "Government Impersonation",
+      "Identity Theft"
+    ],
+    "summary": "Suspicious message potentially related to government scheme scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 297,
+    "text": "Swiggy: Order delivered! Enjoy your meal. Rate your delivery partner.",
+    "gold_category": "LEGITIMATE_SHOPPING",
+    "ml_prediction": "scam",
+    "confidence": 0.8453230720448486,
+    "risk_level": "LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 298,
+    "text": "Zepto: Your order of Rs 899 is out for delivery. ETA 8 minutes.",
+    "gold_category": "LEGITIMATE_SHOPPING",
+    "ml_prediction": "scam",
+    "confidence": 0.5991061022931727,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 300,
+    "text": "Airtel Fiber: 100GB additional data credited for loyalty reward.",
+    "gold_category": "LEGITIMATE_TELECOM",
+    "ml_prediction": "scam",
+    "confidence": 0.523330402409727,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 303,
+    "text": "UPSC: Your civil services prelims result published. Check at http://upsc.gov.in",
+    "gold_category": "LEGITIMATE_COLLEGE",
+    "ml_prediction": "scam",
+    "confidence": 0.8331319931244828,
+    "risk_level": "MEDIUM",
+    "rule_score": 5.0,
+    "rule_label": "low",
+    "reasons": [
+      "Contains a URL link"
+    ],
+    "detected_indicators": [
+      "Suspicious URL"
+    ],
+    "scam_category": "Unknown Scam",
+    "threats": [
+      "Unsolicited Message",
+      "Social Engineering"
+    ],
+    "summary": "Suspicious message potentially related to unknown scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 305,
+    "text": "GPay: Weekly cashback of Rs 45 credited. Make 10 more transactions to unlock bonus.",
+    "gold_category": "LEGITIMATE_UPI",
+    "ml_prediction": "scam",
+    "confidence": 0.5316488798716384,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "Lottery Scam",
+    "threats": [
+      "Financial Fraud",
+      "Advance Fee Fraud"
+    ],
+    "summary": "Suspicious message potentially related to lottery scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 306,
+    "text": "PhonePe: Your gold purchase of Rs 500 successful via Digital Gold.",
+    "gold_category": "LEGITIMATE_UPI",
+    "ml_prediction": "scam",
+    "confidence": 0.5349723205743011,
+    "risk_level": "VERY LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "UPI Scam",
+    "threats": [
+      "Financial Theft",
+      "Credential Harvesting"
+    ],
+    "summary": "Suspicious message potentially related to upi scam. ML classifier detects scam patterns."
+  },
+  {
+    "index": 307,
+    "text": "UPI transaction of Rs 250 to Mumbai Local monthly pass successful.",
+    "gold_category": "LEGITIMATE_UPI",
+    "ml_prediction": "scam",
+    "confidence": 0.7382251617736685,
+    "risk_level": "LOW",
+    "rule_score": 0.0,
+    "rule_label": "low",
+    "reasons": [],
+    "detected_indicators": [],
+    "scam_category": "UPI Scam",
+    "threats": [
+      "Financial Theft",
+      "Credential Harvesting"
+    ],
+    "summary": "Suspicious message potentially related to upi scam. ML classifier detects scam patterns."
+  }
+]

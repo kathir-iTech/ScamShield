@@ -31,6 +31,26 @@ THRESHOLDS: Dict[str, float] = {
 }
 
 
+def _has_scam_context(t: str) -> bool:
+    """Check if text has scam-like urgency/threats/requests beyond isolated keyword mentions."""
+    urgency = ["urgent", "immediately", "asap", "right away", "hurry", "limited time",
+               "expires", "expiring", "final notice", "last warning"]
+    threats = ["block", "suspend", "freeze", "deactivate", "disconnect", "cancel",
+               "legal", "police", "arrest", "case filed"]
+    requests = ["click here", "call now", "reply", "confirm", "verify",
+                "share", "send", "forward", "whatsapp"]
+    for w in urgency:
+        if re.search(r"\b" + re.escape(w) + r"\b", t):
+            return True
+    for w in threats:
+        if re.search(r"\b" + re.escape(w) + r"\b", t):
+            return True
+    for w in requests:
+        if re.search(r"\b" + re.escape(w) + r"\b", t):
+            return True
+    return False
+
+
 def check_otp(text: str, weights: Dict[str, float] = RULE_WEIGHTS) -> Tuple[float, List[str]]:
     t = text.lower()
     score = 0.0
@@ -50,9 +70,10 @@ def check_otp(text: str, weights: Dict[str, float] = RULE_WEIGHTS) -> Tuple[floa
             if sharing_ref or "forward" in t or "whatsapp" in t:
                 score += weights["otp_share_request"]
                 reasons.append("Message asks you to share OTP with someone")
-            else:
+            elif _has_scam_context(t):
                 score += weights["otp_request"]
-                reasons.append("Contains OTP-sensitive keywords")
+                reasons.append("Contains OTP-sensitive keywords with suspicious context")
+            # Benign OTP mentions (e.g. "Your OTP is 123456") get no score
             break
 
     return score, reasons
@@ -72,18 +93,28 @@ def check_urgent_money(text: str, weights: Dict[str, float] = RULE_WEIGHTS) -> T
             reasons.append(f"Urgency keyword: '{w}'")
             break
 
-    money_phrases = [
-        (r"(?:rs|inr|₹)\s*[\d,]+", "Mentions a monetary amount"),
+    money_phrases_demand = [
         (r"pay(?:\s*now|\s*immediately|\s*the)", "Payment demand detected"),
         (r"transfer\s*(?:money|funds|amount)", "Money transfer request"),
         (r"(?:fee|fine|penalty|payment)\s*(?:of\s*)?(?:rs|inr|₹)?\s*[\d,]+", "Specific monetary demand"),
-        (r"credit\s*(?:card|score|limit)", "Credit-related mention"),
-        (r"(?:loan|emi)", "Loan or EMI mentioned"),
     ]
-    for pat, reason in money_phrases:
+    for pat, reason in money_phrases_demand:
         if re.search(pat, t):
             score += weights["money_mention"]
             reasons.append(reason)
+            break
+
+    money_mention_only = [
+        (r"(?:rs|inr|₹)\s*[\d,]+", "Mentions a monetary amount"),
+        (r"credit\s*(?:card|score|limit)", "Credit-related mention"),
+        (r"(?:loan|emi)", "Loan or EMI mentioned"),
+    ]
+    for pat, reason in money_mention_only:
+        if re.search(pat, t):
+            if _has_scam_context(t):
+                score += weights["money_mention"]
+                reasons.append(reason)
+            # Informational monetary mentions without scam context get no score
             break
 
     if re.search(r"(?:block|suspend|freeze|deactiv|disconnect|cancel)\s*(?:ed|ing)?\s*(?:within|in|after)", t):
@@ -149,26 +180,30 @@ def check_service_keywords(text: str, weights: Dict[str, float] = RULE_WEIGHTS) 
                     "canara", "bob", "indusind", "rbi", "sebi"]
     for bank in india_banks:
         if re.search(r"\b" + re.escape(bank) + r"\b", t):
-            score += weights["bank_mention"]
-            reasons.append(f"Bank/financial institution mentioned: '{bank}'")
+            if _has_scam_context(t):
+                score += weights["bank_mention"]
+                reasons.append(f"Bank/financial institution mentioned: '{bank}'")
             break
     if re.search(r"\byes\s+bank\b", t) or re.search(r"\bunion\s+bank\b", t):
-        score += weights["bank_mention"]
-        reasons.append("Bank/financial institution mentioned")
+        if _has_scam_context(t):
+            score += weights["bank_mention"]
+            reasons.append("Bank/financial institution mentioned")
 
     payment_apps = ["gpay", "phonepe", "paytm", "bhim", "upi", "amazon pay"]
     for app in payment_apps:
         if re.search(r"\b" + re.escape(app) + r"\b", t):
-            score += weights["payment_app_mention"]
-            reasons.append(f"Payment app mentioned: '{app}'")
+            if _has_scam_context(t):
+                score += weights["payment_app_mention"]
+                reasons.append(f"Payment app mentioned: '{app}'")
             break
 
     matched: List[str] = []
     for kw, pts in SCAM_KEYWORDS.items():
         pattern = r"\b" + re.escape(kw) + r"\b" if " " not in kw else re.escape(kw)
         if re.search(pattern, t):
-            score += pts * weights["scam_keyword"]
-            matched.append(kw)
+            if _has_scam_context(t):
+                score += pts * weights["scam_keyword"]
+                matched.append(kw)
     if matched:
         reasons.append(f"Suspicious keywords: {', '.join(matched[:3])}")
 
@@ -176,8 +211,9 @@ def check_service_keywords(text: str, weights: Dict[str, float] = RULE_WEIGHTS) 
                   "nrega", "ayushman"]
     for ref in govt_refs:
         if re.search(r"\b" + re.escape(ref) + r"\b", t):
-            score += weights["govt_reference"]
-            reasons.append(f"Government scheme reference: '{ref}'")
+            if _has_scam_context(t):
+                score += weights["govt_reference"]
+                reasons.append(f"Government scheme reference: '{ref}'")
             break
 
     return score, reasons

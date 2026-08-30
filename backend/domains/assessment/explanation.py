@@ -125,7 +125,11 @@ def calculate_severity(
     if has_critical and (ml_label == ML_LABEL_SCAM or indicator_count >= 2):
         return SEVERITY_HIGH
 
-    if ml_label == ML_LABEL_SCAM or rule_score >= 20:
+    if ml_label == ML_LABEL_SCAM and confidence > MEDIUM_CONFIDENCE_THRESHOLD and (rule_score >= 10 or indicator_count >= 1 or has_high_risk):
+        return SEVERITY_MEDIUM
+    if ml_label == ML_LABEL_SCAM and confidence > MEDIUM_CONFIDENCE_THRESHOLD and indicator_count == 0 and rule_score < 10 and not has_high_risk and not has_critical:
+        return SEVERITY_LOW
+    if rule_score >= 20:
         return SEVERITY_MEDIUM
     if has_critical:
         return SEVERITY_MEDIUM

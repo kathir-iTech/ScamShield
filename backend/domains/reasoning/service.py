@@ -122,8 +122,8 @@ def refine(analysis: Dict[str, Any], assessment: Dict[str, Any]) -> RefinementRe
     else:
         refined_prediction = original_prediction
 
-    fn_overrides = fn_adjustment >= 20 and fp_adjustment == 0
-    if fn_overrides and original_prediction == ML_LABEL_SAFE and refined_score >= 51:
+    fn_overrides = fn_adjustment >= 15 and fp_adjustment == 0
+    if fn_overrides and original_prediction == ML_LABEL_SAFE and refined_score >= 15:
         refined_prediction = ML_LABEL_SCAM
 
     stable, stability_concerns = _check_decision_stability(analysis)
