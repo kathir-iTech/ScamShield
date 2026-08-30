@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: scamshield-frontend
+  name: kaaval-frontend
   labels:
-    app: scamshield
+    app: kaaval
     component: frontend
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: scamshield
+      app: kaaval
       component: frontend
   template:
     metadata:
       labels:
-        app: scamshield
+        app: kaaval
         component: frontend
     spec:
       containers:
       - name: frontend
-        image: scamshield/frontend:latest
+        image: kaaval/frontend:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80
         envFrom:
         - configMapRef:
-            name: scamshield-config
+            name: kaaval-config
         livenessProbe:
           httpGet:
             path: /
@@ -49,13 +49,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: scamshield-frontend
+  name: kaaval-frontend
   labels:
-    app: scamshield
+    app: kaaval
     component: frontend
 spec:
   selector:
-    app: scamshield
+    app: kaaval
     component: frontend
   ports:
   - port: 80

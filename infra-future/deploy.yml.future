@@ -1,0 +1,40 @@
+# Kubernetes deploy job — extracted from release.yml during Phase 2 cleanup.
+# Render + Vercel free tier is what's actually deployed; K8s is future work.
+# To re-enable: paste this job back into .github/workflows/release.yml under `jobs:`.
+#
+# deploy:
+#   name: Deploy to Staging
+#   needs: [version, build-and-push]
+#   runs-on: ubuntu-latest
+#   environment: staging
+#   permissions:
+#     contents: read
+#   steps:
+#     - uses: actions/checkout@v4
+#     - name: Set up kubectl
+#       uses: azure/setup-kubectl@v4
+#       with:
+#         version: "v1.30"
+#     - name: Configure K8s context
+#       env:
+#         KUBE_CONFIG: ${{ secrets.KUBE_CONFIG_DATA }}
+#       run: |
+#         mkdir -p $HOME/.kube
+#         echo "$KUBE_CONFIG" | base64 -d > $HOME/.kube/config 2>/dev/null || echo "No KUBE_CONFIG_DATA secret set — skipping deploy"
+#         chmod 600 $HOME/.kube/config 2>/dev/null || true
+#     - name: Update backend image
+#       env:
+#         BACKEND_IMAGE: ghcr.io/${{ github.repository }}/backend:${{ needs.version.outputs.version }}
+#       run: |
+#         kubectl set image deployment/kaaval-backend backend=$BACKEND_IMAGE --namespace=kaaval --record 2>/dev/null || \
+#         echo "K8s not configured — skipping image update. Image: $BACKEND_IMAGE"
+#     - name: Update frontend image
+#       env:
+#         FRONTEND_IMAGE: ghcr.io/${{ github.repository }}/frontend:${{ needs.version.outputs.version }}
+#       run: |
+#         kubectl set image deployment/kaaval-frontend frontend=$FRONTEND_IMAGE --namespace=kaaval --record 2>/dev/null || \
+#         echo "K8s not configured — skipping image update. Image: $FRONTEND_IMAGE"
+#     - name: Verify rollout
+#       run: |
+#         kubectl rollout status deployment/kaaval-backend --namespace=kaaval --timeout=120s 2>/dev/null || \
+#         echo "Rollout check skipped (K8s not configured)"

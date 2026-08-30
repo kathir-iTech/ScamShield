@@ -100,7 +100,7 @@ async def lifespan(app: FastAPI):
     logger.info("Prometheus metrics initialized")
 
     logger.info(
-        "ScamShield API starting up — version %s",
+        "Kaaval API starting up — version %s",
         API_VERSION,
         extra={"structured": {"event": "startup", "version": API_VERSION}},
     )
@@ -116,7 +116,11 @@ async def lifespan(app: FastAPI):
     for err in startup_errors:
         logger.error("Startup validation: %s", err)
     if startup_errors:
-        logger.critical("Critical startup failures detected — application may be degraded")
+        logger.critical("Critical startup failures detected — aborting startup")
+        raise ConfigurationError(
+            f"Startup failed with {len(startup_errors)} prerequisite error(s): "
+            + "; ".join(startup_errors)
+        )
     logger.info(
         "Startup validation complete — %d prerequisite(s) verified",
         len(startup_errors),
@@ -151,7 +155,7 @@ async def lifespan(app: FastAPI):
     yield
 
     logger.info(
-        "ScamShield API shutting down — flushing logs and releasing resources",
+        "Kaaval API shutting down — flushing logs and releasing resources",
         extra={"structured": {"event": "shutdown"}},
     )
     logger.info(
@@ -178,7 +182,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="ScamShield API",
+    title="Kaaval API",
     description="AI-powered scam message detection engine. Combines machine learning classification with heuristic rule analysis to detect phishing, fraud, and scam SMS messages.",
     version=API_VERSION,
     docs_url="/docs",
