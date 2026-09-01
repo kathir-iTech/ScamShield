@@ -121,6 +121,12 @@ export interface RiskBreakdown {
   social_engineering: number;
 }
 
+export interface MatchedTactic {
+  trigger: string;
+  tactic: string;
+  explainer: string;
+}
+
 export interface AnalysisResponse {
   prediction: string;
   confidence: number;
@@ -132,6 +138,7 @@ export interface AnalysisResponse {
   risk_level: string;
   scam_category: string;
   detected_indicators: string[];
+  matched_tactics?: MatchedTactic[];
   threats: string[];
   recommended_actions: string[];
   entities: EntityItem[];

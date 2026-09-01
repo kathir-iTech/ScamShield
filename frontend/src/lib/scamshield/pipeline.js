@@ -3,6 +3,7 @@
 
 import * as vectorizer from './vectorizer.js';
 import * as model from './model.js';
+import tacticExplain from './tactic-explainers.json' with { type: 'json' };
 
 // =============================================================================
 // CONSTANTS
@@ -1740,12 +1741,47 @@ function refine(analysis, assessment) {
 }
 
 // =============================================================================
+// TACTIC EXPLAINERS (prebunking)
+// =============================================================================
+
+function getMatchedTactics(indicators, text) {
+  const matched = [];
+  const seen = new Set();
+  const lower = (text || '').toLowerCase();
+  for (const ind of indicators || []) {
+    const entry = tacticExplain[ind];
+    if (entry && !seen.has(entry.tactic)) {
+      seen.add(entry.tactic);
+      matched.push({ trigger: ind, tactic: entry.tactic, explainer: entry.explainer });
+    }
+  }
+  // Heuristic: surface Digital Arrest as distinct tactic when government impersonation + arrest language appears,
+  // even if not already covered by the indicator set (covers the 8 required tactics explicitly)
+  if ((lower.includes('digital arrest') || lower.includes('cbi') || lower.includes('ed ') || lower.includes('warrant')) && lower.includes('video call')) {
+    const entry = tacticExplain['Digital Arrest'];
+    if (entry && !seen.has(entry.tactic)) {
+      seen.add(entry.tactic);
+      matched.push({ trigger: 'Digital Arrest', tactic: entry.tactic, explainer: entry.explainer });
+    }
+  }
+  // Screen-share / remote-access is often flagged as Customer Care Impersonation; ensure explicit tactic if those keywords appear
+  if ((lower.includes('anydesk') || lower.includes('teamviewer') || lower.includes('screen share') || lower.includes('remote access')) ) {
+    const entry = tacticExplain['Customer Care Impersonation'];
+    if (entry && !seen.has(entry.tactic)) {
+      seen.add(entry.tactic);
+      matched.push({ trigger: 'Customer Care Impersonation', tactic: entry.tactic, explainer: entry.explainer });
+    }
+  }
+  return matched;
+}
+
+// =============================================================================
 // MAIN PIPELINE
 // =============================================================================
 
 function analyzeText(text) {
   if (!text || typeof text !== 'string') {
-    return { risk_level: SEVERITY_VERY_LOW, scam_category: UNKNOWN_CATEGORY, prediction: ML_LABEL_SAFE, confidence: 0, rule_score: 0, rule_label: RISK_LOW, reasons: [], detected_indicators: [], assessment_score: 0, refined_assessment_score: 0 };
+    return { risk_level: SEVERITY_VERY_LOW, scam_category: UNKNOWN_CATEGORY, prediction: ML_LABEL_SAFE, confidence: 0, rule_score: 0, rule_label: RISK_LOW, reasons: [], detected_indicators: [], matched_tactics: [], assessment_score: 0, refined_assessment_score: 0 };
   }
 
   // Step 1: ML prediction
@@ -1804,6 +1840,8 @@ function analyzeText(text) {
   };
   const refinement = refine(refinement_input, assessmentResult);
 
+  const matched_tactics = getMatchedTactics(explanation.detected_indicators, text);
+
   return {
     risk_level: explanation.risk_level,
     scam_category: explanation.scam_category,
@@ -1813,6 +1851,7 @@ function analyzeText(text) {
     rule_label,
     reasons,
     detected_indicators: explanation.detected_indicators,
+    matched_tactics,
     threats: explanation.threats,
     recommended_actions: explanation.recommended_actions,
     summary: explanation.summary,

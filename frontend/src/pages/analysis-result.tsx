@@ -146,6 +146,21 @@ export default function AnalysisResult() {
           </div>
         </div>
 
+        {r.matched_tactics && r.matched_tactics.length > 0 && (
+          <div className="glass rounded-2xl p-6 mb-6 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+            <p className="text-xs text-text-tertiary mb-3">Why this trick works</p>
+            <div className="space-y-3">
+              {r.matched_tactics.map((t, i) => (
+                <div key={i} className="rounded-xl bg-glass border border-glass-border p-4">
+                  <p className="text-sm font-medium text-text-primary">{t.tactic}</p>
+                  <p className="mt-1 text-sm text-text-secondary/80">{t.explainer}</p>
+                  <p className="mt-1 text-xs text-text-tertiary">Trigger: {t.trigger}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="space-y-3 animate-slide-up stagger-5">
           <ExpandablePanel title="Supporting evidence" count={r.supporting_evidence?.length} defaultOpen={verdict !== 'safe'}>
             <EvidenceCard supporting={r.supporting_evidence} conflicting={[]} />

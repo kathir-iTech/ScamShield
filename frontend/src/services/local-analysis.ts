@@ -20,6 +20,7 @@ interface PipelineResult {
   rule_label: string;
   reasons: string[];
   detected_indicators: string[];
+  matched_tactics?: Array<{ trigger: string; tactic: string; explainer: string }>;
   threats: string[];
   recommended_actions: string[];
   summary: string;
@@ -139,6 +140,7 @@ function toAnalysisResponse(pipelineResult: PipelineResult, originalText: string
     rule_label,
     reasons,
     detected_indicators,
+    matched_tactics,
     threats,
     recommended_actions,
     summary,
@@ -209,6 +211,7 @@ function toAnalysisResponse(pipelineResult: PipelineResult, originalText: string
     risk_level,
     scam_category,
     detected_indicators,
+    matched_tactics: matched_tactics || [],
     threats,
     recommended_actions,
     entities,

@@ -12,6 +12,7 @@ export type {
   EvidenceItem,
   ConfidenceBreakdown,
   RiskBreakdown,
+  MatchedTactic,
   AnalysisResponse,
   ImageAnalysisResponse,
   ApiError,

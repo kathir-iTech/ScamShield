@@ -1,0 +1,86 @@
+{
+  "OTP Request": {
+    "tactic": "Request to share an OTP",
+    "explainer": "Scammers ask for your OTP to bypass 2-factor authentication and steal your account. No real bank, gov office, or company will ever ask you to share an OTP — it is yours alone."
+  },
+  "Urgency Language": {
+    "tactic": "Fake urgency & pressure",
+    "explainer": "Creates panic so you act without thinking. Real organizations give you time to verify; scams say “act now or your account will be closed”."
+  },
+  "Suspicious URL": {
+    "tactic": "Deceptive link",
+    "explainer": "The link looks official but leads to a fake site that steals passwords. Always type the official website address yourself instead of clicking."
+  },
+  "Shortened URL": {
+    "tactic": "Hidden link (URL shortener)",
+    "explainer": "Shortened links hide the real destination. Scammers use them so you cannot see the fake domain before clicking."
+  },
+  "Account Threat": {
+    "tactic": "Fake account suspension",
+    "explainer": "Threatens to block or suspend your account to scare you into clicking. Real banks notify you securely in their app, not via threatening SMS."
+  },
+  "Payment Request": {
+    "tactic": "Advance fee / small-payout-then-big-ask",
+    "explainer": "Asks for a small fee to release a larger reward or parcel. Once you pay, they invent another fee — there is no reward, only the trap of sunk cost."
+  },
+  "Bank Impersonation": {
+    "tactic": "Fake authority — bank",
+    "explainer": "Pretends to be your bank to gain trust. Hang up and call the number printed on your card or official app, not the one in the message."
+  },
+  "KYC Update Request": {
+    "tactic": "Fake KYC / account-suspension",
+    "explainer": "Claims your KYC is pending and your account will be blocked today. Real KYC happens only inside official apps or at branches, never via SMS links."
+  },
+  "Prize/Lottery Mention": {
+    "tactic": "Fake prize / lottery",
+    "explainer": "Says you won a lottery or prize but must pay a processing or delivery fee. Real lotteries never ask winners to pay upfront to claim."
+  },
+  "Payment App Mention": {
+    "tactic": "Fake UPI / payment-app lure",
+    "explainer": "Mentions GPay, PhonePe, BHIM or UPI PIN to sound official. Your UPI PIN is only for authorizing payments — never share it or enter it to receive money."
+  },
+  "Loan/EMI Mention": {
+    "tactic": "Fake loan / EMI trap",
+    "explainer": "Offers an instant or guaranteed loan but asks for a processing fee first. Licensed lenders deduct fees from the loan, they do not collect them via SMS links."
+  },
+  "Job Offer": {
+    "tactic": "Fake job offer with advance fee",
+    "explainer": "Promises work-from-home with high salary but asks for registration or training fees. Genuine employers never charge you to get a job."
+  },
+  "Investment Offer": {
+    "tactic": "Fake investment — guaranteed returns",
+    "explainer": "Promises guaranteed, high returns with no risk to trigger greed. All real investments carry risk; “guaranteed” is the warning sign."
+  },
+  "Courier/Customs Mention": {
+    "tactic": "Fake delivery / customs fee",
+    "explainer": "Claims your parcel is stuck at customs and needs a fee. Check status only on the official courier website using your tracking number."
+  },
+  "Utility Bill Mention": {
+    "tactic": "Fake utility bill / disconnection threat",
+    "explainer": "Threatens to cut electricity or water unless you pay immediately via a link. Verify bills only on your provider’s official portal or app."
+  },
+  "Government Impersonation": {
+    "tactic": "Fake authority — government / digital arrest",
+    "explainer": "Pretends to be police, CBI, ED, or Supreme Court and threatens “digital arrest” over video call. Real law enforcement never arrests or interrogates you over video call or asks for money to avoid arrest."
+  },
+  "QR Code Request": {
+    "tactic": "QR code / screen-share trap",
+    "explainer": "Asks you to scan a QR code or share your screen (AnyDesk, TeamViewer) to “verify” or “refund.” Scanning a QR can authorize a payment from your account; screen sharing gives them full control."
+  },
+  "Cryptocurrency Mention": {
+    "tactic": "Fake crypto investment",
+    "explainer": "Uses buzzwords like Bitcoin or crypto with promises of doubling money. Unregulated crypto pitches via SMS are almost always Ponzi schemes."
+  },
+  "Customer Care Impersonation": {
+    "tactic": "Fake customer care / remote-access request",
+    "explainer": "Poses as helpline or support and asks you to install a remote-access app or share an OTP. Real support never needs remote control of your phone."
+  },
+  "Digital Arrest": {
+    "tactic": "Fake authority — digital arrest",
+    "explainer": "A specific scare tactic: “CBI/ED has issued a warrant, stay on video call.” It is theater to keep you isolated and panicked. Disconnect and call 100 or 1930 to verify."
+  },
+  "Customs Framing": {
+    "tactic": "Customs / legal framing",
+    "explainer": "Says your parcel contains illegal goods and you must pay a “clearance” or “penalty” to avoid a case. Customs contacts you via official letters, not SMS links demanding UPI payment."
+  }
+}
