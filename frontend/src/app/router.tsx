@@ -14,6 +14,7 @@ const Contact = lazy(() => import('@/pages/contact'));
 const Privacy = lazy(() => import('@/pages/privacy'));
 const Terms = lazy(() => import('@/pages/terms'));
 const Disclaimer = lazy(() => import('@/pages/disclaimer'));
+const DigitalArrestTriage = lazy(() => import('@/pages/DigitalArrestTriage'));
 const NotFound = lazy(() => import('@/pages/not-found'));
 
 const router = createBrowserRouter([
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
       { path: 'privacy', element: <Suspense fallback={<PageSkeleton variant="dashboard" />}><Privacy /></Suspense> },
       { path: 'terms', element: <Suspense fallback={<PageSkeleton variant="dashboard" />}><Terms /></Suspense> },
       { path: 'disclaimer', element: <Suspense fallback={<PageSkeleton variant="dashboard" />}><Disclaimer /></Suspense> },
+      { path: 'triage/digital-arrest', element: <Suspense fallback={<PageSkeleton variant="analysis" />}><DigitalArrestTriage /></Suspense> },
       { path: '*', element: <Suspense fallback={<PageSkeleton variant="dashboard" />}><NotFound /></Suspense> },
     ],
   },
