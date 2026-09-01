@@ -7,7 +7,7 @@ import { PipelineLoader } from '@/components/ui/pipeline-loader';
 import { PageTransition } from '@/components/ui/page-transition';
 import { textAnalysisSchema } from '@/utils/validation';
 import { z } from 'zod';
-import { WifiOff, Lock, Shield } from 'lucide-react';
+import { Lock, Shield } from 'lucide-react';
 
 export default function TextAnalysis() {
   const [text, setText] = useState('');
@@ -59,10 +59,18 @@ export default function TextAnalysis() {
           </p>
         </div>
 
-        {!isOnline && (
-          <div className="mb-6 glass rounded-2xl p-4 flex items-center gap-3 animate-slide-up">
-            <WifiOff className="h-5 w-5 shrink-0 text-warning" />
-            <p className="text-sm text-text-secondary">You're offline. Connect to the internet to analyse.</p>
+        {!isOnline ? (
+          <div className="mb-6 glass rounded-2xl p-4 flex items-center gap-3 animate-slide-up border border-success/20 bg-success/5">
+            <Shield className="h-5 w-5 shrink-0 text-success" />
+            <div>
+              <p className="text-sm font-medium text-text-primary">Offline-ready</p>
+              <p className="text-xs text-text-secondary">Text analysis runs locally on your device — no internet needed.</p>
+            </div>
+          </div>
+        ) : (
+          <div className="mb-6 glass rounded-2xl p-4 flex items-center gap-3 animate-slide-up border border-glass-border">
+            <Lock className="h-4 w-4 shrink-0 text-text-tertiary" />
+            <p className="text-xs text-text-tertiary">Text analysis runs 100% locally on your device. No data leaves your phone.</p>
           </div>
         )}
 
@@ -101,7 +109,7 @@ export default function TextAnalysis() {
                 </div>
                 <button
                   type="submit"
-                  disabled={mutation.isPending || !text.trim() || !isOnline}
+                  disabled={mutation.isPending || !text.trim()}
                   className="glass-button group relative inline-flex h-10 items-center gap-2 rounded-xl px-5 text-sm font-semibold text-white disabled:opacity-30 disabled:cursor-not-allowed"
                 >
                   {mutation.isPending ? (

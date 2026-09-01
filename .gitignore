@@ -9,3 +9,8 @@ build/
 *.pt
 .DS_Store
 *.env.production
+
+# regenerable OCR test artifacts — keep generator, not binaries
+experiments/ocr_test_images/
+experiments/ocr_test_images_noisy/
+experiments/*.json

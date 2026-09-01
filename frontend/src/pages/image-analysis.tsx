@@ -3,6 +3,7 @@ import { useAnalyzeImage } from '@/hooks/use-scamshield';
 import { useNetworkStatus } from '@/hooks/use-network-status';
 import { useAnalysisNavigation } from '@/features/analysis/hooks/use-analysis-navigation';
 import { PipelineLoader } from '@/components/ui/pipeline-loader';
+import { OcrProgressIndicator } from '@/components/ui/ocr-progress';
 import { PageTransition } from '@/components/ui/page-transition';
 import { imageAnalysisSchema } from '@/utils/validation';
 import { z } from 'zod';
@@ -91,23 +92,29 @@ export default function ImageAnalysis() {
         {!isOnline && (
           <div className="mb-6 glass rounded-2xl p-4 flex items-center gap-3 animate-slide-up">
             <WifiOff className="h-5 w-5 shrink-0 text-warning" />
-            <p className="text-sm text-text-secondary">You're offline. Connect to the internet to analyse.</p>
+            <div>
+              <p className="text-sm text-text-secondary">You're offline.</p>
+              <p className="text-xs text-text-tertiary">Text analysis works offline. Image OCR needs internet for first-time model download (~3 MB) — if you've used it before, it may still work from cache.</p>
+            </div>
           </div>
         )}
 
         {showPipeline ? (
-          <div className="glass rounded-2xl overflow-hidden animate-scale-in">
-            <div className="p-6">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10">
-                  <Shield className="h-4 w-4 text-accent" />
+          <div className="space-y-4">
+            <OcrProgressIndicator isActive={showPipeline} />
+            <div className="glass rounded-2xl overflow-hidden animate-scale-in">
+              <div className="p-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10">
+                    <Shield className="h-4 w-4 text-accent" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-text-primary">Analysing screenshot</p>
+                    <p className="text-xs text-text-tertiary">AI is reviewing the image</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-semibold text-text-primary">Analysing screenshot</p>
-                  <p className="text-xs text-text-tertiary">AI is reviewing the image</p>
-                </div>
+                <PipelineLoader />
               </div>
-              <PipelineLoader />
             </div>
           </div>
         ) : (
@@ -165,7 +172,7 @@ export default function ImageAnalysis() {
               <button
                 type="button"
                 onClick={handleSubmit}
-                disabled={!file || mutation.isPending || !isOnline}
+                disabled={!file || mutation.isPending}
                 className="glass-button group relative inline-flex h-10 items-center gap-2 rounded-xl px-5 text-sm font-semibold text-white disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 {mutation.isPending ? (

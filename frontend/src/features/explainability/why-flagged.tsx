@@ -8,8 +8,14 @@ interface WhyFlaggedProps {
   result: AnalysisResponse;
 }
 
+function toPctValue(v: number): number {
+  if (v == null || isNaN(v)) return 0;
+  // Handle both 0-1 and 0-100 scales (backend pipeline uses 0-100, local adapter normalizes to 0-1)
+  return v > 1 ? Math.min(100, v) : v * 100;
+}
+
 function ScoreBar({ label, value, maxLabel }: { label: string; value: number; maxLabel?: string }) {
-  const pct = Math.min(100, Math.max(0, value * 100));
+  const pct = Math.min(100, Math.max(0, toPctValue(value)));
   const color = pct > 70 ? 'bg-red-500' : pct > 40 ? 'bg-amber-500' : 'bg-emerald-500';
   return (
     <div className="flex items-center gap-2">
@@ -38,22 +44,23 @@ export function WhyFlagged({ result }: WhyFlaggedProps) {
       });
     }
 
-    if (result.decision_score !== undefined && result.decision_score > 0.5) {
+    if (result.decision_score !== undefined && toPctValue(result.decision_score) > 50) {
       items.push({
         icon: <Scale className="h-4 w-4 text-amber-500" />,
         label: 'Decision Score',
-        detail: `Decision score of ${(result.decision_score * 100).toFixed(0)}% indicates ${result.review_required ? 'manual review may be needed' : 'automated decision possible'}. ${result.decision_reasoning}`,
-        severity: result.decision_score > 0.7 ? 'high' : 'medium',
+        detail: `Decision score of ${toPctValue(result.decision_score).toFixed(0)}% indicates ${result.review_required ? 'manual review may be needed' : 'automated decision possible'}. ${result.decision_reasoning}`,
+        severity: toPctValue(result.decision_score) > 70 ? 'high' : 'medium',
       });
     }
 
     Object.entries(result.risk_breakdown ?? {}).forEach(([key, value]) => {
-      if (value > 0.3) {
+      const pct = toPctValue(value as number);
+      if (pct > 30) {
         items.push({
           icon: <Shield className="h-4 w-4 text-amber-500" />,
           label: key.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
-          detail: `Risk contribution: ${(value * 100).toFixed(0)}%`,
-          severity: value > 0.6 ? 'high' : 'medium',
+          detail: `Risk contribution: ${pct.toFixed(0)}%`,
+          severity: pct > 60 ? 'high' : 'medium',
         });
       }
     });
