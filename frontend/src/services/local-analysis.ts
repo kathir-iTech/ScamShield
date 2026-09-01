@@ -80,9 +80,6 @@ function toPriority(score: number, _level: string): string {
 function buildRiskBreakdown(
   indicators: string[],
   entities: EntityItem[],
-  category: string,
-  // we don't have correlations here, but we can approximate from pipeline's evidence
-  // For now synthesize minimal breakdown based on indicators/entities
 ): RiskBreakdown {
   // This replicates backend's build_risk_breakdown logic in a simplified form
   // For full fidelity we could import that logic, but for frontend we just
@@ -130,7 +127,7 @@ function buildRiskBreakdown(
   return risks;
 }
 
-function toAnalysisResponse(pipelineResult: PipelineResult, originalText: string): AnalysisResponse {
+function toAnalysisResponse(pipelineResult: PipelineResult): AnalysisResponse {
   const {
     risk_level,
     scam_category,
@@ -166,13 +163,12 @@ function toAnalysisResponse(pipelineResult: PipelineResult, originalText: string
 
   // Normalize scores that frontend expects as 0-1
   const normDecisionScore = decision_score > 1 ? decision_score / 100 : decision_score;
-  const normAssessmentScore = assessment_score > 1 ? assessment_score / 100 : assessment_score;
   const confidenceBreakdown = normalizeConfidenceBreakdown(evidence_confidence_breakdown as unknown as ConfidenceBreakdown);
 
   // Derive decision_level and priority
   const decision_level = toDecisionLevel(decision_score);
   const decision_reasoning = confidence_reason || summary || 'Analysis based on ML and rule engine';
-  const risk_breakdown = buildRiskBreakdown(detected_indicators, entities, scam_category);
+  const risk_breakdown = buildRiskBreakdown(detected_indicators, entities);
   const recommended_priority = toPriority(decision_score, decision_level);
 
   // Business / technical reasons
@@ -263,19 +259,19 @@ export function analyzeTextLocal(text: string): AnalysisResponse {
   if (!text || typeof text !== 'string' || text.trim() === '') {
     // Return safe minimal response for empty input (matches pipeline's early return)
     const empty = pipelineAnalyze('');
-    return toAnalysisResponse(empty as unknown as PipelineResult, text);
+    return toAnalysisResponse(empty as unknown as PipelineResult);
   }
   // Apply URL repair for OCR-extracted text robustness even for direct text?
   // For direct text input, repair is harmless and helps if user pastes OCR-like garble.
   const repaired = repairUrls(text);
   const result = pipelineAnalyze(repaired) as unknown as PipelineResult;
-  return toAnalysisResponse(result, text);
+  return toAnalysisResponse(result);
 }
 
 export function analyzeTextWithRepair(text: string): AnalysisResponse {
   const repaired = repairUrls(text);
   const result = pipelineAnalyze(repaired) as unknown as PipelineResult;
-  return toAnalysisResponse(result, text);
+  return toAnalysisResponse(result);
 }
 
 export { repairUrls };
