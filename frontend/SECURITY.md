@@ -49,7 +49,7 @@ Kaaval is designed with privacy as a core requirement:
 
 ## 4. API Security
 
-- **CORS.** The backend must restrict `Access-Control-Allow-Origin` to the frontend origin (e.g., `https://kaaval.vercel.app`). The frontend does not rely on credentials (`credentials: "omit"`).
+- **CORS.** The backend must restrict `Access-Control-Allow-Origin` to the frontend origin (e.g., `https://scamshield-frontend-psi.vercel.app`). The frontend does not rely on credentials (`credentials: "omit"`).
 - **Rate limiting.** Nginx enforces `limit_req zone=api burst=20 nodelay` on all `/api/` requests, returning HTTP 429 when the burst capacity is exhausted.
 - **Dev endpoints blocked.** The nginx production config (`frontend/nginx.conf:86-101`) returns 404 for `/docs`, `/redoc`, `/openapi.json`, and `/metrics`, preventing exposure of API documentation and telemetry.
 - **Upload validation.** The client validates image type (JPEG/PNG/WebP) and size (max 10 MB) via a Zod schema before upload.

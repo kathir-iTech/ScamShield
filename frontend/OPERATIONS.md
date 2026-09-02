@@ -26,7 +26,7 @@ Configure uptime checks for both endpoints using Better Uptime (or equivalent):
 
 | Target | Check interval | Expected status |
 |---|---|---|
-| `https://kaaval.vercel.app` | 1 minute | 200 |
+| `https://scamshield-frontend-psi.vercel.app` | 1 minute | 200 |
 | `https://scamshield-backend-rv5v.onrender.com` | 1 minute | 200 |
 
 Each check should verify a response body that confirms the service is healthy (e.g., the frontend returns a 200 HTML page; the backend returns a valid JSON health response at `/health`).

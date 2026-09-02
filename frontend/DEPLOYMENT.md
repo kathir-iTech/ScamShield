@@ -3,14 +3,14 @@
 ## Architecture Overview
 
 ```
-User ──────► Vercel (CDN) ──────► kaaval.vercel.app
+User ──────► Vercel (CDN) ──────► scamshield-frontend-psi.vercel.app
                 │
                 │  API calls (VITE_API_BASE_URL)
                 ▼
         Render (FastAPI) ──────► scamshield-backend-rv5v.onrender.com
 ```
 
-Kaaval is a single-page application (SPA) built with Vite + React 19 + TypeScript + Tailwind CSS v4. The frontend is decoupled from the backend API — all communication happens at runtime via the `VITE_API_BASE_URL` environment variable. In production, the backend runs as a FastAPI service on Render, while the frontend static assets are served by Vercel's global edge network. DNS for the custom domain `kaaval.vercel.app` is managed through Vercel.
+Kaaval is a single-page application (SPA) built with Vite + React 19 + TypeScript + Tailwind CSS v4. The frontend is decoupled from the backend API — all communication happens at runtime via the `VITE_API_BASE_URL` environment variable. In production, the backend runs as a FastAPI service on Render, while the frontend static assets are served by Vercel's global edge network. DNS for the custom domain `scamshield-frontend-psi.vercel.app` is managed through Vercel.
 
 A Dockerized deployment option using `nginx:1.27-alpine` is also available for self-hosted environments.
 
@@ -79,7 +79,7 @@ npm run preview
 
 ## Deploy to Vercel
 
-Kaaval deploys to **Vercel** at `kaaval.vercel.app` with a custom domain at `kaaval.vercel.app`.
+Kaaval deploys to **Vercel** at `scamshield-frontend-psi.vercel.app`.
 
 ### Manual setup (first time)
 
@@ -109,7 +109,7 @@ Once connected, every push to the `main` branch triggers an automatic production
 
 ### Custom domain
 
-In the Vercel dashboard under **Project → Domains**, add `kaaval.vercel.app` and update the DNS nameservers or add the required `CNAME` and `TXT` records as instructed by Vercel. Vercel provisions a TLS certificate automatically via Let's Encrypt.
+In the Vercel dashboard under **Project → Domains**, add `scamshield-frontend-psi.vercel.app` and update the DNS nameservers or add the required `CNAME` and `TXT` records as instructed by Vercel. Vercel provisions a TLS certificate automatically via Let's Encrypt.
 
 ---
 

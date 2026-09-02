@@ -73,8 +73,8 @@ npm run dev
 
 Explore Kaaval without installing anything:
 
-- **Live App**: [https://kaaval.vercel.app](https://kaaval.vercel.app)
-- **API Docs**: [https://kaaval.vercel.app/docs](https://kaaval.vercel.app/docs)
+- **Live App**: [https://scamshield-frontend-psi.vercel.app](https://scamshield-frontend-psi.vercel.app)
+- **API Docs**: [https://scamshield-frontend-psi.vercel.app/docs](https://scamshield-frontend-psi.vercel.app/docs)
 - **Demo Cases**: Pre-built investigation cases (Bank Phishing, UPI Fraud, Investment Scam, and more)
 
 ---
