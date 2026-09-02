@@ -12,8 +12,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: wary.dev
-    http:
+  - http:
       paths:
       - path: /api(/|$)(.*)
         pathType: ImplementationSpecific
@@ -29,10 +28,12 @@ spec:
             name: wary-frontend
             port:
               number: 80
-  tls:
-  - hosts:
-    - wary.dev
-    secretName: wary-tls
-    # TLS certificate is managed by cert-manager via the cluster-issuer annotation above
-    # To use a pre-existing secret, remove the cert-manager annotation and ensure the
-    # secret 'wary-tls' exists with tls.crt and tls.key entries
+  # NOTE: host/tls removed — configure with your real domain when deploying to K8s
+  # Example:
+  #   rules:
+  #   - host: your-domain.example.com
+  #     http:
+  #       paths: [...]
+  #   tls:
+  #   - hosts: [your-domain.example.com]
+  #     secretName: wary-tls

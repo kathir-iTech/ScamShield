@@ -39,8 +39,8 @@
 ### One-command Docker
 
 ```bash
-git clone https://github.com/wary/wary.git
-cd wary
+git clone https://github.com/kathir-iTech/ScamShield.git
+cd ScamShield
 cp .env.example .env
 docker compose up -d
 ```
@@ -163,8 +163,8 @@ cd frontend && npm run build
 
 We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-- 🐛 **Report bugs** via [GitHub Issues](https://github.com/wary/wary/issues)
-- 💡 **Suggest features** via [GitHub Discussions](https://github.com/wary/wary/discussions)
+- 🐛 **Report bugs** via [GitHub Issues](https://github.com/kathir-iTech/ScamShield/issues)
+- 💡 **Suggest features** via [GitHub Discussions](https://github.com/kathir-iTech/ScamShield/discussions)
 - 🔀 **Submit PRs** — please read the [Developer Guide](docs/DEVELOPER_GUIDE.md)
 
 ---

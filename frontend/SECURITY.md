@@ -67,9 +67,7 @@ The dependency tree is intentionally minimal to reduce the attack surface:
 
 ## 6. Vulnerability Reporting
 
-If you discover a security vulnerability in Wary, please do not open a public GitHub issue. Instead, report it privately to:
-
-**security@wary.dev**
+If you discover a security vulnerability in Wary, please do not open a public GitHub issue. Instead, please use GitHub's private vulnerability reporting for this repository (Security → Report a vulnerability) at https://github.com/kathir-iTech/ScamShield/security/advisories/new — or open a private security advisory via the GitHub Security tab.
 
 We will acknowledge receipt within 48 hours and work toward a resolution. Responsible disclosures are appreciated and will be acknowledged.
 
