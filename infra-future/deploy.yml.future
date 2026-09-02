@@ -26,15 +26,15 @@
 #       env:
 #         BACKEND_IMAGE: ghcr.io/${{ github.repository }}/backend:${{ needs.version.outputs.version }}
 #       run: |
-#         kubectl set image deployment/kaaval-backend backend=$BACKEND_IMAGE --namespace=kaaval --record 2>/dev/null || \
+#         kubectl set image deployment/wary-backend backend=$BACKEND_IMAGE --namespace=wary --record 2>/dev/null || \
 #         echo "K8s not configured — skipping image update. Image: $BACKEND_IMAGE"
 #     - name: Update frontend image
 #       env:
 #         FRONTEND_IMAGE: ghcr.io/${{ github.repository }}/frontend:${{ needs.version.outputs.version }}
 #       run: |
-#         kubectl set image deployment/kaaval-frontend frontend=$FRONTEND_IMAGE --namespace=kaaval --record 2>/dev/null || \
+#         kubectl set image deployment/wary-frontend frontend=$FRONTEND_IMAGE --namespace=wary --record 2>/dev/null || \
 #         echo "K8s not configured — skipping image update. Image: $FRONTEND_IMAGE"
 #     - name: Verify rollout
 #       run: |
-#         kubectl rollout status deployment/kaaval-backend --namespace=kaaval --timeout=120s 2>/dev/null || \
+#         kubectl rollout status deployment/wary-backend --namespace=wary --timeout=120s 2>/dev/null || \
 #         echo "Rollout check skipped (K8s not configured)"

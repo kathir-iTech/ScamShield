@@ -16,9 +16,9 @@ export default function About() {
           <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl glass">
             <Shield className="h-6 w-6 text-accent" />
           </div>
-          <h1 className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">About Kaaval</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">About Wary</h1>
           <p className="mt-3 text-text-secondary/70 leading-relaxed">
-            Kaaval helps you identify scam messages before you act.
+            Wary helps you identify scam messages before you act.
             <br />
             Free, private, no account needed.
           </p>

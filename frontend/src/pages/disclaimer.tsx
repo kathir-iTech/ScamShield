@@ -5,7 +5,7 @@ export default function Disclaimer() {
   const sections = [
     { title: 'Not legal advice', content: 'Analysis results are for informational purposes only and do not constitute legal advice. Consult a qualified professional for legal matters.' },
     { title: 'No guarantee', content: 'Our AI detects common scam patterns but may not catch every threat. Use your judgment and verify through official channels.' },
-    { title: 'Liability', content: 'Kaaval and its operators are not liable for losses or damages arising from use of the service.' },
+    { title: 'Liability', content: 'Wary and its operators are not liable for losses or damages arising from use of the service.' },
     { title: 'Contact', content: 'Concerns? Contact us via the form on our Contact page.' },
   ];
 

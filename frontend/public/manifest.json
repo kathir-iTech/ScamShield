@@ -1,6 +1,6 @@
 {
-  "name": "Kaaval",
-  "short_name": "Kaaval",
+  "name": "Wary",
+  "short_name": "Wary",
   "description": "Free AI-powered scam detection for messages and images.",
   "start_url": "/",
   "display": "standalone",

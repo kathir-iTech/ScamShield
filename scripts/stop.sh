@@ -6,7 +6,7 @@ PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 
 cd "$PROJECT_DIR"
 
-echo "Stopping Kaaval ..."
+echo "Stopping Wary ..."
 docker compose down
 
-echo "Kaaval stopped."
+echo "Wary stopped."

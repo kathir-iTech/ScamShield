@@ -2,7 +2,7 @@
 set -euo pipefail
 
 echo "╔═══════════════════════════════════════════════╗"
-echo "║       Kaaval — Pre-Commit Verification        ║"
+echo "║       Wary — Pre-Commit Verification        ║"
 echo "╚═══════════════════════════════════════════════╝"
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"

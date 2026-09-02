@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Kaaval Rollback Script
+# Wary Rollback Script
 # Usage: ./scripts/rollback.sh [version]
 #   version: Docker image tag to roll back to (default: previous tag)
 
@@ -17,8 +17,8 @@ log() {
 
 # Determine version
 VERSION="${1:-previous}"
-BACKEND_IMAGE="kaaval-backend:${VERSION}"
-FRONTEND_IMAGE="kaaval-frontend:${VERSION}"
+BACKEND_IMAGE="wary-backend:${VERSION}"
+FRONTEND_IMAGE="wary-frontend:${VERSION}"
 
 log "=== Rollback initiated ==="
 log "Target version: ${VERSION}"
@@ -38,7 +38,7 @@ if [ -d "$BACKUP_DIR" ]; then
   LATEST_MODEL_BACKUP=$(ls -t "$BACKUP_DIR"/model-data-*.tar.gz 2>/dev/null | head -1)
   if [ -n "$LATEST_MODEL_BACKUP" ]; then
     log "Restoring model data from: $LATEST_MODEL_BACKUP"
-    docker run --rm -v kaaval_model-data:/data -v "$BACKUP_DIR":/backup alpine \
+    docker run --rm -v wary_model-data:/data -v "$BACKUP_DIR":/backup alpine \
       tar xzf "/backup/$(basename "$LATEST_MODEL_BACKUP")" -C /data 2>&1 | tee -a "$LOG_FILE"
     log "Model data restored"
   else

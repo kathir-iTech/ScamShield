@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kaaval-frontend
+  name: wary-frontend
   labels:
-    app: kaaval
+    app: wary
     component: frontend
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: kaaval
+      app: wary
       component: frontend
   template:
     metadata:
       labels:
-        app: kaaval
+        app: wary
         component: frontend
     spec:
       containers:
       - name: frontend
-        image: kaaval/frontend:latest
+        image: wary/frontend:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80
         envFrom:
         - configMapRef:
-            name: kaaval-config
+            name: wary-config
         livenessProbe:
           httpGet:
             path: /
@@ -49,13 +49,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: kaaval-frontend
+  name: wary-frontend
   labels:
-    app: kaaval
+    app: wary
     component: frontend
 spec:
   selector:
-    app: kaaval
+    app: wary
     component: frontend
   ports:
   - port: 80

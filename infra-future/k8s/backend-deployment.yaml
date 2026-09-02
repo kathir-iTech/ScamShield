@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kaaval-backend
+  name: wary-backend
   labels:
-    app: kaaval
+    app: wary
     component: backend
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: kaaval
+      app: wary
       component: backend
   template:
     metadata:
       labels:
-        app: kaaval
+        app: wary
         component: backend
     spec:
       containers:
       - name: backend
-        image: kaaval/backend:latest
+        image: wary/backend:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
         envFrom:
         - configMapRef:
-            name: kaaval-config
+            name: wary-config
         - secretRef:
-            name: kaaval-secrets
+            name: wary-secrets
         startupProbe:
           httpGet:
             path: /live
@@ -75,13 +75,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: kaaval-backend
+  name: wary-backend
   labels:
-    app: kaaval
+    app: wary
     component: backend
 spec:
   selector:
-    app: kaaval
+    app: wary
     component: backend
   ports:
   - port: 8000

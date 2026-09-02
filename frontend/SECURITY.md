@@ -1,4 +1,4 @@
-# Kaaval Frontend — Security Documentation
+# Wary Frontend — Security Documentation
 
 ## 1. Security Headers
 
@@ -39,12 +39,12 @@ frame-ancestors 'none';
 
 ## 3. Data Privacy
 
-Kaaval is designed with privacy as a core requirement:
+Wary is designed with privacy as a core requirement:
 
 - **No storage of user content.** Messages and images submitted for analysis are processed in real-time by the backend and are never persisted to disk or database.
 - **No account system.** The application has no authentication, no user profiles, and no session management. There is no personal identifiable information (PII) to collect or protect.
 - **No cookies.** The frontend does not set or read any cookies. No tracking, no analytics cookies, no session tokens.
-- **No third-party data sharing.** The application communicates exclusively with the Kaaval backend API and Google Fonts. No data is sent to advertising, analytics, or tracking networks.
+- **No third-party data sharing.** The application communicates exclusively with the Wary backend API and Google Fonts. No data is sent to advertising, analytics, or tracking networks.
 - **No local storage of submissions.** Analysis results are held in React state and TanStack Query's in-memory cache only; they are lost on page refresh.
 
 ## 4. API Security
@@ -67,9 +67,9 @@ The dependency tree is intentionally minimal to reduce the attack surface:
 
 ## 6. Vulnerability Reporting
 
-If you discover a security vulnerability in Kaaval, please do not open a public GitHub issue. Instead, report it privately to:
+If you discover a security vulnerability in Wary, please do not open a public GitHub issue. Instead, report it privately to:
 
-**security@kaaval.dev**
+**security@wary.dev**
 
 We will acknowledge receipt within 48 hours and work toward a resolution. Responsible disclosures are appreciated and will be acknowledged.
 

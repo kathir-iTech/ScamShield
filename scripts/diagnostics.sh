@@ -2,7 +2,7 @@
 set -euo pipefail
 
 echo "╔═══════════════════════════════════════════════╗"
-echo "║         Kaaval — System Diagnostics           ║"
+echo "║         Wary — System Diagnostics           ║"
 echo "╚═══════════════════════════════════════════════╝"
 
 BASE_URL="${1:-http://localhost:8000}"
@@ -37,7 +37,7 @@ if command -v docker &>/dev/null; then
   echo "Docker: available"
   docker info --format 'Server Version: {{.ServerVersion}}' 2>/dev/null || echo "Docker daemon: not accessible"
   echo ""
-  docker compose ps 2>/dev/null || docker ps --filter "name=kaaval" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" 2>/dev/null || echo "No kaaval containers found"
+  docker compose ps 2>/dev/null || docker ps --filter "name=wary" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" 2>/dev/null || echo "No wary containers found"
 else
   echo "Docker: not available"
 fi

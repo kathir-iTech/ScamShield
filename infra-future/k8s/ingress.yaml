@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: kaaval-ingress
+  name: wary-ingress
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: "10m"
@@ -12,27 +12,27 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: kaaval.dev
+  - host: wary.dev
     http:
       paths:
       - path: /api(/|$)(.*)
         pathType: ImplementationSpecific
         backend:
           service:
-            name: kaaval-backend
+            name: wary-backend
             port:
               number: 8000
       - path: /(/?)(.*)
         pathType: ImplementationSpecific
         backend:
           service:
-            name: kaaval-frontend
+            name: wary-frontend
             port:
               number: 80
   tls:
   - hosts:
-    - kaaval.dev
-    secretName: kaaval-tls
+    - wary.dev
+    secretName: wary-tls
     # TLS certificate is managed by cert-manager via the cluster-issuer annotation above
     # To use a pre-existing secret, remove the cert-manager annotation and ensure the
-    # secret 'kaaval-tls' exists with tls.crt and tls.key entries
+    # secret 'wary-tls' exists with tls.crt and tls.key entries

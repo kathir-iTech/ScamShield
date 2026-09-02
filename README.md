@@ -11,11 +11,11 @@
 
 > **Current evaluation:** Full-pipeline gold-eval (308 samples) — **FPR 14.06% / Recall 77.2%** — see [MODEL_STATUS.md](MODEL_STATUS.md) for the sourced baseline. Do not re-tune against the 308-sample set without adding more gold data.
 
-<h1 align="center">🛡️ Kaaval</h1>
+<h1 align="center">🛡️ Wary</h1>
 <p align="center"><strong>AI-Powered Scam SMS Detection Engine</strong></p>
 
 <p align="center">
-  Kaaval combines machine learning classification with heuristic rule analysis to detect phishing, fraud, and scam SMS messages — fully offline capable with optional cloud threat intelligence connectors.
+  Wary combines machine learning classification with heuristic rule analysis to detect phishing, fraud, and scam SMS messages — fully offline capable with optional cloud threat intelligence connectors.
 </p>
 
 ---
@@ -39,8 +39,8 @@
 ### One-command Docker
 
 ```bash
-git clone https://github.com/kaaval/kaaval.git
-cd kaaval
+git clone https://github.com/wary/wary.git
+cd wary
 cp .env.example .env
 docker compose up -d
 ```
@@ -71,7 +71,7 @@ npm run dev
 
 ## 🖥️ Live Demo
 
-Explore Kaaval without installing anything:
+Explore Wary without installing anything:
 
 - **Live App**: [https://scamshield-frontend-psi.vercel.app](https://scamshield-frontend-psi.vercel.app)
 - **API Docs**: [https://scamshield-frontend-psi.vercel.app/docs](https://scamshield-frontend-psi.vercel.app/docs)
@@ -104,7 +104,7 @@ Explore Kaaval without installing anything:
 ## 🏗️ Project Structure
 
 ```
-kaaval/
+wary/
 ├── backend/              # FastAPI Python backend
 │   ├── main.py           # Application entry point
 │   ├── config/           # Settings & configuration
@@ -163,8 +163,8 @@ cd frontend && npm run build
 
 We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-- 🐛 **Report bugs** via [GitHub Issues](https://github.com/kaaval/kaaval/issues)
-- 💡 **Suggest features** via [GitHub Discussions](https://github.com/kaaval/kaaval/discussions)
+- 🐛 **Report bugs** via [GitHub Issues](https://github.com/wary/wary/issues)
+- 💡 **Suggest features** via [GitHub Discussions](https://github.com/wary/wary/discussions)
 - 🔀 **Submit PRs** — please read the [Developer Guide](docs/DEVELOPER_GUIDE.md)
 
 ---

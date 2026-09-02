@@ -1,10 +1,10 @@
-# Kaaval — Operations Guide
+# Wary — Operations Guide
 
 ## 1. Monitoring
 
 ### Error Tracking (Sentry)
 
-Kaaval uses Sentry for server-side error aggregation and alerting. Set the `VITE_SENTRY_DSN` environment variable in the Vercel project dashboard to enable client-side error forwarding. When configured, `src/services/monitoring.ts` sends error-level log entries directly to Sentry's envelope endpoint.
+Wary uses Sentry for server-side error aggregation and alerting. Set the `VITE_SENTRY_DSN` environment variable in the Vercel project dashboard to enable client-side error forwarding. When configured, `src/services/monitoring.ts` sends error-level log entries directly to Sentry's envelope endpoint.
 
 ### Client-Side Monitoring
 

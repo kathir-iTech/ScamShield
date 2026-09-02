@@ -21,7 +21,7 @@ fi
 case "$SERVICE" in
   backend|frontend)
     shift
-    docker compose logs --follow "$@" "kaaval-$SERVICE"
+    docker compose logs --follow "$@" "wary-$SERVICE"
     ;;
   *)
     echo "Unknown service: $SERVICE. Use 'backend' or 'frontend'."

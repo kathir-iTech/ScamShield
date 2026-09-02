@@ -80,7 +80,7 @@ export async function health(signal?: AbortSignal): Promise<HealthResponse> {
   if (signal?.aborted) throw new DOMException('Aborted', 'AbortError');
   return {
     status: 'pass',
-    service: 'Kaaval (local)',
+    service: 'Wary (local)',
     version: '2.0.0-local',
     build_version: 'local',
     environment: 'browser',

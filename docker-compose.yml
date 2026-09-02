@@ -11,8 +11,8 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    image: kaaval-backend:latest
-    container_name: kaaval-backend
+    image: wary-backend:latest
+    container_name: wary-backend
     restart: unless-stopped
     ports:
       - "8000:8000"
@@ -55,8 +55,8 @@ services:
       dockerfile: Dockerfile
       args:
         - VITE_API_BASE_URL=${VITE_API_BASE_URL:-/api}
-    image: kaaval-frontend:latest
-    container_name: kaaval-frontend
+    image: wary-frontend:latest
+    container_name: wary-frontend
     restart: unless-stopped
     ports:
       - "80:80"

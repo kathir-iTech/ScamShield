@@ -1,4 +1,4 @@
-# Kaaval Frontend — Deployment Guide
+# Wary Frontend — Deployment Guide
 
 ## Architecture Overview
 
@@ -10,7 +10,7 @@ User ──────► Vercel (CDN) ──────► scamshield-fronten
         Render (FastAPI) ──────► scamshield-backend-rv5v.onrender.com
 ```
 
-Kaaval is a single-page application (SPA) built with Vite + React 19 + TypeScript + Tailwind CSS v4. The frontend is decoupled from the backend API — all communication happens at runtime via the `VITE_API_BASE_URL` environment variable. In production, the backend runs as a FastAPI service on Render, while the frontend static assets are served by Vercel's global edge network. DNS for the custom domain `scamshield-frontend-psi.vercel.app` is managed through Vercel.
+Wary is a single-page application (SPA) built with Vite + React 19 + TypeScript + Tailwind CSS v4. The frontend is decoupled from the backend API — all communication happens at runtime via the `VITE_API_BASE_URL` environment variable. In production, the backend runs as a FastAPI service on Render, while the frontend static assets are served by Vercel's global edge network. DNS for the custom domain `scamshield-frontend-psi.vercel.app` is managed through Vercel.
 
 A Dockerized deployment option using `nginx:1.27-alpine` is also available for self-hosted environments.
 
@@ -79,7 +79,7 @@ npm run preview
 
 ## Deploy to Vercel
 
-Kaaval deploys to **Vercel** at `scamshield-frontend-psi.vercel.app`.
+Wary deploys to **Vercel** at `scamshield-frontend-psi.vercel.app`.
 
 ### Manual setup (first time)
 
@@ -121,14 +121,14 @@ A multi-stage `Dockerfile` is provided for containerized deployment:
 # Build the image
 docker build \
   --build-arg VITE_API_BASE_URL=https://scamshield-backend-rv5v.onrender.com \
-  -t kaaval-frontend \
+  -t wary-frontend \
   ./frontend
 
 # Run the container
 docker run -d \
-  --name kaaval-frontend \
+  --name wary-frontend \
   -p 80:80 \
-  kaaval-frontend
+  wary-frontend
 ```
 
 The multi-stage build works as follows:
@@ -197,18 +197,18 @@ Once the Vercel project is linked to the GitHub repo, Vercel handles deployments
 
 ```bash
 # List available images
-docker images kaaval-frontend
+docker images wary-frontend
 
 # Roll back to a specific tag
-docker stop kaaval-frontend
-docker run -d --name kaaval-frontend -p 80:80 kaaval-frontend:<previous-tag>
+docker stop wary-frontend
+docker run -d --name wary-frontend -p 80:80 wary-frontend:<previous-tag>
 ```
 
 If using a registry, tag images with Git SHA or semantic version to simplify rollbacks:
 
 ```bash
-docker build -t kaaval-frontend:$(git rev-parse --short HEAD) ./frontend
-docker tag kaaval-frontend:$(git rev-parse --short HEAD) kaaval-frontend:latest
+docker build -t wary-frontend:$(git rev-parse --short HEAD) ./frontend
+docker tag wary-frontend:$(git rev-parse --short HEAD) wary-frontend:latest
 ```
 
 ---

@@ -19,7 +19,7 @@ if [ ! -f ".env" ]; then
   fi
 fi
 
-echo "Building and starting Kaaval ..."
+echo "Building and starting Wary ..."
 docker compose up --build -d
 
 echo "Waiting for services to become healthy ..."
@@ -47,7 +47,7 @@ for i in $(seq 1 30); do
 done
 
 echo ""
-echo "Kaaval is running:"
+echo "Wary is running:"
 echo "  Frontend : http://localhost:80"
 echo "  API      : http://localhost:80/api"
 echo "  Docs     : http://localhost:80/docs"

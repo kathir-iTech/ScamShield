@@ -100,7 +100,7 @@ async def lifespan(app: FastAPI):
     logger.info("Prometheus metrics initialized")
 
     logger.info(
-        "Kaaval API starting up — version %s",
+        "Wary API starting up — version %s",
         API_VERSION,
         extra={"structured": {"event": "startup", "version": API_VERSION}},
     )
@@ -155,7 +155,7 @@ async def lifespan(app: FastAPI):
     yield
 
     logger.info(
-        "Kaaval API shutting down — flushing logs and releasing resources",
+        "Wary API shutting down — flushing logs and releasing resources",
         extra={"structured": {"event": "shutdown"}},
     )
     logger.info(
@@ -182,7 +182,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Kaaval API",
+    title="Wary API",
     description="AI-powered scam message detection engine. Combines machine learning classification with heuristic rule analysis to detect phishing, fraud, and scam SMS messages.",
     version=API_VERSION,
     docs_url="/docs",

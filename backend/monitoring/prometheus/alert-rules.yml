@@ -96,4 +96,4 @@ groups:
           team: backend
         annotations:
           summary: "Instance down"
-          description: "Kaaval backend instance has been unreachable for more than 1 minute."
+          description: "Wary backend instance has been unreachable for more than 1 minute."
