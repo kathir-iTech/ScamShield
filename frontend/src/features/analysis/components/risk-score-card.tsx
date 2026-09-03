@@ -1,7 +1,9 @@
 const riskStyles: Record<string, string> = {
+  CRITICAL: 'bg-danger/10 text-danger border border-danger/20',
   HIGH: 'bg-danger/10 text-danger border border-danger/20',
   MEDIUM: 'bg-warning/10 text-warning border border-warning/20',
   LOW: 'bg-success/10 text-success border border-success/20',
+  'VERY LOW': 'bg-success/10 text-success border border-success/20',
   SAFE: 'bg-success/10 text-success border border-success/20',
 };
 

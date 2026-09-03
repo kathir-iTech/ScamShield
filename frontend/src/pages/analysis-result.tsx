@@ -142,6 +142,7 @@ export default function AnalysisResult() {
               decisionLevel={r.decision_level}
               recommendedPriority={r.recommended_priority}
               riskBreakdown={r.risk_breakdown as unknown as Record<string, number>}
+              riskLevel={r.risk_level}
             />
           </div>
         </div>

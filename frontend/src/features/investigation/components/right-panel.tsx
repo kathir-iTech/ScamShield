@@ -16,6 +16,8 @@ const ENTITY_RISK_COLORS: Record<string, string> = {
   unknown: 'border-l-zinc-400',
 };
 
+const LOW_RISK_LEVELS = new Set(['VERY LOW', 'LOW']);
+
 export function RightPanel({ result }: RightPanelProps) {
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -91,12 +93,22 @@ export function RightPanel({ result }: RightPanelProps) {
             <CardTitle className="text-xs font-medium">Threats ({result.threats.length})</CardTitle>
           </CardHeader>
           <CardContent className="space-y-1 pt-0">
-            {result.threats.map((threat, i) => (
-              <div key={i} className="flex items-center gap-2 rounded-lg bg-red-50 px-2.5 py-1.5 text-xs dark:bg-red-900/20">
-                <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
-                <span className="text-red-700 dark:text-red-300">{threat}</span>
-              </div>
-            ))}
+            {result.threats.map((threat, i) => {
+              const lowRisk = LOW_RISK_LEVELS.has((result.risk_level || '').toUpperCase());
+              return (
+                <div
+                  key={i}
+                  className={
+                    lowRisk
+                      ? 'flex items-center gap-2 rounded-lg bg-zinc-50 px-2.5 py-1.5 text-xs dark:bg-zinc-800/50'
+                      : 'flex items-center gap-2 rounded-lg bg-red-50 px-2.5 py-1.5 text-xs dark:bg-red-900/20'
+                  }
+                >
+                  <span className={lowRisk ? 'h-1.5 w-1.5 rounded-full bg-zinc-400' : 'h-1.5 w-1.5 rounded-full bg-red-500'} />
+                  <span className={lowRisk ? 'text-zinc-600 dark:text-zinc-400' : 'text-red-700 dark:text-red-300'}>{threat}</span>
+                </div>
+              );
+            })}
           </CardContent>
         </Card>
       )}

@@ -12,11 +12,16 @@ interface Props {
   decisionLevel: string;
   recommendedPriority: string;
   riskBreakdown: Record<string, number>;
+  riskLevel?: string;
 }
 
-export function ThreatCard({ threats, detectedIndicators, decisionLevel, recommendedPriority, riskBreakdown }: Props) {
+const LOW_RISK_LEVELS = new Set(['VERY LOW', 'LOW']);
+
+export function ThreatCard({ threats, detectedIndicators, decisionLevel, recommendedPriority, riskBreakdown, riskLevel }: Props) {
   const hasAny = threats.length > 0 || detectedIndicators.length > 0 || Object.values(riskBreakdown).some((v) => v > 0);
   if (!hasAny) return null;
+
+  const lowRisk = LOW_RISK_LEVELS.has((riskLevel || '').toUpperCase());
 
   return (
     <div className="space-y-4">
@@ -24,7 +29,14 @@ export function ThreatCard({ threats, detectedIndicators, decisionLevel, recomme
       {threats.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {threats.map((t) => (
-            <span key={t} className="rounded-full bg-danger/10 border border-danger/20 px-3 py-1 text-xs font-medium text-danger">
+            <span
+              key={t}
+              className={
+                lowRisk
+                  ? 'rounded-full bg-glass border border-glass-border px-3 py-1 text-xs font-medium text-text-secondary'
+                  : 'rounded-full bg-danger/10 border border-danger/20 px-3 py-1 text-xs font-medium text-danger'
+              }
+            >
               {t}
             </span>
           ))}

@@ -10,6 +10,11 @@ interface SummaryCardProps {
 }
 
 const RISK_BADGE_VARIANTS: Record<string, 'destructive' | 'warning' | 'info' | 'default' | 'outline'> = {
+  CRITICAL: 'destructive',
+  HIGH: 'destructive',
+  MEDIUM: 'warning',
+  LOW: 'info',
+  'VERY LOW': 'info',
   critical: 'destructive',
   high: 'destructive',
   medium: 'warning',
