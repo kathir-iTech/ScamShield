@@ -14,3 +14,10 @@ build/
 experiments/ocr_test_images/
 experiments/ocr_test_images_noisy/
 experiments/*.json
+
+# regenerated pipeline/model JS exports + tesseract language binary
+experiments/*.traineddata
+experiments/model.js
+experiments/vectorizer.js
+experiments/pipeline.js
+experiments/repair_urls.js
