@@ -1,6 +1,6 @@
 const riskLabels: Record<string, string> = {
   credential_theft: 'Credential Theft',
-  financial_loss: 'Financial Loss',
+  financial_loss: 'Financial Theft',
   identity_theft: 'Identity Theft',
   malware: 'Malware',
   social_engineering: 'Social Engineering',

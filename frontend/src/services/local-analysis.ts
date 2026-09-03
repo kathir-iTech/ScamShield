@@ -32,6 +32,7 @@ interface PipelineResult {
   supporting_evidence: EvidenceItem[];
   conflicting_evidence: EvidenceItem[];
   evidence_confidence_breakdown: ConfidenceBreakdown;
+  evidence_risk_breakdown: RiskBreakdown;
   assessment_score: number;
   assessment_band: string;
   assessment_confidence: string;
@@ -77,56 +78,6 @@ function toPriority(score: number, _level: string): string {
   return 'LOW';
 }
 
-function buildRiskBreakdown(
-  indicators: string[],
-  entities: EntityItem[],
-): RiskBreakdown {
-  // This replicates backend's build_risk_breakdown logic in a simplified form
-  // For full fidelity we could import that logic, but for frontend we just
-  // need a plausible breakdown where sum correlates with risk_level.
-  // We will map pipeline's detected indicators to risk buckets similarly to Python.
-  const risks: RiskBreakdown = {
-    credential_theft: 0,
-    financial_loss: 0,
-    identity_theft: 0,
-    malware: 0,
-    social_engineering: 0,
-  };
-
-  const indSet = new Set(indicators.map((i) => i.toLowerCase()));
-  const has = (kw: string) => [...indSet].some((i) => i.includes(kw.toLowerCase()));
-
-  // Approximate mapping (from evidence.py)
-  if (has('otp request') || has('kyc')) { risks.credential_theft += 30; risks.identity_theft += 20; }
-  if (has('bank impersonation')) { risks.credential_theft += 25; risks.financial_loss += 15; }
-  if (has('payment request')) risks.financial_loss += 35;
-  if (has('suspicious url')) { risks.social_engineering += 25; risks.malware += 15; }
-  if (has('shortened url')) { risks.social_engineering += 20; risks.malware += 10; }
-  if (has('prize/lottery')) { risks.financial_loss += 25; risks.social_engineering += 15; }
-  if (has('investment offer')) risks.financial_loss += 30;
-  if (has('job offer')) { risks.financial_loss += 20; risks.identity_theft += 15; }
-  if (has('government impersonation')) { risks.identity_theft += 25; risks.social_engineering += 15; }
-  if (has('kyc update')) { risks.identity_theft += 30; risks.credential_theft += 20; }
-  if (has('account threat')) risks.social_engineering += 20;
-  if (has('crypto')) risks.financial_loss += 25;
-  if (has('qr code')) risks.financial_loss += 20;
-  if (has('customer care')) { risks.social_engineering += 20; risks.credential_theft += 15; }
-  if (has('courier/customs')) { risks.financial_loss += 25; risks.social_engineering += 10; }
-  if (has('utility bill')) { risks.financial_loss += 20; risks.social_engineering += 15; }
-
-  // entity based
-  const types = new Set(entities.map((e) => e.type));
-  if ([...types].some((t) => t === 'upi_id' || t === 'UPI ID')) { risks.financial_loss += 30; risks.credential_theft += 15; }
-  if (types.has('email')) risks.social_engineering += 15;
-  if (types.has('phone_indian') || types.has('phone_international')) risks.social_engineering += 15;
-
-  // Clamp to 0-100 then normalize to 0-1 for frontend's risk_breakdown expectation (why-flagged expects 0-1)
-  for (const k of Object.keys(risks) as (keyof RiskBreakdown)[]) {
-    risks[k] = Math.min(risks[k], 100) / 100;
-  }
-  return risks;
-}
-
 function toAnalysisResponse(pipelineResult: PipelineResult): AnalysisResponse {
   const {
     risk_level,
@@ -149,6 +100,7 @@ function toAnalysisResponse(pipelineResult: PipelineResult): AnalysisResponse {
     supporting_evidence,
     conflicting_evidence,
     evidence_confidence_breakdown,
+    evidence_risk_breakdown,
     assessment_score,
     assessment_band,
     assessment_confidence,
@@ -168,7 +120,9 @@ function toAnalysisResponse(pipelineResult: PipelineResult): AnalysisResponse {
   // Derive decision_level and priority
   const decision_level = toDecisionLevel(decision_score);
   const decision_reasoning = confidence_reason || summary || 'Analysis based on ML and rule engine';
-  const risk_breakdown = buildRiskBreakdown(detected_indicators, entities);
+  const risk_breakdown = (evidence_risk_breakdown && typeof evidence_risk_breakdown === 'object'
+    ? evidence_risk_breakdown
+    : { credential_theft: 0, financial_loss: 0, identity_theft: 0, malware: 0, social_engineering: 0 });
   const recommended_priority = toPriority(decision_score, decision_level);
 
   // Business / technical reasons

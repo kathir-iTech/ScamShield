@@ -96,7 +96,7 @@ export function generateReport(
   threatLines.push('Risk Breakdown:');
   const rb = result.risk_breakdown;
   threatLines.push(`  • Credential Theft: ${rb.credential_theft}`);
-  threatLines.push(`  • Financial Loss: ${rb.financial_loss}`);
+  threatLines.push(`  • Financial Theft: ${rb.financial_loss}`);
   threatLines.push(`  • Identity Theft: ${rb.identity_theft}`);
   threatLines.push(`  • Malware: ${rb.malware}`);
   threatLines.push(`  • Social Engineering: ${rb.social_engineering}`);

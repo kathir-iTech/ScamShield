@@ -8,6 +8,14 @@ interface WhyFlaggedProps {
   result: AnalysisResponse;
 }
 
+const RISK_DIMENSION_LABELS: Record<string, string> = {
+  credential_theft: 'Credential Theft',
+  financial_loss: 'Financial Theft',
+  identity_theft: 'Identity Theft',
+  malware: 'Malware',
+  social_engineering: 'Social Engineering',
+};
+
 function toPctValue(v: number): number {
   if (v == null || isNaN(v)) return 0;
   // Handle both 0-1 and 0-100 scales (backend pipeline uses 0-100, local adapter normalizes to 0-1)
@@ -56,9 +64,10 @@ export function WhyFlagged({ result }: WhyFlaggedProps) {
     Object.entries(result.risk_breakdown ?? {}).forEach(([key, value]) => {
       const pct = toPctValue(value as number);
       if (pct > 30) {
+        const label = RISK_DIMENSION_LABELS[key] || key.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
         items.push({
           icon: <Shield className="h-4 w-4 text-amber-500" />,
-          label: key.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+          label,
           detail: `Risk contribution: ${pct.toFixed(0)}%`,
           severity: pct > 60 ? 'high' : 'medium',
         });

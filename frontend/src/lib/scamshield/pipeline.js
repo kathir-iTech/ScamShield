@@ -1012,6 +1012,42 @@ function _evAdd(items, etype, source, desc, severity, conf, weight) {
 
 const _SEV_MAP = { [RISK_HIGH]: SEVERITY_HIGH, [RISK_MEDIUM]: SEVERITY_MEDIUM, [RISK_LOW]: SEVERITY_LOW };
 
+const RISK_TYPES = ["credential_theft", "financial_loss", "identity_theft", "malware", "social_engineering"];
+
+// Faithful JS port of backend/domains/assessment/evidence.py _INDICATOR_RISK_RULES
+const _INDICATOR_RISK_RULES = [
+  ["OTP Request", { credential_theft: 30, identity_theft: 20 }, []],
+  ["Bank Impersonation", { credential_theft: 25, financial_loss: 15 }, []],
+  ["Payment Request", { financial_loss: 35 }, []],
+  ["Suspicious URL", { social_engineering: 25 }, []],
+  ["Shortened URL", { social_engineering: 20 }, ["shortened_url"]],
+  ["Prize/Lottery Mention", { financial_loss: 25, social_engineering: 15 }, []],
+  ["Investment Offer", { financial_loss: 30 }, []],
+  ["Job Offer", { financial_loss: 20, identity_theft: 15 }, []],
+  ["Government Impersonation", { identity_theft: 25, social_engineering: 15 }, []],
+  ["KYC Update Request", { identity_theft: 30, credential_theft: 20 }, []],
+  ["Account Threat", { social_engineering: 20 }, []],
+  ["Cryptocurrency Mention", { financial_loss: 25 }, []],
+  ["QR Code Request", { financial_loss: 20 }, []],
+  ["Customer Care Impersonation", { social_engineering: 20, credential_theft: 15 }, []],
+  ["Courier/Customs Mention", { financial_loss: 25, social_engineering: 10 }, []],
+  ["Utility Bill Mention", { financial_loss: 20, social_engineering: 15 }, []],
+  ["Loan/EMI Mention", { financial_loss: 20, identity_theft: 10 }, []]
+];
+
+const _ENTITY_RISK_RULES = [
+  [["UPI ID", "upi_id"], { financial_loss: 30, credential_theft: 15 }],
+  [["email"], { social_engineering: 15 }],
+  [["phone_indian", "phone_international"], { social_engineering: 15 }]
+];
+
+const _CORRELATION_RISK_RULES = [
+  ["Credential Theft", { credential_theft: 20 }],
+  ["Payment Fraud", { financial_loss: 20 }],
+  ["Phishing", { social_engineering: 15, credential_theft: 15 }],
+  ["Financial Scam", { financial_loss: 20 }]
+];
+
 function correlate_evidence(indicators, entities) {
   const found = [];
   const entity_types = new Set(entities.map(e => e.type));
@@ -1036,6 +1072,35 @@ function correlate_evidence(indicators, entities) {
     }
   }
   return found;
+}
+
+function build_risk_breakdown(indicators, entities, category, correlations) {
+  const risks = {};
+  for (const k of RISK_TYPES) risks[k] = 0;
+  const indicator_set = new Set(indicators);
+  const entity_types = new Set(entities.map(e => e.type));
+  const corr_labels = new Set(correlations.map(c => c.label));
+
+  for (const [indicator, risk_map, entity_types_needed] of _INDICATOR_RISK_RULES) {
+    if (indicator_set.has(indicator) || (entity_types_needed && entity_types_needed.some(et => entity_types.has(et)))) {
+      for (const [key, value] of Object.entries(risk_map)) risks[key] += value;
+    }
+  }
+
+  for (const [entity_types_required, risk_map] of _ENTITY_RISK_RULES) {
+    if (entity_types_required.some(et => entity_types.has(et))) {
+      for (const [key, value] of Object.entries(risk_map)) risks[key] += value;
+    }
+  }
+
+  for (const [corr_label, risk_map] of _CORRELATION_RISK_RULES) {
+    if (corr_labels.has(corr_label)) {
+      for (const [key, value] of Object.entries(risk_map)) risks[key] += value;
+    }
+  }
+
+  for (const k of RISK_TYPES) risks[k] = Math.min(risks[k], 100);
+  return risks;
 }
 
 function detect_conflicts(prediction, confidence, rule_label, rule_score, indicators, entities) {
@@ -1181,6 +1246,7 @@ function build_evidence(analysis) {
 
   const decision_score = calculate_decision_score(items);
   const confidence_breakdown = build_confidence_breakdown(prediction, confidence, rule_label, rule_score, indicators, entities);
+  const risk_breakdown = build_risk_breakdown(indicators, entities, category, correlations);
 
   const supporting = items.filter(e => (e.severity === SEVERITY_HIGH || e.severity === SEVERITY_MEDIUM) && e.type !== EVIDENCE_TYPE_CONFLICT);
   const conflicting = items.filter(e => e.type === EVIDENCE_TYPE_CONFLICT);
@@ -1189,7 +1255,8 @@ function build_evidence(analysis) {
     decision_score,
     supporting_evidence: supporting.slice(0, 8),
     conflicting_evidence: conflicting,
-    confidence_breakdown
+    confidence_breakdown,
+    risk_breakdown
   };
 }
 
@@ -1863,6 +1930,7 @@ function analyzeText(text) {
     supporting_evidence: evidence.supporting_evidence,
     conflicting_evidence: evidence.conflicting_evidence,
     evidence_confidence_breakdown: evidence.confidence_breakdown,
+    evidence_risk_breakdown: evidence.risk_breakdown,
     assessment_score: assessmentResult.assessment_score,
     assessment_band: assessmentResult.assessment_band,
     assessment_confidence: assessmentResult.assessment_confidence,
