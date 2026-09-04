@@ -66,3 +66,27 @@ Previous baseline (Phase 0) had 48.08% FPR; Phase 1.5 reduced to 14.06% (meets �
 ## eval-gold-js.mjs field fix (2026-09-04)
 
 `frontend/scripts/eval-gold-js.mjs` previously measured `analyzeText().prediction` — the raw ML output before pipeline refinement — producing a misleading ~49% FPR unrelated to actual displayed behavior. Fixed to measure `refined_prediction`, the final field that matches `risk_level` and what users actually see. Post-fix output now matches the 14.06% FPR / 77.22% recall baseline exactly.
+
+## Tier 1 FN-gap rule-tuning (2026-09-04) — current accepted baseline
+
+Measured on the frontend JS pipeline (`frontend/src/lib/scamshield/pipeline.js` via `frontend/scripts/eval-gold-js.mjs`, `refined_prediction` field, same 308 gold samples). This is the live product path; the frozen backend (`services.orchestrator`) was not re-measured and these rules were not mirrored there.
+
+| Metric | Before | After |
+|--------|--------|-------|
+| Accuracy | 0.8084 | **0.8344** |
+| Precision | 0.8854 | **0.8909** |
+| Recall | 0.7722 | **0.8167** |
+| F1 | 0.8249 | **0.8522** |
+| **FPR** | **0.1406 (14.06%)** | **0.1406 (14.06%) — unchanged** |
+| FNR | 0.2278 | **0.1833** |
+| Confusion | TP=139 FP=18 FN=41 TN=110 | **TP=147 FP=18 FN=33 TN=110** |
+
+Arithmetic check: 147+18=165 → 147/165=0.8909 precision ✓; 147+33=180 → 147/180=0.8167 recall ✓; (147+110)/308=257/308=0.8344 accuracy ✓. +8 TP, +0 FP.
+
+**8 named FN fixes:** "300% returns in 6 months" (FN-016), "IPO 10x returns" (FN-016 corroborating FN-008), "35% cattle-farming returns" (FN-016), "HYIP 5% daily" (FN-016), "call-center training bond" (FN-017 corroborating FN-012), "modeling assignment registration Rs 7,500" (FN-012+FN-017), "Mumbai Cyber Cell digital-arrest video call" (FP-002 arrest/legal guard — ML was already right, the FP-002 safety rail was suppressing it), "cheque bounced NI Act legal notice" (FN-015).
+
+**What changed:** three context-gated FN rules — FN-015 formal-legal-notice + payment/coercive-call demand, FN-016 HYIP/unrealistic-rate + money-extraction demand (vetoed by SEBI/market-risk/SIP disclaimers), FN-017 job/modeling offer + upfront fee (vetoed by explicit "no fee") — plus an FP-002 guard against downgrading authority-threat messages, extended Investment/Job Offer indicator patterns, and 10 new regression tests (3 refined-scam positives, 4 safe near-misses). Full suite: 143/143 pass (21 files). Commits `20da43d` (untrack stale logs) and `eed5476` (rules + tests).
+
+**Accuracy 83.44% / Recall 81.67% / FPR 14.06% is the current accepted baseline**, superseding the Phase 1.5 line above.
+
+**Deliberately deferred, not dropped:** subsidy-fee pattern ("PM Awas Yojana … Pay Rs 15,000 processing fee," 5 remaining FNs) — `_has_payment_request` does not recognize bare "Pay Rs X" demands. Per the standing Phase 1.5 warning (do not keep tightening against the fixed 308 without more gold data), this stays a documented known gap pending a larger gold set or an explicit future decision — no third tuning round on this set.
