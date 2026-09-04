@@ -11,6 +11,8 @@
 
 > **Current evaluation:** Full-pipeline gold-eval (308 samples) — **FPR 14.06% / Recall 77.2%** — see [MODEL_STATUS.md](MODEL_STATUS.md) for the sourced baseline. Do not re-tune against the 308-sample set without adding more gold data.
 
+> **Deployment note:** The Render backend has not been redeployed since July 27, 2026 and does not reflect current main — the live product runs entirely client-side. The backend code remains validated and available if a server-side feature is needed later.
+
 <h1 align="center">🛡️ Wary</h1>
 <p align="center"><strong>AI-Powered Scam SMS Detection Engine</strong></p>
 

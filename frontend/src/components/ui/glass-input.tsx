@@ -10,8 +10,6 @@ interface GlassInputProps {
   className?: string;
 }
 
-const EXAMPLE_CHIPS = ['Bank SMS', 'WhatsApp', 'OTP', 'UPI', 'Email'];
-
 export function GlassInput({
   value,
   onChange,
@@ -31,13 +29,6 @@ export function GlassInput({
       el.style.height = `${Math.min(el.scrollHeight, 320)}px`;
     }
   }, []);
-
-  const handleExampleClick = useCallback((text: string) => {
-    onChange(text);
-    if (textareaRef.current) {
-      textareaRef.current.focus();
-    }
-  }, [onChange]);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -107,19 +98,7 @@ export function GlassInput({
           aria-label="Message to analyse"
           rows={4}
         />
-        <div className="flex items-center justify-between px-5 pb-3">
-          <div className="flex flex-wrap gap-2">
-            {EXAMPLE_CHIPS.map((chip) => (
-              <button
-                key={chip}
-                type="button"
-                onClick={() => handleExampleClick(chip)}
-                className="rounded-full border border-glass-border bg-glass px-3 py-1 text-xs text-text-secondary transition-all duration-200 hover:bg-glass-hover hover:border-glass-border-hover hover:text-text-primary active:scale-95"
-              >
-                {chip}
-              </button>
-            ))}
-          </div>
+        <div className="flex justify-end px-5 pb-3">
           <span
             className={cn(
               'text-xs tabular-nums transition-colors duration-200',

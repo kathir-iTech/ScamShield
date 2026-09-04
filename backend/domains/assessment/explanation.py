@@ -12,6 +12,7 @@ from core.constants import (
     MEDIUM_WEIGHT_KEYWORDS,
     ML_LABEL_SCAM,
     ML_LABEL_SAFE,
+    RISK_DIMENSION_LABELS,
     RISK_HIGH,
     RISK_LOW,
     RISK_MEDIUM,
@@ -94,6 +95,28 @@ def detect_indicators(text: str, reasons: List[str]) -> List[str]:
 
 def extract_threats(category: str) -> Dict[str, str]:
     return dict(CATEGORY_THREATS.get(category, CATEGORY_THREATS[UNKNOWN_CATEGORY]))
+
+
+def derive_threats_from_risk_breakdown(category: str, risk_breakdown: Dict[str, int]) -> List[str]:
+    """
+    Evidence-based threat derivation: use real per-dimension scores.
+    For each dimension with score > 0, include its corresponding label,
+    sorted by descending score. Fallback to category-based threats when
+    all dimensions are zero (genuinely ambiguous case).
+    Threshold >0 chosen to capture any evidence (e.g. Credential Theft 15)
+    without arbitrary cutoffs; safe messages remain all-zero and correctly
+    fallback, with neutral styling via LOW/VERY_LOW risk_level.
+    """
+    if risk_breakdown and isinstance(risk_breakdown, dict):
+        entries = [
+            (k, v) for k, v in risk_breakdown.items()
+            if v > 0 and k in RISK_DIMENSION_LABELS
+        ]
+        if entries:
+            entries.sort(key=lambda kv: kv[1], reverse=True)
+            return [RISK_DIMENSION_LABELS[k] for k, _ in entries]
+    threats = CATEGORY_THREATS.get(category, CATEGORY_THREATS[UNKNOWN_CATEGORY])
+    return [threats["primary"], threats["secondary"]]
 
 
 def extract_recommendations(category: str) -> List[str]:
@@ -179,11 +202,16 @@ def generate_explanation(text: str, analysis_result: dict) -> dict:
     rule_score = analysis_result.get("rule_score", 0.0)
     rule_label = analysis_result.get("rule_label", RISK_LOW)
     reasons = analysis_result.get("reasons", [])
+    risk_breakdown = analysis_result.get("risk_breakdown")
 
     category, category_confidence = detect_category(text, reasons)
     indicators = detect_indicators(text, reasons)
     severity = calculate_severity(prediction, confidence, rule_score, rule_label, indicators)
-    threats = extract_threats(category)
+    if risk_breakdown is not None:
+        threats_list = derive_threats_from_risk_breakdown(category, risk_breakdown)
+    else:
+        threats = extract_threats(category)
+        threats_list = [threats["primary"], threats["secondary"]]
     recommendations = extract_recommendations(category)
     summary = build_summary(category, severity, prediction, rule_label, indicators)
 
@@ -211,6 +239,6 @@ def generate_explanation(text: str, analysis_result: dict) -> dict:
         "scam_category": category,
         "confidence_reason": confidence_reason,
         "detected_indicators": indicators,
-        "threats": [threats["primary"], threats["secondary"]],
+        "threats": threats_list,
         "recommended_actions": recommendations,
     }

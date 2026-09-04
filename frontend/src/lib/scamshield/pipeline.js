@@ -98,6 +98,26 @@ const CATEGORY_THREATS = {
   "Unknown Scam": {"primary":"Unsolicited Message","secondary":"Social Engineering"}
 };
 
+const RISK_DIMENSION_THREATS = {
+  "credential_theft": "Credential Theft",
+  "financial_loss": "Financial Theft",
+  "identity_theft": "Identity Theft",
+  "malware": "Malware",
+  "social_engineering": "Social Engineering"
+};
+
+function deriveThreatsFromRiskBreakdown(category, riskBreakdown) {
+  if (riskBreakdown && typeof riskBreakdown === "object") {
+    const entries = Object.entries(riskBreakdown)
+      .filter(([k, v]) => v > 0 && RISK_DIMENSION_THREATS[k])
+      .sort((a, b) => b[1] - a[1])
+      .map(([k]) => RISK_DIMENSION_THREATS[k]);
+    if (entries.length > 0) return entries;
+  }
+  const fallback = CATEGORY_THREATS[category] || CATEGORY_THREATS[UNKNOWN_CATEGORY];
+  return [fallback.primary, fallback.secondary];
+}
+
 const CATEGORY_RECOMMENDATIONS = {
   "Bank KYC Scam": ["Do not click any links claiming KYC update","Never share OTP, PIN, or password with anyone","Contact your bank directly using the official customer care number","Report to cybercrime.gov.in or forward message to 1930"],
   "Lottery Scam": ["Lotteries requiring payment to claim prizes are always fake","Do not respond to unsolicited prize notifications","Never pay advance fees to claim winnings","Block and report the sender"],
@@ -969,11 +989,12 @@ function generate_explanation(text, analysis_result) {
   const rule_score = analysis_result.rule_score || 0.0;
   const rule_label = analysis_result.rule_label || RISK_LOW;
   const reasons = analysis_result.reasons || [];
+  const risk_breakdown = analysis_result.risk_breakdown || null;
 
   const { category, certainty } = detect_category(text, reasons);
   const indicators = detect_indicators(text, reasons);
   const severity = calculate_severity(prediction, confidence, rule_score, rule_label, indicators);
-  const threats = CATEGORY_THREATS[category] || CATEGORY_THREATS[UNKNOWN_CATEGORY];
+  const threatsList = risk_breakdown ? deriveThreatsFromRiskBreakdown(category, risk_breakdown) : (() => { const t = CATEGORY_THREATS[category] || CATEGORY_THREATS[UNKNOWN_CATEGORY]; return [t.primary, t.secondary]; })();
   const recommendations = CATEGORY_RECOMMENDATIONS[category] || CATEGORY_RECOMMENDATIONS[UNKNOWN_CATEGORY];
   const summary = build_summary(category, severity, prediction, rule_label, indicators);
 
@@ -994,7 +1015,7 @@ function generate_explanation(text, analysis_result) {
     scam_category: category,
     confidence_reason,
     detected_indicators: indicators,
-    threats: [threats.primary, threats.secondary],
+    threats: threatsList,
     recommended_actions: recommendations
   };
 }
@@ -1909,6 +1930,9 @@ function analyzeText(text) {
 
   const matched_tactics = getMatchedTactics(explanation.detected_indicators, text);
 
+  // Evidence-based threat derivation: use real dimension scores, fallback to category when all zero
+  const derivedThreats = deriveThreatsFromRiskBreakdown(explanation.scam_category, evidence.risk_breakdown);
+
   return {
     risk_level: explanation.risk_level,
     scam_category: explanation.scam_category,
@@ -1919,7 +1943,7 @@ function analyzeText(text) {
     reasons,
     detected_indicators: explanation.detected_indicators,
     matched_tactics,
-    threats: explanation.threats,
+    threats: derivedThreats,
     recommended_actions: explanation.recommended_actions,
     summary: explanation.summary,
     confidence_reason: explanation.confidence_reason,

@@ -6,7 +6,7 @@ __all__ = [
     "EVIDENCE_TYPE_CONFLICT",
     "EVIDENCE_SOURCE_ML", "EVIDENCE_SOURCE_RULES", "EVIDENCE_SOURCE_EXPLANATION",
     "EVIDENCE_SOURCE_INTEL", "EVIDENCE_SOURCE_EVIDENCE",
-    "RISK_TYPES",
+    "RISK_TYPES", "RISK_DIMENSION_LABELS",
 ]
 
 from typing import Dict, FrozenSet
@@ -108,3 +108,11 @@ RISK_TYPES: tuple = (
     "malware",
     "social_engineering",
 )
+
+RISK_DIMENSION_LABELS: Dict[str, str] = {
+    "credential_theft": "Credential Theft",
+    "financial_loss": "Financial Theft",
+    "identity_theft": "Identity Theft",
+    "malware": "Malware",
+    "social_engineering": "Social Engineering",
+}
