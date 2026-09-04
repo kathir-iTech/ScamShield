@@ -47,6 +47,15 @@ export default function Landing() {
             </button>
           </div>
 
+          <div className="mt-6 animate-slide-up stagger-4">
+            <button
+              onClick={() => navigate('/grandma-mode')}
+              className="text-sm text-text-tertiary underline decoration-glass-border underline-offset-4 hover:text-accent"
+            >
+              Prefer to listen? Try Grandma Mode — big button, spoken results.
+            </button>
+          </div>
+
           <div className="mt-8 flex items-center justify-center gap-6 text-xs text-text-tertiary animate-fade-in stagger-5">
             <span className="flex items-center gap-1.5">
               <Lock className="h-3 w-3" /> Private

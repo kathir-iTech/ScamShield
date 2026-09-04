@@ -1,12 +1,13 @@
 import { NavLink } from 'react-router-dom';
 import { cn } from '@/utils/cn';
-import { FileText, Image, Activity, Shield, Search, LifeBuoy } from 'lucide-react';
+import { FileText, Image, Activity, Shield, Search, LifeBuoy, Baby } from 'lucide-react';
 
 const navItems = [
   { to: '/', icon: Shield, label: 'Home' },
   { to: '/analyze/text', icon: FileText, label: 'Text' },
   { to: '/analyze/image', icon: Image, label: 'Image' },
   { to: '/triage/digital-arrest', icon: LifeBuoy, label: 'Digital Arrest' },
+  { to: '/grandma-mode', icon: Baby, label: 'Grandma Mode' },
   { to: '/investigation', icon: Search, label: 'Deep Dive' },
   { to: '/system', icon: Activity, label: 'Status' },
 ];

@@ -8,6 +8,7 @@ import type {
 } from '@/types';
 import { analyzeTextLocal } from '@/services/local-analysis';
 import { recognizeImage } from '@/services/ocr';
+import { decodeQrFromImage } from '@/services/qr';
 import { repairUrls } from '@/lib/scamshield/repair-urls.js';
 
 // --- Text analysis: direct local pipeline, no backend ---
@@ -47,7 +48,7 @@ export async function analyzeText(text: string, signal?: AbortSignal): Promise<A
   });
 }
 
-// --- Image analysis: tesseract.js OCR -> repair URLs -> local pipeline ---
+// --- Image analysis: tesseract.js OCR + QR decode -> repair URLs -> local pipeline ---
 export async function analyzeImage(file: File, signal?: AbortSignal): Promise<ImageAnalysisResponse> {
   if (signal?.aborted) throw new DOMException('Aborted', 'AbortError');
 
@@ -58,12 +59,32 @@ export async function analyzeImage(file: File, signal?: AbortSignal): Promise<Im
 
   if (signal?.aborted) throw new DOMException('Aborted', 'AbortError');
 
-  // Step 2: URL repair (handles OCR mangling: dropped dots, spaces in URLs)
-  const repaired = repairUrls(extractedText);
+  // Step 2: QR code decode — runs client-side with jsQR, no backend.
+  // If a QR code contains a URL or UPI ID, we append it to the OCR text
+  // so the SAME existing link/entity extraction + watchlist logic picks it up.
+  const qrResult = await decodeQrFromImage(file);
 
   if (signal?.aborted) throw new DOMException('Aborted', 'AbortError');
 
-  // Step 3: Pipeline
+  // Step 3: Combine OCR text with QR payload (if found) for unified pipeline input
+  let combinedText = extractedText;
+  if (qrResult.found && qrResult.payload) {
+    const qrLabel = qrResult.type === 'url'
+      ? 'QR_CODE_URL:'
+      : qrResult.type === 'upi'
+        ? 'QR_CODE_UPI:'
+        : 'QR_CODE_TEXT:';
+    combinedText = extractedText
+      ? extractedText + '\n' + qrLabel + ' ' + qrResult.payload
+      : qrLabel + ' ' + qrResult.payload;
+  }
+
+  // Step 4: URL repair (handles OCR mangling: dropped dots, spaces in URLs)
+  const repaired = repairUrls(combinedText);
+
+  if (signal?.aborted) throw new DOMException('Aborted', 'AbortError');
+
+  // Step 5: Pipeline — same path as text analysis, no parallel pipeline
   const analysis = analyzeTextLocal(repaired);
 
   return {

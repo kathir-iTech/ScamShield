@@ -15,6 +15,7 @@ const Privacy = lazy(() => import('@/pages/privacy'));
 const Terms = lazy(() => import('@/pages/terms'));
 const Disclaimer = lazy(() => import('@/pages/disclaimer'));
 const DigitalArrestTriage = lazy(() => import('@/pages/DigitalArrestTriage'));
+const GrandmaMode = lazy(() => import('@/pages/grandma-mode'));
 const NotFound = lazy(() => import('@/pages/not-found'));
 
 const router = createBrowserRouter([
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
       { path: 'terms', element: <Suspense fallback={<PageSkeleton variant="dashboard" />}><Terms /></Suspense> },
       { path: 'disclaimer', element: <Suspense fallback={<PageSkeleton variant="dashboard" />}><Disclaimer /></Suspense> },
       { path: 'triage/digital-arrest', element: <Suspense fallback={<PageSkeleton variant="analysis" />}><DigitalArrestTriage /></Suspense> },
+      { path: 'grandma-mode', element: <Suspense fallback={<PageSkeleton variant="analysis" />}><GrandmaMode /></Suspense> },
       { path: '*', element: <Suspense fallback={<PageSkeleton variant="dashboard" />}><NotFound /></Suspense> },
     ],
   },

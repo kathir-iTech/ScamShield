@@ -36,14 +36,16 @@ const INDICATOR_PATTERNS = [
   [String.raw`\bpm\b|\bmodi\b|\bsarkari\b|\bgovernment\s+of\b|\bcentral\s+govt\b|\bnrega\b|\bayushman\b`, "Government Impersonation"],
   [String.raw`qr\s*code|scan\s*(?:the\s*)?(?:qr\s*)?code`, "QR Code Request"],
   [String.raw`\bbitcoin|crypto|cryptocurrency|blockchain|btc\b|eth\b`, "Cryptocurrency Mention"],
-  [String.raw`customer\s*(?:care|support|service)|help\s*(?:desk|line)|toll\s*free|helpline`, "Customer Care Impersonation"]
+  [String.raw`customer\s*(?:care|support|service)|help\s*(?:desk|line)|toll\s*free|helpline`, "Customer Care Impersonation"],
+  [String.raw`\b(?:earned|received|credited|payout|commission|salary|reward)\b[\s\S]{0,25}\b(?:rs|inr|₹)\s*[\d,]+[\s\S]{0,60}\b(?:pay|invest|deposit|recharge|unlock|activate|fee)\b|small\s+(?:task|job|work)\s+(?:earn|payout|reward|commission)[\s\S]{0,60}\b(?:pay|invest|deposit|recharge|unlock|activate)\b|(?:earn|make)\s+rs\s*[\d,]+\s+(?:daily|weekly|monthly)[\s\S]{0,60}\b(?:invest|deposit|recharge|activation)\b`, "Prepaid Task Scam"],
+  [String.raw`\b(?:anydesk|teamviewer|quick\s*support|screenshare|screen\s*share|remote\s*(?:access|control|desktop))\b[\s\S]*?(?<!not\s)(?<!no\s)\b(?:bank|otp|upi|pin|password|account|kyc|aadhaar|payment|credit|debit|card|balance|refund)\b|\b(?:bank|otp|upi|pin|password|account|kyc|aadhaar|payment|credit|debit|card|balance|refund)\b[\s\S]*?\b(?:anydesk|teamviewer|quick\s*support|screenshare|screen\s*share|remote\s*(?:access|control|desktop))\b`, "Remote Access Request"]
 ];
 
 const HIGH_WEIGHT_KEYWORDS = new Set(["kyc","aadhaar","aadhar","upi","otp"]);
 const MEDIUM_WEIGHT_KEYWORDS = new Set(["lottery","won","prize","customs","clearance"]);
 
 const CRITICAL_INDICATORS = new Set(["OTP Request","Payment Request","Account Threat","QR Code Request"]);
-const HIGH_RISK_INDICATORS = new Set(["Bank Impersonation","KYC Update Request","Investment Offer","Courier/Customs Mention"]);
+const HIGH_RISK_INDICATORS = new Set(["Bank Impersonation","KYC Update Request","Investment Offer","Courier/Customs Mention","Remote Access Request"]);
 
 const SEVERITY_CRITICAL = "CRITICAL";
 const SEVERITY_HIGH = "HIGH";
@@ -78,7 +80,9 @@ const CATEGORY_KEYWORDS = {
   "Loan Scam": ["loan","emi","processing fee","personal loan","credit"],
   "Fake Customer Care": ["customer care","toll free","helpdesk","support","helpline","customer service"],
   "QR Code Scam": ["qr code","scan"],
-  "Crypto Scam": ["bitcoin","crypto","cryptocurrency","blockchain","btc","eth"]
+  "Crypto Scam": ["bitcoin","crypto","cryptocurrency","blockchain","btc","eth"],
+  "Prepaid Task Scam": ["task","earn","commission","payout","recharge","unlock","daily income","part time","wfh","tiktok likes","youtube subscribe"],
+  "Remote Access Scam": ["anydesk","teamviewer","quick support","screen share","remote access","remote control"]
 };
 
 const CATEGORY_THREATS = {
@@ -95,6 +99,8 @@ const CATEGORY_THREATS = {
   "Fake Customer Care": {"primary":"Technical Support Fraud","secondary":"Remote Access Scam"},
   "QR Code Scam": {"primary":"Payment Fraud","secondary":"Credential Harvesting"},
   "Crypto Scam": {"primary":"Cryptocurrency Fraud","secondary":"Investment Fraud"},
+  "Prepaid Task Scam": {"primary":"Employment Fraud","secondary":"Advance Fee Fraud"},
+  "Remote Access Scam": {"primary":"Technical Support Fraud","secondary":"Remote Access Scam"},
   "Unknown Scam": {"primary":"Unsolicited Message","secondary":"Social Engineering"}
 };
 
@@ -112,7 +118,11 @@ function deriveThreatsFromRiskBreakdown(category, riskBreakdown) {
       .filter(([k, v]) => v > 0 && RISK_DIMENSION_THREATS[k])
       .sort((a, b) => b[1] - a[1])
       .map(([k]) => RISK_DIMENSION_THREATS[k]);
+    // When all 5 risk dimensions are 0, do NOT fall back to the generic
+    // 2-tag category label (which reads as an invented claim for safe messages).
+    // Return an explicit "no significant signals" neutral representation instead.
     if (entries.length > 0) return entries;
+    return ["No significant signals detected"];
   }
   const fallback = CATEGORY_THREATS[category] || CATEGORY_THREATS[UNKNOWN_CATEGORY];
   return [fallback.primary, fallback.secondary];
@@ -132,6 +142,8 @@ const CATEGORY_RECOMMENDATIONS = {
   "Fake Customer Care": ["Always use the official customer care number from the company website","Never share OTP, password, or remote access to your phone","Customer care agents never ask for UPI PIN or banking passwords","Report fake customer care numbers to the platform and cybercrime.gov.in"],
   "QR Code Scam": ["Never scan QR codes from unknown or unsolicited messages","Verify the payment screen before entering UPI PIN","QR code payments should only be used for in-person transactions","Report QR code fraud to your bank immediately"],
   "Crypto Scam": ["Unsolicited cryptocurrency investment offers are always scams","Verify any crypto scheme with SEBI or RBI before investing","Never share wallet private keys or recovery phrases","Report crypto scams to cybercrime.gov.in"],
+  "Prepaid Task Scam": ["Legitimate employers never ask you to pay before earning","Never deposit or recharge money to 'unlock' earnings or withdraw","A small starter payout is a lure — the big ask always follows","Report task scams to cybercrime.gov.in"],
+  "Remote Access Scam": ["Never install AnyDesk, TeamViewer, or QuickSupport for a stranger","Never share your screen with someone claiming to be a bank or the police","Real support agents never need remote control of your phone or OTP","Disconnect immediately and call your bank or 1930 if asked for remote access"],
   "Unknown Scam": ["Do not click any links in unsolicited messages","Never share OTP, passwords, or banking details via SMS","Verify the sender independently before taking any action","Report suspicious messages to cybercrime.gov.in or forward to 1930"]
 };
 
@@ -146,7 +158,9 @@ const EVIDENCE_CORRELATIONS = {
   "identity_theft": {"label":"Identity Theft","required":["KYC Update Request"],"optional":["Suspicious URL","Account Threat","Government Impersonation","OTP Request"],"min_optional":1,"description":"Message attempts to collect Aadhaar, PAN or other identity documents"},
   "advance_fee_fraud": {"label":"Advance Fee Fraud","required":["Prize/Lottery Mention","Payment Request"],"optional":["Phone Number","Urgency Language","Email Address"],"min_optional":0,"description":"Message promises a prize or reward in exchange for an upfront payment"},
   "utility_fraud": {"label":"Utility Fraud","required":["Utility Bill Mention"],"optional":["Payment Request","Account Threat","Suspicious URL","Urgency Language"],"min_optional":1,"description":"Message impersonates a utility provider demanding immediate payment"},
-  "tech_support_fraud": {"label":"Tech Support Fraud","required":["Customer Care Impersonation"],"optional":["Account Threat","Phone Number","Urgency Language"],"min_optional":0,"description":"Message impersonates customer support to gain remote access or credentials"}
+  "tech_support_fraud": {"label":"Tech Support Fraud","required":["Customer Care Impersonation"],"optional":["Account Threat","Phone Number","Urgency Language"],"min_optional":0,"description":"Message impersonates customer support to gain remote access or credentials"},
+  "prepaid_task_fraud": {"label":"Prepaid Task Fraud","required":["Prepaid Task Scam"],"optional":["Payment Request","Suspicious URL","UPI ID","Phone Number"],"min_optional":0,"description":"Message offers small earnings but demands upfront payment to unlock further tasks"},
+  "remote_access_fraud": {"label":"Remote Access Fraud","required":["Remote Access Request"],"optional":["Bank Impersonation","OTP Request","Account Threat","Suspicious URL","Phone Number"],"min_optional":0,"description":"Message requests remote access app installation combined with banking context"}
 };
 
 const ENTITY_INDICATOR_MAP = {"bank_name":"Bank Impersonation","upi_id":"UPI ID","shortened_url":"Shortened URL","email":"Email Address","phone_indian":"Phone Number","phone_international":"Phone Number","url":"Suspicious URL","suspicious_tld":"Suspicious URL"};
@@ -186,7 +200,9 @@ const INDICATOR_SEVERITY_RULES = [
   ["Payment Request", SEVERITY_HIGH, 20],
   ["Suspicious URL", SEVERITY_HIGH, 18],
   ["Shortened URL", SEVERITY_HIGH, 18],
-  ["QR Code Request", SEVERITY_HIGH, 18]
+  ["QR Code Request", SEVERITY_HIGH, 18],
+  ["Prepaid Task Scam", SEVERITY_HIGH, 20],
+  ["Remote Access Request", SEVERITY_HIGH, 20]
 ];
 
 // Assessment constants
@@ -281,7 +297,9 @@ const RULE_WEIGHTS = {
   "money_mention": 8.0, "suspension_threat": 15.0, "url_shortener": 15.0,
   "suspicious_tld": 15.0, "url_suspicious_keywords": 10.0, "url_present": 5.0,
   "multiple_urls": 5.0, "bank_mention": 3.0, "payment_app_mention": 3.0,
-  "scam_keyword": 2.0, "govt_reference": 5.0
+  "scam_keyword": 2.0, "govt_reference": 5.0,
+  "prepaid_task_payout": 12.0, "prepaid_task_big_ask": 18.0,
+  "remote_access_app": 15.0, "remote_access_banking": 15.0
 };
 const THRESHOLDS = {"high": 70.0, "medium": 35.0, "low": 0.0};
 
@@ -480,11 +498,72 @@ function check_service_keywords(text) {
   return { score, reasons };
 }
 
+function check_prepaid_task(text) {
+  const t = text.toLowerCase();
+  let score = 0;
+  const reasons = [];
+
+  // Pattern 1: small payout for a task/commission/etc.
+  //   e.g. "earned Rs 50", "commission of Rs 100 credited", "payout of Rs 50"
+  const payout_patterns = [
+    String.raw`\b(?:earned|receive|credited|paid|payout|commission|salary|reward)\b[\s\S]{0,40}\b(?:rs|inr|₹)\s*[\d,]+`,
+    String.raw`\b(?:rs|inr|₹)\s*[\d,]+\b[\s\S]{0,30}\b(?:earn|commission|payout|credited|reward|salary)\b`,
+  ];
+  const has_payout = payout_patterns.some(p => buildRe(p).test(t));
+
+  // Pattern 2: request to pay/invest/deposit/recharge a larger amount to "unlock" earnings
+  const big_ask_patterns = [
+    String.raw`\b(?:pay|invest|deposit|recharge|send|transfer)\b[\s\S]{0,50}\b(?:unlock|activate|continue|next|withdraw|earn)\b`,
+    String.raw`\b(?:unlock|activate|continue|withdraw)\b[\s\S]{0,50}\b(?:pay|invest|deposit|recharge|send|transfer)\b`,
+    String.raw`\b(?:processing|registration|activation|security)\s+fee\b`,
+  ];
+  const has_big_ask = big_ask_patterns.some(p => buildRe(p).test(t));
+
+  if (has_payout && has_big_ask) {
+    score += RULE_WEIGHTS["prepaid_task_payout"] + RULE_WEIGHTS["prepaid_task_big_ask"];
+    reasons.push("Small payout offered, followed by a request to pay/invest a larger amount to unlock earnings (prepaid-task scam pattern)");
+  } else if (has_big_ask && (_has_scam_context(t) || /\b(?:task|job|work|likes|reviews|subscribe|follow|rating|enroll)\b/.test(t))) {
+    score += RULE_WEIGHTS["prepaid_task_big_ask"];
+    reasons.push("Task/job context with a fee required to unlock or continue earnings");
+  }
+
+  return { score, reasons };
+}
+
+function check_remote_access(text) {
+  const t = text.toLowerCase();
+  let score = 0;
+  const reasons = [];
+
+  const remote_apps = ["anydesk","teamviewer","quick support","quicksupport","screenshare","screen share","remote access","remote control","remote desktop"];
+  const has_remote = remote_apps.some(k => t.includes(k));
+  if (!has_remote) return { score, reasons };
+
+  // Negation awareness: if the message explicitly says the request has NOTHING to do
+  // with banking (e.g. "Nothing to do with your bank"), it is a legitimate near-miss.
+  const negated = buildRe(String.raw`(?:nothing|not|no|never|nothing to do with)\b[\s\S]{0,20}\b(?:bank|otp|upi|pin|password|account|payment|card)\b`).test(t) ||
+                  buildRe(String.raw`\b(?:bank|otp|upi|pin|password|account|payment|card)\b[\s\S]{0,20}\b(?:nothing|not|no|never)\b`).test(t);
+  if (negated) return { score, reasons };
+
+  const banking_ctx = ["bank","otp","upi","pin","password","account","kyc","aadhaar","payment","credit","debit","card","balance","refund"];
+  const has_banking = banking_ctx.some(k => t.includes(k));
+
+  if (has_banking) {
+    score += RULE_WEIGHTS["remote_access_app"] + RULE_WEIGHTS["remote_access_banking"];
+    reasons.push("Request to install remote-access/screen-share app combined with banking or OTP context");
+  } else if (_has_scam_context(t)) {
+    score += RULE_WEIGHTS["remote_access_app"];
+    reasons.push("Remote-access/screen-share request in suspicious context");
+  }
+
+  return { score, reasons };
+}
+
 function analyze_message(text) {
   let score = 0;
   const all_reasons = [];
 
-  const check_fns = [check_otp, check_urgent_money, check_suspicious_links, check_service_keywords];
+  const check_fns = [check_otp, check_urgent_money, check_suspicious_links, check_service_keywords, check_prepaid_task, check_remote_access];
   for (const fn of check_fns) {
     const { score: s, reasons } = fn(text);
     score += s;
@@ -1053,7 +1132,9 @@ const _INDICATOR_RISK_RULES = [
   ["Customer Care Impersonation", { social_engineering: 20, credential_theft: 15 }, []],
   ["Courier/Customs Mention", { financial_loss: 25, social_engineering: 10 }, []],
   ["Utility Bill Mention", { financial_loss: 20, social_engineering: 15 }, []],
-  ["Loan/EMI Mention", { financial_loss: 20, identity_theft: 10 }, []]
+  ["Loan/EMI Mention", { financial_loss: 20, identity_theft: 10 }, []],
+  ["Prepaid Task Scam", { financial_loss: 30, identity_theft: 15 }, []],
+  ["Remote Access Request", { credential_theft: 30, malware: 25, social_engineering: 15 }, []]
 ];
 
 const _ENTITY_RISK_RULES = [
@@ -1066,7 +1147,9 @@ const _CORRELATION_RISK_RULES = [
   ["Credential Theft", { credential_theft: 20 }],
   ["Payment Fraud", { financial_loss: 20 }],
   ["Phishing", { social_engineering: 15, credential_theft: 15 }],
-  ["Financial Scam", { financial_loss: 20 }]
+  ["Financial Scam", { financial_loss: 20 }],
+  ["Prepaid Task Fraud", { financial_loss: 25, social_engineering: 15 }],
+  ["Remote Access Fraud", { credential_theft: 30, malware: 20 }]
 ];
 
 function correlate_evidence(indicators, entities) {
@@ -1706,6 +1789,32 @@ function _fn_job_scam(analysis) {
   return fee_keywords.some(k => text.includes(k));
 }
 
+function _fn_prepaid_task_scam(analysis) {
+  if (analysis.prediction !== ML_LABEL_SAFE) return false;
+  const text = _text_lower(analysis);
+  // Pattern: small earnings/commission/payout + a demand for payment/deposit/recharge to unlock more
+  const small_payout = [String.raw`\b(?:earned|received|credited|payout|commission|salary|reward)\b`];
+  const has_payout = small_payout.some(p => buildRe(p).test(text));
+  if (!has_payout) return false;
+  const big_ask = ["pay","invest","deposit","recharge","unlock","activate","advance","processing fee","registration fee"];
+  const has_big_ask = big_ask.some(k => matchWord(text, k) || text.includes(k));
+  if (!has_big_ask) return false;
+  // Ensure it's about a task/job context with amount, not generic
+  const task_ctx = ["task","job","work","likes","reviews","subscribe","follow","rating","enroll","enrol"];
+  const has_task = task_ctx.some(k => text.includes(k));
+  return has_task && buildRe(String.raw`rs\.?\s*[\d,]+|inr\s*[\d,]+|₹\s*[\d,]+`).test(text);
+}
+
+function _fn_remote_access_scam(analysis) {
+  if (analysis.prediction !== ML_LABEL_SAFE) return false;
+  const text = _text_lower(analysis);
+  const remote_apps = ["anydesk","teamviewer","quick support","quicksupport","screenshare","screen share","remote access","remote control","remote desktop"];
+  const has_remote = remote_apps.some(k => text.includes(k));
+  if (!has_remote) return false;
+  const bank_ctx = ["bank","otp","upi","pin","password","account","kyc","aadhaar","payment","credit","debit","card","balance","refund"];
+  return bank_ctx.some(k => text.includes(k));
+}
+
 const FP_RULES = [
   { rule_id: "FP-001", description: "Legitimate banking notification misclassified as scam", category: "fp_reduction", priority: "HIGH", confidence_impact: -0.25, condition: _fp_legitimate_banking_notification, reason: "Contains legitimate banking notification patterns (transaction/credit info with bank name, no phishing indicators). Downgrading scam confidence." },
   { rule_id: "FP-002", description: "Government alert misclassified as scam", category: "fp_reduction", priority: "HIGH", confidence_impact: -0.25, condition: _fp_government_alert, reason: "Contains government scheme references without payment request or suspicious URLs. Likely a legitimate government communication." },
@@ -1735,7 +1844,9 @@ const FN_RULES = [
   { rule_id: "FN-009", description: "Obfuscated contact information", category: "fn_reduction", priority: "MEDIUM", confidence_impact: 0.15, condition: _fn_obfuscated_contact, reason: "Message uses obfuscated contact information to avoid detection. Increasing scam confidence." },
   { rule_id: "FN-010", description: "Digital arrest / authority impersonation scam", category: "fn_reduction", priority: "HIGH", confidence_impact: 0.25, condition: _fn_digital_arrest_scam, reason: "Message impersonates law enforcement or judicial authority with arrest/custody threats. Classic digital arrest scam pattern. Increasing scam confidence." },
   { rule_id: "FN-011", description: "Romance / sweetheart scam", category: "fn_reduction", priority: "HIGH", confidence_impact: 0.20, condition: _fn_romance_scam, reason: "Message uses affection language combined with money requests. Classic romance scam pattern. Increasing scam confidence." },
-  { rule_id: "FN-012", description: "Job scam with upfront fees", category: "fn_reduction", priority: "HIGH", confidence_impact: 0.20, condition: _fn_job_scam, reason: "Message offers employment but requires upfront fees (training bond, registration). Classic job scam pattern. Increasing scam confidence." }
+  { rule_id: "FN-012", description: "Job scam with upfront fees", category: "fn_reduction", priority: "HIGH", confidence_impact: 0.20, condition: _fn_job_scam, reason: "Message offers employment but requires upfront fees (training bond, registration). Classic job scam pattern. Increasing scam confidence." },
+  { rule_id: "FN-013", description: "Prepaid task scam — small payout lure then big ask", category: "fn_reduction", priority: "HIGH", confidence_impact: 0.25, condition: _fn_prepaid_task_scam, reason: "Message offers small earnings or commission for a task, then demands payment or deposit to unlock further earnings. Classic advance-fee / task scam pattern." },
+  { rule_id: "FN-014", description: "Remote access / screen-share combined with banking context", category: "fn_reduction", priority: "HIGH", confidence_impact: 0.25, condition: _fn_remote_access_scam, reason: "Message requests remote access app (AnyDesk, TeamViewer) or screen sharing combined with banking/OTP/payment context. Increasing scam confidence." }
 ];
 
 function _compute_fp_adjustment(analysis) {

@@ -75,6 +75,14 @@
     "tactic": "Fake customer care / remote-access request",
     "explainer": "Poses as helpline or support and asks you to install a remote-access app or share an OTP. Real support never needs remote control of your phone."
   },
+  "Prepaid Task Scam": {
+    "tactic": "Prepaid-task / small-payout-then-big-ask scam",
+    "explainer": "Offers a small payout or commission for an easy task to win your trust, then asks you to pay, deposit, or invest a larger amount to 'unlock' further earnings. The money you paid is never recoverable — it is the real target."
+  },
+  "Remote Access Request": {
+    "tactic": "Remote-access / screen-share trap",
+    "explainer": "Asks you to install AnyDesk, TeamViewer, or QuickSupport, or to share your screen, claiming they will help or refund you. Once they control your screen they can see your OTP and empty your account. No legitimate bank, government office, or support agent ever needs remote control of your phone."
+  },
   "Digital Arrest": {
     "tactic": "Fake authority — digital arrest",
     "explainer": "A specific scare tactic: “CBI/ED has issued a warrant, stay on video call.” It is theater to keep you isolated and panicked. Disconnect and call 100 or 1930 to verify."
