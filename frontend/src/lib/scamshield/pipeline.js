@@ -29,8 +29,8 @@ const INDICATOR_PATTERNS = [
   [String.raw`\b(?:lottery|won|winner|prize|jackpot)\b.*\b(?:claim|collect|transfer|pay|fee|register)\b|\bclaim\s+(?:your\s+)?(?:prize|lottery|reward|cashback)\b`, "Prize/Lottery Mention"],
   [String.raw`\bupi\s+(?:pin|password|otp)\b|\b(?:gpay|phonepe|paytm|bhim)\s+(?:pin|password|otp)\b`, "Payment App Mention"],
   [String.raw`\bloan\s+(?:approved|guaranteed|instant|apply|register)\b|\bemi\s+(?:pay|transfer|send)\b|\bcredit\s+card\s+(?:verify|update|share)`, "Loan/EMI Mention"],
-  [String.raw`\bjob\s+(?:offer|guaranteed|apply|register|fee)\b|\bwork\s+from\s+home\s+(?:guaranteed|earn|income)\b`, "Job Offer"],
-  [String.raw`\binvestment\s+(?:guaranteed|return|profit|earn)\b|\bguaranteed\s+(?:return|profit|income)\b`, "Investment Offer"],
+  [String.raw`\bjob\s+(?:offer|guaranteed|apply|register|fee)\b|\bwork\s+from\s+home\s+(?:guaranteed|earn|income)\b|\b(?:modeling|audition)\b[\s\S]{0,120}\bregistra\w+\b|\bregistra\w+\b[\s\S]{0,120}\b(?:modeling|audition|stipend)\b|\btraining\s+bond\b|\bstipend\b[\s\S]{0,80}\b(?:registra\w+|fee|deposit)\b`, "Job Offer"],
+  [String.raw`\binvestment\s+(?:guaranteed|return|profit|earn)\b|\bguaranteed\s+(?:return|profit|income)\b|\b\d+(?:\.\d+)?\s*%\s*(?:per\s*day|daily|weekly|monthly|annual(?:ly)?|yearly|returns?|profit|interest)\b|\b\d+\s*x\s*returns?\b|\bhyip\b|\bhigh\s*yield\s*investment\b`, "Investment Offer"],
   [String.raw`\b(?:customs|clearance)\s+(?:fee|pay|charge|release)\b|\bcourier\s+(?:fee|pay|charge|stuck|held)\b`, "Courier/Customs Mention"],
   [String.raw`\belectricity\s+(?:bill|disconnect|cut|suspend)\b|\b(?:tneb|disconnection)\s+(?:notice|fee|pay)\b`, "Utility Bill Mention"],
   [String.raw`\bpm\b|\bmodi\b|\bsarkari\b|\bgovernment\s+of\b|\bcentral\s+govt\b|\bnrega\b|\bayushman\b`, "Government Impersonation"],
@@ -1527,6 +1527,11 @@ function _fp_legitimate_banking_notification(analysis) {
 function _fp_government_alert(analysis) {
   if (analysis.prediction !== ML_LABEL_SCAM) return false;
   const text = _text_lower(analysis);
+  // Do NOT downgrade authority-threat messages: digital-arrest / formal legal
+  // notice language (arrest, warrant, video-call coercion, court summons) is a
+  // scam signal, not legitimate government communication.
+  const arrest_legal = [String.raw`\barrest\b`, String.raw`\bwarrant\b`, String.raw`\bcustody\b`, String.raw`\bvideo\s*call\b`, String.raw`\bdigital arrest\b`, String.raw`\bcyber\s*cell\b`, String.raw`\bcbi\b`, String.raw`\blegal notice\b`, String.raw`\bcase registered\b`, String.raw`\bsummons?\b`, String.raw`\bni act\b`, String.raw`\bsection\s*\d+`];
+  if (arrest_legal.some(p => buildRe(p).test(text))) return false;
   const has_govt = _GOVT_ENTITIES.some(g => matchWord(text, g));
   if (!has_govt) return false;
   if (_has_suspicious_url(analysis)) return false;
@@ -1782,7 +1787,10 @@ function _fn_romance_scam(analysis) {
 function _fn_job_scam(analysis) {
   if (analysis.prediction !== ML_LABEL_SAFE) return false;
   const text = _text_lower(analysis);
-  const job_phrases = ["job","salary","hiring","vacancy","position","work from home","earn money","part time"];
+  // Explicit "no fee" statements mark legitimate postings — never a job scam.
+  const negated_fee = [String.raw`\bno\s+(?:registration\s+)?fee\b`, String.raw`\bwithout\s+.*\bfee\b`, String.raw`\bfree\s+registration\b`, String.raw`\bno\s+charges\b`];
+  if (negated_fee.some(p => buildRe(p).test(text))) return false;
+  const job_phrases = ["job","salary","hiring","vacancy","position","work from home","earn money","part time","modeling","assignment","stipend","audition"];
   const has_job = job_phrases.some(p => buildRe(String.raw`\b` + reEscape(p)).test(text));
   if (!has_job) return false;
   const fee_keywords = ["training fee","training bond","registration fee","security deposit","processing fee","registration rs"];
@@ -1813,6 +1821,90 @@ function _fn_remote_access_scam(analysis) {
   if (!has_remote) return false;
   const bank_ctx = ["bank","otp","upi","pin","password","account","kyc","aadhaar","payment","credit","debit","card","balance","refund"];
   return bank_ctx.some(k => text.includes(k));
+}
+
+function _fn_legal_notice_demand(analysis) {
+  if (analysis.prediction !== ML_LABEL_SAFE) return false;
+  const text = _text_lower(analysis);
+  // Formal legal-notice phrasing alone is not enough (genuine notices exist) —
+  // require a payment demand or a coercive call/video-call instruction too.
+  const legal_patterns = [
+    String.raw`\bas per section\b`, String.raw`\bunder section\b`, String.raw`\bsection\s*\d+`,
+    String.raw`\bwarrant\s*(?:issued|is|has been)?\b`, String.raw`\blegal notice\b`,
+    String.raw`\bcase registered\b`, String.raw`\bnon-?bailable\b`, String.raw`\bbailable warrant\b`,
+    String.raw`\bsummons?\b`, String.raw`\bcourt order\b`, String.raw`\bni act\b`,
+    String.raw`\bcharge-?sheet\b`, String.raw`\bfir\s+(?:no|number|copy)\b`,
+    String.raw`\bfir\s+(?:registered|filed)\b`
+  ];
+  if (!legal_patterns.some(p => buildRe(p).test(text))) return false;
+  const demand_patterns = [
+    String.raw`\bvideo\s*call\b`, String.raw`\bconnect\b[\s\S]{0,30}\b(?:video|call)\b`,
+    String.raw`\bkeep\b[\s\S]{0,20}\bcamera on\b`, String.raw`\bskype\b`,
+    String.raw`\bpay\b`, String.raw`\bsettle\b`, String.raw`\bdeposit\b`, String.raw`\btransfer\b`,
+    String.raw`\bcall\b[\s\S]{0,20}\b(?:now|immediately|within)\b`,
+    String.raw`(?:rs|inr|₹)\s*[\d,]+`
+  ];
+  return demand_patterns.some(p => buildRe(p).test(text));
+}
+
+function _fn_hyip_returns(analysis) {
+  if (analysis.prediction !== ML_LABEL_SAFE) return false;
+  const text = _text_lower(analysis);
+  // Legitimacy markers: regulated-investment disclosures and account
+  // identifiers scams never use. Any of these vetoes the rule.
+  const legitimate = ["not investment advice", "subject to market risk", "past performance",
+    "sebi registered", "read all scheme", String.raw`\bsip\b`, String.raw`\bfolio\b`, String.raw`\bnav\b`];
+  if (legitimate.some(d => buildRe(d).test(text))) return false;
+  // Unrealistic-rate language: explicit % + frequency/return words, Nx
+  // multiples, or HYIP self-identification. Bare "%" (FD rates, discounts,
+  // data usage) never matches on its own.
+  const rate_patterns = [
+    String.raw`\b\d+(?:\.\d+)?\s*%\s*(?:per\s*day|daily|a\s*day|weekly|monthly|annual(?:ly|ized)?|yearly|returns?|profit|interest)\b`,
+    String.raw`\b\d+\s*x\s*returns?\b`,
+    String.raw`\bhyip\b`, String.raw`\bhigh\s*yield\s*investment\b`,
+    String.raw`\bdouble\s*(?:your|the)?\s*(?:money|investment|returns?|profit)\b`
+  ];
+  if (!rate_patterns.some(p => buildRe(p).test(text))) return false;
+  // ...plus a money-extraction demand aimed at the reader.
+  const demand_patterns = [
+    String.raw`\bminimum\s*deposit\b`, String.raw`\bjoin\b[\s\S]{0,30}\bpaid\b`,
+    String.raw`\bpaid\s*group\b`, String.raw`\bdeposit\b`, String.raw`\binvest\b`,
+    String.raw`\bguaranteed\b`, String.raw`\bassured\b`,
+    String.raw`\blimited\b[\s\S]{0,20}\bseats?\b`, String.raw`\bhurry\b`,
+    String.raw`\bearn\b[\s\S]{0,40}\b(?:rs|inr|₹)\s*[\d,]+`,
+    String.raw`\bbuy\b[\s\S]{0,40}\b(?:rs|inr|₹)\s*[\d,]+`
+  ];
+  return demand_patterns.some(p => buildRe(p).test(text));
+}
+
+function _fn_job_upfront_fee(analysis) {
+  if (analysis.prediction !== ML_LABEL_SAFE) return false;
+  const text = _text_lower(analysis);
+  // Explicit "no fee" statements mark legitimate postings — never a job scam.
+  const negated_fee = [String.raw`\bno\s+(?:registration\s+)?fee\b`, String.raw`\bwithout\s+.*\bfee\b`, String.raw`\bfree\s+registration\b`, String.raw`\bno\s+charges\b`];
+  if (negated_fee.some(p => buildRe(p).test(text))) return false;
+  const offer_patterns = [
+    String.raw`\bjob\b`, String.raw`\bjobs\b`, String.raw`\bhiring\b`,
+    String.raw`\bvacancy\b`, String.raw`\bvacancies\b`, String.raw`\bsalary\b`,
+    String.raw`\bstipend\b`, String.raw`\bmodeling\b`, String.raw`\baudition\b`,
+    String.raw`\bwork\s+from\s+home\b`, String.raw`\bpart\s*time\b`,
+    String.raw`\bselected\b`, String.raw`\bshortlisted\b`,
+    String.raw`\boffer\s+letter\b`, String.raw`\bjoining\b`
+  ];
+  if (!offer_patterns.some(p => buildRe(p).test(text))) return false;
+  const fee_patterns = [
+    String.raw`\btraining\s+fee\b`, String.raw`\btraining\s+bond\b`,
+    String.raw`\bregistration\s+fee\b`, String.raw`\bregistration\s+rs\b`,
+    String.raw`\bregistration\s*:\s*(?:rs|inr|₹)?\s*[\d,]+`,
+    String.raw`\bregistration\s+of\s+(?:rs|inr|₹)\s*[\d,]+`,
+    String.raw`\bsecurity\s+deposit\b`, String.raw`\bprocessing\s+fee\b`,
+    String.raw`\bjoining\s+fee\b`, String.raw`\bkit\s+fee\b`,
+    String.raw`\bportfolio\s+fee\b`, String.raw`\badvance\s+payment\b`,
+    String.raw`\brefundable\s+deposit\b`,
+    String.raw`\bpay\b[\s\S]{0,40}\bregistra\w+\b`,
+    String.raw`\bregistra\w+\b[\s\S]{0,40}\b(?:rs|inr|₹)\s*[\d,]+`
+  ];
+  return fee_patterns.some(p => buildRe(p).test(text));
 }
 
 const FP_RULES = [
@@ -1846,7 +1938,10 @@ const FN_RULES = [
   { rule_id: "FN-011", description: "Romance / sweetheart scam", category: "fn_reduction", priority: "HIGH", confidence_impact: 0.20, condition: _fn_romance_scam, reason: "Message uses affection language combined with money requests. Classic romance scam pattern. Increasing scam confidence." },
   { rule_id: "FN-012", description: "Job scam with upfront fees", category: "fn_reduction", priority: "HIGH", confidence_impact: 0.20, condition: _fn_job_scam, reason: "Message offers employment but requires upfront fees (training bond, registration). Classic job scam pattern. Increasing scam confidence." },
   { rule_id: "FN-013", description: "Prepaid task scam — small payout lure then big ask", category: "fn_reduction", priority: "HIGH", confidence_impact: 0.25, condition: _fn_prepaid_task_scam, reason: "Message offers small earnings or commission for a task, then demands payment or deposit to unlock further earnings. Classic advance-fee / task scam pattern." },
-  { rule_id: "FN-014", description: "Remote access / screen-share combined with banking context", category: "fn_reduction", priority: "HIGH", confidence_impact: 0.25, condition: _fn_remote_access_scam, reason: "Message requests remote access app (AnyDesk, TeamViewer) or screen sharing combined with banking/OTP/payment context. Increasing scam confidence." }
+  { rule_id: "FN-014", description: "Remote access / screen-share combined with banking context", category: "fn_reduction", priority: "HIGH", confidence_impact: 0.25, condition: _fn_remote_access_scam, reason: "Message requests remote access app (AnyDesk, TeamViewer) or screen sharing combined with banking/OTP/payment context. Increasing scam confidence." },
+  { rule_id: "FN-015", description: "Formal legal notice phrasing with payment or coercive-call demand", category: "fn_reduction", priority: "HIGH", confidence_impact: 0.25, condition: _fn_legal_notice_demand, reason: "Message uses formal legal language (warrant, section, summons, legal notice) combined with a payment demand or coercive video/call instruction. Classic digital-arrest / legal-threat pattern. Increasing scam confidence." },
+  { rule_id: "FN-016", description: "HYIP / unrealistic guaranteed-return investment pitch", category: "fn_reduction", priority: "HIGH", confidence_impact: 0.25, condition: _fn_hyip_returns, reason: "Message promises unrealistic returns (% daily/weekly/monthly, Nx multiples, HYIP) combined with a deposit/investment demand. Classic HYIP / Ponzi pitch. Increasing scam confidence." },
+  { rule_id: "FN-017", description: "Job/modeling offer requiring upfront fee or deposit", category: "fn_reduction", priority: "HIGH", confidence_impact: 0.25, condition: _fn_job_upfront_fee, reason: "Message offers a job, modeling assignment, or stipend but requires an upfront registration/training/joining fee. Classic employment-fee scam pattern. Increasing scam confidence." }
 ];
 
 function _compute_fp_adjustment(analysis) {

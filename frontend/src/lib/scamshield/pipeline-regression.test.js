@@ -72,3 +72,64 @@ describe('Phase 7 new rule patterns', () => {
     expect(result.detected_indicators).toContain('Remote Access Request');
   });
 });
+
+// Tier 1 FN-gap close-out: HYIP/guaranteed-return pitches, job/modeling offers
+// demanding upfront fees, and formal-legal-notice digital-arrest messages.
+// Each scam positive asserts the user-facing refined verdict; each safe
+// near-miss proves the new rule stays silent (no invented threats, and the
+// specific new rule id absent from the refinement summary).
+describe('Tier 1 FN-gap rules (FN-015/016/017)', () => {
+  const GAP_SCAMS = [
+    {
+      msg: 'HYIP: High yield investment program. 5% daily returns for 30 days. Minimum deposit Rs 5,000.',
+      expectedIndicator: 'Investment Offer',
+    },
+    {
+      msg: 'Modeling assignment for international brand. Stipend Rs 2 lakh. Registration Rs 7,500.',
+      expectedIndicator: 'Job Offer',
+    },
+    {
+      msg: 'Personal loan repayment: Your cheque bounced. Legal notice under NI Act will be filed. Settle with Rs 25,000.',
+      expectedIndicator: null, // caught by FN-015 refinement, no standalone indicator
+    },
+  ];
+
+  const GAP_SAFE = [
+    // Legitimate market commentary mentioning returns + disclaimer, no demand
+    'Market outlook: large-cap funds delivered healthy returns over the last decade. Past performance does not guarantee future results. This is not investment advice.',
+    // Real job posting with no fee at all
+    'Your interview with TCS is scheduled for Monday 10 AM. Venue: campus center, Block B. Carry your resume.',
+    // Real posting that explicitly disavows fees (negation guard for FN-012/017)
+    'Infosys hiring: Software Engineer, CTC Rs 12 LPA. Apply on the careers portal by Friday. No registration fee.',
+    // Genuine legal notice with no payment or call demand (demand gate for FN-015)
+    'Court notice: Summons issued under Section 138 in Case No. 452/2024. Hearing on 12 Dec. Contact your advocate.',
+  ];
+
+  for (const { msg, expectedIndicator } of GAP_SCAMS) {
+    it('refined verdict is scam: ' + msg.slice(0, 60), () => {
+      expect(analyzeText(msg).refined_prediction).toBe('scam');
+    });
+    if (expectedIndicator) {
+      it('detects ' + expectedIndicator + ' indicator: ' + msg.slice(0, 60), () => {
+        expect(analyzeText(msg).detected_indicators).toContain(expectedIndicator);
+      });
+    }
+  }
+
+  for (const msg of GAP_SAFE) {
+    it('does not over-flag safe near-miss: ' + msg.slice(0, 60), () => {
+      const result = analyzeText(msg);
+      const threats = result.threats || [];
+      const invented = threats.some((t) =>
+        t === 'Financial Theft' || t === 'Credential Theft' || t === 'Social Engineering'
+      );
+      expect(invented).toBe(false);
+      expect(result.refinement_summary || '').not.toMatch(/FN-015|FN-016|FN-017/);
+    });
+  }
+
+  it('negation guard keeps FN-012 silent on explicit no-fee posting', () => {
+    const result = analyzeText(GAP_SAFE[2]);
+    expect(result.refinement_summary || '').not.toMatch(/FN-012/);
+  });
+});
