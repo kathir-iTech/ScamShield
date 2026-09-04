@@ -1,6 +1,8 @@
 // JS-side gold-set evaluation for the frontend pipeline.js
 // Runs the SAME methodology as datasets/gold/eval_gold_pipeline.py but against
-// the JS pipeline: uses analyzeText().prediction ("safe"/"scam") as binary output.
+// the JS pipeline: uses analyzeText().refined_prediction ("safe"/"scam") as
+// binary output — this is the final, user-facing decision, not the pre-refinement
+// raw ML prediction.
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -50,7 +52,7 @@ for (const r of dataRows) {
   const label = r[idx['is_scam']].trim().toLowerCase() === 'true' ? 1 : 0;
   const cat = r[idx['category']];
   const result = analyzeText(text);
-  const pred = result.prediction === 'scam' ? 1 : 0;
+  const pred = result.refined_prediction === 'scam' ? 1 : 0;
   results.push({ text, label, pred, cat, confidence: result.confidence, risk: result.risk_level,
                  threats: result.threats, indicators: result.detected_indicators });
 }

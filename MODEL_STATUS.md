@@ -62,3 +62,7 @@ Full pipeline eval (`refined_prediction` field, 308 gold samples) via `datasets/
 **FPR 14.06% / Recall 77.2% is the current accepted baseline. Do not re-tune against the 308-sample gold set further without adding more gold data first — further tightening here risks overfitting to this specific set.**
 
 Previous baseline (Phase 0) had 48.08% FPR; Phase 1.5 reduced to 14.06% (meets ≤15% target). Recall dropped 3.2 points (80.4%→77.2%) within allowed budget. Further tuning deferred until larger eval set or real usage data is available.
+
+## eval-gold-js.mjs field fix (2026-09-04)
+
+`frontend/scripts/eval-gold-js.mjs` previously measured `analyzeText().prediction` — the raw ML output before pipeline refinement — producing a misleading ~49% FPR unrelated to actual displayed behavior. Fixed to measure `refined_prediction`, the final field that matches `risk_level` and what users actually see. Post-fix output now matches the 14.06% FPR / 77.22% recall baseline exactly.
