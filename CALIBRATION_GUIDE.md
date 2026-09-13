@@ -4,7 +4,7 @@
 
 The system uses three confidence thresholds calibrated for production:
 
-| Band | Threshold | Range |
+| Band | Threshold | Range  |
 |------|-----------|-------|
 | VERY_LOW | — | 0.00 – 0.39 |
 | LOW | 0.4 | 0.40 – 0.59 |
