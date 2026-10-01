@@ -1,7 +1,26 @@
 import re
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, Iterable, List, Optional, Tuple
 
 TAMIL_UNICODE_RANGE: Tuple[int, int] = (0x0B80, 0x0BFF)
+TAMIL_NUKTA: Tuple[int, int] = (0x0B82, 0x0B82)
+TAMIL_SUPPLEMENT_RANGE: Tuple[int, int] = (0x11FB0, 0x11FFF)
+GRANTHA_RANGE: Tuple[int, int] = (0x11300, 0x1137F)
+GRANTHA_EXTENDED_RANGE: Tuple[int, int] = (0x11480, 0x114DF)
+TAMIL_UNICODE_RANGES: Tuple[Tuple[int, int], ...] = (
+    TAMIL_UNICODE_RANGE,
+    TAMIL_NUKTA,
+    TAMIL_SUPPLEMENT_RANGE,
+    GRANTHA_RANGE,
+    GRANTHA_EXTENDED_RANGE,
+)
+TELUGU_UNICODE_RANGE: Tuple[int, int] = (0x0C00, 0x0C7F)
+
+SCRIPT_RANGES: Dict[str, Tuple[Tuple[int, int], ...]] = {
+    "hi": ((0x0900, 0x097F), (0xA8E0, 0xA8FF)),
+    "bn": ((0x0980, 0x09FF),),
+    "ta": TAMIL_UNICODE_RANGES,
+    "te": (TELUGU_UNICODE_RANGE,),
+}
 
 TAMIL_STOP_WORDS: frozenset = frozenset({
     "and", "or", "but", "not", "the", "a", "an", "is", "are", "was", "were",
@@ -135,15 +154,33 @@ HINDI_NORM_MAP: Dict[str, str] = {
 }
 
 
+def count_script_chars(text: str, ranges: Iterable[Tuple[int, int]]) -> int:
+    return sum(1 for c in text if any(lo <= ord(c) <= hi for lo, hi in ranges))
+
+
+def detect_script(text: str) -> Optional[str]:
+    best: Optional[str] = None
+    best_count = 0
+    for script in sorted(SCRIPT_RANGES):
+        count = count_script_chars(text, SCRIPT_RANGES[script])
+        if count > best_count:
+            best = script
+            best_count = count
+    return best
+
+
 def detect_language(text: str) -> str:
-    has_tamil = any(TAMIL_UNICODE_RANGE[0] <= ord(c) <= TAMIL_UNICODE_RANGE[1] for c in text)
+    tamil_chars = count_script_chars(text, TAMIL_UNICODE_RANGES)
+    telugu_chars = count_script_chars(text, (TELUGU_UNICODE_RANGE,))
     has_tanglish_words = any(w in TANGLISH_NORM_MAP for w in text.lower().split())
     has_hindi_words = any(w in HINDI_NORM_MAP for w in text.lower().split())
 
-    if has_tamil:
-        tamil_chars = sum(1 for c in text if TAMIL_UNICODE_RANGE[0] <= ord(c) <= TAMIL_UNICODE_RANGE[1])
-        if tamil_chars > 3 or (tamil_chars / max(len(text), 1)) > 0.1:
-            return "ta"
+    if tamil_chars > 3 or (tamil_chars / max(len(text), 1)) > 0.1:
+        return "ta"
+    if telugu_chars > 3 or (telugu_chars / max(len(text), 1)) > 0.1:
+        return "te"
+    if telugu_chars > 0:
+        return "te-en"
     if has_tanglish_words:
         return "tangling"
     if has_hindi_words:
@@ -187,7 +224,7 @@ def preprocess_multilingual(text: str) -> Tuple[str, str]:
     text = normalize_unicode(text)
     lang = detect_language(text)
 
-    if lang == "ta":
+    if lang in ("ta", "te", "te-en"):
         processed = text
     elif lang == "tangling":
         processed = normalize_tanglish(text)
@@ -197,6 +234,13 @@ def preprocess_multilingual(text: str) -> Tuple[str, str]:
         processed = text
 
     return processed, lang
+
+
+def preprocess_for_model(text: str) -> str:
+    if detect_language(text) != "en":
+        processed, _ = preprocess_multilingual(text)
+        return processed
+    return text
 
 
 def expand_scam_keywords_for_tamil() -> List[str]:
