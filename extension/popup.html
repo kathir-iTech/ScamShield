@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ScamShield</title>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        width: 320px;
+        margin: 0;
+        padding: 14px;
+        background: #08080c;
+        color: #e7e7ee;
+        font: 13px/1.45 system-ui, -apple-system, sans-serif;
+      }
+      h1 {
+        margin: 0 0 12px;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      h1 span {
+        color: #6366f1;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 11px;
+        color: #9a9aa8;
+      }
+      input {
+        width: 100%;
+        margin-top: 4px;
+        padding: 8px 10px;
+        border: 1px solid #26262f;
+        border-radius: 8px;
+        background: #101016;
+        color: #e7e7ee;
+        font-size: 12px;
+      }
+      input:focus {
+        outline: none;
+        border-color: #6366f1;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      button {
+        flex: 1;
+        padding: 9px 10px;
+        border: 0;
+        border-radius: 8px;
+        background: #6366f1;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      button.secondary {
+        background: #1c1c24;
+        border: 1px solid #26262f;
+        color: #c9c9d4;
+      }
+      button:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+      #status {
+        min-height: 18px;
+        margin-top: 10px;
+        font-size: 12px;
+        color: #9a9aa8;
+      }
+      #status.error {
+        color: #f87171;
+      }
+      #status.ok {
+        color: #4ade80;
+      }
+      #result {
+        display: none;
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid #26262f;
+        border-radius: 10px;
+        background: #101016;
+      }
+      #result.visible {
+        display: block;
+      }
+      #result .headline {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      #result .verdict {
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      #result .confidence {
+        font-size: 11px;
+        color: #9a9aa8;
+      }
+      #result .category {
+        margin-top: 4px;
+        font-size: 11px;
+        color: #9a9aa8;
+      }
+      #result .summary {
+        margin-top: 8px;
+        font-size: 12px;
+        color: #c9c9d4;
+      }
+      #result ul {
+        margin: 8px 0 0;
+        padding-left: 16px;
+        font-size: 11px;
+        color: #9a9aa8;
+      }
+      .note {
+        margin-top: 10px;
+        font-size: 10px;
+        color: #6b6b78;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span>ScamShield</span> scan</h1>
+
+    <label>
+      API base URL
+      <input id="api-base" type="text" placeholder="http://localhost:8000" spellcheck="false" />
+    </label>
+
+    <label>
+      API token (optional)
+      <input id="api-token" type="password" placeholder="Bearer token if required" spellcheck="false" />
+    </label>
+
+    <div class="row">
+      <button id="save" class="secondary" type="button">Save</button>
+      <button id="scan" type="button">Scan page text</button>
+    </div>
+
+    <div id="status" role="status"></div>
+
+    <div id="result">
+      <div class="headline">
+        <span class="verdict" id="result-verdict"></span>
+        <span class="confidence" id="result-confidence"></span>
+      </div>
+      <div class="category" id="result-category"></div>
+      <div class="summary" id="result-summary"></div>
+      <ul id="result-indicators"></ul>
+    </div>
+
+    <p class="note">
+      Unofficial companion extension. Select text on a page, then scan it against the ScamShield API you configure
+      above.
+    </p>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
