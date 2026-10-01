@@ -24,3 +24,24 @@ experiments/model.js
 experiments/vectorizer.js
 experiments/pipeline.js
 experiments/repair_urls.js
+
+# dead experiment artifacts — regenerated on demand, never loaded by the app.
+# model.joblib / vectorizer.joblib are intentionally tracked and NOT ignored.
+backend/models/*.base.*
+backend/models/*.gamma.*
+backend/models/*.log
+frontend/src/lib/scamshield/*.base.js
+
+# runtime SQLite store
+backend/data/*.db
+backend/data/*.db-wal
+backend/data/*.db-shm
+
+# generated labelling + evaluation output
+datasets/gold/label_queue.csv
+evaluation/reports/ci_gate/
+
+# test runner output
+frontend/test-results/
+frontend/playwright-report/
+.pytest_cache/
