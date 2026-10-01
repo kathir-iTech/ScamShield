@@ -10,6 +10,7 @@ import { analyzeTextLocal } from '@/services/local-analysis';
 import { recognizeImage } from '@/services/ocr';
 import { decodeQrFromImage } from '@/services/qr';
 import { repairUrls } from '@/lib/scamshield/repair-urls.js';
+import { submitFeedback } from '@/features/feedback/feedback-api';
 
 // --- Text analysis: direct local pipeline, no backend ---
 export async function analyzeText(text: string, signal?: AbortSignal): Promise<AnalysisResponse> {
@@ -147,3 +148,5 @@ export async function metrics(signal?: AbortSignal): Promise<MetricsSnapshot> {
     uptime_seconds: Math.floor(performance.now() / 1000),
   };
 }
+
+export { submitFeedback };
