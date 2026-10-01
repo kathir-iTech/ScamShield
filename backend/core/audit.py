@@ -12,8 +12,13 @@ from core.logger import logger
 AUDIT_EVENTS = {
     "auth:login": "User login / token issued",
     "auth:login_failed": "Failed login attempt",
+    "auth:logout": "Session token revoked",
+    "auth:logout_all": "All sessions revoked for a user",
+    "auth:register": "Account registered",
+    "auth:password_changed": "Account password changed",
     "auth:token_refresh": "Token refreshed",
     "auth:token_verify": "Token verified",
+    "auth:token_revoked": "Token revoked",
     "auth:admin_token_issued": "Admin token issued",
     "api_key:created": "API key created",
     "api_key:revoked": "API key revoked",
@@ -85,6 +90,34 @@ def _log_audit(event: AuditEvent) -> None:
         extra={"structured": log_data},
     )
 
+    _persist_audit(
+        {
+            "event": event.event,
+            "timestamp": event.timestamp,
+            "level": event.level.upper(),
+            "request_id": event.request_id or ctx["request_id"],
+            "correlation_id": event.correlation_id or ctx["correlation_id"],
+            "user_id": event.user_id or ctx["user_id"],
+            "client_ip": event.client_ip,
+            "resource": event.resource,
+            "detail": event.detail,
+            "metadata": event.metadata or {},
+        }
+    )
+
+
+def _persist_audit(record: Dict) -> None:
+    try:
+        from core.storage.repositories import AuditRepo
+
+        AuditRepo().append(record)
+    except Exception as exc:
+        logger.warning(
+            "Audit trail write skipped: %s",
+            exc,
+            extra={"structured": {"event": "audit_persist_failed", "error": str(exc)}},
+        )
+
 
 def record_audit_event(
     event: str,
@@ -93,11 +126,13 @@ def record_audit_event(
     resource: str = "",
     client_ip: str = "",
     metadata: Optional[Dict] = None,
+    user_id: str = "",
 ) -> None:
     audit_event = AuditEvent(
         event=event,
         timestamp=time.time(),
         level=level,
+        user_id=user_id,
         detail=detail,
         resource=resource,
         client_ip=client_ip,
@@ -107,7 +142,7 @@ def record_audit_event(
 
 
 def record_auth_event(event: str, detail: str = "", user_id: str = "") -> None:
-    record_audit_event(event=event, level="INFO", detail=detail)
+    record_audit_event(event=event, level="INFO", detail=detail, user_id=user_id)
 
 
 def record_auth_failure(detail: str = "", client_ip: str = "") -> None:
