@@ -20,6 +20,34 @@ class TokenPayload(BaseModel):
     iat: int
     jti: str
     token_type: str = "access"
+    original_role: str = ""
+    iss: str = ""
+    aud: str = ""
+
+
+class RegisterRequest(BaseModel):
+    email: str = Field(..., min_length=3, description="Email address of the new account")
+    password: str = Field(..., min_length=1, description="Initial password")
+    display_name: str = Field(default="", max_length=120, description="Optional display name")
+
+
+class LoginRequest(BaseModel):
+    email: str = Field(..., min_length=3, description="Email address")
+    password: str = Field(..., min_length=1, description="Account password")
+
+
+class ChangePasswordRequest(BaseModel):
+    old_password: str = Field(..., min_length=1, description="Current password")
+    new_password: str = Field(..., min_length=1, description="Replacement password")
+
+
+class UserResponse(BaseModel):
+    id: str
+    email: str
+    role: str = UserRole.AUTHENTICATED.value
+    display_name: str = ""
+    created_at: float = 0.0
+    last_login_at: Optional[float] = None
 
 
 class TokenResponse(BaseModel):
