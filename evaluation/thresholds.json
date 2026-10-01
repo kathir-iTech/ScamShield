@@ -1,0 +1,20 @@
+{
+  "_comment": "Regression gates for evaluation/scripts/ci_gate.py. These are floors/ceilings set at or just below the measured baselines (MODEL_STATUS.md, 2026-09-04) - they block regressions, they are not quality targets. backend = datasets/gold/eval_gold_pipeline.py (refined_prediction, 308 gold samples). js = frontend/scripts/eval-gold-js.mjs (JS pipeline, same gold set).",
+  "_comment_backend": "backend baseline: accuracy 0.8084, recall 0.7722, fpr 0.1406 (MODEL_STATUS.md Phase 1.5). Thresholds sit just below each value so normal variance passes and any drop below the baseline fails.",
+  "_comment_js": "js baseline: accuracy 0.8344, recall 0.8167, fpr 0.1406 (MODEL_STATUS.md Tier 1 FN-gap tuning, 2026-09-04).",
+  "backend": {
+    "min_accuracy": 0.8,
+    "min_recall": 0.77,
+    "max_fpr": 0.15
+  },
+  "js": {
+    "min_accuracy": 0.83,
+    "min_recall": 0.81,
+    "max_fpr": 0.15
+  },
+  "_comment_keys": {
+    "min_accuracy": "fail if accuracy < value",
+    "min_recall": "fail if recall < value",
+    "max_fpr": "fail if false-positive rate > value"
+  }
+}
