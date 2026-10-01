@@ -12,6 +12,28 @@ _VALID_UPI_HANDLES: frozenset = frozenset({
     "ybl", "ibl", "apl", "axl", "payu", "icici", "hdfc", "sbi", "kotak",
 })
 
+_SCRIPT_RANGES: str = (
+    "\u0300-\u036f"      # combining marks
+    "\u0900-\u097f"      # Devanagari
+    "\u0980-\u09ff"      # Bengali
+    "\u0a00-\u0a7f"      # Gurmukhi
+    "\u0a80-\u0aff"      # Gujarati
+    "\u0b00-\u0b7f"      # Oriya
+    "\u0b80-\u0bff"      # Tamil (incl. 0B82 nuqta)
+    "\u0c00-\u0c7f"      # Telugu
+    "\u0c80-\u0cff"      # Kannada
+    "\u0d00-\u0d7f"      # Malayalam
+    "\u0d80-\u0dff"      # Sinhala
+    "\u0e00-\u0e7f"      # Thai
+    "\U00011300-\U0001137f"  # Grantha
+    "\U00011480-\U000114df"  # Grantha extended
+    "\U00011fb0-\U00011fff"  # Tamil supplement
+    "\u1cd0-\u1dff"      # Vedic extensions
+    "\ua8e0-\ua8ff"      # Devanagari extended
+    "\u200c-\u200d"      # ZWNJ / ZWJ
+)
+_STRIP_NON_TEXT_RE: re.Pattern = re.compile(rf"[^a-z0-9\s_{_SCRIPT_RANGES}]")
+
 
 def extract_entities(text: str) -> Dict[str, List[str]]:
     entities: Dict[str, List[str]] = {"urls": [], "emails": [], "phones": [], "upis": []}
@@ -60,7 +82,7 @@ def restore_placeholders(text: str, placeholders: Dict[str, str]) -> str:
 def clean_text(text: str) -> str:
     text_with_ph, placeholders = preserve_placeholders(text)
     t = text_with_ph.lower()
-    t = re.sub(r"[^a-z0-9\s_]", "", t)
+    t = _STRIP_NON_TEXT_RE.sub("", t)
     t = re.sub(r"\s+", " ", t).strip()
     t = restore_placeholders(t, placeholders)
     return t
