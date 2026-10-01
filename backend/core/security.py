@@ -3,35 +3,71 @@ from __future__ import annotations
 import json
 import time
 from collections import defaultdict
-from typing import Any, Callable
+from typing import Any, Callable, Optional
 
 from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
 
+from config import settings
 from core.audit import record_suspicious_request
 from core.logger import logger
+
+_CSP = (
+    "default-src 'self'; "
+    "frame-ancestors 'none'; "
+    "object-src 'none'; "
+    "base-uri 'self'; "
+    "form-action 'self'"
+)
+_HSTS = "max-age=31536000; includeSubDomains; preload"
+
+
+def apply_security_headers(response: Response) -> Response:
+    """Attach the standard hardening headers to any response."""
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    response.headers.setdefault("X-Frame-Options", "DENY")
+    response.headers.setdefault("X-XSS-Protection", "0")
+    response.headers.setdefault(
+        "Referrer-Policy", "strict-origin-when-cross-origin"
+    )
+    response.headers.setdefault(
+        "Permissions-Policy", "camera=(), microphone=(), geolocation=()"
+    )
+    response.headers.setdefault("Content-Security-Policy", _CSP)
+    response.headers.setdefault("X-Permitted-Cross-Domain-Policies", "none")
+    if settings.ENVIRONMENT in ("production", "staging"):
+        response.headers.setdefault("Strict-Transport-Security", _HSTS)
+    if "cache-control" not in response.headers:
+        response.headers["Cache-Control"] = "no-store"
+    return response
 
 
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next: Callable) -> Response:
         response: Response = await call_next(request)
+        return apply_security_headers(response)
 
-        response.headers["X-Content-Type-Options"] = "nosniff"
-        response.headers["X-Frame-Options"] = "DENY"
-        response.headers["X-XSS-Protection"] = "0"
-        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
-        response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
 
-        content_type = response.headers.get("content-type", "")
-        if "text/html" in content_type:
-            response.headers["Content-Security-Policy"] = "default-src 'self'"
-            response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+_DOCS_PATHS = ("/docs", "/redoc", "/openapi.json", "/docs/oauth2-redirect")
 
-        if request.method in ("GET", "HEAD") and response.status_code < 300:
-            if "Cache-Control" not in response.headers:
-                response.headers["Cache-Control"] = "no-store"
 
-        return response
+class DocsRouteGuardMiddleware(BaseHTTPMiddleware):
+    """Hide interactive documentation while ``settings.DOCS_ENABLED`` is false."""
+
+    async def dispatch(self, request: Request, call_next: Callable) -> Response:
+        path = request.url.path
+        gated = not settings.DOCS_ENABLED or settings.ENVIRONMENT in (
+            "production",
+            "staging",
+        )
+        if gated and any(
+            path == doc_path or path.startswith(doc_path + "/")
+            for doc_path in _DOCS_PATHS
+        ):
+            from fastapi.responses import JSONResponse
+
+            return JSONResponse(status_code=404, content={"detail": "Not Found"})
+        return await call_next(request)
 
 
 class RateLimitMiddleware(BaseHTTPMiddleware):
