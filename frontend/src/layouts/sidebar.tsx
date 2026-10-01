@@ -1,6 +1,20 @@
 import { NavLink } from 'react-router-dom';
 import { cn } from '@/utils/cn';
-import { FileText, Image, Activity, Shield, Search, LifeBuoy, Baby } from 'lucide-react';
+import { useAuth } from '@/features/auth';
+import {
+  FileText,
+  Image,
+  Activity,
+  Shield,
+  Search,
+  LifeBuoy,
+  Baby,
+  ClipboardList,
+  IndianRupee,
+  MessageSquare,
+  LogIn,
+  LogOut,
+} from 'lucide-react';
 
 const navItems = [
   { to: '/', icon: Shield, label: 'Home' },
@@ -8,11 +22,27 @@ const navItems = [
   { to: '/analyze/image', icon: Image, label: 'Image' },
   { to: '/triage/digital-arrest', icon: LifeBuoy, label: 'Digital Arrest' },
   { to: '/grandma-mode', icon: Baby, label: 'Grandma Mode' },
+  { to: '/recovery', icon: ClipboardList, label: 'Recovery' },
+  { to: '/upi', icon: IndianRupee, label: 'UPI Inspector' },
+  { to: '/feedback', icon: MessageSquare, label: 'Feedback' },
   { to: '/investigation', icon: Search, label: 'Deep Dive' },
   { to: '/system', icon: Activity, label: 'Status' },
 ];
 
+const navLinkClass = ({ isActive }: { isActive: boolean }) =>
+  cn(
+    'relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200',
+    isActive ? 'text-accent' : 'text-text-tertiary hover:text-text-secondary hover:bg-glass-hover'
+  );
+
 export function Sidebar() {
+  const { user, logout } = useAuth();
+  const authenticated = Boolean(user);
+
+  const items = authenticated
+    ? navItems
+    : [...navItems, { to: '/login', icon: LogIn, label: 'Log in' }];
+
   return (
     <aside
       className="group/sidebar fixed left-3 top-3 bottom-3 z-40 hidden w-[56px] flex-col items-center rounded-2xl border border-glass-border bg-glass backdrop-blur-2xl py-4 will-change-[width] transition-all duration-300 hover:w-44 md:flex"
@@ -21,19 +51,12 @@ export function Sidebar() {
         <Shield className="h-5 w-5 shrink-0 text-accent" />
       </div>
       <nav className="flex w-full flex-1 flex-col items-center gap-1.5 px-2.5" aria-label="Main navigation">
-        {navItems.map((item) => (
+        {items.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
             end={item.to === '/'}
-            className={({ isActive }) =>
-              cn(
-                'relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200',
-                isActive
-                  ? 'text-accent'
-                  : 'text-text-tertiary hover:text-text-secondary hover:bg-glass-hover'
-              )
-            }
+            className={navLinkClass}
             aria-label={item.label}
           >
             {({ isActive }) => (
@@ -49,6 +72,19 @@ export function Sidebar() {
             )}
           </NavLink>
         ))}
+        {authenticated && (
+          <button
+            type="button"
+            onClick={() => void logout()}
+            className="relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-text-tertiary transition-all duration-200 hover:text-text-secondary hover:bg-glass-hover"
+            aria-label="Log out"
+          >
+            <LogOut className="relative z-10 h-4.5 w-4.5 shrink-0" />
+            <span className="invisible relative z-10 text-sm font-medium opacity-0 transition-all duration-300 group-hover/sidebar:visible group-hover/sidebar:opacity-100">
+              Log out
+            </span>
+          </button>
+        )}
       </nav>
     </aside>
   );
