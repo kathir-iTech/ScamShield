@@ -186,6 +186,8 @@ def get_rate_limiter() -> SlidingWindowRateLimiter:
 
 
 class SlidingWindowRateLimitMiddleware(BaseHTTPMiddleware):
+    _PERSISTED_LIMIT = 1_000_000_000
+
     def __init__(self, app, max_requests: int = 100, window_seconds: int = 60):
         super().__init__(app)
         self.max_requests = max_requests
@@ -193,14 +195,53 @@ class SlidingWindowRateLimitMiddleware(BaseHTTPMiddleware):
         global _limiter
         _limiter = SlidingWindowRateLimiter(max_requests, window_seconds)
 
+    @staticmethod
+    def _bucket(request: Request) -> str:
+        client_ip = request.client.host if request.client else "unknown"
+        user_id = getattr(request.state, "user_id", "")
+        api_key_prefix = getattr(request.state, "api_key_prefix", "")
+        if user_id:
+            return f"user:{user_id}"
+        if api_key_prefix:
+            return f"key:{api_key_prefix}"
+        return f"ip:{client_ip}"
+
+    def _persist(self, bucket: str, limit: int, block_seconds: int = 0):
+        try:
+            from core.storage.repositories import RateLimitRepo
+
+            return RateLimitRepo().hit(
+                bucket, self.window_seconds, limit, block_seconds
+            )
+        except Exception as exc:
+            logger.debug("Rate limit persistence unavailable: %s", exc)
+            return None
+
+    @staticmethod
+    def _retry_after(state) -> int:
+        blocked_until = float(state.get("blocked_until", 0.0))
+        remaining = int(blocked_until - time.time())
+        return remaining if remaining > 0 else 1
+
     async def dispatch(self, request: Request, call_next: Callable) -> Response:
+        from fastapi.responses import JSONResponse
+
         client_ip = request.client.host if request.client else "unknown"
         limiter = get_rate_limiter()
+        bucket = self._bucket(request)
+
+        persisted = self._persist(bucket, self._PERSISTED_LIMIT, self.window_seconds)
+        if persisted is not None and not persisted["allowed"]:
+            metrics.record_rate_limit_event()
+            return JSONResponse(
+                status_code=429,
+                content={"detail": "Too many requests. Your IP has been temporarily blocked."},
+                headers={"Retry-After": str(self._retry_after(persisted))},
+            )
 
         if limiter.is_blocked(client_ip):
             block_time = limiter.get_block_time(client_ip)
             metrics.record_rate_limit_event()
-            from fastapi.responses import JSONResponse
             return JSONResponse(
                 status_code=429,
                 content={"detail": "Too many requests. Your IP has been temporarily blocked."},
@@ -211,8 +252,8 @@ class SlidingWindowRateLimitMiddleware(BaseHTTPMiddleware):
         allowed = limiter.record_request(client_ip, now)
 
         if not allowed:
+            self._persist(bucket, 0, self.window_seconds)
             metrics.record_rate_limit_event()
-            from fastapi.responses import JSONResponse
             return JSONResponse(
                 status_code=429,
                 content={"detail": "Too many requests. Please try again later."},
@@ -220,7 +261,13 @@ class SlidingWindowRateLimitMiddleware(BaseHTTPMiddleware):
             )
 
         response: Response = await call_next(request)
-        response.headers["X-RateLimit-Limit"] = str(self.max_requests)
-        response.headers["X-RateLimit-Remaining"] = str(limiter.remaining(client_ip))
-        response.headers["X-RateLimit-Reset"] = str(int(time.time() + self.window_seconds))
+        # Routes that apply their own stricter limit set these first; do not
+        # clobber them with the looser global budget.
+        response.headers.setdefault("X-RateLimit-Limit", str(self.max_requests))
+        response.headers.setdefault(
+            "X-RateLimit-Remaining", str(limiter.remaining(client_ip))
+        )
+        response.headers.setdefault(
+            "X-RateLimit-Reset", str(int(time.time() + self.window_seconds))
+        )
         return response
