@@ -8,8 +8,9 @@ from dataclasses import dataclass, field, asdict
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
-from core.evaluation_v2 import evaluate_classification, compare_evaluations
+from core.evaluation_v2 import evaluate_classification, compare_evaluations, regression_check
 from core.logger import logger
+from core.multilingual import detect_language
 from config.settings import DATASET_PATH, MODEL_PATH, VECTORIZER_PATH
 
 EVALS_DIR: str = os.path.join(
@@ -17,6 +18,15 @@ EVALS_DIR: str = os.path.join(
     "logs",
     "evaluations",
 )
+
+DEFAULT_THRESHOLDS: Dict[str, float] = {
+    "accuracy": 0.01,
+    "precision": 0.01,
+    "recall": 0.01,
+    "f1": 0.01,
+    "fpr": 0.01,
+    "fnr": 0.01,
+}
 
 
 @dataclass
@@ -31,6 +41,8 @@ class EvaluationResult:
     latency: Dict[str, Any] = field(default_factory=dict)
     samples: Dict[str, Any] = field(default_factory=dict)
     file_path: str = ""
+    language_breakdown: List[Dict[str, Any]] = field(default_factory=list)
+    threshold_check: Dict[str, Any] = field(default_factory=dict)
 
 
 def _classifier_fn(text: str) -> Dict[str, Any]:
@@ -70,8 +82,34 @@ def _load_dataset_samples(dataset_path: str) -> List[Dict[str, Any]]:
                 "text": text,
                 "expected_prediction": expected_label,
                 "expected_category": row.get("category", ""),
+                "language": row.get("language", "").strip() or detect_language(text),
             })
     return samples
+
+
+def load_thresholds(path: Optional[str] = None) -> Dict[str, float]:
+    thresholds = dict(DEFAULT_THRESHOLDS)
+    candidate = path or os.getenv("SCAMSHIELD_EVAL_THRESHOLDS", "")
+    if candidate and os.path.isfile(candidate):
+        try:
+            with open(candidate, "r", encoding="utf-8") as f:
+                loaded = json.load(f)
+            for key, value in loaded.items():
+                if key in thresholds and isinstance(value, (int, float)):
+                    thresholds[key] = float(value)
+        except Exception as exc:
+            logger.warning("Could not load eval thresholds from %s: %s", candidate, exc)
+    return thresholds
+
+
+def _to_regression_thresholds(thresholds: Dict[str, float]) -> Dict[str, float]:
+    regression: Dict[str, float] = {}
+    for key, value in thresholds.items():
+        if key in ("fpr", "fnr"):
+            regression[f"{key}_increase"] = value
+        else:
+            regression[f"{key}_drop"] = value
+    return regression
 
 
 def _get_model_version() -> str:
@@ -107,11 +145,20 @@ def run_scheduled_evaluation(
 
     regressions = []
     improvements = []
+    thresholds = load_thresholds()
+    threshold_check: Dict[str, Any] = {"passed": True, "issues": [], "thresholds": thresholds}
     try:
         baseline = get_latest_evaluation()
         comparison = compare_with_baseline(result, baseline.metrics if baseline else None)
         regressions = comparison.get("regressions", [])
         improvements = comparison.get("improvements", [])
+        if baseline is not None:
+            threshold_check = regression_check(
+                baseline.metrics,
+                result.get("metrics", {}),
+                _to_regression_thresholds(thresholds),
+            )
+            threshold_check["thresholds"] = thresholds
     except Exception as exc:
         logger.warning("Could not compare with baseline: %s", exc)
 
@@ -126,6 +173,8 @@ def run_scheduled_evaluation(
         latency=result.get("latency", {}),
         samples=result.get("samples", {}),
         file_path=file_path,
+        language_breakdown=result.get("language_breakdown", []),
+        threshold_check=threshold_check,
     )
 
     with open(file_path, "w", encoding="utf-8") as f:
@@ -138,6 +187,15 @@ def run_scheduled_evaluation(
         eval_result.samples.get("total", 0),
         duration,
     )
+    for entry in eval_result.language_breakdown:
+        logger.info(
+            "  language=%s n=%d acc=%.1f%%",
+            entry.get("language", "?"),
+            entry.get("total", 0),
+            entry.get("accuracy", 0) * 100,
+        )
+    if not threshold_check.get("passed", True):
+        logger.warning("Threshold check failed: %s", threshold_check.get("issues", []))
 
     return eval_result
 
