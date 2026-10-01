@@ -1,3 +1,5 @@
+import type { UpiIntent } from '@/lib/scamshield/upi-intent';
+
 export interface DiskUsage {
   total_gb: number;
   used_gb: number;
@@ -142,6 +144,7 @@ export interface AnalysisResponse {
   threats: string[];
   recommended_actions: string[];
   entities: EntityItem[];
+  upi_intent?: UpiIntent | null;
   entity_summary: EntitySummary;
   entity_risk: EntityRisk;
   decision_score: number;
