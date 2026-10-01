@@ -17,3 +17,5 @@ export type {
   ImageAnalysisResponse,
   ApiError,
 } from './api';
+
+export type { UpiIntent, UpiIntentKind, UpiIntentMode } from '@/lib/scamshield/upi-intent';
