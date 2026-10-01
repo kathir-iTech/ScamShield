@@ -3,6 +3,7 @@ import shutil
 import time
 from typing import Dict, Optional
 
+from core.cache import get_cache
 from core.constants import (
     SERVICE_NAME,
     API_VERSION,
@@ -39,6 +40,22 @@ def set_model_version(version: str) -> None:
     _model_version = version
 
 _startup_time: float = time.time()
+
+_DEFAULT_PIPELINE_STAGES = [
+    "ML Prediction",
+    "Rule Engine",
+    "Explanation",
+    "Threat Intelligence",
+    "Evidence",
+    "Assessment",
+    "Report",
+]
+_pipeline_stages = list(_DEFAULT_PIPELINE_STAGES)
+
+
+def set_pipeline_stages(stages) -> None:
+    global _pipeline_stages
+    _pipeline_stages = list(stages)
 
 
 def _model_exists() -> bool:
@@ -106,16 +123,8 @@ def get_diagnostics() -> Dict:
             "explanation_service": {"loaded": True},
         },
         "pipeline_summary": {
-            "stages": [
-                "ML Prediction",
-                "Rule Engine",
-                "Explanation",
-                "Threat Intelligence",
-                "Evidence",
-                "Assessment",
-                "Report",
-            ],
-            "total_stages": 7,
+            "stages": _pipeline_stages,
+            "total_stages": len(_pipeline_stages),
         },
         "registered_services": [
             "ml_service",
@@ -157,6 +166,7 @@ def get_diagnostics() -> Dict:
         "observability": {
             "prometheus": "available" if _prometheus_available else "unavailable",
             "redis": "available" if _redis_available else "unavailable",
+            "cache": get_cache().stats(),
         },
         "model_version": _model_version,
     }
