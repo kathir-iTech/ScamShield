@@ -1,5 +1,38 @@
 # Changelog
 
+## 1.1.0 (2026-10-02)
+
+### Added
+- User accounts with registration, login, session inspection, password change and logout-everywhere
+- bcrypt password hashing and HS256 access tokens with persisted, revocable refresh tokens
+- API keys with hashed storage and FastAPI dependencies for service access
+- SQLite storage layer (WAL, thread-local connections, repository pattern) for users, sessions, audit and rate limits
+- Immutable audit log covering authentication and authorization events
+- Sliding-window rate limiting with per-route budgets and `X-RateLimit-*` headers
+- Feedback endpoints, feedback widget and feedback page
+- Login, register and UPI routes with an auth context and sidebar navigation
+- Browser extension (Manifest V3): content scan, background relay, popup verdict
+- Channel contract documentation with WhatsApp, Telegram and Android SMS scaffolds
+- TTL cache with Redis and in-memory backends, consulted before running the pipeline
+- Prometheus scrape config, alert rules, Grafana provisioning and monitoring compose overlay
+- Blue-green deploy and rollback script, nginx slot routing, deploy workflow
+- Production operations runbook
+- Gold-set evaluation pipeline, CI regression gate, frozen thresholds and active-learning label queue
+- Scheduled model evaluation, retraining workflow and multilingual (Telugu) detection
+- 176 security tests, caching and load validation, frontend end-to-end tests
+- Engineering decisions record and channel contracts documentation
+
+### Changed
+- CSP now includes `frame-ancestors`, `object-src`, `base-uri` and `form-action`; HSTS adds `preload`
+- CORS no longer allows the `X-Admin-Key` request header
+- API docs (`/docs`, `/redoc`, `/openapi.json`) are gated when the environment is `production` or `staging`
+- Unicode normalization restricted to a safe-character whitelist before entity extraction
+- Git ignores model artifacts, logs, local databases and test output; production env file is never committed
+
+### Fixed
+- SQLite write-lock deadlock under concurrent append/load; busy timeout tightened
+- Global rate limiter overwriting per-route `X-RateLimit` headers
+
 ## 1.0.0 (2026-07-26)
 
 ### Added
