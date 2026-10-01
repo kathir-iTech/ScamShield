@@ -16,6 +16,12 @@ const Terms = lazy(() => import('@/pages/terms'));
 const Disclaimer = lazy(() => import('@/pages/disclaimer'));
 const DigitalArrestTriage = lazy(() => import('@/pages/DigitalArrestTriage'));
 const GrandmaMode = lazy(() => import('@/pages/grandma-mode'));
+const Recovery = lazy(() => import('@/pages/recovery'));
+const UpiInspector = lazy(() => import('@/pages/upi'));
+const Feedback = lazy(() => import('@/pages/feedback'));
+const Login = lazy(() => import('@/pages/login'));
+const Register = lazy(() => import('@/pages/register'));
+const Dashboard = lazy(() => import('@/pages/dashboard'));
 const NotFound = lazy(() => import('@/pages/not-found'));
 
 const router = createBrowserRouter([
@@ -36,6 +42,12 @@ const router = createBrowserRouter([
       { path: 'disclaimer', element: <Suspense fallback={<PageSkeleton variant="dashboard" />}><Disclaimer /></Suspense> },
       { path: 'triage/digital-arrest', element: <Suspense fallback={<PageSkeleton variant="analysis" />}><DigitalArrestTriage /></Suspense> },
       { path: 'grandma-mode', element: <Suspense fallback={<PageSkeleton variant="analysis" />}><GrandmaMode /></Suspense> },
+      { path: 'recovery', element: <Suspense fallback={<PageSkeleton variant="dashboard" />}><Recovery /></Suspense> },
+      { path: 'upi', element: <Suspense fallback={<PageSkeleton variant="analysis" />}><UpiInspector /></Suspense> },
+      { path: 'feedback', element: <Suspense fallback={<PageSkeleton variant="dashboard" />}><Feedback /></Suspense> },
+      { path: 'login', element: <Suspense fallback={<PageSkeleton variant="dashboard" />}><Login /></Suspense> },
+      { path: 'register', element: <Suspense fallback={<PageSkeleton variant="dashboard" />}><Register /></Suspense> },
+      { path: 'dashboard', element: <Suspense fallback={<PageSkeleton variant="dashboard" />}><Dashboard /></Suspense> },
       { path: '*', element: <Suspense fallback={<PageSkeleton variant="dashboard" />}><NotFound /></Suspense> },
     ],
   },
