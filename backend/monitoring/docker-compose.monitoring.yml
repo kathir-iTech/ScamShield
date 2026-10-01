@@ -1,4 +1,7 @@
-version: "3.9"
+# Superseded by the root docker-compose.yml, which runs prometheus and grafana
+# as services on the `scamshield` network with the same image tags and mounts.
+# Kept for running the monitoring stack standalone:
+#   docker compose -f backend/monitoring/docker-compose.monitoring.yml up -d
 
 services:
   prometheus:
@@ -30,7 +33,7 @@ services:
           memory: 512M
           cpus: "0.5"
     networks:
-      - scamshield_default
+      - scamshield
 
   grafana:
     image: grafana/grafana:11.0.0
@@ -40,7 +43,8 @@ services:
       - "3000:3000"
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./grafana/dashboard.json:/etc/grafana/provisioning/dashboards/scamshield-dashboard.json:ro
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboard.json:/var/lib/grafana/dashboards/scamshield-dashboard.json:ro
     environment:
       - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER:-admin}
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin}
@@ -63,12 +67,13 @@ services:
           memory: 256M
           cpus: "0.3"
     networks:
-      - scamshield_default
+      - scamshield
 
 volumes:
   prometheus_data:
   grafana_data:
 
 networks:
-  scamshield_default:
+  scamshield:
     external: true
+    name: scamshield
