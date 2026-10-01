@@ -1,12 +1,15 @@
+import hashlib
+import json
 import os
 import re
 import tempfile
 import time
 
-from fastapi import APIRouter, Depends, File, UploadFile
+from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile, status
 from PIL import Image
 
-from core.auth import AuthenticatedUser, require_admin
+from config import settings
+from core.auth import AuthenticatedUser, require_admin, require_auth_if_enabled
 from core.context import get_request_id
 from core.exceptions import (
     EmptyTextError,
@@ -47,6 +50,10 @@ _MAX_IMAGE_DIMENSION = OCR_MAX_IMAGE_DIMENSION
 _FILENAME_SANITISE_RE = re.compile(r"[^\w.\-]")
 _ALLOWED_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".bmp"}
 
+_USER_RATE_LIMIT: int = 60
+_USER_RATE_WINDOW: int = 60
+_USER_RATE_BLOCK_SECONDS: int = 60
+
 
 def _sanitise_filename(filename: str) -> str:
     name, ext = os.path.splitext(filename or "upload.png")
@@ -55,12 +62,102 @@ def _sanitise_filename(filename: str) -> str:
     return f"{safe_name}{safe_ext}"
 
 
+def _enforce_user_rate_limit(http_request: Request, user: AuthenticatedUser) -> None:
+    if not settings.AUTH_ENABLED or not user.is_authenticated or not user.id:
+        return
+    bucket = f"analyze:user:{user.id}"
+    try:
+        from core.storage.repositories import RateLimitRepo
+
+        state = RateLimitRepo().hit(
+            bucket, _USER_RATE_WINDOW, _USER_RATE_LIMIT, _USER_RATE_BLOCK_SECONDS
+        )
+    except Exception as exc:
+        logger.debug("Per-user rate limit unavailable: %s", exc)
+        return
+    if state["allowed"]:
+        return
+    retry_after = int(float(state.get("blocked_until", 0.0)) - time.time())
+    raise HTTPException(
+        status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+        detail="Too many analysis requests. Please try again later.",
+        headers={
+            "Retry-After": str(retry_after if retry_after > 0 else _USER_RATE_WINDOW),
+            "X-RateLimit-Limit": str(_USER_RATE_LIMIT),
+            "X-RateLimit-Remaining": "0",
+        },
+    )
+
+
+def _persist_analysis(
+    request_id: str,
+    user_id: str,
+    source: str,
+    text: str,
+    result: dict,
+    duration_ms: float,
+) -> str:
+    try:
+        from core.storage.repositories import AnalysisRepo
+
+        model_version = "unknown"
+        try:
+            model_version = str(get_model_info().get("version", "unknown"))
+        except Exception:
+            pass
+
+        prediction = str(result.get("prediction", "") or "")
+        confidence = float(result.get("confidence", 0.0) or 0.0)
+        category = str(result.get("scam_category", "") or "")
+        risk_level = str(result.get("risk_level", "") or "")
+        preview = (text or "")[:120]
+
+        return AnalysisRepo().insert(
+            {
+                "request_id": request_id,
+                "user_id": user_id or "",
+                "source": source,
+                "input_hash": hashlib.sha256((text or "").encode("utf-8")).hexdigest(),
+                "input_preview": preview,
+                "prediction": prediction,
+                "is_scam": 1 if prediction == "scam" else 0,
+                "confidence": confidence,
+                "risk_level": risk_level,
+                "category": category,
+                "model_version": model_version,
+                "duration_ms": float(duration_ms),
+                "payload": json.dumps(
+                    {
+                        "prediction": prediction,
+                        "confidence": confidence,
+                        "category": category,
+                        "source": source,
+                    },
+                    default=str,
+                ),
+                "created_at": time.time(),
+            }
+        )
+    except Exception as exc:
+        logger.warning(
+            "Analysis persistence skipped: %s",
+            exc,
+            extra={"structured": {"event": "analysis_persist_failed", "request_id": request_id}},
+        )
+        return ""
+
+
 @router.post("/analyze/text", response_model=AnalysisResponse)
-def analyze_text_endpoint(request: TextAnalysisRequest) -> AnalysisResponse:
+def analyze_text_endpoint(
+    body: TextAnalysisRequest,
+    http_request: Request,
+    user: AuthenticatedUser = Depends(require_auth_if_enabled),
+) -> AnalysisResponse:
     start = time.perf_counter()
     rid = get_request_id()
+    _enforce_user_rate_limit(http_request, user)
     try:
-        text = sanitise_text(request.text)
+        text = sanitise_text(body.text)
         logger.info(
             "Analyzing text message (%d chars)",
             len(text),
@@ -69,6 +166,7 @@ def analyze_text_endpoint(request: TextAnalysisRequest) -> AnalysisResponse:
         result = analyze_text(text)
         elapsed = (time.perf_counter() - start) * 1000
         metrics.record_request(elapsed, success=True, is_ocr=False, is_validation_failure=False)
+        _persist_analysis(rid, user.id, "text", text, result, elapsed)
         try:
             model_info = get_model_info()
             log_prediction(
@@ -94,9 +192,14 @@ def analyze_text_endpoint(request: TextAnalysisRequest) -> AnalysisResponse:
 
 
 @router.post("/analyze/image", response_model=ImageAnalysisResponse)
-async def analyze_image_endpoint(file: UploadFile = File(...)) -> ImageAnalysisResponse:
+async def analyze_image_endpoint(
+    http_request: Request,
+    file: UploadFile = File(...),
+    user: AuthenticatedUser = Depends(require_auth_if_enabled),
+) -> ImageAnalysisResponse:
     start = time.perf_counter()
     rid = get_request_id()
+    _enforce_user_rate_limit(http_request, user)
     try:
         file.filename = _sanitise_filename(file.filename or "upload.png")
 
@@ -171,6 +274,7 @@ async def analyze_image_endpoint(file: UploadFile = File(...)) -> ImageAnalysisR
         result = analyze_text(extracted)
         elapsed = (time.perf_counter() - start) * 1000
         metrics.record_request(elapsed, success=True, is_ocr=True, is_validation_failure=False)
+        _persist_analysis(rid, user.id, "image", extracted, result, elapsed)
         try:
             model_info = get_model_info()
             log_prediction(
