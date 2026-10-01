@@ -20,6 +20,9 @@ class Profile:
     log_output: str = "stdout"
     validate_secrets: bool = False
     fail_fast: bool = False
+    docs_enabled: bool = True
+    metrics_enabled: bool = True
+    register_enabled: bool = True
 
 
 DEVELOPMENT = Profile(
@@ -82,6 +85,9 @@ PRODUCTION = Profile(
     log_output="both",
     validate_secrets=True,
     fail_fast=True,
+    docs_enabled=False,
+    metrics_enabled=True,
+    register_enabled=False,
 )
 
 LOCAL = Profile(
