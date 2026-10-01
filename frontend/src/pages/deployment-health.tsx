@@ -124,3 +124,5 @@ export function DeploymentHealth() {
     </div>
   );
 }
+
+export default DeploymentHealth;
