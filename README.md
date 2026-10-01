@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://img.shields.io/badge/version-1.0.0-emerald?style=for-the-badge" alt="Version 1.0.0" />
+  <img src="https://img.shields.io/badge/version-1.1.0-emerald?style=for-the-badge" alt="Version 1.1.0" />
   <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="MIT License" />
   <img src="https://img.shields.io/badge/python-3.12+-blue?style=for-the-badge" alt="Python 3.12+" />
   <img src="https://img.shields.io/badge/react-19-61DAFB?style=for-the-badge&logo=react" alt="React 19" />
@@ -26,12 +26,17 @@
 
 - **🤖 ML Classification** — LogisticRegression with TF-IDF vectorization, trained on SMS spam data
 - **📋 Rule Engine** — 18 India-specific heuristic patterns (OTP, UPI, KYC, bank fraud, urgency/money demands)
+- **🔐 Accounts & Sessions** — Registration, login, password change, logout-everywhere with bcrypt and revocable refresh tokens
+- **🛡️ Abuse Controls** — Sliding-window rate limits, API keys and an immutable audit log
 - **📸 OCR Analysis** — Image-to-text extraction via Tesseract for screenshot analysis
 - **🎯 Confidence Engine** — Multi-factor scoring combining ML, rules, entities, and explanation coherence
 - **🔍 Reasoning Engine** — Transparent decision traces with evidence ranking and contradiction detection
 - **🔌 Connector Framework** — Pluggable connectors (Google Safe Browsing) with multi-source fusion
 - **📊 Investigation Workspace** — Interactive evidence graph, timeline, campaign analysis, and report builder
-- **🌐 REST API** — FastAPI with auto-generated Swagger/ReDoc docs
+- **💬 Feedback Loop** — "Was this a scam?" submission from every result, surfaced as a page and widget
+- **🧩 Browser Extension** — Manifest V3 extension that scans page content and relays verdicts
+- **🌐 REST API** — FastAPI with Swagger/ReDoc docs, gated in production
+- **📈 Operations** — Blue-green deploy/rollback, Prometheus/Grafana provisioning, alert rules, TTL cache
 - **📦 Fully Offline** — Core engine runs with zero external API dependencies
 
 ---
@@ -61,6 +66,22 @@ uvicorn main:app --reload --port 8000
 
 > **Note:** Tesseract OCR is required for image analysis. See [installation guide](docs/INSTALLATION.md).
 
+### Authentication
+
+Account features are enabled by setting `SCAMSHIELD_AUTH_ENABLED=true` plus a
+non-empty `SCAMSHIELD_JWT_SECRET`. Startup validation refuses to boot in that
+state without the secret, so it is best supplied through the environment:
+
+```bash
+export SCAMSHIELD_AUTH_ENABLED=true
+export SCAMSHIELD_JWT_SECRET="$(python -c 'import secrets;print(secrets.token_hex(32))')"
+```
+
+With auth enabled, `POST /api/v1/accounts/register` and
+`POST /api/v1/auth/login` issue access and refresh tokens; the frontend login
+and register pages use them automatically. API docs are hidden whenever
+`ENVIRONMENT` is `production` or `staging`.
+
 ### Manual Frontend
 
 ```bash
@@ -87,6 +108,9 @@ Explore Wary without installing anything:
 |-----|-------------|
 | [Installation Guide](docs/INSTALLATION.md) | Detailed setup instructions for all platforms |
 | [Architecture](docs/ARCHITECTURE.md) | System design, pipeline flow, component diagram |
+| [Engineering Decisions](backend/ENGINEERING_DECISIONS.md) | Why each technical choice was made, and what was rejected |
+| [Channel Contracts](docs/CHANNEL_CONTRACTS.md) | Interfaces for web, extension, WhatsApp, Telegram and Android |
+| [Production Operations](docs/PRODUCTION_OPERATIONS.md) | Runbook, deploy/rollback, monitoring and incident steps |
 | [API Reference](docs/API_REFERENCE.md) | Complete API endpoints with request/response examples |
 | [Developer Guide](docs/DEVELOPER_GUIDE.md) | Contributing, testing, building, and extending |
 | [Connector Framework](CONNECTOR_FRAMEWORK.md) | Plugin-based connector architecture |
@@ -110,7 +134,7 @@ wary/
 ├── backend/              # FastAPI Python backend
 │   ├── main.py           # Application entry point
 │   ├── config/           # Settings & configuration
-│   ├── core/             # Core utilities (logging, metrics, middleware)
+│   ├── core/             # auth, storage, audit, abuse, connectors, eval
 │   ├── services/         # Pipeline services (ML, rules, OCR, orchestrator)
 │   ├── connectors/       # Plugin connector framework
 │   ├── routers/          # API route handlers
@@ -120,14 +144,18 @@ wary/
 ├── frontend/             # React + TypeScript frontend
 │   └── src/
 │       ├── pages/        # Route pages
-│       ├── features/     # Feature modules (graph, timeline, report, demo)
+│       ├── features/     # Feature modules (auth, feedback, graph, timeline)
 │       ├── components/   # Shared UI components
 │       └── layouts/      # App layout
+├── extension/            # Browser extension (Manifest V3)
+├── scaffolds/            # WhatsApp / Telegram / Android channel contracts
+├── datasets/gold/        # Gold evaluation set and labelling workflow
+├── evaluation/           # Frozen thresholds, CI gate, benchmark scripts
 ├── docs/                 # Documentation
-├── evaluation/           # Benchmark evaluation scripts
-├── scripts/              # Utility scripts
-├── docker-compose.yml    # Docker deployment
-└── k8s/                  # Kubernetes manifests
+├── scripts/              # Utility scripts (incl. blue-green deploy)
+├── nginx/                # Reverse proxy and slot routing
+├── infra-future/         # Kubernetes manifests (preview)
+└── docker-compose.yml    # Docker deployment
 ```
 
 
@@ -151,15 +179,22 @@ wary/
 ## 🧪 Testing
 
 ```bash
-# Backend tests (244 tests)
+# Backend suites (~960 tests: unit, security, integration, validation)
 cd backend && python -m pytest tests/ -v
 
-# Frontend type check
-cd frontend && npx tsc --noEmit
+# Security suite only
+cd backend && python -m pytest tests/security/ -q
 
-# Frontend build
-cd frontend && npm run build
+# Frontend type check and build
+cd frontend && npx tsc --noEmit && npm run build
+
+# Frontend lint and tests
+cd frontend && npm run lint && npm run test
 ```
+
+> **Threshold freeze:** accuracy thresholds in `evaluation/thresholds.json` are
+> frozen against the 308-sample gold set. `evaluation/scripts/ci_gate.py` fails
+> the build on regression — see [MODEL_STATUS.md](MODEL_STATUS.md).
 
 ---
 
