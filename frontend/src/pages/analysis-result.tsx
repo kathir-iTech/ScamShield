@@ -10,6 +10,7 @@ import { TimelineCard } from '@/features/analysis/components/timeline-card';
 import { TechnicalDetailsCard } from '@/features/analysis/components/technical-details-card';
 import { ReportSummaryCard } from '@/features/analysis/components/report-summary-card';
 import { EmptyAnalysisState } from '@/features/analysis/components/empty-analysis-state';
+import { FeedbackWidget } from '@/features/feedback';
 import { VerdictHero } from '@/components/ui/verdict-hero';
 import { ExpandablePanel } from '@/components/ui/expandable-panel';
 import { PageTransition } from '@/components/ui/page-transition';
@@ -105,6 +106,10 @@ export default function AnalysisResult() {
               </button>
             </div>
           )}
+        </div>
+
+        <div className="mb-8 animate-slide-up stagger-2">
+          <FeedbackWidget analysisId={current.id} predictedLabel={r.prediction} />
         </div>
 
         {r.recommended_actions && r.recommended_actions.length > 0 && (
