@@ -128,11 +128,40 @@ class TestCleanText:
         result = clean_text("உங்கள் OTP 123456. இதை யாருடனும் பகிர வேண்டாம்")
         assert "otp" in result
         assert "123456" in result
+        assert "உங்கள்" in result
+        assert "பகிர" in result
 
     def test_bengali_text(self):
         result = clean_text("আপনার OTP হল 123456")
         assert "otp" in result
         assert "123456" in result
+        assert "আপনার" in result
+        assert "হল" in result
+
+    def test_telugu_text(self):
+        result = clean_text("మీ OTP 123456 ను ఎవరికీ చెప్పవద్దు")
+        assert "otp" in result
+        assert "123456" in result
+        assert "మీ" in result
+        assert "చెప్పవద్దు" in result
+
+    def test_devanagari_text(self):
+        result = clean_text("आपका OTP 123456 साझा न करें")
+        assert "otp" in result
+        assert "123456" in result
+        assert "आपका" in result
+        assert "साझा" in result
+
+    def test_native_script_survives_alongside_entities(self):
+        result = clean_text("உங்கள் UPI கணக்கு https://upi.example.com/verify ஐ கிளிக் செய்யவும்")
+        assert "உங்கள்" in result
+        assert "https://upi.example.com/verify" in result
+
+    def test_control_characters_stripped(self):
+        assert clean_text("Hello\x00World\x7f!") == "helloworld"
+
+    def test_non_indian_scripts_still_stripped(self):
+        assert clean_text("你好 привет 😀") == ""
 
     def test_tanglish_text(self):
         result = clean_text("Unga OTP 123456. Yaarudanum share pannathinga")
