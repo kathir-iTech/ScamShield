@@ -2,12 +2,13 @@ import os
 import re
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
 
 from core.abuse import SlidingWindowRateLimitMiddleware
+from core.audit import record_audit_event
 from core.auth import configure_auth
 from core.constants import SERVICE_NAME, API_VERSION
 from core.context import get_correlation_id, get_request_id, set_user_id
@@ -17,9 +18,15 @@ from core.log_config import load_config
 from core.metrics import metrics
 from core.middleware import RequestIDMiddleware
 from core.resilience import RequestTimeoutMiddleware
-from core.security import JSONStructureValidator, RequestBodySizeMiddleware, SecurityHeadersMiddleware
+from core.security import (
+    DocsRouteGuardMiddleware,
+    JSONStructureValidator,
+    RequestBodySizeMiddleware,
+    SecurityHeadersMiddleware,
+)
 from routers.health import router as health_router
 from routers.analyze import router as analyze_router
+from routers.accounts import router as accounts_router
 from routers.auth import router as auth_router
 from config import settings
 from config.settings import validate_config, REDIS_URL
@@ -86,6 +93,16 @@ async def lifespan(app: FastAPI):
     log_cfg = load_config()
     reconfigure(log_cfg)
 
+    from core.storage.db import close_db, db_status, init_db
+
+    init_db()
+    status_snapshot = db_status()
+    logger.info(
+        "Database ready: %s",
+        status_snapshot.get("path", ""),
+        extra={"structured": {"event": "db_ready", **status_snapshot}},
+    )
+
     if settings.AUTH_ENABLED and settings.AUTH_JWT_SECRET:
         configure_auth(
             secret_key=settings.AUTH_JWT_SECRET,
@@ -94,6 +111,7 @@ async def lifespan(app: FastAPI):
             clock_skew=settings.JWT_CLOCK_SKEW_SECONDS,
             blacklist_capacity=settings.TOKEN_BLACKLIST_CAPACITY,
             redis_url=REDIS_URL,
+            db_path=status_snapshot.get("path") or None,
         )
 
     init_prometheus_metrics()
@@ -125,6 +143,12 @@ async def lifespan(app: FastAPI):
         "Startup validation complete — %d prerequisite(s) verified",
         len(startup_errors),
         extra={"structured": {"event": "startup_complete"}},
+    )
+    record_audit_event(
+        "startup:app_started",
+        level="INFO",
+        detail=f"Wary API {API_VERSION} started in {settings.ENVIRONMENT}",
+        metadata={"version": API_VERSION, "environment": settings.ENVIRONMENT},
     )
 
     import time as _time
@@ -178,6 +202,13 @@ async def lifespan(app: FastAPI):
         logger.warning("Connector pool shutdown encountered an error")
 
     import logging
+    record_audit_event(
+        "startup:app_shutdown",
+        level="INFO",
+        detail="Wary API shutting down",
+        metadata={"environment": settings.ENVIRONMENT},
+    )
+    close_db()
     logging.shutdown()
 
 
@@ -194,16 +225,9 @@ cors_origins = settings.CORS_ORIGINS
 is_wildcard = cors_origins == ["*"]
 if is_wildcard:
     logger.warning("CORS configured with wildcard origin — credentials disabled")
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"] if is_wildcard else cors_origins,
-    allow_credentials=not is_wildcard,
-    allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["Authorization", "Content-Type", "X-Request-ID", "X-Admin-Key"],
-)
 
-app.add_middleware(RequestIDMiddleware)
-app.add_middleware(SecurityHeadersMiddleware)
+app.add_middleware(GZipMiddleware, minimum_size=1000)
+app.add_middleware(RequestTimeoutMiddleware, timeout_seconds=30.0)
 app.add_middleware(
     SlidingWindowRateLimitMiddleware,
     max_requests=settings.RATE_LIMIT_MAX_REQUESTS,
@@ -213,11 +237,20 @@ app.add_middleware(
     RequestBodySizeMiddleware,
     max_body_size=settings.MAX_REQUEST_BODY_SIZE,
 )
-
 app.add_middleware(JSONStructureValidator)
+app.add_middleware(DocsRouteGuardMiddleware)
 
-app.add_middleware(GZipMiddleware, minimum_size=1000)
-app.add_middleware(RequestTimeoutMiddleware, timeout_seconds=30.0)
+# Added last so they stay outermost: security headers, the request id and CORS
+# must still be applied to 429/413/422 responses produced further in.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"] if is_wildcard else cors_origins,
+    allow_credentials=not is_wildcard,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "X-Request-ID", "X-API-Key"],
+)
+app.add_middleware(RequestIDMiddleware)
+app.add_middleware(SecurityHeadersMiddleware)
 
 
 @app.middleware("http")
@@ -240,6 +273,7 @@ async def prometheus_metrics_middleware(request: Request, call_next):
 app.include_router(health_router)
 app.include_router(analyze_router)
 app.include_router(auth_router)
+app.include_router(accounts_router)
 
 
 @app.get("/version")
@@ -320,6 +354,17 @@ async def global_exception_handler(request: Request, exc: Exception) -> JSONResp
 
 @app.get("/metrics")
 def get_metrics(request: Request):
+    if not settings.METRICS_ENABLED:
+        raise HTTPException(status_code=404, detail="Not Found")
+    if settings.ENVIRONMENT == "production":
+        provided = request.headers.get("X-API-Key", "")
+        if not provided:
+            auth_header = request.headers.get("Authorization", "")
+            if auth_header.startswith("Bearer "):
+                provided = auth_header[7:]
+        trusted = {k for k in (settings.ADMIN_API_KEY, settings.CLIENT_API_KEY) if k}
+        if not provided or provided not in trusted:
+            raise HTTPException(status_code=403, detail="Metrics access requires a valid API key")
     accept = request.headers.get("accept", "")
     if "application/json" in accept or "text/plain" not in accept:
         return metrics.snapshot()
