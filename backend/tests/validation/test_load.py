@@ -1,4 +1,6 @@
+import asyncio
 import time
+import uuid
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import pytest
@@ -81,3 +83,45 @@ class TestSustainedLoad:
             else:
                 resp = client.post(ep[1], json=ep[2])
             assert resp.status_code == 200, f"Failed on {ep[1]}: {resp.status_code}"
+
+
+class TestAsyncCachedAnalysis:
+    def test_identical_requests_faster_when_cache_warm(self, client):
+        from core.cache import reset_cache
+        from services.orchestrator import analyze_text_async
+
+        reset_cache()
+        text = f"Cached analysis timing probe {uuid.uuid4()}"
+
+        start = time.perf_counter()
+        cold_result = asyncio.run(analyze_text_async(text))
+        cold = time.perf_counter() - start
+
+        start = time.perf_counter()
+        warm_result = asyncio.run(analyze_text_async(text))
+        warm = time.perf_counter() - start
+
+        assert isinstance(cold_result, dict)
+        assert isinstance(warm_result, dict)
+        assert warm < cold, f"cache warm ({warm}s) not faster than cold ({cold}s)"
+
+        resp = client.post("/analyze/text", json={"text": text})
+        assert resp.status_code == 200
+
+    def test_analyze_text_async_concurrent(self):
+        from core.cache import reset_cache
+        from services.orchestrator import analyze_text_async
+
+        reset_cache()
+        texts = [f"Concurrent async probe {i} {uuid.uuid4()}" for i in range(10)]
+
+        async def run_all():
+            return await asyncio.gather(*(analyze_text_async(t) for t in texts))
+
+        start = time.perf_counter()
+        results = asyncio.run(run_all())
+        elapsed = time.perf_counter() - start
+
+        assert len(results) == 10
+        assert all(isinstance(r, dict) for r in results)
+        assert elapsed < 30.0, f"10 concurrent analyses took {elapsed}s"
