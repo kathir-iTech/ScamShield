@@ -223,11 +223,13 @@ def _call_api(api_key: str, urls: List[str], timeout: int) -> List[Dict]:
     if not api_key or not urls:
         return []
     body = _build_request_body(urls)
-    full_url = f"{_API_BASE}?key={api_key}"
     req = urllib.request.Request(
-        full_url,
+        _API_BASE,
         data=body,
-        headers={"Content-Type": "application/json"},
+        headers={
+            "Content-Type": "application/json",
+            "x-goog-api-key": api_key,
+        },
         method="POST",
     )
     max_retries = 2
