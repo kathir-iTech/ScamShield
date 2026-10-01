@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "ScamShield",
+  "version": "0.1.0",
+  "description": "Scan selected text for scam signals with a ScamShield API. Unofficial companion extension.",
+  "permissions": ["activeTab", "storage", "contextMenus", "scripting"],
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "ScamShield"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
