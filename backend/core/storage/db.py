@@ -124,6 +124,16 @@ CREATE TABLE IF NOT EXISTS rate_limits (
 """
 
 
+def _is_read(sql: str) -> bool:
+    """True only for statements that cannot take SQLite's write lock.
+
+    Deliberately conservative: CTEs may wrap INSERT/UPDATE, so ``WITH`` is
+    treated as a write.
+    """
+    head = sql.lstrip().split(None, 1)[0].lower() if sql.strip() else ""
+    return head in ("select", "pragma", "explain")
+
+
 class Database:
     """Thread-local SQLite access with WAL, sane timeouts and a static schema.
 
@@ -134,7 +144,10 @@ class Database:
     def __init__(self, path: str) -> None:
         self._path = path
         self._local = threading.local()
-        self._lock = threading.Lock()
+        # Serialise writes only. Reads are left unlocked because WAL allows
+        # concurrent readers; holding a lock across a BUSY wait would otherwise
+        # serialise the stall across every thread.
+        self._write_lock = threading.RLock()
         self._closed = False
         self._ensure_directory()
         self._configure()
@@ -152,7 +165,7 @@ class Database:
     def _connect(self) -> sqlite3.Connection:
         conn = sqlite3.connect(
             self._path,
-            timeout=10.0,
+            timeout=5.0,
             isolation_level=None,
             check_same_thread=False,
         )
@@ -160,7 +173,8 @@ class Database:
         conn.execute("PRAGMA journal_mode=WAL")
         conn.execute("PRAGMA synchronous=NORMAL")
         conn.execute("PRAGMA foreign_keys=ON")
-        conn.execute("PRAGMA busy_timeout=10000")
+        conn.execute("PRAGMA busy_timeout=5000")
+        conn.execute("PRAGMA temp_store=MEMORY")
         return conn
 
     @property
@@ -174,7 +188,7 @@ class Database:
         return existing
 
     def _configure(self) -> None:
-        with self._lock:
+        with self._write_lock:
             self.conn.executescript(_SCHEMA)
             self.conn.execute(
                 "INSERT OR IGNORE INTO schema_meta(key, value) VALUES(?, ?)",
@@ -183,26 +197,26 @@ class Database:
         logger.debug("SQLite storage ready at %s", self._path)
 
     def execute(self, sql: str, params: Iterable[Any] = ()) -> sqlite3.Cursor:
-        with self._lock:
+        if _is_read(sql):
+            return self.conn.execute(sql, tuple(params))
+        with self._write_lock:
             return self.conn.execute(sql, tuple(params))
 
     def executemany(self, sql: str, rows: Iterable[Iterable[Any]]) -> sqlite3.Cursor:
-        with self._lock:
+        with self._write_lock:
             return self.conn.executemany(sql, [tuple(r) for r in rows])
 
     def query(self, sql: str, params: Iterable[Any] = ()) -> List[sqlite3.Row]:
-        with self._lock:
-            return list(self.conn.execute(sql, tuple(params)).fetchall())
+        return list(self.conn.execute(sql, tuple(params)).fetchall())
 
     def query_one(self, sql: str, params: Iterable[Any] = ()) -> Optional[sqlite3.Row]:
-        with self._lock:
-            return self.conn.execute(sql, tuple(params)).fetchone()
+        return self.conn.execute(sql, tuple(params)).fetchone()
 
     def transaction(self) -> "_Transaction":
         return _Transaction(self)
 
     def vacuum(self) -> None:
-        with self._lock:
+        with self._write_lock:
             self.conn.execute("VACUUM")
 
     def close(self) -> None:
@@ -217,23 +231,36 @@ class Database:
 
 
 class _Transaction:
-    """Explicit BEGIN IMMEDIATE / COMMIT / ROLLBACK helper."""
+    """Explicit BEGIN IMMEDIATE / COMMIT / ROLLBACK helper.
+
+    The write lock is held for the whole transaction so concurrent writers queue
+    on a cheap Python lock instead of contending for SQLite's write lock and
+    burning their ``busy_timeout``.
+    """
 
     def __init__(self, db: Database) -> None:
         self._db = db
 
     def __enter__(self) -> Database:
-        self._db.execute("BEGIN IMMEDIATE")
+        self._db._write_lock.acquire()
+        try:
+            self._db.conn.execute("BEGIN IMMEDIATE")
+        except BaseException:
+            self._db._write_lock.release()
+            raise
         return self._db
 
     def __exit__(self, exc_type, exc, tb) -> bool:
-        if exc_type is None:
-            self._db.execute("COMMIT")
-        else:
-            try:
-                self._db.execute("ROLLBACK")
-            except sqlite3.Error:  # pragma: no cover - rollback best effort
-                pass
+        try:
+            if exc_type is None:
+                self._db.conn.execute("COMMIT")
+            else:
+                try:
+                    self._db.conn.execute("ROLLBACK")
+                except sqlite3.Error:  # pragma: no cover - rollback best effort
+                    pass
+        finally:
+            self._db._write_lock.release()
         return False
 
 
