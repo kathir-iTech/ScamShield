@@ -1,5 +1,6 @@
 import { analyzeText as pipelineAnalyze } from '@/lib/scamshield/pipeline.js';
 import { repairUrls } from '@/lib/scamshield/repair-urls.js';
+import { parseUpiIntent } from '@/lib/scamshield/upi-intent';
 import type {
   AnalysisResponse,
   EntityItem,
@@ -78,7 +79,7 @@ function toPriority(score: number, _level: string): string {
   return 'LOW';
 }
 
-function toAnalysisResponse(pipelineResult: PipelineResult): AnalysisResponse {
+function toAnalysisResponse(pipelineResult: PipelineResult, inputText = ''): AnalysisResponse {
   const {
     risk_level,
     scam_category,
@@ -165,6 +166,7 @@ function toAnalysisResponse(pipelineResult: PipelineResult): AnalysisResponse {
     threats,
     recommended_actions,
     entities,
+    upi_intent: parseUpiIntent(inputText),
     entity_summary: safeEntitySummary,
     entity_risk: safeEntityRisk,
     decision_score: normDecisionScore,
@@ -219,13 +221,13 @@ export function analyzeTextLocal(text: string): AnalysisResponse {
   // For direct text input, repair is harmless and helps if user pastes OCR-like garble.
   const repaired = repairUrls(text);
   const result = pipelineAnalyze(repaired) as unknown as PipelineResult;
-  return toAnalysisResponse(result);
+  return toAnalysisResponse(result, repaired);
 }
 
 export function analyzeTextWithRepair(text: string): AnalysisResponse {
   const repaired = repairUrls(text);
   const result = pipelineAnalyze(repaired) as unknown as PipelineResult;
-  return toAnalysisResponse(result);
+  return toAnalysisResponse(result, repaired);
 }
 
 export { repairUrls };
