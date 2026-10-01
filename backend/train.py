@@ -16,6 +16,7 @@ from sklearn.metrics import (
 )
 
 from config.settings import DATASET_PATH, MODEL_FOLDER, MODEL_PATH, VECTORIZER_PATH
+from core.multilingual import preprocess_for_model
 from utils.text import clean_text
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
@@ -130,7 +131,7 @@ def main() -> None:
     n_safe = len(labels) - n_scam
     logger.info("Loaded %d samples (%d scam, %d safe)", len(texts), n_scam, n_safe)
 
-    texts = [clean_text(t) for t in texts]
+    texts = [clean_text(preprocess_for_model(t)) for t in texts]
 
     report_dir = os.path.join(MODEL_FOLDER, "training_reports")
     os.makedirs(report_dir, exist_ok=True)
