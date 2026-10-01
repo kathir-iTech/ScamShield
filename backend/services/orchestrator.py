@@ -1,6 +1,11 @@
+import asyncio
+import hashlib
+import os
 from typing import Dict
 
+from core.cache import configure_cache, get_cache
 from core.context import get_request_id
+from core.diagnostics import set_pipeline_stages
 from core.exceptions import ScamShieldError
 from core.logger import logger
 from core.metrics import metrics
@@ -42,6 +47,27 @@ _registry.register(FusionStep())
 
 _runner = PipelineRunner(_registry)
 
+set_pipeline_stages([step.name for step in _registry.enabled_steps()])
+
+
+def _configure_cache_from_env() -> None:
+    try:
+        ttl = float(os.getenv("SCAMSHIELD_CACHE_TTL", "300"))
+    except ValueError:
+        ttl = 300.0
+    try:
+        maxsize = int(os.getenv("SCAMSHIELD_CACHE_MAXSIZE", "1024"))
+    except ValueError:
+        maxsize = 1024
+    configure_cache(
+        ttl=ttl,
+        maxsize=maxsize,
+        redis_url=os.getenv("SCAMSHIELD_REDIS_URL", ""),
+    )
+
+
+_configure_cache_from_env()
+
 
 def analyze_text(text: str) -> Dict[str, object]:
     rid = get_request_id()
@@ -62,4 +88,25 @@ def analyze_text(text: str) -> Dict[str, object]:
         duration,
         extra={"structured": {"request_id": rid}},
     )
+    return output
+
+
+def _cache_key(text: str) -> str:
+    digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    return f"analyze:{digest}"
+
+
+async def analyze_text_async(text: str) -> Dict[str, object]:
+    rid = get_request_id()
+    cache = get_cache()
+    key = _cache_key(text)
+    cached = cache.get(key)
+    if isinstance(cached, dict):
+        logger.info(
+            "Analysis cache hit",
+            extra={"structured": {"request_id": rid}},
+        )
+        return cached
+    output = await asyncio.to_thread(analyze_text, text)
+    cache.set(key, output)
     return output
