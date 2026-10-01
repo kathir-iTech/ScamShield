@@ -28,24 +28,24 @@ groups:
           description: "P95 request latency is {{ $value }}s for the last 5 minutes. Threshold: > 2s."
 
       - alert: HighMemoryUsage
-        expr: scamshield_memory_usage_bytes / (1024^3) > 0.8 * on()
+        expr: scamshield_process_memory_bytes > 0.8 * 1024 * 1024 * 1024
         for: 5m
         labels:
           severity: warning
           team: backend
         annotations:
-          summary: "High memory usage ({{ $value | humanizePercentage }})"
-          description: "System memory usage is {{ $value | humanizePercentage }} for the last 5 minutes. Threshold: > 80%."
+          summary: "High process memory usage ({{ $value | humanize }} bytes)"
+          description: "Process resident memory is {{ $value | humanize }} bytes for the last 5 minutes. Threshold: > 0.8 GiB (80% of the 1g container limit)."
 
       - alert: HighCPUUsage
-        expr: scamshield_cpu_percent > 80
+        expr: scamshield_process_cpu_percent > 80
         for: 5m
         labels:
           severity: warning
           team: backend
         annotations:
-          summary: "High CPU usage ({{ $value }}%)"
-          description: "System CPU usage is {{ $value }}% for the last 5 minutes. Threshold: > 80%."
+          summary: "High process CPU usage ({{ $value }}%)"
+          description: "Process CPU usage is {{ $value }}% for the last 5 minutes. Threshold: > 80%."
 
       - alert: RateLimitSpike
         expr: rate(scamshield_rate_limit_events_total[5m]) * 60 > 100
@@ -56,6 +56,26 @@ groups:
         annotations:
           summary: "Rate limit spike ({{ $value | humanize }} events/min)"
           description: "Rate limit events are {{ $value | humanize }} per minute for the last 5 minutes. Threshold: > 100/min."
+
+      - alert: HighRateLimit429
+        expr: rate(scamshield_requests_total{status="429"}[5m]) * 60 > 100
+        for: 5m
+        labels:
+          severity: warning
+          team: backend
+        annotations:
+          summary: "High 429 response rate ({{ $value | humanize }}/min)"
+          description: "HTTP 429 responses are {{ $value | humanize }} per minute for the last 5 minutes. Threshold: > 100/min."
+
+      - alert: AuthFailureSpike
+        expr: rate(scamshield_auth_failures_total[5m]) * 60 > 10
+        for: 5m
+        labels:
+          severity: critical
+          team: backend
+        annotations:
+          summary: "Authentication failure spike ({{ $value | humanize }}/min)"
+          description: "Authentication failures are {{ $value | humanize }} per minute for the last 5 minutes. Threshold: > 10/min."
 
       - alert: ModelNotLoaded
         expr: scamshield_model_info{status="1"} != 1
