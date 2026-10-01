@@ -55,7 +55,8 @@ from core.auth import (
     configure_auth, create_access_token, create_refresh_token, decode_token,
     get_token_from_header, blacklist_token, is_token_blacklisted,
     mark_refresh_used, is_refresh_reused, reset_blacklist,
-    require_auth, require_role, require_admin, optional_auth, get_current_user,
+    require_auth, require_auth_if_enabled, require_role, require_admin, optional_auth,
+    get_current_user,
     TokenStore, InMemoryTokenStore, RedisTokenStore,
     create_token_store, get_token_store, set_token_store,
 )
@@ -100,7 +101,8 @@ __all__ = [
     "configure_auth", "create_access_token", "create_refresh_token", "decode_token",
     "get_token_from_header", "blacklist_token", "is_token_blacklisted",
     "mark_refresh_used", "is_refresh_reused", "reset_blacklist",
-    "require_auth", "require_role", "require_admin", "optional_auth", "get_current_user",
+    "require_auth", "require_auth_if_enabled", "require_role", "require_admin",
+    "optional_auth", "get_current_user",
     "TokenStore", "InMemoryTokenStore", "RedisTokenStore",
     "create_token_store", "get_token_store", "set_token_store",
 ]
