@@ -14,6 +14,18 @@ from core.config.reporting import *
 from core.config.security import *
 from core.config.validation import *
 
+_WEAK_SECRETS = {
+    "changeme",
+    "change-me",
+    "change_me",
+    "secret",
+    "password",
+    "insecure",
+    "scamshield",
+    "development",
+    "test",
+}
+
 # -- Paths (remain here — not configurable via env) --
 BASE_DIR: str = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -80,6 +92,38 @@ if _admin_api_key:
 _client_api_key = os.getenv("SCAMSHIELD_CLIENT_API_KEY", "")
 if _client_api_key:
     CLIENT_API_KEY = _client_api_key
+
+_register_enabled = os.getenv("SCAMSHIELD_REGISTER_ENABLED", "")
+if _register_enabled:
+    REGISTER_ENABLED = _register_enabled.lower() in ("1", "true", "yes")
+
+_password_min = os.getenv("SCAMSHIELD_PASSWORD_MIN_LENGTH", "")
+if _password_min:
+    try:
+        PASSWORD_MIN_LENGTH = int(_password_min)
+    except ValueError:
+        pass
+
+_password_max = os.getenv("SCAMSHIELD_PASSWORD_MAX_LENGTH", "")
+if _password_max:
+    try:
+        PASSWORD_MAX_LENGTH = int(_password_max)
+    except ValueError:
+        pass
+
+_lockout_threshold = os.getenv("SCAMSHIELD_LOCKOUT_THRESHOLD", "")
+if _lockout_threshold:
+    try:
+        LOCKOUT_THRESHOLD = int(_lockout_threshold)
+    except ValueError:
+        pass
+
+_lockout_seconds = os.getenv("SCAMSHIELD_LOCKOUT_SECONDS", "")
+if _lockout_seconds:
+    try:
+        LOCKOUT_SECONDS = int(_lockout_seconds)
+    except ValueError:
+        pass
 
 _jwt_clock_skew = os.getenv("SCAMSHIELD_JWT_CLOCK_SKEW", "")
 if _jwt_clock_skew:
@@ -176,6 +220,10 @@ if _env:
     if MAX_REQUEST_BODY_SIZE == 10 * 1024 * 1024:
         MAX_REQUEST_BODY_SIZE = profile.max_request_body_mb * 1024 * 1024
     DEBUG = profile.debug
+    DOCS_ENABLED = profile.docs_enabled
+    METRICS_ENABLED = profile.metrics_enabled
+    if not os.getenv("SCAMSHIELD_REGISTER_ENABLED", ""):
+        REGISTER_ENABLED = profile.register_enabled
 
 _body_size = os.getenv("SCAMSHIELD_MAX_REQUEST_BODY_MB", "")
 if _body_size:
@@ -183,6 +231,14 @@ if _body_size:
         MAX_REQUEST_BODY_SIZE = int(_body_size) * 1024 * 1024
     except ValueError:
         pass
+
+_docs_enabled = os.getenv("SCAMSHIELD_DOCS_ENABLED", "")
+if _docs_enabled:
+    DOCS_ENABLED = _docs_enabled.lower() in ("1", "true", "yes")
+
+_metrics_enabled = os.getenv("SCAMSHIELD_METRICS_ENABLED", "")
+if _metrics_enabled:
+    METRICS_ENABLED = _metrics_enabled.lower() in ("1", "true", "yes")
 
 
 def validate_config() -> List[str]:
@@ -249,6 +305,42 @@ def validate_config() -> List[str]:
     if AUTH_ENABLED and not CLIENT_API_KEY:
         errors.append("SCAMSHIELD_CLIENT_API_KEY required when SCAMSHIELD_AUTH_ENABLED is true")
 
+    secret_from_env = bool(os.getenv("SCAMSHIELD_JWT_SECRET", ""))
+    hardened_env = ENVIRONMENT in ("production", "staging")
+    if AUTH_JWT_SECRET and (secret_from_env or hardened_env):
+        if len(AUTH_JWT_SECRET) < AUTH_SECRET_MIN_LENGTH:
+            errors.append(
+                f"SCAMSHIELD_JWT_SECRET must be at least {AUTH_SECRET_MIN_LENGTH} characters, "
+                f"got {len(AUTH_JWT_SECRET)}"
+            )
+        if AUTH_JWT_SECRET.lower() in _WEAK_SECRETS:
+            errors.append("SCAMSHIELD_JWT_SECRET is a well-known placeholder value")
+
+    if hardened_env:
+        placeholder_keys = {
+            name: value
+            for name, value in (
+                ("SCAMSHIELD_ADMIN_API_KEY", ADMIN_API_KEY),
+                ("SCAMSHIELD_CLIENT_API_KEY", CLIENT_API_KEY),
+            )
+            if os.getenv(name, "")
+        }
+        for name, value in placeholder_keys.items():
+            if len(value) < AUTH_API_KEY_MIN_LENGTH:
+                errors.append(
+                    f"{name} must be at least {AUTH_API_KEY_MIN_LENGTH} characters"
+                )
+
+    if os.getenv("SCAMSHIELD_PASSWORD_MIN_LENGTH", ""):
+        if PASSWORD_MIN_LENGTH < 6:
+            errors.append("SCAMSHIELD_PASSWORD_MIN_LENGTH must be at least 6")
+
+    if os.getenv("SCAMSHIELD_LOCKOUT_THRESHOLD", "") and LOCKOUT_THRESHOLD < 1:
+        errors.append("SCAMSHIELD_LOCKOUT_THRESHOLD must be at least 1")
+
+    if os.getenv("SCAMSHIELD_LOCKOUT_SECONDS", "") and LOCKOUT_SECONDS < 1:
+        errors.append("SCAMSHIELD_LOCKOUT_SECONDS must be at least 1")
+
     jwt_clock_skew = int(os.getenv("SCAMSHIELD_JWT_CLOCK_SKEW", str(JWT_CLOCK_SKEW_SECONDS)))
     if jwt_clock_skew < 0:
         errors.append(f"SCAMSHIELD_JWT_CLOCK_SKEW must be non-negative, got {jwt_clock_skew}")
@@ -287,6 +379,9 @@ def validate_config() -> List[str]:
             errors.append("DEBUG must be false in production")
         if not MAX_REQUEST_BODY_SIZE:
             errors.append("MAX_REQUEST_BODY_SIZE must be set in production")
+
+    if ENVIRONMENT == "staging" and not AUTH_ENABLED:
+        errors.append("AUTH_ENABLED must be true in staging")
 
     # -- Container filesystem validation (production) --
     if ENVIRONMENT == "production":
