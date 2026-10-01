@@ -7,6 +7,7 @@ from config.settings import MODEL_PATH, VECTORIZER_PATH
 from core.exceptions import ModelLoadError
 from core.logger import logger
 from core.model_registry import get_registry
+from core.multilingual import preprocess_for_model
 from utils.text import clean_text
 
 _model: Optional[object] = None
@@ -57,7 +58,7 @@ def _reload_model(model_path: str, vectorizer_path: str) -> None:
 
 def predict(text: str) -> Tuple[str, float]:
     _lazy_load()
-    cleaned = clean_text(text)
+    cleaned = clean_text(preprocess_for_model(text))
     vec = _vectorizer.transform([cleaned])
     proba = _model.predict_proba(vec)[0]
     label_idx = _model.predict(vec)[0]
